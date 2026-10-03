@@ -1,0 +1,28 @@
+---
+/**
+ * Structured list of a hub's direct child pages (map Section 10: every hub links to every spoke).
+ * An indexable page lists only indexable children, so launch pages never point at Phase-2/3 stubs.
+ */
+import { pages, type Page } from '../lib/sitemap';
+import Text from './Text.astro';
+
+interface Props {
+  page: Page;
+  heading?: string;
+}
+const { page, heading } = Astro.props;
+const children = pages.filter(
+  (p) => p.url !== page.url && p.url.replace(/[^/]+\/$/, '') === page.url && (!page.indexable || p.indexable),
+);
+---
+
+{
+  children.length > 0 && (
+    <section data-block="children" class="mt-10">
+      {heading && <h2 class="text-xl font-semibold">{heading}</h2>}
+      <ul class="mt-3 grid gap-2 sm:grid-cols-2">
+        {children.map((c) => <li><a href={c.url}><Text text={c.h1} /></a></li>)}
+      </ul>
+    </section>
+  )
+}

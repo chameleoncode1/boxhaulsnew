@@ -1,0 +1,22 @@
+---
+/** Three trust facts (insured / background-checked / upfront price), read from placeholders. */
+import { resolve } from '../lib/placeholders';
+import Text from './Text.astro';
+
+const badges = [
+  { title: 'Insured', detail: resolve('{{INSURANCE_CARRIER}} · {{COVERAGE_LIMIT}}').text },
+  { title: 'Background-checked drivers', detail: resolve('Screened by {{BACKGROUND_PROVIDER}}').text },
+  { title: 'Upfront price', detail: 'Shown before you book' },
+];
+---
+
+<ul class="grid gap-4 sm:grid-cols-3">
+  {
+    badges.map((b) => (
+      <li class="rounded-md border border-border p-4">
+        <p class="font-semibold">{b.title}</p>
+        <p class="text-sm text-muted"><Text text={b.detail} /></p>
+      </li>
+    ))
+  }
+</ul>

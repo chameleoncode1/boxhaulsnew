@@ -1,14 +1,35 @@
 ---
+/** Partner pages. May link to /pricing/ and /trust/. Real partner logos only; no reciprocal-link or badge language. */
 import type { Page } from '../lib/sitemap';
+import type { PageContent } from '../lib/schema';
 import BaseLayout from './BaseLayout.astro';
-import StubBody from '../components/StubBody.astro';
+import PageTitle from '../components/PageTitle.astro';
+import Block from '../components/Block.astro';
+import EmptyState from '../components/EmptyState.astro';
+import Cta from '../components/Cta.astro';
+import ChildList from '../components/ChildList.astro';
+import BodyLinks from '../components/BodyLinks.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
+import PageSpec from '../components/PageSpec.astro';
 
 interface Props {
   page: Page;
+  content?: PageContent;
 }
-const { page } = Astro.props;
+const { page, content } = Astro.props;
+const showLogos = page.url === '/partners/' || page.url === '/partners/directory/';
 ---
 
-<BaseLayout page={page}>
-  <StubBody page={page} />
+<BaseLayout page={page} content={content}>
+  <PageTitle page={page} />
+  <Block id="answer" label="Answer-first opening"><slot name="answer" /></Block>
+  <Block id="checkout-flow" label="How it works at checkout and what the customer pays"><slot name="checkout-flow" /></Block>
+  <Block id="body" label="Page body (see the sitemap spec below)"><slot /></Block>
+  {showLogos && <section data-block="partners" class="mt-10"><EmptyState title="Partners" message="Partner businesses will be listed here once they join." /></section>}
+  <ChildList page={page} />
+  {page.schema.includes('FAQPage') && <Block id="faq" label="FAQ (mirrored in FAQPage schema)"><slot name="faq" /></Block>}
+  {page.url !== '/partners/apply/' && <section data-block="apply-cta" class="mt-10"><Cta href="/partners/apply/" label="Become a partner" /></section>}
+  <BodyLinks page={page} />
+  <RelatedLinks page={page} />
+  <PageSpec page={page} />
 </BaseLayout>

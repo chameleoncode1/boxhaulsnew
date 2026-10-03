@@ -1,0 +1,18 @@
+---
+/**
+ * Placeholder for a content block that has not been written. Renders a visible `[TODO: write — label]` marker
+ * that QA and docs/TODO.md pick up. `note` carries the sitemap's requirement for this block, when useful.
+ */
+import Text from './Text.astro';
+
+interface Props {
+  label: string;
+  note?: string;
+}
+const { label, note } = Astro.props;
+---
+
+<div class="rounded-md border border-dashed border-todo-border bg-todo-bg p-4 text-todo-ink">
+  <Text text={`[TODO: write — ${label}]`} />
+  {note && <p class="mt-2 text-sm"><Text text={note} /></p>}
+</div>

@@ -1,14 +1,41 @@
 ---
+/** Generic core page (/pricing/, /trust/*, /about/, /contact/, /app/, /faq/, /reviews/, /cities/, …). */
 import type { Page } from '../lib/sitemap';
+import type { PageContent } from '../lib/schema';
 import BaseLayout from './BaseLayout.astro';
-import StubBody from '../components/StubBody.astro';
+import PageTitle from '../components/PageTitle.astro';
+import Block from '../components/Block.astro';
+import NapBlock from '../components/NapBlock.astro';
+import AppBadges from '../components/AppBadges.astro';
+import EmptyState from '../components/EmptyState.astro';
+import ChildList from '../components/ChildList.astro';
+import BodyLinks from '../components/BodyLinks.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
+import PageSpec from '../components/PageSpec.astro';
 
 interface Props {
   page: Page;
+  content?: PageContent;
 }
-const { page } = Astro.props;
+const { page, content } = Astro.props;
+const has = (t: string) => page.schema.includes(t);
 ---
 
-<BaseLayout page={page}>
-  <StubBody page={page} />
+<BaseLayout page={page} content={content}>
+  <PageTitle page={page} />
+  <Block id="answer" label="Answer-first opening (first sentence answers the primary query)"><slot name="answer" /></Block>
+  {page.url === '/contact/' && <section data-block="nap" class="mt-10"><NapBlock /></section>}
+  {page.url === '/app/' && <section data-block="app" class="mt-10"><AppBadges /></section>}
+  {page.url === '/reviews/' && (
+    <section data-block="reviews" class="mt-10">
+      <EmptyState title="No reviews yet" message="Real Google reviews will show here once customers leave them." />
+    </section>
+  )}
+  {has('HowTo') && <Block id="steps" label="Numbered steps (mirrored in HowTo schema)"><slot name="steps" /></Block>}
+  <Block id="body" label="Page body (see the sitemap spec below)"><slot /></Block>
+  <ChildList page={page} />
+  {has('FAQPage') && <Block id="faq" label="FAQ (H3 questions, mirrored in FAQPage schema)"><slot name="faq" /></Block>}
+  <BodyLinks page={page} />
+  <RelatedLinks page={page} />
+  <PageSpec page={page} />
 </BaseLayout>

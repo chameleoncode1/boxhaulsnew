@@ -82,8 +82,25 @@ A second helper is an optional **$17** add-on (`{{HELPER_FEE}}`). It is availabl
 
 The heaviest single item is **1,000 lb** (`{{MAX_ITEM_WEIGHT}}`), and gun safes go up to **1,200 lb** (`{{MAX_SAFE_WEIGHT}}`). Both are in pounds. Anything heavier is referred out. /services/furniture-delivery/what-we-cant-move/ and /pricing/cost-to-move-a-gun-safe/ state both limits.
 
+### Prompt 2 implementation choices
+
+- **Blocks.** Each layout renders its template's blocks in a fixed order. A block holds copy passed through a named slot, or a visible `[TODO: write — …]` marker when there is none. Each page also shows the sitemap's spec in a collapsed box until it's written.
+- **Schema waits for copy.** FAQPage, HowTo, Article and JobPosting are emitted only when their copy exists (FAQ items, steps, publish date, posting date). Until then they are missing from the graph, which makes Prompt 3's QA fail the page. That's intended: an unwritten page isn't shippable. Organization, the founder Person, and a WebPage node are on every page.
+- **Offer.** Built from the real formula: a $17 base `UnitPriceSpecification` plus $3.10 per statute mile (`SMI`). No price ranges until the pricing copy computes them.
+- **Left out of the schema until real:** Organization `logo`, LocalBusiness `geo`, `openingHours`, `priceRange` and a radius `GeoCircle` (needs coordinates), and JobPosting `baseSalary`.
+- **Linking.** `BodyLinks` writes each `links_to` target as a sentence anchored on the target's H1. The sentences are placeholders and Prompt 4 prose replaces them. A target that breaks audience isolation is **not** linked; it renders a `[TODO: spec — …]` marker. `RelatedLinks` and the hub child lists only link indexable pages from indexable pages.
+- **Breadcrumbs** skip path segments that have no page: `/services/`, `/legal/`, `/drive/guides/`, `/drive/compare/`.
+- **Legal links** sit in the footer's small-print row with `rel="nofollow"`, outside the 12-link nav. Rider footers show Terms and Privacy; driver footers also show the Driver agreement.
+- **OG images.** 1200×630 PNG per page at `/og/<slug>.png`, rendered at build with Satori + resvg and Inter (self-hosted from `@fontsource/inter`). Colors are read from `tokens.css`. No item silhouette yet, since there are no assets.
+- **docs/TODO.md** is regenerated after every `npm run build` by `scripts/todo.mjs`, from the markers in the built HTML.
+
 ## Open questions (answer before the prompt that needs them)
 
 1. **Hosting (needed before Prompt 3).** Vercel or Cloudflare Pages.
 2. **Legacy booking component (needed before Prompt 5).** Can the Lovable component be exported into `./legacy/`?
 3. **App store links.** `SOCIAL.app_store` and `SOCIAL.google_play` are TODO. Organization `sameAs` and /app/ will show markers until they're filled.
+4. **Spec conflicts (4).** These rider pages have a `/drive/` URL in `links_to`, which breaks CLAUDE.md rule 7: /app/, /cities/fresno/, /trust/driver-vetting/, /guides/how-to-tie-down-a-load-in-a-pickup/. Either drop those links in `build_map.py`, or allow a named exception (for example, "/app/ may link to the driver app"). They're unlinked until you decide.
+5. **Phase-1 pages that link to Phase-2 pages (21, listed in docs/TODO.md).** The largest case is `/guides/`: every Phase-1 guide links to it, and the footer links to it on every page, but it's Phase 2. Recommendation: promote `/guides/` and `/services/business-hauling/` to Phase 1 (both are linked sitewide), and drop the remaining links from Phase-1 `links_to` until their targets ship.
+6. **Spanish support.** Map Section 11 asks for ContactPoint `availableLanguage [en, es]`. It's `[en]` until someone confirms support can actually answer in Spanish.
+7. **Logo.** Organization `logo` is omitted until there's a brand asset.
+8. **"vehicles over X"** on /services/furniture-delivery/what-we-cant-move/. The map never filled in the X. Give a vehicle limit, or drop vehicles from that list.

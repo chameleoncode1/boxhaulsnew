@@ -1,0 +1,29 @@
+---
+/**
+ * The page's links_to targets as sentences with descriptive anchors built from each target's H1 (map Section 10).
+ * A target that breaks audience isolation is not linked; it renders a spec-conflict TODO instead.
+ */
+import type { Page } from '../lib/sitemap';
+import { bodyLinks } from '../lib/links';
+import Text from './Text.astro';
+
+interface Props {
+  page: Page;
+}
+const { links, forbidden } = bodyLinks(Astro.props.page);
+---
+
+{
+  (links.length > 0 || forbidden.length > 0) && (
+    <section data-block="body-links" class="mt-10 max-w-prose space-y-2">
+      <p>
+        {links.map((l) => (
+          <>{l.frame[0]}<a href={l.href}><Text text={l.anchor} /></a>{l.frame[1]}{' '}</>
+        ))}
+      </p>
+      {forbidden.map((href) => (
+        <p><Text text={`[TODO: spec — links_to ${href} breaks audience isolation (CLAUDE.md rule 7); not linked]`} /></p>
+      ))}
+    </section>
+  )
+}

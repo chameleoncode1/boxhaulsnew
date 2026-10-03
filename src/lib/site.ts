@@ -1,0 +1,59 @@
+/** Business facts read from docs/placeholders.json. Nothing here is typed in by hand. */
+import { isTodo, lookup } from './placeholders';
+
+function str(key: string): string | undefined {
+  const value = lookup(key);
+  return typeof value === 'string' && !isTodo(value) ? value : undefined;
+}
+
+/** A fact that may be unknown. `value` is undefined when the placeholder is TODO or missing. */
+export interface Fact {
+  key: string;
+  value: string | undefined;
+}
+const fact = (key: string): Fact => ({ key, value: str(key) });
+
+export const SITE_URL = `https://${str('DOMAIN') ?? 'boxhauls.com'}`;
+export const ORG_ID = `${SITE_URL}/#organization`;
+export const WEBSITE_ID = `${SITE_URL}/#website`;
+export const FOUNDER_ID = `${SITE_URL}/#founder`;
+
+export const brand = str('BRAND') ?? 'BoxHauls';
+export const metro = fact('METRO');
+export const legalName = fact('LEGAL_NAME');
+export const founderName = fact('FOUNDER_NAME');
+export const phone = fact('PHONE');
+export const email = fact('EMAIL');
+export const address = fact('ADDRESS');
+export const radius = fact('RADIUS');
+export const year = fact('YEAR');
+
+/** "3690 E. International, Clovis, CA 93619" → PostalAddress parts. Returns undefined if the address is unknown or not in that shape. */
+export function postalAddress() {
+  const m = address.value?.match(/^(.+?),\s*([^,]+),\s*([A-Z]{2})\s+(\d{5})$/);
+  if (!m) return undefined;
+  return { streetAddress: m[1], addressLocality: m[2], addressRegion: m[3], postalCode: m[4], addressCountry: 'US' };
+}
+
+/** E.164 for tel: links and schema; undefined when the phone is unknown. */
+export function phoneE164(): string | undefined {
+  const digits = phone.value?.replace(/\D/g, '');
+  return digits && digits.length === 10 ? `+1${digits}` : undefined;
+}
+
+/** NAP string — must be identical on /contact/, the footer, GBP, and every citation (map Section 1.1). */
+export const napParts: Fact[] = [legalName, address, phone];
+
+const SOCIAL_KEYS = ['instagram', 'tiktok', 'facebook', 'x', 'linkedin'] as const;
+export const socialProfiles: { key: string; url: string }[] = SOCIAL_KEYS.flatMap((k) => {
+  const url = str(`SOCIAL.${k}`);
+  return url ? [{ key: k, url }] : [];
+});
+export const appStore = fact('SOCIAL.app_store');
+export const googlePlay = fact('SOCIAL.google_play');
+
+/** Dollar amount from a placeholder like "$3.10"; undefined when unknown or not a plain amount. */
+export function money(key: string): number | undefined {
+  const m = str(key)?.match(/^\$(\d+(?:\.\d+)?)$/);
+  return m ? Number(m[1]) : undefined;
+}

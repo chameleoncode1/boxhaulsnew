@@ -1,14 +1,39 @@
 ---
+/** Pricing page: the fixed seven-part structure from map Section 5, identical across the cluster. */
 import type { Page } from '../lib/sitemap';
+import type { PageContent } from '../lib/schema';
+import { bookingItem } from '../lib/labels';
 import BaseLayout from './BaseLayout.astro';
-import StubBody from '../components/StubBody.astro';
+import PageTitle from '../components/PageTitle.astro';
+import Byline from '../components/Byline.astro';
+import Block from '../components/Block.astro';
+import Cta from '../components/Cta.astro';
+import BodyLinks from '../components/BodyLinks.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
+import PageSpec from '../components/PageSpec.astro';
 
 interface Props {
   page: Page;
+  content?: PageContent;
+  checked?: string;
 }
-const { page } = Astro.props;
+const { page, content, checked } = Astro.props;
+const item = bookingItem(page);
 ---
 
-<BaseLayout page={page}>
-  <StubBody page={page} />
+<BaseLayout page={page} content={content}>
+  <PageTitle page={page} />
+  <Byline kind="reviewed" checked={checked} />
+  <Block id="answer" label="1. Price range for Fresno in sentence one"><slot name="answer" /></Block>
+  <Block id="formula" label="2. The formula, restated"><slot name="formula" /></Block>
+  <Block id="distance-table" label="3. Distance table: 3 / 10 / 25 mi, with and without helper"><slot name="distance-table" /></Block>
+  <Block id="item-attributes" label="4. Item attributes: L × W × H (in), weight range (lb), tier, helper, prep"><slot name="item-attributes" /></Block>
+  <Block id="price-drivers" label="5. What moves the price up or down for this item"><slot name="price-drivers" /></Block>
+  <Block id="faq" label="6. FAQ, 4–6 questions (mirrored in FAQPage schema)"><slot name="faq" /></Block>
+  <section data-block="book-cta" class="mt-10">
+    <Cta href={item ? `/book/?item=${item}` : '/book/'} label="See your price" />
+  </section>
+  <BodyLinks page={page} />
+  <RelatedLinks page={page} />
+  <PageSpec page={page} />
 </BaseLayout>

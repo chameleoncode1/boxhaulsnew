@@ -1,0 +1,22 @@
+---
+/**
+ * Authorship line (map Section 9.8). Service and pricing pages: "BoxHauls · Reviewed by {{FOUNDER_NAME}}".
+ * Guides: "BoxHauls team, reviewed by {{FOUNDER_NAME}}" until a named author exists.
+ * `checked` is the "Prices/facts checked {month year}" date for pricing, compare and local pages.
+ */
+import Text from './Text.astro';
+import { founderName } from '../lib/site';
+
+interface Props {
+  kind: 'reviewed' | 'guide';
+  checked?: string | false;
+  checkedLabel?: string;
+}
+const { kind, checked, checkedLabel = 'Prices checked' } = Astro.props;
+const reviewer = founderName.value ?? '[TODO: FOUNDER_NAME]';
+---
+
+<p class="mt-3 text-sm text-muted">
+  {kind === 'guide' ? <>By the BoxHauls team, reviewed by <Text text={reviewer} /></> : <>BoxHauls · Reviewed by <Text text={reviewer} /></>}
+  {checked !== false && (<> · {checkedLabel} <Text text={checked ?? '[TODO: write — checked date]'} /></>)}
+</p>

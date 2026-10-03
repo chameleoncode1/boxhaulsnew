@@ -1,14 +1,28 @@
 ---
 import '../styles/global.css';
 import type { Page } from '../lib/sitemap';
+import { metaTitle } from '../lib/labels';
+import { buildGraph, type PageContent } from '../lib/schema';
+import { SITE_URL } from '../lib/site';
+import { ogImagePath, OG_WIDTH, OG_HEIGHT } from '../lib/og';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import DriverHeader from '../components/DriverHeader.astro';
+import DriverFooter from '../components/DriverFooter.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
 
 interface Props {
   page: Page;
+  content?: PageContent;
 }
-const { page } = Astro.props;
-const canonical = new URL(page.url, Astro.site).href;
-// Stub title; Section 4.1 formulas arrive with the real layouts.
-const title = page.url === '/' ? 'BoxHauls' : `${page.h1} | BoxHauls`;
+const { page, content = {} } = Astro.props;
+
+const canonical = new URL(page.url, SITE_URL).href;
+const title = metaTitle(page);
+const description = content.description;
+const ogImage = new URL(ogImagePath(page), SITE_URL).href;
+const { graph } = buildGraph(page, content);
+const driver = page.audience === 'driver';
 ---
 
 <!doctype html>
@@ -17,12 +31,29 @@ const title = page.url === '/' ? 'BoxHauls' : `${page.h1} | BoxHauls`;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
+    {description && <meta name="description" content={description} />}
     <link rel="canonical" href={canonical} />
     {!page.indexable && <meta name="robots" content="noindex" />}
+
+    <meta property="og:type" content={page.template === 'guide' ? 'article' : 'website'} />
+    <meta property="og:site_name" content="BoxHauls" />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content={String(OG_WIDTH)} />
+    <meta property="og:image:height" content={String(OG_HEIGHT)} />
+    <meta property="og:image:alt" content={page.h1} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(graph).replace(/</g, '\\u003c')} />
   </head>
-  <body class="bg-bg text-ink" data-template={page.template} data-audience={page.audience}>
-    <main class="mx-auto max-w-content px-4 py-10">
+  <body class="bg-bg text-ink" data-template={page.template} data-audience={page.audience} data-phase={page.phase}>
+    {driver ? <DriverHeader /> : <SiteHeader />}
+    <main class="mx-auto max-w-content px-4 py-8">
+      <Breadcrumbs page={page} />
       <slot />
     </main>
+    {driver ? <DriverFooter /> : <SiteFooter />}
   </body>
 </html>

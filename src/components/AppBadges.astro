@@ -1,0 +1,26 @@
+---
+/** App store links. Unknown store URLs render as TODO markers, never as dead badges. */
+import Text from './Text.astro';
+import { appStore, googlePlay } from '../lib/site';
+
+const stores = [
+  { label: 'Download on the App Store', fact: appStore },
+  { label: 'Get it on Google Play', fact: googlePlay },
+];
+---
+
+<ul class="flex flex-wrap gap-3">
+  {
+    stores.map(({ label, fact }) => (
+      <li>
+        {fact.value ? (
+          <a href={fact.value} class="inline-block rounded-md border border-border-strong px-3 py-2 text-ink no-underline">{label}</a>
+        ) : (
+          <span class="inline-block rounded-md border border-dashed border-border-strong px-3 py-2 text-muted">
+            {label} <Text text={`[TODO: ${fact.key}]`} />
+          </span>
+        )}
+      </li>
+    ))
+  }
+</ul>

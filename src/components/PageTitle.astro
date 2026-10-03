@@ -1,0 +1,10 @@
+---
+import type { Page } from '../lib/sitemap';
+import Text from './Text.astro';
+
+interface Props {
+  page: Page;
+}
+---
+
+<h1 class="mt-4 text-3xl font-bold md:text-4xl"><Text text={Astro.props.page.h1} /></h1>

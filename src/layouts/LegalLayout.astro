@@ -1,14 +1,22 @@
 ---
+/** Legal page: plain text, dated. */
 import type { Page } from '../lib/sitemap';
+import type { PageContent } from '../lib/schema';
 import BaseLayout from './BaseLayout.astro';
-import StubBody from '../components/StubBody.astro';
+import PageTitle from '../components/PageTitle.astro';
+import Block from '../components/Block.astro';
+import Text from '../components/Text.astro';
 
 interface Props {
   page: Page;
+  content?: PageContent;
+  updated?: string;
 }
-const { page } = Astro.props;
+const { page, content, updated } = Astro.props;
 ---
 
-<BaseLayout page={page}>
-  <StubBody page={page} />
+<BaseLayout page={page} content={content}>
+  <PageTitle page={page} />
+  <p class="mt-2 text-sm text-muted">Last updated <Text text={updated ?? '[TODO: write — last-updated date]'} /></p>
+  <Block id="body" label="Legal text (needs review by a lawyer)" class="max-w-prose"><slot /></Block>
 </BaseLayout>

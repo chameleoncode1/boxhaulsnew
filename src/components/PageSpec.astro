@@ -1,0 +1,18 @@
+---
+/** The sitemap's required content blocks for this page, shown until the page is written. Remove per page in Prompt 4. */
+import type { Page } from '../lib/sitemap';
+import Text from './Text.astro';
+
+interface Props {
+  page: Page;
+}
+const { page } = Astro.props;
+---
+
+<details class="mt-10 rounded-md border border-dashed border-todo-border bg-todo-bg p-4 text-todo-ink">
+  <summary class="cursor-pointer font-semibold">Sitemap spec for this page (phase {page.phase})</summary>
+  <p class="mt-2 text-sm">Primary query: <Text text={page.primaryQuery} /></p>
+  <ul class="mt-2 list-disc space-y-1 pl-6 text-sm">
+    {page.contentBlocks.map((b) => <li><Text text={b} /></li>)}
+  </ul>
+</details>

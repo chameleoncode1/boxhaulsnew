@@ -1,0 +1,21 @@
+---
+/**
+ * One named content block in a template. Holds the copy passed in, or a TODO marker when there is none.
+ * Layouts forward a named slot into it (`<Block …><slot name="formula" /></Block>`); a forwarded slot that
+ * nobody filled renders empty, so emptiness is checked on the rendered HTML, not on Astro.slots.has().
+ */
+import Todo from './Todo.astro';
+
+interface Props {
+  id: string;
+  label: string;
+  note?: string;
+  class?: string;
+}
+const { id, label, note, class: className } = Astro.props;
+const html = Astro.slots.has('default') ? (await Astro.slots.render('default')).trim() : '';
+---
+
+<section id={id} data-block={id} class:list={['mt-10', className]}>
+  {html ? <Fragment set:html={html} /> : <Todo label={label} note={note} />}
+</section>

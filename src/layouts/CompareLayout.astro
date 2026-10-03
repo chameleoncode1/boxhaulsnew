@@ -1,14 +1,47 @@
 ---
+/** Compare page (map Section 7): eight criteria in fixed order, honest about where the competitor wins, facts dated. */
 import type { Page } from '../lib/sitemap';
+import type { PageContent } from '../lib/schema';
 import BaseLayout from './BaseLayout.astro';
-import StubBody from '../components/StubBody.astro';
+import PageTitle from '../components/PageTitle.astro';
+import Byline from '../components/Byline.astro';
+import Block from '../components/Block.astro';
+import ChildList from '../components/ChildList.astro';
+import BodyLinks from '../components/BodyLinks.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
+import PageSpec from '../components/PageSpec.astro';
 
 interface Props {
   page: Page;
+  content?: PageContent;
+  checked?: string;
 }
-const { page } = Astro.props;
+const { page, content, checked } = Astro.props;
+const isIndex = page.url === '/compare/';
 ---
 
-<BaseLayout page={page}>
-  <StubBody page={page} />
+<BaseLayout page={page} content={content}>
+  <PageTitle page={page} />
+  <Byline kind="reviewed" checked={checked} checkedLabel="Facts checked" />
+  {
+    isIndex ? (
+      <>
+        <Block id="verdicts" label="One-line verdict per comparison"><slot name="verdicts" /></Block>
+        <Block id="master-table" label="Master comparison table"><slot name="master-table" /></Block>
+        <ChildList page={page} />
+      </>
+    ) : (
+      <>
+        <Block id="verdict" label="Short verdict (answers the primary query)"><slot name="verdict" /></Block>
+        <Block id="criteria" label="Criteria table: price model, minimum, Fresno coverage, insurance, vetting, scheduling, helpers, app"><slot name="criteria" /></Block>
+        <Block id="where-each-wins" label="Where each wins (including where the competitor wins)"><slot name="where-each-wins" /></Block>
+        <Block id="use-cases" label="Verdict by use case"><slot name="use-cases" /></Block>
+        <Block id="sources" label="Sources, with dates"><slot name="sources" /></Block>
+        {page.schema.includes('FAQPage') && <Block id="faq" label="FAQ (mirrored in FAQPage schema)"><slot name="faq" /></Block>}
+      </>
+    )
+  }
+  <BodyLinks page={page} />
+  <RelatedLinks page={page} />
+  <PageSpec page={page} />
 </BaseLayout>

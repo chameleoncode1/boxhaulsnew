@@ -1,0 +1,18 @@
+---
+/** Where a real photo belongs. Never stock, never AI — a labeled neutral block until real photography exists. */
+interface Props {
+  description: string;
+  width?: number;
+  height?: number;
+}
+const { description, width = 1200, height = 675 } = Astro.props;
+---
+
+<figure
+  class="flex items-center justify-center rounded-md bg-placeholder-bg p-6 text-center text-placeholder-ink"
+  style={`aspect-ratio: ${width} / ${height}`}
+  role="img"
+  aria-label={`Photo placeholder: ${description}`}
+>
+  <span class="font-mono text-sm">[PHOTO: {description}]</span>
+</figure>

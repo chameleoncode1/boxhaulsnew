@@ -1,14 +1,37 @@
 ---
 import type { Page } from '../lib/sitemap';
+import type { PageContent } from '../lib/schema';
 import BaseLayout from './BaseLayout.astro';
-import StubBody from '../components/StubBody.astro';
+import PageTitle from '../components/PageTitle.astro';
+import Byline from '../components/Byline.astro';
+import Block from '../components/Block.astro';
+import TrustBadges from '../components/TrustBadges.astro';
+import ChildList from '../components/ChildList.astro';
+import PhotoPlaceholder from '../components/PhotoPlaceholder.astro';
+import BodyLinks from '../components/BodyLinks.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
+import PageSpec from '../components/PageSpec.astro';
 
 interface Props {
   page: Page;
+  content?: PageContent;
 }
-const { page } = Astro.props;
+const { page, content } = Astro.props;
 ---
 
-<BaseLayout page={page}>
-  <StubBody page={page} />
+<BaseLayout page={page} content={content}>
+  <PageTitle page={page} />
+  <Byline kind="reviewed" checked={false} />
+  <Block id="definition" label="Definition sentence (answers the primary query)"><slot name="definition" /></Block>
+  <Block id="who" label="Who uses it"><slot name="who" /></Block>
+  <Block id="included" label="What is included, and what this hub owns"><slot name="included" /></Block>
+  <Block id="tier-fit" label="Tier fit table"><slot name="tier-fit" /></Block>
+  <Block id="price-example" label="Price example"><slot name="price-example" /></Block>
+  <section data-block="trust" class="mt-10"><TrustBadges /></section>
+  <section data-block="photo" class="mt-10"><slot name="photo"><PhotoPlaceholder description={`a real ${page.h1.toLowerCase()} haul in Fresno`} /></slot></section>
+  <ChildList page={page} heading="Services in this group" />
+  <Block id="faq" label="FAQ (mirrored in FAQPage schema)"><slot name="faq" /></Block>
+  <BodyLinks page={page} />
+  <RelatedLinks page={page} />
+  <PageSpec page={page} />
 </BaseLayout>

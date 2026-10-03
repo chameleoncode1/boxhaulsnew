@@ -1,0 +1,25 @@
+---
+/** Rider header (map Section 10): logo, Pricing, Services dropdown (five hubs), How it works, Trust, Get the app. No driver link. */
+import { pages } from '../lib/sitemap';
+import { shortLabel } from '../lib/labels';
+
+const hubs = pages.filter((p) => p.template === 'service-hub');
+const current = Astro.url.pathname;
+const aria = (href: string) => (current === href ? 'page' : undefined);
+---
+
+<header class="border-b border-border bg-bg">
+  <nav class="mx-auto flex max-w-content flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3" aria-label="Main">
+    <a href="/" class="mr-auto text-xl font-bold text-ink no-underline">BoxHauls</a>
+    <a href="/pricing/" aria-current={aria('/pricing/')} class="text-ink">Pricing</a>
+    <details class="relative">
+      <summary class="cursor-pointer text-ink">Services</summary>
+      <ul class="absolute right-0 z-10 mt-2 w-64 space-y-1 rounded-md border border-border bg-bg p-3">
+        {hubs.map((hub) => <li><a href={hub.url} aria-current={aria(hub.url)}>{shortLabel(hub)}</a></li>)}
+      </ul>
+    </details>
+    <a href="/how-it-works/" aria-current={aria('/how-it-works/')} class="text-ink">How it works</a>
+    <a href="/trust/" aria-current={aria('/trust/')} class="text-ink">Trust</a>
+    <a href="/app/" class="rounded-md bg-accent px-3 py-1.5 font-semibold text-inverse no-underline hover:bg-accent-hover hover:text-inverse">Get the app</a>
+  </nav>
+</header>

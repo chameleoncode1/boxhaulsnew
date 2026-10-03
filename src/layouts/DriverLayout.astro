@@ -1,14 +1,35 @@
 ---
+/** Driver page. Speaks only to drivers; never links to /services/. The payout percentage appears only under /drive/. */
 import type { Page } from '../lib/sitemap';
+import type { PageContent } from '../lib/schema';
+import { resolve } from '../lib/placeholders';
 import BaseLayout from './BaseLayout.astro';
-import StubBody from '../components/StubBody.astro';
+import PageTitle from '../components/PageTitle.astro';
+import Block from '../components/Block.astro';
+import Cta from '../components/Cta.astro';
+import ChildList from '../components/ChildList.astro';
+import BodyLinks from '../components/BodyLinks.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
+import PageSpec from '../components/PageSpec.astro';
 
 interface Props {
   page: Page;
+  content?: PageContent;
 }
-const { page } = Astro.props;
+const { page, content } = Astro.props;
+const showEarnings = page.url === '/drive/' || page.url === '/drive/earnings/';
+const earningsLabel = resolve('Earnings math: {{DRIVER_SHARE}} of the fare (helper fee included) + 100% of tips, worked with real tier fares').text;
 ---
 
-<BaseLayout page={page}>
-  <StubBody page={page} />
+<BaseLayout page={page} content={content}>
+  <PageTitle page={page} />
+  <Block id="answer" label="Answer-first opening"><slot name="answer" /></Block>
+  {showEarnings && <Block id="earnings" label={earningsLabel}><slot name="earnings" /></Block>}
+  <Block id="body" label="Page body (see the sitemap spec below)"><slot /></Block>
+  <ChildList page={page} />
+  {page.schema.includes('FAQPage') && <Block id="faq" label="FAQ (mirrored in FAQPage schema)"><slot name="faq" /></Block>}
+  {page.url !== '/drive/apply/' && <section data-block="apply-cta" class="mt-10"><Cta href="/drive/apply/" label="Apply to drive" /></section>}
+  <BodyLinks page={page} />
+  <RelatedLinks page={page} />
+  <PageSpec page={page} />
 </BaseLayout>

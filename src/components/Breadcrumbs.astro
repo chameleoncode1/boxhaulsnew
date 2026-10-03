@@ -1,0 +1,26 @@
+---
+/** Visible breadcrumb trail; mirrors the URL. The matching BreadcrumbList is in the page's JSON-LD graph. */
+import type { Page } from '../lib/sitemap';
+import { breadcrumbs } from '../lib/labels';
+import Text from './Text.astro';
+
+interface Props {
+  page: Page;
+}
+const trail = breadcrumbs(Astro.props.page);
+---
+
+{
+  trail.length > 0 && (
+    <nav aria-label="Breadcrumb" class="text-sm text-muted">
+      <ol class="flex flex-wrap gap-1">
+        {trail.map((c, i) => (
+          <li class="flex gap-1">
+            {i > 0 && <span aria-hidden="true">/</span>}
+            {i === trail.length - 1 ? <span aria-current="page"><Text text={c.label} /></span> : <a href={c.url}><Text text={c.label} /></a>}
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )
+}

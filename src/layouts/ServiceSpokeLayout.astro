@@ -1,14 +1,36 @@
 ---
 import type { Page } from '../lib/sitemap';
+import type { PageContent } from '../lib/schema';
+import { getPage } from '../lib/sitemap';
+import { shortLabel } from '../lib/labels';
 import BaseLayout from './BaseLayout.astro';
-import StubBody from '../components/StubBody.astro';
+import PageTitle from '../components/PageTitle.astro';
+import Byline from '../components/Byline.astro';
+import Block from '../components/Block.astro';
+import ChildList from '../components/ChildList.astro';
+import BodyLinks from '../components/BodyLinks.astro';
+import RelatedLinks from '../components/RelatedLinks.astro';
+import PageSpec from '../components/PageSpec.astro';
 
 interface Props {
   page: Page;
+  content?: PageContent;
 }
-const { page } = Astro.props;
+const { page, content } = Astro.props;
+// Spoke → hub link within the first 200 words (map Section 10).
+const parent = getPage(page.url.replace(/[^/]+\/$/, ''));
 ---
 
-<BaseLayout page={page}>
-  <StubBody page={page} />
+<BaseLayout page={page} content={content}>
+  <PageTitle page={page} />
+  {parent && <p class="mt-2 text-muted">Part of <a href={parent.url}>{shortLabel(parent)}</a></p>}
+  <Byline kind="reviewed" checked={false} />
+  <Block id="answer" label="Answer-first opening for this scenario"><slot name="answer" /></Block>
+  <Block id="attributes" label="What this spoke owns that the hub does not (store lane, platform rule, prep step)"><slot name="attributes" /></Block>
+  <Block id="price-example" label="Price example"><slot name="price-example" /></Block>
+  <ChildList page={page} />
+  {page.schema.includes('FAQPage') && <Block id="faq" label="FAQ (mirrored in FAQPage schema)"><slot name="faq" /></Block>}
+  <BodyLinks page={page} />
+  <RelatedLinks page={page} />
+  <PageSpec page={page} />
 </BaseLayout>
