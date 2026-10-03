@@ -12,7 +12,8 @@
     "links": "node scripts/links.mjs",
     "todo": "node scripts/todo.mjs",
     "brand": "node scripts/brand-assets.mjs",
-    "lighthouse": "lhci autorun"
+    "lighthouse": "lhci autorun",
+    "deploy": "npm run qa && wrangler pages deploy dist --project-name boxhaulsnew --branch main --commit-hash $(git rev-parse HEAD) --commit-message \"$(git log -1 --format=%s)\""
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.2",
