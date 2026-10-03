@@ -1,0 +1,25 @@
+---
+/**
+ * 404 page. Without a root 404.html, Cloudflare Pages treats the site as a single-page app and answers every
+ * unknown URL with the homepage and a 200 — soft 404s for crawlers. With it, unknown URLs return a real 404.
+ * Not in docs/sitemap.json by design (CLAUDE.md rule 1 exception, like /book/).
+ */
+import AppLayout from '../layouts/AppLayout.astro';
+import { pages } from '../lib/sitemap';
+import { shortLabel } from '../lib/labels';
+
+const hubs = pages.filter((p) => p.template === 'service-hub');
+---
+
+<AppLayout title="Page not found | BoxHauls">
+  <div class="mx-auto max-w-prose">
+    <h1 class="text-3xl md:text-4xl">Page not found</h1>
+    <p class="mt-4">That page doesn't exist, or it moved. Try one of these:</p>
+    <ul class="prose-bh mt-4">
+      <li><a href="/">BoxHauls home</a></li>
+      <li><a href="/pricing/">What a truck and driver costs</a></li>
+      {hubs.map((h) => <li><a href={h.url}>{shortLabel(h)}</a></li>)}
+      <li><a href="/contact/">Contact BoxHauls</a></li>
+    </ul>
+  </div>
+</AppLayout>
