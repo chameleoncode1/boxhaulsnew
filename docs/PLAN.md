@@ -63,9 +63,22 @@ Every layout wraps `BaseLayout` (head, canonical, robots, OG, JSON-LD slot, head
 - TypeScript is pinned to 6.x because `astro check` doesn't support TS 7 yet.
 - Node is installed at `~/.local/node` (no Homebrew on this machine).
 
+## Decisions
+
+### Helpers (decided 2026-10-02)
+
+A second helper is an optional **$17** add-on (`{{HELPER_FEE}}`). It is available only when the matched driver brings a helper and accepts a job that requests one. **BoxHauls does not guarantee a helper** (`{{HELPER_POLICY}}`). Content rules for Prompt 4:
+
+- Keep the map's "with and without helper" columns in distance tables. The with-helper column is the base price + $17, and a footnote under the table says helpers depend on driver availability.
+- Never write "helper included", "two-person crew guaranteed" or "we'll send two people". Say "request a helper" and "if a driver with a helper accepts".
+- For items the map marks "helper required" or "two-person" (refrigerator, washer/dryer, sectional, treadmill, gun safe, hot tub), tell the customer the job needs a helper request. If no driver with a helper accepts, the customer must have a second person ready to help load. The booking flow should say this before checkout. That's a Prompt 5 note, and the Q&A belongs in the FAQ on those pages.
+- /pricing/fees/ lists the helper line as "$17, when available".
+- /guides/when-you-need-a-second-helper/ (Phase 2) owns the "do I need a helper" question. Other pages link there rather than re-explaining.
+- The driver side (`/drive/earnings/`, `/drive/requirements/`) explains that drivers who bring a helper can accept helper-requested jobs. How the $17 is split between driver and helper is **not known** and renders as a TODO until it's decided.
+
 ## Open questions (answer before the prompt that needs them)
 
-1. **Helpers (needed before Prompt 4).** `HELPER_FEE` says "No helpers are offered by BoxHauls", but the map assumes a paid helper add-on in many places: distance tables "with and without helper", "helper required" in item tables, two-person appliance moves, /guides/when-you-need-a-second-helper/. Does the driver load alone, does the customer help, or can a second person be booked? This changes pricing tables and several H1-level promises.
+1. **Helper fee split (needed before Prompt 4, driver pages).** Does the $17 go to the helper, the driver, or is it shared? Does `DRIVER_SHARE` (71%) apply to it?
 2. **Hosting (needed before Prompt 3).** Vercel or Cloudflare Pages.
 3. **Legacy booking component (needed before Prompt 5).** Can the Lovable component be exported into `./legacy/`?
 4. **App store links.** `SOCIAL.app_store` and `SOCIAL.google_play` are TODO. Organization `sameAs` and /app/ will show markers until they're filled.
