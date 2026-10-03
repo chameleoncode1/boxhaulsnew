@@ -1,0 +1,42 @@
+---
+/**
+ * Distance table (map Section 5, part 3): 3 / 10 / 25 miles, with and without a helper.
+ * Computed from the formula in placeholders — never typed in. `heavy` adds the heavy-item fee.
+ */
+import { money } from '../../lib/site';
+import { lookup } from '../../lib/placeholders';
+import { tripPrice, usd as fmt } from '../../lib/pricing';
+
+interface Props {
+  heavy?: boolean;
+  /** Extra line items shown as a note, e.g. "plus the dump fee at cost". */
+  note?: string;
+  miles?: number[];
+}
+const { heavy = false, note, miles = [3, 10, 25] } = Astro.props;
+const base = money('BASE_FARE');
+const perMile = money('PER_MILE');
+const heavyFee = money('HEAVY_FEE');
+const helper = money('HELPER_FEE');
+if (base === undefined || perMile === undefined || helper === undefined || (heavy && heavyFee === undefined)) {
+  throw new Error('PriceTable needs BASE_FARE, PER_MILE, HELPER_FEE (and HEAVY_FEE) as dollar amounts');
+}
+const rows = miles.map((mi) => ({ mi, trip: tripPrice(mi, { heavy }), withHelper: tripPrice(mi, { heavy, helper: true }) }));
+const policy = lookup('HELPER_POLICY');
+---
+
+<div class="my-6 overflow-x-auto">
+  <table>
+    <thead>
+      <tr><th scope="col">Trip distance</th><th scope="col">Without a helper</th><th scope="col">With a helper</th></tr>
+    </thead>
+    <tbody>
+      {rows.map((r) => <tr><th scope="row">{r.mi} miles</th><td>{fmt(r.trip)}</td><td>{fmt(r.withHelper)}</td></tr>)}
+    </tbody>
+  </table>
+  <p class="mt-2 text-sm text-muted">
+    {fmt(base)} base + {fmt(perMile)} per mile{heavy ? ` + ${fmt(heavyFee!)} heavy-item fee` : ''}. With a helper adds {fmt(helper)}.
+    {note && <> {note}</>}
+    {typeof policy === 'string' && <> {policy}</>}
+  </p>
+</div>

@@ -3,6 +3,7 @@
 import type { Page } from '../lib/sitemap';
 import type { PageContent } from '../lib/schema';
 import BaseLayout from './BaseLayout.astro';
+import Written from '../components/Written.astro';
 import PageTitle from '../components/PageTitle.astro';
 import Block from '../components/Block.astro';
 import Text from '../components/Text.astro';
@@ -10,13 +11,15 @@ import Text from '../components/Text.astro';
 interface Props {
   page: Page;
   content?: PageContent;
-  updated?: string;
+  /** Rendered MDX body from src/content/pages/, when the page has been written. */
+  Body?: any;
 }
-const { page, content, updated } = Astro.props;
+const { page, content = {}, Body } = Astro.props;
 ---
 
 <BaseLayout page={page} content={content}>
   <PageTitle page={page} />
-  <p class="mt-2 text-sm text-muted">Last updated <Text text={updated ?? '[TODO: write — last-updated date]'} /></p>
-  <Block id="body" label="Legal text (needs review by a lawyer)" class="max-w-prose"><slot /></Block>
+  <p class="mt-2 text-sm text-muted">Last updated <Text text={content.updated ?? '[TODO: write — last-updated date]'} /></p>
+  {Body && <Written Body={Body} content={content} />}
+  {!Body && (<Block id="body" label="Legal text (needs review by a lawyer)" class="max-w-prose"><slot /></Block>)}
 </BaseLayout>

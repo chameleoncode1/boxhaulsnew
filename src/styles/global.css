@@ -72,6 +72,66 @@
     clip-path: polygon(2.5rem 0, 100% 0, 100% 100%, 0 100%);
   }
 
+  /* Written page copy (MDX). */
+  .prose-bh > * + * {
+    margin-top: 1rem;
+  }
+  .prose-bh h2 {
+    margin-top: 2.5rem;
+    font-size: var(--text-2xl);
+    line-height: var(--text-2xl--line-height);
+  }
+  .prose-bh h3 {
+    margin-top: 1.75rem;
+    font-size: var(--text-lg);
+    font-weight: 700;
+  }
+  .prose-bh ul,
+  .prose-bh ol {
+    padding-left: 1.5rem;
+  }
+  .prose-bh ul {
+    list-style: disc;
+  }
+  .prose-bh ol {
+    list-style: decimal;
+  }
+  .prose-bh li + li {
+    margin-top: 0.375rem;
+  }
+  .prose-bh li::marker {
+    color: var(--color-brand);
+  }
+  .prose-bh strong {
+    font-weight: 700;
+  }
+  .prose-bh table,
+  [data-block] table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+  }
+  .prose-bh th,
+  .prose-bh td {
+    border-bottom: 1px solid var(--color-border);
+    padding: 0.5rem 0.75rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  .prose-bh thead th {
+    background: var(--color-night);
+    color: var(--color-inverse);
+    font-weight: 600;
+  }
+  .prose-bh tbody th {
+    font-weight: 600;
+  }
+  .prose-bh blockquote {
+    border-left: 4px solid var(--color-brand);
+    padding-left: 1rem;
+    color: var(--color-muted);
+  }
+
   /* Visible marker for an unknown fact. QA lists every one; a page with any is not shippable. */
   .todo {
     background: var(--color-todo-bg);

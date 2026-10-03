@@ -1,0 +1,51 @@
+---
+description: "A BoxHauls truck and driver costs {{BASE_FARE}} plus {{PER_MILE}} a mile in Fresno: {{price:3}} for 3 miles, {{price:25}} for 25. No hourly rate, no surge."
+checked: "October 2026"
+faq:
+  - question: "How much does a truck and driver cost with BoxHauls?"
+    answer: "A trip costs {{BASE_FARE}} plus {{PER_MILE}} a mile. That's {{price:3}} for 3 miles, {{price:10}} for 10 miles and {{price:25}} for 25 miles. Heavy items add {{HEAVY_FEE}}, and a helper adds {{HELPER_FEE}}."
+  - question: "Do you charge by the hour?"
+    answer: "No. BoxHauls prices by the trip, not the hour, so a slow load or traffic doesn't change what you pay. You see the price before you book."
+  - question: "Is there surge pricing?"
+    answer: "No. The formula is the same at every time of day. There's also no minimum fare, no stairs fee and no wait-time fee."
+  - question: "Which items count as heavy?"
+    answer: "The {{HEAVY_FEE}} heavy-item fee applies to {{HEAVY_FEE_ITEMS}}. Everything else is just the base fare plus mileage."
+  - question: "Does the job type change the price?"
+    answer: "No. {{TIER_1}}, {{TIER_2}} and {{TIER_3}} all use the same formula. The job type tells the driver what to expect."
+  - question: "How do dump runs get priced?"
+    answer: "A dump run is the trip price plus the dump or transfer-station fee, passed through at cost. BoxHauls doesn't mark up the dump fee."
+  - question: "How far will a driver go?"
+    answer: "BoxHauls serves {{METRO}} and {{NEIGHBORHOOD}} within {{RADIUS}} miles. The 25-mile price in the table is the longest trip in the service area."
+---
+
+A BoxHauls truck and driver costs <F k="BASE_FARE" /> plus <F k="PER_MILE" /> a mile, plus <F k="HEAVY_FEE" /> for heavy items and <F k="HELPER_FEE" /> for a helper. You see the total before you book. There's no hourly rate and no surge.
+
+## What a trip costs by distance
+
+<PriceTable />
+
+For <F k="HEAVY_FEE_ITEMS" />, add the heavy-item fee:
+
+<PriceTable heavy />
+
+## The three job types
+
+| Job type | What it's for | Price formula |
+|---|---|---|
+| <F k="TIER_1" /> | Boxes and small-move loads | Same formula |
+| <F k="TIER_2" /> | Junk to the landfill or transfer station, plus the dump fee at cost | Same formula |
+| <F k="TIER_3" /> | Furniture, appliances and other single large items | Same formula |
+
+The job type doesn't change the price. To check whether your item fits in a pickup, see [which job type and truck fit your stuff](/pricing/truck-sizes/).
+
+## Every fee
+
+The only add-ons are the heavy-item fee, the helper and dump fees at cost. There's no minimum fare, no stairs fee, no wait-time fee and no fuel surcharge. Here's [every BoxHauls fee, explained](/pricing/fees/), with when each applies.
+
+## First-haul promotion
+
+<Todo>first-haul promo terms, or remove this section if there is no promotion</Todo>
+
+## Prices by item
+
+Item pages work through the numbers for a specific haul, including what fits, whether you need a helper, and how to prep. Start with [what a couch move costs](/pricing/cost-to-move-a-couch/) or [what a dump run costs](/pricing/cost-of-a-dump-run/). If you'd rather see the service than the math, read about [furniture and large-item delivery](/services/furniture-delivery/).

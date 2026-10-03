@@ -4,6 +4,7 @@ import type { PageContent } from '../lib/schema';
 import { getPage } from '../lib/sitemap';
 import { shortLabel } from '../lib/labels';
 import BaseLayout from './BaseLayout.astro';
+import Written from '../components/Written.astro';
 import PageTitle from '../components/PageTitle.astro';
 import Byline from '../components/Byline.astro';
 import Block from '../components/Block.astro';
@@ -15,8 +16,10 @@ import PageSpec from '../components/PageSpec.astro';
 interface Props {
   page: Page;
   content?: PageContent;
+  /** Rendered MDX body from src/content/pages/, when the page has been written. */
+  Body?: any;
 }
-const { page, content } = Astro.props;
+const { page, content = {}, Body } = Astro.props;
 // Spoke → hub link within the first 200 words (map Section 10).
 const parent = getPage(page.url.replace(/[^/]+\/$/, ''));
 ---
@@ -25,12 +28,13 @@ const parent = getPage(page.url.replace(/[^/]+\/$/, ''));
   <PageTitle page={page} />
   {parent && <p class="mt-2 text-muted">Part of <a href={parent.url}>{shortLabel(parent)}</a></p>}
   <Byline kind="reviewed" checked={false} />
-  <Block id="answer" label="Answer-first opening for this scenario"><slot name="answer" /></Block>
-  <Block id="attributes" label="What this spoke owns that the hub does not (store lane, platform rule, prep step)"><slot name="attributes" /></Block>
-  <Block id="price-example" label="Price example"><slot name="price-example" /></Block>
+  {Body && <Written Body={Body} content={content} />}
+  {!Body && (<Block id="answer" label="Answer-first opening for this scenario"><slot name="answer" /></Block>)}
+  {!Body && (<Block id="attributes" label="What this spoke owns that the hub does not (store lane, platform rule, prep step)"><slot name="attributes" /></Block>)}
+  {!Body && (<Block id="price-example" label="Price example"><slot name="price-example" /></Block>)}
   <ChildList page={page} />
-  {page.schema.includes('FAQPage') && <Block id="faq" label="FAQ (mirrored in FAQPage schema)"><slot name="faq" /></Block>}
-  <BodyLinks page={page} />
+  {!Body && page.schema.includes('FAQPage') && <Block id="faq" label="FAQ (mirrored in FAQPage schema)"><slot name="faq" /></Block>}
+  {!Body && <BodyLinks page={page} />}
   <RelatedLinks page={page} />
-  <PageSpec page={page} />
+  {!Body && <PageSpec page={page} />}
 </BaseLayout>

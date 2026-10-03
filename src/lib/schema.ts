@@ -130,6 +130,7 @@ export function buildGraph(page: Page, content: PageContent = {}): { graph: Node
       isPartOf: { '@id': WEBSITE_ID },
       about: { '@id': ORG_ID },
       breadcrumb: crumbs.length ? { '@id': `${url}#breadcrumb` } : undefined,
+      reviewedBy: person && !want.has('WebSite') ? { '@id': FOUNDER_ID } : undefined,
       inLanguage: 'en-US',
     }),
   );
@@ -229,7 +230,8 @@ export function buildGraph(page: Page, content: PageContent = {}): { graph: Node
           '@type': 'Article',
           '@id': `${url}#article`,
           headline: page.h1,
-          author: content.author ? { '@type': 'Person', ...content.author } : person ? { '@id': FOUNDER_ID } : undefined,
+          // Until a named author exists, guides are by "the BoxHauls team, reviewed by {{FOUNDER_NAME}}" (Prompt 4).
+          author: content.author ? { '@type': 'Person', ...content.author } : { '@id': ORG_ID },
           datePublished: content.datePublished,
           dateModified: content.dateModified ?? content.datePublished,
           image: content.image && abs(content.image),

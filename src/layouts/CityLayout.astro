@@ -6,6 +6,7 @@
 import type { Page } from '../lib/sitemap';
 import type { PageContent } from '../lib/schema';
 import BaseLayout from './BaseLayout.astro';
+import Written from '../components/Written.astro';
 import PageTitle from '../components/PageTitle.astro';
 import Byline from '../components/Byline.astro';
 import Block from '../components/Block.astro';
@@ -17,27 +18,29 @@ import PageSpec from '../components/PageSpec.astro';
 interface Props {
   page: Page;
   content?: PageContent;
-  checked?: string;
+  /** Rendered MDX body from src/content/pages/, when the page has been written. */
+  Body?: any;
 }
-const { page, content, checked } = Astro.props;
+const { page, content = {}, Body } = Astro.props;
 const has = (t: string) => page.schema.includes(t);
 ---
 
 <BaseLayout page={page} content={content}>
   <PageTitle page={page} />
-  <Byline kind="reviewed" checked={checked} checkedLabel="Local facts checked" />
-  <Block id="answer" label="Answer-first opening"><slot name="answer" /></Block>
-  <Block id="disposal" label="Transfer stations and landfills: address, hours, fees"><slot name="disposal" /></Block>
-  <Block id="retailers" label="Retailers drivers pick up from most, with pickup-lane notes (Section 16 order)"><slot name="retailers" /></Block>
-  <Block id="bulky-pickup" label="Bulky-item pickup rules and gaps"><slot name="bulky-pickup" /></Block>
-  <Block id="campus" label="Campus move-in and move-out dates"><slot name="campus" /></Block>
-  <Block id="corridors" label="Apartment corridors"><slot name="corridors" /></Block>
+  <Byline kind="reviewed" checked={content.checked} checkedLabel="Local facts checked" />
+  {Body && <Written Body={Body} content={content} />}
+  {!Body && (<Block id="answer" label="Answer-first opening"><slot name="answer" /></Block>)}
+  {!Body && (<Block id="disposal" label="Transfer stations and landfills: address, hours, fees"><slot name="disposal" /></Block>)}
+  {!Body && (<Block id="retailers" label="Retailers drivers pick up from most, with pickup-lane notes (Section 16 order)"><slot name="retailers" /></Block>)}
+  {!Body && (<Block id="bulky-pickup" label="Bulky-item pickup rules and gaps"><slot name="bulky-pickup" /></Block>)}
+  {!Body && (<Block id="campus" label="Campus move-in and move-out dates"><slot name="campus" /></Block>)}
+  {!Body && (<Block id="corridors" label="Apartment corridors"><slot name="corridors" /></Block>)}
   <section data-block="drivers" class="mt-10"><EmptyState title="Local drivers" message="Driver profiles will appear here once drivers have agreed to be featured." /></section>
   <section data-block="reviews" class="mt-10"><EmptyState title="Local reviews" message="Reviews from local customers will appear here once they exist." /></section>
   <section data-block="trip-prices" class="mt-10"><EmptyState title="Prices from real trips" message="A table of real local trip prices will be published once there is enough trip data." /></section>
-  <Block id="coverage-map" label="Coverage map"><slot name="coverage-map" /></Block>
-  {has('FAQPage') && <Block id="faq" label="FAQ (mirrored in FAQPage schema)"><slot name="faq" /></Block>}
-  <BodyLinks page={page} />
+  {!Body && (<Block id="coverage-map" label="Coverage map"><slot name="coverage-map" /></Block>)}
+  {!Body && has('FAQPage') && <Block id="faq" label="FAQ (mirrored in FAQPage schema)"><slot name="faq" /></Block>}
+  {!Body && <BodyLinks page={page} />}
   <RelatedLinks page={page} />
-  <PageSpec page={page} />
+  {!Body && <PageSpec page={page} />}
 </BaseLayout>

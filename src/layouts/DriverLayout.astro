@@ -4,6 +4,7 @@ import type { Page } from '../lib/sitemap';
 import type { PageContent } from '../lib/schema';
 import { resolve } from '../lib/placeholders';
 import BaseLayout from './BaseLayout.astro';
+import Written from '../components/Written.astro';
 import PageTitle from '../components/PageTitle.astro';
 import Block from '../components/Block.astro';
 import Cta from '../components/Cta.astro';
@@ -15,21 +16,24 @@ import PageSpec from '../components/PageSpec.astro';
 interface Props {
   page: Page;
   content?: PageContent;
+  /** Rendered MDX body from src/content/pages/, when the page has been written. */
+  Body?: any;
 }
-const { page, content } = Astro.props;
+const { page, content = {}, Body } = Astro.props;
 const showEarnings = page.url === '/drive/' || page.url === '/drive/earnings/';
 const earningsLabel = resolve('Earnings math: {{DRIVER_SHARE}} of the fare (helper fee included) + 100% of tips, worked with real tier fares').text;
 ---
 
 <BaseLayout page={page} content={content}>
   <PageTitle page={page} />
-  <Block id="answer" label="Answer-first opening"><slot name="answer" /></Block>
-  {showEarnings && <Block id="earnings" label={earningsLabel}><slot name="earnings" /></Block>}
-  <Block id="body" label="Page body (see the sitemap spec below)"><slot /></Block>
+  {Body && <Written Body={Body} content={content} />}
+  {!Body && (<Block id="answer" label="Answer-first opening"><slot name="answer" /></Block>)}
+  {!Body && showEarnings && <Block id="earnings" label={earningsLabel}><slot name="earnings" /></Block>}
+  {!Body && (<Block id="body" label="Page body (see the sitemap spec below)"><slot /></Block>)}
   <ChildList page={page} />
-  {page.schema.includes('FAQPage') && <Block id="faq" label="FAQ (mirrored in FAQPage schema)"><slot name="faq" /></Block>}
+  {!Body && page.schema.includes('FAQPage') && <Block id="faq" label="FAQ (mirrored in FAQPage schema)"><slot name="faq" /></Block>}
   {page.url !== '/drive/apply/' && <section data-block="apply-cta" class="mt-10"><Cta href="/drive/apply/" label="Apply to drive" track="driver_apply_started" trackParams={{ source: page.url }} /></section>}
-  <BodyLinks page={page} />
+  {!Body && <BodyLinks page={page} />}
   <RelatedLinks page={page} />
-  <PageSpec page={page} />
+  {!Body && <PageSpec page={page} />}
 </BaseLayout>

@@ -4,7 +4,11 @@
  * The layout is chosen by the entry's `template` field.
  */
 import type { GetStaticPaths } from 'astro';
+import { getCollection, render } from 'astro:content';
 import { pages, type Page, type Template } from '../lib/sitemap';
+import { resolve } from '../lib/placeholders';
+import { resolvePriceTokens } from '../lib/pricing';
+import type { PageContent } from '../lib/schema';
 import HomeLayout from '../layouts/HomeLayout.astro';
 import CoreLayout from '../layouts/CoreLayout.astro';
 import PricingLayout from '../layouts/PricingLayout.astro';
@@ -17,8 +21,14 @@ import DriverLayout from '../layouts/DriverLayout.astro';
 import PartnersLayout from '../layouts/PartnersLayout.astro';
 import LegalLayout from '../layouts/LegalLayout.astro';
 
-export const getStaticPaths = (() =>
-  pages.map((page) => ({ params: { slug: page.slug }, props: { page } }))) satisfies GetStaticPaths;
+export const getStaticPaths = (async () => {
+  // Every content file must belong to a sitemap page (CLAUDE.md rule 1: no hand-made routes).
+  const ids = new Set(pages.map((p) => p.slug ?? 'index'));
+  for (const entry of await getCollection('pages')) {
+    if (!ids.has(entry.id)) throw new Error(`src/content/pages/${entry.id}.mdx has no page in docs/sitemap.json`);
+  }
+  return pages.map((page) => ({ params: { slug: page.slug }, props: { page } }));
+}) satisfies GetStaticPaths;
 
 const layouts: Record<Template, typeof HomeLayout> = {
   home: HomeLayout,
@@ -36,6 +46,17 @@ const layouts: Record<Template, typeof HomeLayout> = {
 
 const { page } = Astro.props as { page: Page };
 const Layout = layouts[page.template];
+// getEntry() warns for every page without copy yet, so look the entry up in the collection instead.
+const entry = (await getCollection('pages')).find((e) => e.id === (page.slug ?? 'index'));
+const Body = entry ? (await render(entry)).Content : undefined;
+// Frontmatter strings may use {{KEY}} placeholders and {{price:MILES[:heavy][:helper]}} tokens.
+const subst = (v: unknown): unknown =>
+  typeof v === 'string' ? resolve(resolvePriceTokens(v)).text : Array.isArray(v) ? v.map(subst) : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, subst(x)])) : v;
+const content = (entry ? subst(entry.data) : {}) as PageContent;
+// Map Section 4.1: 140–155 characters is the target; outside 120–160 fails the build.
+if (content.description && (content.description.length < 120 || content.description.length > 160)) {
+  throw new Error(`${page.url}: meta description is ${content.description.length} chars (needs 120–160): "${content.description}"`);
+}
 ---
 
-<Layout page={page} />
+<Layout page={page} content={content} Body={Body} />

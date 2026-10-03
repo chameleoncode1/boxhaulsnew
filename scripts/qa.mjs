@@ -260,7 +260,10 @@ for (const p of pages.filter((p) => p.phase === 1)) {
 
   // Banned phrases and brand spelling
   let text = visibleText(body);
-  for (const a of ALLOWED) if (a.phrase && (!a.pages || a.pages.includes(p.url))) text = text.split(a.phrase).join(' ');
+  for (const a of ALLOWED) {
+    if (!a.phrase || (a.pages && !a.pages.includes(p.url))) continue;
+    text = text.replace(new RegExp(a.phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), ' ');
+  }
   const lower = text.toLowerCase();
   for (const w of BANNED) {
     const re = new RegExp(`(^|[^a-z])${w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}([^a-z]|$)`, 'i');

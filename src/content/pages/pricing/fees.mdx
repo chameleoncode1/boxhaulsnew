@@ -1,0 +1,48 @@
+---
+description: "Every BoxHauls fee: {{BASE_FARE}} base, {{PER_MILE}} a mile, {{HEAVY_FEE}} for heavy items, {{HELPER_FEE}} for a helper, dump fees at cost. No surge, hourly or stairs fee."
+checked: "October 2026"
+faq:
+  - question: "What is the heavy-item fee?"
+    answer: "It's {{HEAVY_FEE}}, and it applies to {{HEAVY_FEE_ITEMS}}. These items take more effort and equipment to load safely. [TODO: confirm whether the fee is per item or per trip]"
+  - question: "How much does a helper cost?"
+    answer: "A helper adds {{HELPER_FEE}} to the trip. Helpers come with the driver, so one is only available when a driver bringing a second person accepts your job. BoxHauls doesn't guarantee a helper."
+  - question: "Is there a fee for stairs?"
+    answer: "No. BoxHauls doesn't charge for stairs. If an item is heavy or awkward on stairs, request a helper or have someone ready to help."
+  - question: "Do I have to tip?"
+    answer: "No. Tips are optional and go to your driver."
+  - question: "Is there a cancellation fee?"
+    answer: "[TODO: cancellation window and late-cancel fee]"
+---
+
+BoxHauls has five possible line items. Every trip has the first two, and the other three apply only when they're triggered. Nothing else is added.
+
+| Line item | When it applies | Amount |
+|---|---|---|
+| Base fare | Every trip | <F k="BASE_FARE" /> |
+| Per mile | Every trip, for the trip distance | <F k="PER_MILE" /> per mile |
+| Heavy-item fee | Hauling <F k="HEAVY_FEE_ITEMS" /> | <F k="HEAVY_FEE" /> <Todo>per item or per trip</Todo> |
+| Helper | You request one and a driver with a helper accepts | <F k="HELPER_FEE" /> |
+| Dump fee | Dump runs: the landfill or transfer station's fee | At cost, no markup |
+
+## What's never charged
+
+- No hourly rate. You pay by the trip.
+- No surge pricing.
+- No minimum fare.
+- No stairs fee.
+- No wait-time fee.
+- No fuel surcharge.
+
+## Tips
+
+Tips are optional and go to your driver.
+
+## Dump fees
+
+On a dump run, the driver pays the gate fee at the landfill or transfer station, and that fee is passed through to you at cost. <Todo>how the dump fee is shown and charged: on the receipt after the trip, or estimated before booking</Todo>
+
+## Cancellations
+
+<Todo>late-cancel fee amount</Todo>. The windows and refund timing are on the [cancellation and refund policy](/trust/cancellation-and-refunds/) page.
+
+For the formula worked out by distance, go back to [BoxHauls pricing](/pricing/).

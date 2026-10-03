@@ -1,0 +1,12 @@
+---
+/** A placeholder fact inside MDX copy: <F k="BASE_FARE" />. Unknown values render as a visible TODO marker. */
+import { isTodo, lookup } from '../../lib/placeholders';
+
+interface Props {
+  k: string;
+}
+const value = lookup(Astro.props.k);
+const known = typeof value === 'string' && !isTodo(value);
+---
+
+{known ? value : <span class="todo">[TODO: {Astro.props.k}]</span>}

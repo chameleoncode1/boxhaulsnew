@@ -1,0 +1,50 @@
+---
+description: "How BoxHauls works: enter two addresses, pick the job, see the price before you book, and a local driver with a pickup loads, hauls and unloads it."
+steps:
+  - name: "Enter pickup and drop-off"
+    text: "Type both addresses in the BoxHauls app or on the web. Trips run within {{RADIUS}} miles in {{METRO}} and {{NEIGHBORHOOD}}."
+  - name: "Choose the job and the items"
+    text: "Pick the job type ({{TIER_1}}, {{TIER_2}} or {{TIER_3}}) and tell us what's going, so the driver knows what to bring."
+  - name: "See the price before you book"
+    text: "The price is {{BASE_FARE}} plus {{PER_MILE}} a mile, plus {{HEAVY_FEE}} for heavy items and {{HELPER_FEE}} if you request a helper. You see the total before you confirm."
+  - name: "Book"
+    text: "Confirm the trip. [TODO: when the card is authorized and when it is charged]"
+  - name: "A local driver accepts"
+    text: "A screened driver with a pickup truck accepts the job. If you asked for a helper, only a driver bringing one can accept it."
+  - name: "Load, haul, unload"
+    text: "The driver loads and secures your items, drives them to the drop-off address and unloads them."
+  - name: "Pay and tip"
+    text: "You pay the price you were shown. Tips are optional and go to your driver."
+---
+
+A BoxHauls trip takes seven steps, and the price is fixed at step three, before you book. You enter two addresses and say what's moving. You see a price built from one formula, and a local driver with a pickup does the hauling.
+
+## The price comes before the booking
+
+Every trip uses the same formula: <F k="BASE_FARE" /> base plus <F k="PER_MILE" /> a mile. Two add-ons can apply: <F k="HEAVY_FEE" /> for heavy items (<F k="HEAVY_FEE_ITEMS" />) and <F k="HELPER_FEE" /> for a second person. There's no hourly rate and no surge. For the numbers by distance, see [what a truck and driver costs](/pricing/).
+
+## The three job types
+
+- **<F k="TIER_1" />**: boxes and small-move loads.
+- **<F k="TIER_2" />**: junk headed to the landfill or transfer station. Dump fees are passed through at cost.
+- **<F k="TIER_3" />**: furniture, appliances and other single large items.
+
+The job type tells the driver what to expect. It doesn't change the price formula. If you're not sure your item fits in a pickup bed, check [which job type and truck fit your stuff](/pricing/truck-sizes/).
+
+## Helpers
+
+Some drivers bring a second person. If you request a helper, it adds <F k="HELPER_FEE" />, and only a driver who has one can accept your trip. Helpers aren't guaranteed. For two-person items like refrigerators and washers, have someone ready to help load in case no driver with a helper is available.
+
+## Who's driving
+
+Drivers use their own pickup trucks and are screened by <F k="BACKGROUND_PROVIDER" /> before their first trip. Every haul is insured by <F k="INSURANCE_CARRIER" />. Here's [how BoxHauls vets drivers and insures your items](/trust/).
+
+## During the trip
+
+<Todo>confirm in-app messaging and live tracking during the trip</Todo>
+
+## Changing or canceling
+
+<Todo>free-cancellation window and late-cancel fee</Todo>. The full policy is on the cancellation and refunds page.
+
+More questions? See the [BoxHauls FAQ](/faq/).

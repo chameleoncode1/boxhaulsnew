@@ -3,6 +3,7 @@
 import type { Page } from '../lib/sitemap';
 import type { PageContent } from '../lib/schema';
 import BaseLayout from './BaseLayout.astro';
+import Written from '../components/Written.astro';
 import PageTitle from '../components/PageTitle.astro';
 import Byline from '../components/Byline.astro';
 import Block from '../components/Block.astro';
@@ -14,8 +15,10 @@ import PageSpec from '../components/PageSpec.astro';
 interface Props {
   page: Page;
   content?: PageContent;
+  /** Rendered MDX body from src/content/pages/, when the page has been written. */
+  Body?: any;
 }
-const { page, content } = Astro.props;
+const { page, content = {}, Body } = Astro.props;
 const has = (t: string) => page.schema.includes(t);
 const isIndex = page.url === '/guides/';
 ---
@@ -23,22 +26,23 @@ const isIndex = page.url === '/guides/';
 <BaseLayout page={page} content={content}>
   <PageTitle page={page} />
   {!isIndex && <Byline kind="guide" checked={false} />}
+  {Body && <Written Body={Body} content={content} />}
   {
     isIndex ? (
       <>
-        <Block id="intro" label="Index intro"><slot name="intro" /></Block>
+        {!Body && (<Block id="intro" label="Index intro"><slot name="intro" /></Block>)}
         <ChildList page={page} />
       </>
     ) : (
       <>
-        <Block id="answer" label="Answer in sentence one"><slot name="answer" /></Block>
-        {has('HowTo') && <Block id="steps" label="Steps (mirrored in HowTo schema)"><slot name="steps" /></Block>}
-        <Block id="body" label="Guide body: tables, real photos, one descriptive link into the core page"><slot /></Block>
-        {has('FAQPage') && <Block id="faq" label="FAQ (mirrored in FAQPage schema)"><slot name="faq" /></Block>}
+        {!Body && (<Block id="answer" label="Answer in sentence one"><slot name="answer" /></Block>)}
+        {!Body && has('HowTo') && <Block id="steps" label="Steps (mirrored in HowTo schema)"><slot name="steps" /></Block>}
+        {!Body && (<Block id="body" label="Guide body: tables, real photos, one descriptive link into the core page"><slot /></Block>)}
+        {!Body && has('FAQPage') && <Block id="faq" label="FAQ (mirrored in FAQPage schema)"><slot name="faq" /></Block>}
       </>
     )
   }
-  <BodyLinks page={page} />
+  {!Body && <BodyLinks page={page} />}
   <RelatedLinks page={page} />
-  <PageSpec page={page} />
+  {!Body && <PageSpec page={page} />}
 </BaseLayout>

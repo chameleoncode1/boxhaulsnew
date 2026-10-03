@@ -1,0 +1,7 @@
+---
+/** Where a real photo belongs: <Photo>driver strapping a sectional into a half-ton bed</Photo>. */
+import PhotoPlaceholder from '../PhotoPlaceholder.astro';
+const description = (await Astro.slots.render('default')).replace(/<[^>]+>/g, '').trim();
+---
+
+<div class="my-8"><PhotoPlaceholder description={description} /></div>

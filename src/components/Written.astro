@@ -1,0 +1,26 @@
+---
+/**
+ * A written page's copy: the MDX body, then numbered steps and the FAQ from frontmatter (both mirrored in JSON-LD).
+ * MDX files can use <F k="KEY" />, <Todo>…</Todo>, <Photo>…</Photo>, <Price mi={n} /> and <PriceTable /> without importing them.
+ */
+import type { PageContent } from '../lib/schema';
+import Faq from './Faq.astro';
+import Steps from './Steps.astro';
+import F from './mdx/F.astro';
+import Todo from './mdx/Todo.astro';
+import Photo from './mdx/Photo.astro';
+import PriceTable from './mdx/PriceTable.astro';
+import Price from './mdx/Price.astro';
+
+interface Props {
+  Body: any;
+  content: PageContent;
+}
+const { Body, content } = Astro.props;
+---
+
+<div class="prose-bh mt-8 max-w-prose">
+  <Body components={{ F, Todo, Photo, PriceTable, Price }} />
+</div>
+{content.steps?.length ? <Steps items={content.steps} /> : null}
+{content.faq?.length ? <Faq items={content.faq} /> : null}

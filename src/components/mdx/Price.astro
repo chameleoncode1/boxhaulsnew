@@ -1,0 +1,13 @@
+---
+/** A computed trip price inside MDX copy: <Price mi={10} heavy helper />. */
+import { tripPrice, usd } from '../../lib/pricing';
+
+interface Props {
+  mi: number;
+  heavy?: boolean;
+  helper?: boolean;
+}
+const { mi, heavy, helper } = Astro.props;
+---
+
+{usd(tripPrice(mi, { heavy, helper }))}

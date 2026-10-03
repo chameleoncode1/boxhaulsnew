@@ -1,0 +1,22 @@
+---
+import Text from './Text.astro';
+/** FAQ block (map Section 9.7): question as H3 in the user's words, short answer. Mirrors FAQPage schema exactly. */
+interface Props {
+  items: { question: string; answer: string }[];
+}
+const { items } = Astro.props;
+---
+
+<section id="faq" data-block="faq" class="mt-12">
+  <h2 class="text-2xl">Questions</h2>
+  <div class="mt-4 divide-y divide-border border-y border-border">
+    {
+      items.map((f) => (
+        <div class="py-5">
+          <h3 class="text-lg font-semibold"><Text text={f.question} /></h3>
+          <p class="mt-2 max-w-prose"><Text text={f.answer} /></p>
+        </div>
+      ))
+    }
+  </div>
+</section>

@@ -4,6 +4,7 @@ import type { PageContent } from '../lib/schema';
 import { pages } from '../lib/sitemap';
 import { shortLabel } from '../lib/labels';
 import BaseLayout from './BaseLayout.astro';
+import Written from '../components/Written.astro';
 import Text from '../components/Text.astro';
 import PhotoPlaceholder from '../components/PhotoPlaceholder.astro';
 import Block from '../components/Block.astro';
@@ -16,8 +17,10 @@ import PageSpec from '../components/PageSpec.astro';
 interface Props {
   page: Page;
   content?: PageContent;
+  /** Rendered MDX body from src/content/pages/, when the page has been written. */
+  Body?: any;
 }
-const { page, content } = Astro.props;
+const { page, content = {}, Body } = Astro.props;
 const hubs = pages.filter((p) => p.template === 'service-hub');
 // Banner style: the H1's first sentence in ink, the rest in brand red.
 const [lead, ...rest] = page.h1.split(/(?<=\.)\s+/);
@@ -40,9 +43,10 @@ const tail = rest.join(' ');
     </div>
   </section>
   <Block id="booking" label="Booking widget (React island, Prompt 5)" note="Pickup, drop-off, item picker, tier. Live price only after both addresses. No driver cards, ETAs or ratings."><slot name="booking" /></Block>
-  <Block id="launch-metro" label="One-line launch-metro statement"><slot name="launch-metro" /></Block>
+  {Body && <Written Body={Body} content={content} />}
+  {!Body && (<Block id="launch-metro" label="One-line launch-metro statement"><slot name="launch-metro" /></Block>)}
   <section data-block="trust" class="mt-10"><TrustBadges /></section>
-  <Block id="how-it-works" label="3-step how it works"><slot name="how-it-works" /></Block>
+  {!Body && (<Block id="how-it-works" label="3-step how it works"><slot name="how-it-works" /></Block>)}
   <section data-block="services" class="mt-10">
     <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {hubs.map((h) => (
@@ -56,6 +60,6 @@ const tail = rest.join(' ');
     <EmptyState title="Reviews" message="Reviews from Google will show here once customers leave them." />
   </section>
   <section data-block="app" class="mt-10"><AppBadges /></section>
-  <BodyLinks page={page} />
-  <PageSpec page={page} />
+  {!Body && <BodyLinks page={page} />}
+  {!Body && <PageSpec page={page} />}
 </BaseLayout>

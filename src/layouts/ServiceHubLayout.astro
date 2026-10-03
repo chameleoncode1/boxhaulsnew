@@ -2,6 +2,7 @@
 import type { Page } from '../lib/sitemap';
 import type { PageContent } from '../lib/schema';
 import BaseLayout from './BaseLayout.astro';
+import Written from '../components/Written.astro';
 import PageTitle from '../components/PageTitle.astro';
 import Byline from '../components/Byline.astro';
 import Block from '../components/Block.astro';
@@ -15,23 +16,26 @@ import PageSpec from '../components/PageSpec.astro';
 interface Props {
   page: Page;
   content?: PageContent;
+  /** Rendered MDX body from src/content/pages/, when the page has been written. */
+  Body?: any;
 }
-const { page, content } = Astro.props;
+const { page, content = {}, Body } = Astro.props;
 ---
 
 <BaseLayout page={page} content={content}>
   <PageTitle page={page} />
   <Byline kind="reviewed" checked={false} />
-  <Block id="definition" label="Definition sentence (answers the primary query)"><slot name="definition" /></Block>
-  <Block id="who" label="Who uses it"><slot name="who" /></Block>
-  <Block id="included" label="What is included, and what this hub owns"><slot name="included" /></Block>
-  <Block id="tier-fit" label="Tier fit table"><slot name="tier-fit" /></Block>
-  <Block id="price-example" label="Price example"><slot name="price-example" /></Block>
+  {Body && <Written Body={Body} content={content} />}
+  {!Body && (<Block id="definition" label="Definition sentence (answers the primary query)"><slot name="definition" /></Block>)}
+  {!Body && (<Block id="who" label="Who uses it"><slot name="who" /></Block>)}
+  {!Body && (<Block id="included" label="What is included, and what this hub owns"><slot name="included" /></Block>)}
+  {!Body && (<Block id="tier-fit" label="Tier fit table"><slot name="tier-fit" /></Block>)}
+  {!Body && (<Block id="price-example" label="Price example"><slot name="price-example" /></Block>)}
   <section data-block="trust" class="mt-10"><TrustBadges /></section>
   <section data-block="photo" class="mt-10"><slot name="photo"><PhotoPlaceholder description={`a real ${page.h1.toLowerCase()} haul in Fresno`} /></slot></section>
   <ChildList page={page} heading="Services in this group" />
-  <Block id="faq" label="FAQ (mirrored in FAQPage schema)"><slot name="faq" /></Block>
-  <BodyLinks page={page} />
+  {!Body && (<Block id="faq" label="FAQ (mirrored in FAQPage schema)"><slot name="faq" /></Block>)}
+  {!Body && <BodyLinks page={page} />}
   <RelatedLinks page={page} />
-  <PageSpec page={page} />
+  {!Body && <PageSpec page={page} />}
 </BaseLayout>

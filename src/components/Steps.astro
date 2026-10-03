@@ -1,0 +1,22 @@
+---
+import Text from './Text.astro';
+/** Numbered steps, mirrored in HowTo schema. */
+interface Props {
+  items: { name: string; text: string }[];
+}
+const { items } = Astro.props;
+---
+
+<ol data-block="steps" class="mt-8 space-y-6">
+  {
+    items.map((s, i) => (
+      <li class="flex gap-4">
+        <span class="display flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand text-inverse">{i + 1}</span>
+        <div>
+          <h3 class="text-lg font-semibold"><Text text={s.name} /></h3>
+          <p class="mt-1 max-w-prose"><Text text={s.text} /></p>
+        </div>
+      </li>
+    ))
+  }
+</ol>

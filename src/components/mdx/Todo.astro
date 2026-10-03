@@ -1,0 +1,6 @@
+---
+/** An unknown fact inside MDX copy: <Todo>landfill gate fee</Todo> → visible "[TODO: landfill gate fee]". */
+const text = (await Astro.slots.render('default')).replace(/<[^>]+>/g, '').trim();
+---
+
+<span class="todo">[TODO: {text}]</span>

@@ -3,6 +3,7 @@
 import type { Page } from '../lib/sitemap';
 import type { PageContent } from '../lib/schema';
 import BaseLayout from './BaseLayout.astro';
+import Written from '../components/Written.astro';
 import PageTitle from '../components/PageTitle.astro';
 import Block from '../components/Block.astro';
 import NapBlock from '../components/NapBlock.astro';
@@ -16,14 +17,17 @@ import PageSpec from '../components/PageSpec.astro';
 interface Props {
   page: Page;
   content?: PageContent;
+  /** Rendered MDX body from src/content/pages/, when the page has been written. */
+  Body?: any;
 }
-const { page, content } = Astro.props;
+const { page, content = {}, Body } = Astro.props;
 const has = (t: string) => page.schema.includes(t);
 ---
 
 <BaseLayout page={page} content={content}>
   <PageTitle page={page} />
-  <Block id="answer" label="Answer-first opening (first sentence answers the primary query)"><slot name="answer" /></Block>
+  {Body && <Written Body={Body} content={content} />}
+  {!Body && (<Block id="answer" label="Answer-first opening (first sentence answers the primary query)"><slot name="answer" /></Block>)}
   {page.url === '/contact/' && <section data-block="nap" class="mt-10"><NapBlock /></section>}
   {page.url === '/app/' && <section data-block="app" class="mt-10"><AppBadges /></section>}
   {page.url === '/reviews/' && (
@@ -31,11 +35,11 @@ const has = (t: string) => page.schema.includes(t);
       <EmptyState title="No reviews yet" message="Real Google reviews will show here once customers leave them." />
     </section>
   )}
-  {has('HowTo') && <Block id="steps" label="Numbered steps (mirrored in HowTo schema)"><slot name="steps" /></Block>}
-  <Block id="body" label="Page body (see the sitemap spec below)"><slot /></Block>
+  {!Body && has('HowTo') && <Block id="steps" label="Numbered steps (mirrored in HowTo schema)"><slot name="steps" /></Block>}
+  {!Body && (<Block id="body" label="Page body (see the sitemap spec below)"><slot /></Block>)}
   <ChildList page={page} />
-  {has('FAQPage') && <Block id="faq" label="FAQ (H3 questions, mirrored in FAQPage schema)"><slot name="faq" /></Block>}
-  <BodyLinks page={page} />
+  {!Body && has('FAQPage') && <Block id="faq" label="FAQ (H3 questions, mirrored in FAQPage schema)"><slot name="faq" /></Block>}
+  {!Body && <BodyLinks page={page} />}
   <RelatedLinks page={page} />
-  <PageSpec page={page} />
+  {!Body && <PageSpec page={page} />}
 </BaseLayout>
