@@ -1718,7 +1718,7 @@
         "Service",
         "FAQPage"
       ],
-      "content_blocks": "Honest limits: grand pianos, hazmat, vehicles over X, items over {{MAX_ITEM_WEIGHT}} lb without equipment, live animals, etc. Referrals for each.. Tier fit, price example, FAQs.",
+      "content_blocks": "Honest limits: grand pianos, hazmat, items over {{MAX_ITEM_WEIGHT}} lb without equipment, live animals, etc. Referrals for each. Tier fit, price example, FAQs.",
       "cluster": "services",
       "page_type": "spoke",
       "phase": 1,
@@ -2391,7 +2391,7 @@
       "content_blocks": "Account setup, invoicing, recurring runs, who this is for (contractors, suppliers, property managers, retailers, restaurants), price model, FAQs.",
       "cluster": "services",
       "page_type": "hub",
-      "phase": 2,
+      "phase": 1,
       "template": "service-hub"
     },
     {
@@ -2890,7 +2890,7 @@
       "content_blocks": "Index grouped by cluster with one-line summaries.",
       "cluster": "guides",
       "page_type": "hub",
-      "phase": 2,
+      "phase": 1,
       "template": "guide"
     },
     {

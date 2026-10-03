@@ -29,7 +29,8 @@ const pages = htmlFiles(DIST).map((file) => {
   const markers = [...body.matchAll(/<span class="todo">\[TODO: ([^\]<]+)\]<\/span>/g)].map((m) => decode(m[1]));
   const main = html.match(/<main[\s\S]*?<\/main>/)?.[0] ?? '';
   const links = [...main.matchAll(/href="(\/[^"#?]*)"/g)].map((m) => m[1]);
-  return { url, phase, indexable, markers, links };
+  const deferred = (html.match(/data-deferred-links="([^"]+)"/)?.[1] ?? '').split(' ').filter(Boolean);
+  return { url, phase, indexable, markers, links, deferred };
 });
 pages.sort((a, b) => a.phase - b.phase || a.url.localeCompare(b.url));
 const byUrl = new Map(pages.map((p) => [p.url, p]));
@@ -79,12 +80,21 @@ if (!spec.length) out('None.');
 for (const [url, text] of spec) out(`- ${url}: ${text}`);
 out();
 
-out(`## Phase-1 pages linking to pages that are not live yet (${earlyLinks.length})`);
+out(`## Live pages linking to pages that are not live (${earlyLinks.length})`);
 out();
-out('These targets are Phase 2/3, so they build as noindex stubs. Either promote the target to Phase 1 or drop the link before launch.');
+out('Should always be zero: a Phase-1 page must not link to a noindex stub. If this lists anything, a component is linking around the deferral rule.');
 out();
 if (!earlyLinks.length) out('None.');
 for (const [from, to] of earlyLinks) out(`- ${from} → ${to}`);
+out();
+
+const deferred = pages.flatMap((p) => p.deferred.map((to) => [p.url, to]));
+out(`## Deferred links (${deferred.length}, not blockers)`);
+out();
+out("These `links_to` targets are Phase 2/3. The link is held back and appears automatically when the target's phase ships.");
+out();
+if (!deferred.length) out('None.');
+for (const [from, to] of deferred) out(`- ${from} → ${to}`);
 out();
 
 out('## Unwritten content blocks');
@@ -98,4 +108,4 @@ out(`Phase 2–3: ${later.length} pages, ${later.reduce((n, p) => n + content.ge
 out();
 
 writeFileSync(OUT, lines.join('\n'));
-console.log(`todo: wrote ${OUT} — ${facts.size} unknown facts, ${spec.length} spec conflicts, ${earlyLinks.length} early links`);
+console.log(`todo: wrote ${OUT} — ${facts.size} unknown facts, ${spec.length} spec conflicts, ${earlyLinks.length} live→stub links, ${deferred.length} deferred`);

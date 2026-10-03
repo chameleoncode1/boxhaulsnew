@@ -195,7 +195,7 @@ for s, h1, q, note in [
     ("single-item-delivery", "Single-item delivery, no minimum", "single item delivery service", "The no-minimum promise; typical single items; price example"),
     ("thrift-store-pickup", "Thrift store & consignment pickup", "thrift store furniture delivery", "Goodwill/Habitat ReStore/consignment pickup windows"),
     ("estate-sale-pickup", "Estate sale & auction pickup", "estate sale pickup service", "Pickup-day timing, multiple items, fragile pieces"),
-    ("what-we-cant-move", "What BoxHauls cannot move", "what won't a truck delivery service move", "Honest limits: grand pianos, hazmat, vehicles over X, items over {{MAX_ITEM_WEIGHT}} lb without equipment, live animals, etc. Referrals for each."),
+    ("what-we-cant-move", "What BoxHauls cannot move", "what won't a truck delivery service move", "Honest limits: grand pianos, hazmat, items over {{MAX_ITEM_WEIGHT}} lb without equipment, live animals, etc. Referrals for each"),
 ]:
     spoke(A + s + "/", h1, q + " " + MN, [q], A, ["/pricing/"], note + ". Tier fit, price example, FAQs.", 1 if s in ("couch-delivery","mattress-delivery","single-item-delivery","what-we-cant-move") else 2)
 
@@ -254,7 +254,7 @@ E = "/services/business-hauling/"
 hub(E, "Business and jobsite hauling", "business delivery service pickup truck " + MN,
     ["jobsite delivery service", "pallet delivery local", "on demand delivery for contractors"],
     [E+"pallet-and-bulk-pickup/", E+"jobsite-material-runs/", E+"property-manager-turnovers/", E+"retail-last-mile/", "/partners/"],
-    "Account setup, invoicing, recurring runs, who this is for (contractors, suppliers, property managers, retailers, restaurants), price model, FAQs.", 2)
+    "Account setup, invoicing, recurring runs, who this is for (contractors, suppliers, property managers, retailers, restaurants), price model, FAQs.", 1)
 for s, h1, q, note in [
     ("pallet-and-bulk-pickup", "Pallet and bulk pickup", "pallet pickup and delivery local", "Forklift-to-bed, weight per pallet, no liftgate"),
     ("jobsite-material-runs", "Jobsite material runs", "jobsite delivery service", "Supply-house pickup, overhang, same-day"),
@@ -298,7 +298,7 @@ for slug, name, q in [
 # ------------------------------------------------------------- GUIDES
 P("/guides/", "Guides: moving big stuff without owning a truck", "how to move furniture without a truck",
   ["moving guides", "how to haul furniture"], ["/guides/will-it-fit-in-a-pickup-bed/", "/guides/how-to-move-a-couch-without-a-truck/"], ORG,
-  "Index grouped by cluster with one-line summaries.", "guides", "hub", 2, "guide")
+  "Index grouped by cluster with one-line summaries.", "guides", "hub", 1, "guide")
 GUIDES = [
   # Fit & capacity (information-gain cluster)
   ("will-it-fit-in-a-pickup-bed", "Will it fit in a pickup bed? Dimensions for 40 common items", "will a couch fit in a truck bed", "/pricing/truck-sizes/", "fit", 1),

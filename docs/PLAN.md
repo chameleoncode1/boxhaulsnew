@@ -110,12 +110,17 @@ The heaviest single item is **1,000 lb** (`{{MAX_ITEM_WEIGHT}}`), and gun safes 
 - **OG images.** 1200×630 PNG per page at `/og/<slug>.png`, rendered at build with Satori + resvg and Inter (self-hosted from `@fontsource/inter`). Colors are read from `tokens.css`. No item silhouette yet, since there are no assets.
 - **docs/TODO.md** is regenerated after every `npm run build` by `scripts/todo.mjs`, from the markers in the built HTML.
 
+### Decided 2026-10-02 (round 2)
+
+- **Audience exceptions.** Four rider → driver body links are allowed: /app/ → /drive/, /cities/fresno/ → /drive/fresno/, /trust/driver-vetting/ → /drive/requirements/, /guides/how-to-tie-down-a-load-in-a-pickup/ → /drive/equipment/. They live in `AUDIENCE_EXCEPTIONS` (`src/lib/links.ts`), and CLAUDE.md rule 7 lists them.
+- **Phase changes.** `/guides/` and `/services/business-hauling/` moved to Phase 1 because both are linked sitewide. Phase 1 is now 67 pages.
+- **Deferred links.** Any other `links_to` target that isn't live yet is held back on live pages and starts rendering when its phase ships, so the spec keeps the full link graph. docs/TODO.md lists the held links; they don't block launch.
+  - **Thin at launch:** the store-pickup and marketplace-pickup sub-hubs have no retailer or platform links until those Phase-2 spokes ship. Their launch copy must stand on its own: how store and marketplace pickup works, with the store and platform names in prose.
+- **Spanish.** Support covers English and Spanish (`SUPPORT_LANGUAGES: "en, es"`), so ContactPoint `availableLanguage` is `["en", "es"]`.
+- **"What we can't move".** Vehicles are dropped from the list (there's no vehicle limit to state).
+- **Hosting.** Cloudflare, where the site is already hosted. Prompt 3 writes Cloudflare `_redirects` and `_headers` files.
+
 ## Open questions (answer before the prompt that needs them)
 
-1. **Hosting (needed before Prompt 3).** Vercel or Cloudflare Pages.
-2. **Legacy booking component (needed before Prompt 5).** Can the Lovable component be exported into `./legacy/`?
-3. **App store links.** `SOCIAL.app_store` and `SOCIAL.google_play` are TODO. Organization `sameAs` and /app/ will show markers until they're filled.
-4. **Spec conflicts (4).** These rider pages have a `/drive/` URL in `links_to`, which breaks CLAUDE.md rule 7: /app/, /cities/fresno/, /trust/driver-vetting/, /guides/how-to-tie-down-a-load-in-a-pickup/. Either drop those links in `build_map.py`, or allow a named exception (for example, "/app/ may link to the driver app"). They're unlinked until you decide.
-5. **Phase-1 pages that link to Phase-2 pages (21, listed in docs/TODO.md).** The largest case is `/guides/`: every Phase-1 guide links to it, and the footer links to it on every page, but it's Phase 2. Recommendation: promote `/guides/` and `/services/business-hauling/` to Phase 1 (both are linked sitewide), and drop the remaining links from Phase-1 `links_to` until their targets ship.
-6. **Spanish support.** Map Section 11 asks for ContactPoint `availableLanguage [en, es]`. It's `[en]` until someone confirms support can actually answer in Spanish.
-7. **"vehicles over X"** on /services/furniture-delivery/what-we-cant-move/. The map never filled in the X. Give a vehicle limit, or drop vehicles from that list.
+1. **Legacy booking component (needed before Prompt 5).** Can the Lovable component be exported into `./legacy/`?
+2. **App store links.** `SOCIAL.app_store` and `SOCIAL.google_play` are TODO. Organization `sameAs` and /app/ will show markers until they're filled.

@@ -23,6 +23,7 @@ import {
   phoneE164,
   postalAddress,
   socialProfiles,
+  supportLanguages,
 } from './site';
 
 /** Copy that comes from the page's MDX (Prompt 4). Every field is optional until the page is written. */
@@ -62,8 +63,7 @@ function contactPoint(): Node {
     telephone: phoneE164(),
     email: email.value,
     areaServed: areaServed(),
-    // Spanish support is not confirmed; add 'es' when it is (map Section 11 asks for [en, es]).
-    availableLanguage: ['en'],
+    availableLanguage: supportLanguages,
   });
 }
 

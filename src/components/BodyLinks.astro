@@ -2,6 +2,7 @@
 /**
  * The page's links_to targets as sentences with descriptive anchors built from each target's H1 (map Section 10).
  * A target that breaks audience isolation is not linked; it renders a spec-conflict TODO instead.
+ * Targets that are not live yet are listed in data-deferred-links (reported in docs/TODO.md, not a blocker).
  */
 import type { Page } from '../lib/sitemap';
 import { bodyLinks } from '../lib/links';
@@ -10,12 +11,12 @@ import Text from './Text.astro';
 interface Props {
   page: Page;
 }
-const { links, forbidden } = bodyLinks(Astro.props.page);
+const { links, forbidden, deferred } = bodyLinks(Astro.props.page);
 ---
 
 {
-  (links.length > 0 || forbidden.length > 0) && (
-    <section data-block="body-links" class="mt-10 max-w-prose space-y-2">
+  (links.length > 0 || forbidden.length > 0 || deferred.length > 0) && (
+    <section data-block="body-links" data-deferred-links={deferred.join(' ') || undefined} class="mt-10 max-w-prose space-y-2">
       <p>
         {links.map((l) => (
           <>{l.frame[0]}<a href={l.href}><Text text={l.anchor} /></a>{l.frame[1]}{' '}</>

@@ -1,8 +1,21 @@
 /** Internal-link selection (map Section 10). */
 import { getPage, pages, type Page } from './sitemap';
 
+/**
+ * Rider → driver body links approved as exceptions to CLAUDE.md rule 7 (decided 2026-10-02).
+ * Each is a page where the driver side is the topic: the driver app, the city's driver page, the vetting
+ * requirements, and the strapping equipment drivers carry.
+ */
+export const AUDIENCE_EXCEPTIONS: ReadonlyArray<readonly [from: string, to: string]> = [
+  ['/app/', '/drive/'],
+  ['/cities/fresno/', '/drive/fresno/'],
+  ['/trust/driver-vetting/', '/drive/requirements/'],
+  ['/guides/how-to-tie-down-a-load-in-a-pickup/', '/drive/equipment/'],
+];
+
 /** CLAUDE.md rule 7: rider pages never link to /drive/ in body; driver pages never link to /services/. */
 export function isForbiddenBodyLink(from: Page, href: string): boolean {
+  if (AUDIENCE_EXCEPTIONS.some(([f, t]) => f === from.url && t === href)) return false;
   if (from.audience === 'rider' && href.startsWith('/drive/')) return true;
   if (from.audience === 'driver' && href.startsWith('/services/')) return true;
   return false;
@@ -36,11 +49,14 @@ function frameFor(target: Page): [string, string] {
 
 /**
  * The page's links_to targets as sentences with descriptive anchors (the target's H1).
- * Targets that break audience isolation are returned separately so the page can flag them instead of linking.
+ * - Targets that break audience isolation are returned in `forbidden` so the page can flag them instead of linking.
+ * - On a live (Phase-1) page, a target that is not live yet is `deferred`: it stays in the spec and starts
+ *   rendering automatically when that target's phase ships. Launch pages never link to noindex stubs.
  */
-export function bodyLinks(page: Page): { links: BodyLink[]; forbidden: string[] } {
+export function bodyLinks(page: Page): { links: BodyLink[]; forbidden: string[]; deferred: string[] } {
   const links: BodyLink[] = [];
   const forbidden: string[] = [];
+  const deferred: string[] = [];
   for (const href of page.linksTo) {
     if (isForbiddenBodyLink(page, href)) {
       forbidden.push(href);
@@ -48,9 +64,13 @@ export function bodyLinks(page: Page): { links: BodyLink[]; forbidden: string[] 
     }
     const target = getPage(href);
     if (!target) throw new Error(`links_to target ${href} on ${page.url} is not in sitemap.json`);
+    if (page.indexable && !target.indexable) {
+      deferred.push(href);
+      continue;
+    }
     links.push({ href, anchor: target.h1, frame: frameFor(target) });
   }
-  return { links, forbidden };
+  return { links, forbidden, deferred };
 }
 
 const parentOf = (url: string) => url.replace(/[^/]+\/$/, '');

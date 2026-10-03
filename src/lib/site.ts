@@ -29,6 +29,8 @@ export const email = fact('EMAIL');
 export const address = fact('ADDRESS');
 export const radius = fact('RADIUS');
 export const year = fact('YEAR');
+/** ISO 639-1 codes support can answer in, from SUPPORT_LANGUAGES ("en, es"). */
+export const supportLanguages: string[] = (str('SUPPORT_LANGUAGES') ?? 'en').split(',').map((s) => s.trim()).filter(Boolean);
 
 /** "3690 E. International, Clovis, CA 93619" → PostalAddress parts. Returns undefined if the address is unknown or not in that shape. */
 export function postalAddress() {

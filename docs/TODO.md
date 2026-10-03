@@ -10,32 +10,31 @@ Fill these in `docs/placeholders.json`.
 - `SOCIAL.app_store`: 175 pages
 - `SOCIAL.google_play`: 175 pages
 
-## Spec conflicts (4)
+## Spec conflicts (0)
 
 The sitemap asks for something a CLAUDE.md rule forbids. Fix it in `build_map.py`, then `npm run map`.
 
-- /app/: links_to /drive/ breaks audience isolation (CLAUDE.md rule 7); not linked
-- /cities/fresno/: links_to /drive/fresno/ breaks audience isolation (CLAUDE.md rule 7); not linked
-- /trust/driver-vetting/: links_to /drive/requirements/ breaks audience isolation (CLAUDE.md rule 7); not linked
-- /guides/how-to-tie-down-a-load-in-a-pickup/: links_to /drive/equipment/ breaks audience isolation (CLAUDE.md rule 7); not linked
+None.
 
-## Phase-1 pages linking to pages that are not live yet (21)
+## Live pages linking to pages that are not live (0)
 
-These targets are Phase 2/3, so they build as noindex stubs. Either promote the target to Phase 1 or drop the link before launch.
+Should always be zero: a Phase-1 page must not link to a noindex stub. If this lists anything, a component is linking around the deferral rule.
 
-- / → /services/business-hauling/
-- /guides/bulky-item-pickup-in-fresno/ → /guides/
-- /guides/dump-fees-in-fresno/ → /guides/
-- /guides/how-to-get-a-facebook-marketplace-purchase-home/ → /guides/
+None.
+
+## Deferred links (17, not blockers)
+
+These `links_to` targets are Phase 2/3. The link is held back and appears automatically when the target's phase ships.
+
 - /guides/how-to-get-a-facebook-marketplace-purchase-home/ → /services/furniture-delivery/marketplace-pickup/facebook-marketplace/
-- /guides/how-to-move-a-couch-without-a-truck/ → /guides/
-- /guides/renting-a-truck-vs-hiring-a-truck-and-driver/ → /guides/
 - /guides/renting-a-truck-vs-hiring-a-truck-and-driver/ → /compare/boxhauls-vs-uhaul-truck-rental/
-- /guides/what-to-do-if-an-item-is-damaged/ → /guides/
-- /guides/what-to-expect-from-a-boxhauls-driver/ → /guides/
-- /guides/will-it-fit-in-a-pickup-bed/ → /guides/
 - /pricing/ → /pricing/truck-and-driver-hourly-vs-per-trip/
 - /services/appliance-delivery/ → /services/appliance-delivery/dishwasher-and-range/
+- /services/business-hauling/ → /services/business-hauling/pallet-and-bulk-pickup/
+- /services/business-hauling/ → /services/business-hauling/jobsite-material-runs/
+- /services/business-hauling/ → /services/business-hauling/property-manager-turnovers/
+- /services/business-hauling/ → /services/business-hauling/retail-last-mile/
+- /services/business-hauling/ → /partners/
 - /services/furniture-delivery/marketplace-pickup/ → /services/furniture-delivery/marketplace-pickup/facebook-marketplace/
 - /services/furniture-delivery/marketplace-pickup/ → /services/furniture-delivery/marketplace-pickup/craigslist/
 - /services/furniture-delivery/marketplace-pickup/ → /services/furniture-delivery/marketplace-pickup/offerup/
@@ -66,6 +65,7 @@ These targets are Phase 2/3, so they build as noindex stubs. Either promote the 
 | /drive/requirements/ | 1 | 3 |
 | /drive/safety/ | 1 | 3 |
 | /faq/ | 1 | 3 |
+| /guides/ | 1 | 1 |
 | /guides/bulky-item-pickup-in-fresno/ | 1 | 2 |
 | /guides/dump-fees-in-fresno/ | 1 | 2 |
 | /guides/how-to-get-a-facebook-marketplace-purchase-home/ | 1 | 2 |
@@ -92,6 +92,7 @@ These targets are Phase 2/3, so they build as noindex stubs. Either promote the 
 | /services/appliance-delivery/haul-away/ | 1 | 4 |
 | /services/appliance-delivery/refrigerator/ | 1 | 4 |
 | /services/appliance-delivery/washer-and-dryer/ | 1 | 4 |
+| /services/business-hauling/ | 1 | 6 |
 | /services/furniture-delivery/ | 1 | 6 |
 | /services/furniture-delivery/couch-delivery/ | 1 | 4 |
 | /services/furniture-delivery/marketplace-pickup/ | 1 | 4 |
@@ -115,4 +116,4 @@ These targets are Phase 2/3, so they build as noindex stubs. Either promote the 
 | /trust/driver-vetting/ | 1 | 3 |
 | /trust/insurance/ | 1 | 3 |
 
-Phase 2–3: 129 pages, 542 blocks (not listed until Phase 1 passes QA).
+Phase 2–3: 127 pages, 535 blocks (not listed until Phase 1 passes QA).

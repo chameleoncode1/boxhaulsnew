@@ -4,7 +4,7 @@
 
 This file is the single source of truth for the BoxHauls website. It defines what the business *is* to a search engine, every page the site will have, what each page must contain, how pages link, what structured data each carries, and the order to build them in. It is written to be dropped into a repository (`/docs/topical-map.md`) and read by Claude Code or any developer. A machine-readable version of the page inventory is in `sitemap.json`.
 
-**Totals:** 194 pages across 9 sections — cities: 2, compare: 13, core: 17, drive: 19, guides: 47, legal: 3, partners: 8, pricing: 29, services: 56. By phase — Phase 1 (launch): 65 · Phase 2 (weeks 7–13): 119 · Phase 3 (month 4+): 10.
+**Totals:** 194 pages across 9 sections — cities: 2, compare: 13, core: 17, drive: 19, guides: 47, legal: 3, partners: 8, pricing: 29, services: 56. By phase — Phase 1 (launch): 67 · Phase 2 (weeks 7–13): 117 · Phase 3 (month 4+): 10.
 
 ---
 
@@ -453,7 +453,7 @@ Owns: accounts, invoicing, recurring runs, pallets, turnovers, last-mile for ret
 
 | URL | H1 | Primary query | Phase |
 |---|---|---|---|
-| /services/business-hauling/ | Business and jobsite hauling | business delivery service pickup truck {{METRO}} | 2 |
+| /services/business-hauling/ | Business and jobsite hauling | business delivery service pickup truck {{METRO}} | 1 |
 | /services/business-hauling/pallet-and-bulk-pickup/ | Pallet and bulk pickup | pallet pickup and delivery local | 2 |
 | /services/business-hauling/jobsite-material-runs/ | Jobsite material runs | jobsite delivery service | 2 |
 | /services/business-hauling/property-manager-turnovers/ | Property manager unit turnovers | property management hauling service | 2 |
@@ -505,7 +505,7 @@ Clusters: **fit** (dimension tables — the information-gain cluster nobody else
 
 | URL | H1 | Primary query | Links to | Phase |
 |---|---|---|---|---|
-| /guides/ | Guides: moving big stuff without owning a truck | how to move furniture without a truck | /guides/will-it-fit-in-a-pickup-bed/, /guides/how-to-move-a-couch-without-a-truck/ | 2 |
+| /guides/ | Guides: moving big stuff without owning a truck | how to move furniture without a truck | /guides/will-it-fit-in-a-pickup-bed/, /guides/how-to-move-a-couch-without-a-truck/ | 1 |
 | /guides/will-it-fit-in-a-pickup-bed/ | Will it fit in a pickup bed? Dimensions for 40 common items | will a couch fit in a truck bed | /guides/, /pricing/truck-sizes/ | 1 |
 | /guides/will-a-sectional-fit-in-a-pickup/ | Will a sectional fit in a pickup truck? | sectional fit in truck bed | /guides/, /pricing/cost-to-move-a-sectional/ | 2 |
 | /guides/will-a-king-mattress-fit-in-a-pickup/ | Will a king mattress fit in a pickup truck? | king mattress fit in truck bed | /guides/, /pricing/cost-to-move-a-mattress/ | 2 |
@@ -679,8 +679,8 @@ Never emit: Review/AggregateRating without real reviews; LocalBusiness on non-ci
 | Phase | Timing | Scope | Gate to next phase |
 |---|---|---|---|
 | 0 | Weeks 1–2 | Placeholders resolved (Section 14); launch metro confirmed; old site: remove placeholder social proof, noindex all /cities/* and duplicate service pages; GBP address established; Search Console on both domains | All Section 14 values filled; GBP verification submitted |
-| 1 | Weeks 3–7 | All Phase-1 pages (65): core, four migrated pricing pages + dump run, five hubs with Phase-1 spokes, launch city page, /drive/ Phase-1 pages, legal; schema; sitemap; redirects live; domain cutover | Every Phase-1 page passes Section 9 checklist; CWV green on mobile; zero orphans |
-| 2 | Weeks 7–13 | Phase-2 pages (119): remaining pricing items, retailer and marketplace spokes, remaining service spokes, compare cluster, guides (2/week), /partners/, driver compare + guides, Spanish /es/ for /drive/ and core pages | 20+ real Google reviews; 5 real partners in directory; compare facts dated |
+| 1 | Weeks 3–7 | All Phase-1 pages (67): core, four migrated pricing pages + dump run, five hubs with Phase-1 spokes, launch city page, /drive/ Phase-1 pages, legal; schema; sitemap; redirects live; domain cutover | Every Phase-1 page passes Section 9 checklist; CWV green on mobile; zero orphans |
+| 2 | Weeks 7–13 | Phase-2 pages (117): remaining pricing items, retailer and marketplace spokes, remaining service spokes, compare cluster, guides (2/week), /partners/, driver compare + guides, Spanish /es/ for /drive/ and core pages | 20+ real Google reviews; 5 real partners in directory; compare facts dated |
 | 3 | Month 4+ | Phase-3 pages (10): real-trip pricing data page, neighborhood pages (gated, Clovis first), seasonal guides, second metro (copy of Section 6.6 gate) | Second metro meets Section 6.6 gate |
 
 Publishing cadence in Phase 2: two guides per week, one compare page per week, retailer spokes in the order of local store proximity to the metro center.
