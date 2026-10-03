@@ -1,0 +1,33 @@
+---
+description: "Mattress removal in Fresno: a BoxHauls driver takes your old mattress to recycling or disposal for {{BASE_FARE}} plus {{PER_MILE}} a mile, fees passed through at cost."
+faq:
+  - question: "How much does mattress removal cost?"
+    answer: "With BoxHauls, it's {{BASE_FARE}} plus {{PER_MILE}} a mile plus any disposal or recycling fee at cost: {{price:10}} for a 10-mile run before fees."
+  - question: "Can old mattresses be recycled in California?"
+    answer: "Yes. California runs a statewide mattress recycling program with free drop-off sites. [TODO: nearest participating drop-off site in Fresno and its rules]"
+  - question: "Does the mattress need to be bagged?"
+    answer: "[TODO: whether disposal or recycling sites require bagged mattresses]"
+---
+
+Mattress removal with BoxHauls costs <F k="BASE_FARE" /> plus <F k="PER_MILE" /> a mile, plus any disposal or recycling fee at cost. A driver takes your old mattress and box spring away in one trip. Book it as <F k="TIER_2" />. It's part of [junk removal and dump runs](/services/junk-removal/).
+
+## Recycling
+
+California runs a statewide mattress recycling program, and mattresses and box springs can be dropped off at participating sites. <Todo>nearest participating drop-off site in Fresno and its rules</Todo>
+
+## Bagging
+
+<Todo>whether disposal or recycling sites require bagged mattresses</Todo>
+
+## Fees
+
+<Todo>disposal or recycling fees drivers pay, passed through at cost</Todo>
+
+## Price example
+
+| Distance | Mattress and box spring | With a helper |
+|---|---|---|
+| 10 miles | <Price mi={10} /> | <Price mi={10} helper /> |
+| 20 miles | <Price mi={20} /> | <Price mi={20} helper /> |
+
+See [what a dump run costs](/pricing/cost-of-a-dump-run/).

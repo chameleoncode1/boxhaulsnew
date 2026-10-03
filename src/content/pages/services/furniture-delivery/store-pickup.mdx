@@ -1,0 +1,47 @@
+---
+description: "Store pickup and delivery in Fresno: a BoxHauls driver picks up your furniture or appliance from the store and brings it home for {{BASE_FARE}} plus {{PER_MILE}} a mile."
+faq:
+  - question: "Can a BoxHauls driver pick up my order from the store?"
+    answer: "Yes. A driver can collect large items from stores in {{METRO}} and {{NEIGHBORHOOD}} and bring them home. [TODO: whether the customer must be present or authorize the pickup with the store]"
+  - question: "What do I need to give the driver?"
+    answer: "Your order number and the name on the order. Some stores also check ID at the pickup counter. [TODO: confirm the store-pickup authorization process]"
+  - question: "Is there an IKEA in Fresno?"
+    answer: "No. The nearest IKEA is about {{LOCAL_ENTITIES.no_ikea_nearest_hours}} hours away, so BoxHauls doesn't do IKEA store runs from {{METRO}}."
+  - question: "Can I get it delivered the same day I buy it?"
+    answer: "[TODO: same-day booking availability]"
+---
+
+Store pickup with BoxHauls means a driver with a pickup collects what you bought and brings it home. That works for furniture, appliances, lumber, or anything too big for your car. It costs the standard BoxHauls formula: <F k="BASE_FARE" /> plus <F k="PER_MILE" /> a mile. It's one of the [furniture and large-item delivery](/services/furniture-delivery/) services.
+
+## How store pickup works
+
+1. Buy the item and choose in-store pickup.
+2. Book BoxHauls with the store as the pickup address and your home as the drop-off.
+3. Share your order number and the name on the order.
+4. The driver goes to the store's pickup area, loads, straps and drives it to you.
+
+<Todo>whether the customer must be present or authorize the pickup with the store</Todo>
+
+## Stores in Fresno and Clovis
+
+Large-item stores in <F k="METRO" /> and <F k="NEIGHBORHOOD" /> include:
+
+- Costco (Clovis and Fresno)
+- Living Spaces (Fresno)
+- Home Depot (Clovis and Fresno)
+- Lowe's
+- Ashley
+- Big Lots
+- Walmart
+- Target
+- Mattress Firm
+
+There's no IKEA in <F k="METRO" />; the nearest is about <F k="LOCAL_ENTITIES.no_ikea_nearest_hours" /> hours away. <Todo>pickup-area location and notes for each store</Todo>
+
+## Price example
+
+A Costco pickup 8 miles from home costs <Price mi={8} />. A washer from Home Depot on the same distance costs <Price mi={8} heavy /> with the heavy-item fee. Add <F k="HELPER_FEE" /> if you want a helper. See [BoxHauls pricing](/pricing/).
+
+## Same-day windows
+
+<Todo>same-day and scheduled pickup windows</Todo>

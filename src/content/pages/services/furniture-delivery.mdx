@@ -1,0 +1,63 @@
+---
+description: "Furniture delivery in Fresno with a truck and driver: {{BASE_FARE}} plus {{PER_MILE}} a mile, price shown before you book. Store, Marketplace and one-item hauls."
+faq:
+  - question: "How much does furniture delivery cost in Fresno?"
+    answer: "With BoxHauls it's {{BASE_FARE}} plus {{PER_MILE}} a mile: {{price:10}} for a 10-mile trip. Sleeper sofas and sectionals add the {{HEAVY_FEE}} heavy-item fee, and a helper adds {{HELPER_FEE}}."
+  - question: "Is there a minimum order?"
+    answer: "No. One chair costs the same formula as a full load, with no minimum fare. That's why single-item delivery works."
+  - question: "Can you pick up from a store for me?"
+    answer: "Yes. A driver can pick up from stores like Costco, Living Spaces, Home Depot and Lowe's. [TODO: whether the customer must be present or authorize the pickup with the store]"
+  - question: "Do drivers wrap furniture?"
+    answer: "Drivers bring moving blankets and straps to protect and secure items in an open truck bed. Mattresses should be bagged before pickup."
+  - question: "Will the driver carry it inside?"
+    answer: "[TODO: confirm whether drivers bring items inside and how far (for example, to the first room)]"
+  - question: "Can I get same-day furniture delivery?"
+    answer: "[TODO: same-day and scheduled delivery windows]"
+---
+
+Furniture delivery with BoxHauls means a local driver with a pickup truck picks up your couch, table, dresser or other large item and brings it to you. It works in <F k="METRO" /> and <F k="NEIGHBORHOOD" />. The price is <F k="BASE_FARE" /> plus <F k="PER_MILE" /> a mile, shown before you book, with no minimum.
+
+## Who uses it
+
+- **Store buyers.** You bought it in the store, and it doesn't fit in your car. [Store pickup and delivery](/services/furniture-delivery/store-pickup/) covers Costco, Living Spaces, Home Depot, Lowe's and more.
+- **Marketplace buyers.** You found it on Facebook Marketplace, Craigslist or OfferUp. See [Marketplace pickup with a truck](/services/furniture-delivery/marketplace-pickup/).
+- **One-item moves.** A couch to a new apartment, a dresser to a relative's house. See [single-item delivery](/services/furniture-delivery/single-item-delivery/).
+
+## What's included
+
+- A driver with a pickup truck
+- Loading, strapping and unloading
+- Moving blankets and straps to protect the item in an open bed
+- Insurance by <F k="INSURANCE_CARRIER" /> (<F k="COVERAGE_LIMIT" />)
+- <Todo>whether drivers bring items inside, and how far</Todo>
+
+Not included: assembly, and anything on the [list of what BoxHauls can't move](/services/furniture-delivery/what-we-cant-move/).
+
+## Wrapping and protection
+
+An open truck bed means wind, dust and the occasional <F k="METRO" /> summer dust storm. Drivers wrap upholstered furniture and wood finishes in moving blankets and strap every piece so it can't shift. Bag mattresses before pickup; see [mattress delivery](/services/furniture-delivery/mattress-delivery/).
+
+## Delivery windows
+
+<Todo>same-day and scheduled delivery windows</Todo>
+
+## Which job type to book
+
+| Item | Book as | Heavy-item fee | Helper |
+|---|---|---|---|
+| Couch or loveseat | <F k="TIER_3" /> | No | Recommended |
+| Sectional or sleeper sofa | <F k="TIER_3" /> | Yes, <F k="HEAVY_FEE" /> | Needed |
+| Mattress and box spring | <F k="TIER_3" /> | No | Recommended for queen and king |
+| Dresser, table, desk | <F k="TIER_3" /> | No | Depends on weight |
+| A few boxes with the furniture | <F k="TIER_1" /> | No | Optional |
+
+## Price example
+
+A couch from a store 10 miles away costs <Price mi={10} />, or <Price mi={10} helper /> with a helper. A sleeper sofa on the same trip costs <Price mi={10} heavy />. For a full breakdown, see [what a couch move costs](/pricing/cost-to-move-a-couch/).
+
+<Photo>driver strapping a sofa wrapped in moving blankets into a pickup bed in Fresno</Photo>
+
+## Furniture services
+
+- [Couch and sofa delivery](/services/furniture-delivery/couch-delivery/)
+- [Mattress delivery](/services/furniture-delivery/mattress-delivery/)

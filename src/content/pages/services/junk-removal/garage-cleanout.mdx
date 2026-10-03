@@ -1,0 +1,44 @@
+---
+description: "Garage cleanouts in Fresno by the truckload: {{BASE_FARE}} plus {{PER_MILE}} a mile per load, dump fees at cost. Sort first, keep hazmat out, and plan for multiple loads."
+faq:
+  - question: "How much does a garage cleanout cost?"
+    answer: "With BoxHauls, each pickup load is {{BASE_FARE}} plus {{PER_MILE}} a mile plus the dump fee at cost: {{price:10}} for a 10-mile run before the dump fee. A full two-car garage often takes more than one load."
+  - question: "How many loads is a garage?"
+    answer: "A one-car garage of mixed clutter is often one or two pickup loads; a packed two-car garage can be three or more. Sorting first cuts the count."
+  - question: "What can't go in the truck?"
+    answer: "Paint, solvents, pesticides, motor oil, fuel, propane tanks and car batteries. [TODO: Fresno-area household hazardous waste site]"
+---
+
+A garage cleanout with BoxHauls is priced by the truckload. Each load is <F k="BASE_FARE" /> plus <F k="PER_MILE" /> a mile, plus the dump fee at cost. Book it as <F k="TIER_2" />. It's part of [junk removal and dump runs](/services/junk-removal/).
+
+## Sort before the truck comes
+
+1. **Keep.** Back on the shelf.
+2. **Donate or sell.** Box it separately.
+3. **Junk.** Pile it near the garage door.
+4. **Hazardous.** Set it aside; it can't ride.
+
+Sorting first means the driver loads only junk, and you pay for fewer loads.
+
+## Hazardous materials
+
+Paint, solvents, pesticides, motor oil, fuel, propane tanks and car batteries can't go in a BoxHauls truck or into the landfill. Take them to a household hazardous waste drop-off. <Todo>Fresno-area household hazardous waste site</Todo>
+
+## Multiple loads
+
+| Garage | Pickup loads (estimate) |
+|---|---|
+| One-car, mixed clutter | 1–2 |
+| Two-car, mixed clutter | 2–3 |
+| Two-car, packed | 3+ |
+
+<Todo>how multi-load cleanouts are priced and booked</Todo>
+
+## Price example
+
+| Distance to the site | One load | With a helper |
+|---|---|---|
+| 10 miles | <Price mi={10} /> | <Price mi={10} helper /> |
+| 20 miles | <Price mi={20} /> | <Price mi={20} helper /> |
+
+Plus the dump fee at cost. See [what a dump run costs](/pricing/cost-of-a-dump-run/).

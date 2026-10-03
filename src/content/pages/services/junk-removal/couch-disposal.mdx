@@ -1,0 +1,29 @@
+---
+description: "Couch removal in Fresno: a BoxHauls driver hauls your old couch to donation or the dump for {{BASE_FARE}} plus {{PER_MILE}} a mile, plus the dump fee at cost."
+faq:
+  - question: "How much does couch removal cost?"
+    answer: "With BoxHauls, it's {{BASE_FARE}} plus {{PER_MILE}} a mile plus the dump fee at cost: {{price:10}} for a 10-mile run before the dump fee. Sleeper sofas and sectionals add the {{HEAVY_FEE}} heavy-item fee."
+  - question: "Can my old couch be donated?"
+    answer: "If it's clean, intact and free of stains, tears and pet damage, many donation centers will take it. [TODO: whether drivers drop items at donation centers]"
+  - question: "Doesn't the city pick up couches?"
+    answer: "The City of Fresno's Operation Clean Up collects bulky items on a schedule by area, so you may wait weeks for your turn. [TODO: current Operation Clean Up schedule and what's excluded]"
+---
+
+Couch removal with BoxHauls costs <F k="BASE_FARE" /> plus <F k="PER_MILE" /> a mile, plus the dump fee at cost. A driver carries it out and hauls it away, so you don't have to wait for a city pickup. Book it as <F k="TIER_2" />. It's part of [junk removal and dump runs](/services/junk-removal/).
+
+## Donate or dump
+
+A couch that's clean and intact may be donated. A couch with stains, tears, broken frames or pet damage goes to the dump. <Todo>whether drivers drop items at donation centers</Todo>
+
+## Fresno's bulky-item pickup
+
+The City of <F k="METRO" />'s Operation Clean Up collects bulky items on a schedule by area. Clovis runs its own program. If your turn is weeks away and the couch needs to go now, a BoxHauls run is the faster option. <Todo>current Operation Clean Up schedule, what's excluded, and the Clovis program</Todo>
+
+## Price example
+
+| Distance | Couch | Sleeper sofa or sectional |
+|---|---|---|
+| 10 miles | <Price mi={10} /> | <Price mi={10} heavy /> |
+| 20 miles | <Price mi={20} /> | <Price mi={20} heavy /> |
+
+Plus the dump fee at cost. See [what a dump run costs](/pricing/cost-of-a-dump-run/).

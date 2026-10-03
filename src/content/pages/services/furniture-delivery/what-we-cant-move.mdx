@@ -1,0 +1,36 @@
+---
+description: "What BoxHauls can't move: grand pianos, hazardous materials, live animals, and single items over {{MAX_ITEM_WEIGHT}} lb (safes over {{MAX_SAFE_WEIGHT}} lb). Who to call instead."
+faq:
+  - question: "What won't BoxHauls move?"
+    answer: "Grand pianos, hazardous materials, live animals, and single items over {{MAX_ITEM_WEIGHT}} lb (gun safes over {{MAX_SAFE_WEIGHT}} lb). For each, a specialist is the safer choice."
+  - question: "Can BoxHauls move a piano?"
+    answer: "Not a grand piano. [TODO: whether drivers take upright pianos]"
+  - question: "What's the heaviest item BoxHauls will move?"
+    answer: "Single items up to {{MAX_ITEM_WEIGHT}} lb, and gun safes up to {{MAX_SAFE_WEIGHT}} lb."
+  - question: "Can I put paint or propane in with my junk?"
+    answer: "No. Paint, chemicals, fuel and propane tanks can't ride in a BoxHauls truck. Take them to a household hazardous waste drop-off. [TODO: Fresno-area household hazardous waste site]"
+---
+
+BoxHauls can't move grand pianos, hazardous materials, live animals, or single items over <F k="MAX_ITEM_WEIGHT" /> lb. The limit for gun safes is <F k="MAX_SAFE_WEIGHT" /> lb. These limits keep drivers, trucks and your belongings safe. For each, here's who to call instead. Everything else is covered under [furniture and large-item delivery](/services/furniture-delivery/).
+
+| Can't move | Why | Who to call instead |
+|---|---|---|
+| Grand pianos | Need a piano board, specialist crew and climate care | A piano moving specialist |
+| Upright pianos | <Todo>whether drivers take upright pianos</Todo> | A piano moving specialist |
+| Items over <F k="MAX_ITEM_WEIGHT" /> lb | Beyond safe pickup handling | A heavy-equipment mover or rigger |
+| Gun safes over <F k="MAX_SAFE_WEIGHT" /> lb | Need a safe dolly, ramp and crew | A safe moving specialist |
+| Paint, chemicals, fuel, propane | Hazardous in transit and not accepted at landfills | A household hazardous waste drop-off: <Todo>Fresno-area household hazardous waste site</Todo> |
+| Live animals | Not safe in an open truck bed | A pet transport service |
+| Hot tub relocation | <Todo>whether hot tub removal or relocation is offered</Todo> | A spa moving specialist |
+
+## Items that need a heads-up
+
+These are fine, but tell us when you book:
+
+- **Heavy appliances.** <F k="HEAVY_FEE_ITEMS" /> get the <F k="HEAVY_FEE" /> heavy-item fee and usually need two people.
+- **Glass tabletops and mirrors.** Wrap them, or leave them in the original box.
+- **Gas appliances.** Have a licensed professional disconnect and cap the gas line first.
+
+## Price example
+
+Anything inside the limits uses the standard formula: <F k="BASE_FARE" /> plus <F k="PER_MILE" /> a mile, which is <Price mi={10} /> for 10 miles. See [BoxHauls pricing](/pricing/).

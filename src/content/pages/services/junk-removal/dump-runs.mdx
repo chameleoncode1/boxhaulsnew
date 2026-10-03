@@ -1,0 +1,38 @@
+---
+description: "Dump run service in Fresno and Clovis: a BoxHauls driver loads your junk and takes it to the dump. {{BASE_FARE}} plus {{PER_MILE}} a mile plus the dump fee at cost."
+faq:
+  - question: "Who loads the truck on a dump run?"
+    answer: "The driver loads. You can help, and for big loads a helper is {{HELPER_FEE}}. You can also have everything piled at the curb or in the driveway to speed things up."
+  - question: "Which dump does the driver use?"
+    answer: "The site that fits the load and the location: the American Avenue Disposal Site near Kerman or the Cedar Avenue Recycling and Transfer Station (CARTS) in Fresno. [TODO: which site drivers use for which loads]"
+  - question: "How do I pay the dump fee?"
+    answer: "The dump fee is passed through at cost. [TODO: how the dump fee is shown and charged]"
+---
+
+A dump run with BoxHauls means a driver with a pickup loads your junk and hauls it to the landfill or transfer station. It costs <F k="BASE_FARE" /> plus <F k="PER_MILE" /> a mile plus the dump fee at cost. Book it as <F k="TIER_2" />. It's part of [junk removal and dump runs](/services/junk-removal/).
+
+## You pile, we load
+
+The driver loads the truck. To speed things up, pile everything in one spot: the driveway, curb or garage door. For big loads, request a helper for <F k="HELPER_FEE" />.
+
+## Where it goes
+
+| Site | Where |
+|---|---|
+| American Avenue Disposal Site | Fresno County landfill, near Kerman |
+| Cedar Avenue Recycling and Transfer Station (CARTS) | Fresno |
+
+<Todo>which site drivers use for which loads, plus hours</Todo>
+
+## The dump fee
+
+The site's gate fee is passed through at cost, with no markup. <Todo>how the dump fee is shown and charged</Todo>
+
+## Price example
+
+| Distance to the site | Trip price | With a helper |
+|---|---|---|
+| 10 miles | <Price mi={10} /> | <Price mi={10} helper /> |
+| 20 miles | <Price mi={20} /> | <Price mi={20} helper /> |
+
+Plus the dump fee at cost. For the full breakdown, see [what a dump run costs](/pricing/cost-of-a-dump-run/).

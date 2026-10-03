@@ -1,0 +1,38 @@
+---
+description: "Storage unit moves in Fresno with BoxHauls: a 5x5 is about one pickup load, a 10x10 two to four. {{BASE_FARE}} plus {{PER_MILE}} a mile per load, no hourly rate."
+faq:
+  - question: "How many trips does a storage unit take?"
+    answer: "Roughly one pickup load for a 5x5, one to two for a 5x10, and two to four for a 10x10, depending on how tightly it's packed. These are estimates."
+  - question: "Do I need to be at the storage facility?"
+    answer: "[TODO: whether the customer must be present or can share the gate code and unit access]"
+  - question: "What about facility hours?"
+    answer: "Check your facility's gate hours before booking. A driver can only load while the gate is open."
+---
+
+A storage unit move with BoxHauls costs <F k="BASE_FARE" /> plus <F k="PER_MILE" /> a mile per pickup load. A 5x5 unit is about one load, and a 10x10 is two to four. It's one of BoxHauls' [small moves](/services/small-moves/).
+
+## Unit sizes to loads
+
+| Unit | Square feet | Pickup loads (estimate) |
+|---|---|---|
+| 5 × 5 | 25 | About 1 |
+| 5 × 10 | 50 | 1–2 |
+| 10 × 10 | 100 | 2–4 |
+| 10 × 15 and up | 150+ | Hire a moving company |
+
+Estimates assume a unit packed to about head height. Book storage moves as <F k="TIER_1" />.
+
+<Todo>how multi-trip storage moves are priced and booked</Todo>
+
+## Gate codes and hours
+
+Check the facility's gate hours before you book, since the driver can only load while the gate is open. <Todo>whether the customer must be present or can share the gate code and unit access</Todo>
+
+## Price example
+
+| Distance | One load | With a helper |
+|---|---|---|
+| 5 miles | <Price mi={5} /> | <Price mi={5} helper /> |
+| 15 miles | <Price mi={15} /> | <Price mi={15} helper /> |
+
+See [BoxHauls pricing](/pricing/) for the formula.
