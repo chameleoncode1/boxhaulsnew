@@ -144,10 +144,15 @@ The heaviest single item is **1,000 lb** (`{{MAX_ITEM_WEIGHT}}`), and gun safes 
   - The booking island (Prompt 5) and the apply forms will fire `price_shown`, `booking_completed`, `driver_apply_completed` and `partner_apply`.
   - gtag.js loads only once `GA4_MEASUREMENT_ID` is set.
 
+### Decided 2026-10-03
+
+- **Banned-word exceptions are approved:** "cargo" only in insurance terms, and "not freight" only on /about/ (the `ALLOWED` list in `scripts/qa.mjs`).
+- **GA4.** Keep the stub until there's a measurement ID. The privacy policy must disclose analytics cookies before it goes live.
+- **Unmapped truck-n-go.com paths** redirect to the boxhauls.com homepage. The catch-all is its own Bulk Redirect list, ordered last, so exact paths and sections always win (`deploy/cloudflare/README.md`).
+
 ## Open questions (answer before the prompt that needs them)
 
 1. **Legacy booking component (needed before Prompt 5).** Can the Lovable component be exported into `./legacy/`?
 2. **App store links.** `SOCIAL.app_store` and `SOCIAL.google_play` are TODO. Organization `sameAs` and /app/ will show markers until they're filled.
 3. **GA4 measurement ID.** `GA4_MEASUREMENT_ID` is TODO. No Google script loads until it's set (format `G-XXXXXXX`). Before turning it on, the privacy policy (/legal/privacy/) has to disclose analytics cookies; California's CCPA applies.
-4. **Banned-word exceptions.** Please confirm the two exceptions in "Prompt 3 implementation notes" ("cargo" in insurance terms, and "not freight" on /about/), or tell me to rephrase those pages instead.
-5. **Bulk Redirects upload.** Someone with access to the Cloudflare account has to import `deploy/cloudflare/bulk-redirects.csv` once (steps in `deploy/cloudflare/README.md`). Also decide whether unmapped truck-n-go.com paths should go to the homepage.
+4. **Bulk Redirects upload.** Someone with access to the Cloudflare account imports the three CSVs and orders the rules 1 → 3 (steps in `deploy/cloudflare/README.md`). It's on the Prompt 5 launch checklist.

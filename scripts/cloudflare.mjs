@@ -8,8 +8,8 @@
 // Outputs:
 //   dist/_redirects                         path redirects served by Cloudflare with the static site
 //   dist/_headers                           noindex for app routes, cache and security headers
-//   deploy/cloudflare/bulk-redirects.csv    cross-domain + www rules for Cloudflare Bulk Redirects
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+//   deploy/cloudflare/bulk-redirects-*.csv  cross-domain + www rules for Cloudflare Bulk Redirects (3 ordered lists)
+import { readFileSync, writeFileSync, mkdirSync, existsSync, rmSync } from 'node:fs';
 
 const map = JSON.parse(readFileSync('docs/sitemap.json', 'utf8'));
 const placeholders = JSON.parse(readFileSync('docs/placeholders.json', 'utf8'));
@@ -33,28 +33,35 @@ for (const r of map.redirects) {
   rules.push({ from, to, splat: from.endsWith('/*') });
 }
 
-// --- Bulk Redirects CSV -------------------------------------------------------------------------------
+// --- Bulk Redirects CSVs ------------------------------------------------------------------------------
 // Columns (no header row): source_url,target_url,status_code,preserve_query_string,include_subdomains,
 //                          subpath_matching,preserve_path_suffix
-const csv = [];
-const row = (source, target, { subpath = false, suffix = false } = {}) =>
-  csv.push([source, target, 301, true, true, subpath, suffix].join(','));
+// Three lists, each used by its own Bulk Redirect Rule, ordered 1 → 3. Rules run in order and stop at the first
+// match, which makes precedence explicit: an exact path beats its section, and a section beats the catch-all.
+//   1-exact     every mapped path (with and without trailing slash) + www → apex
+//   2-sections  subpath rules from the map ("/blog/*", "/cities/*")
+//   3-catchall  any other truck-n-go.com path → the boxhauls.com homepage (decided 2026-10-03)
+const lists = { '1-exact': [], '2-sections': [], '3-catchall': [] };
+const row = (list, source, target, { subpath = false, suffix = false } = {}) =>
+  lists[list].push([source, target, 301, true, true, subpath, suffix].join(','));
 
-// www → apex, every path.
-row(`www.${DOMAIN}/`, `https://${DOMAIN}/`, { subpath: true, suffix: true });
-
+row('1-exact', `www.${DOMAIN}/`, `https://${DOMAIN}/`, { subpath: true, suffix: true });
 for (const { from, to, splat } of rules) {
   const target = `https://${DOMAIN}${to}`;
   if (splat) {
-    // "/blog/*" → subpath match on "/blog/".
-    row(`${OLD_DOMAIN}${from.slice(0, -1)}`, target, { subpath: true });
+    row('2-sections', `${OLD_DOMAIN}${from.slice(0, -1)}`, target, { subpath: true }); // "/blog/*" → "/blog/"
     continue;
   }
-  row(`${OLD_DOMAIN}${from}`, target);
-  if (from !== '/') row(`${OLD_DOMAIN}${from}/`, target);
+  if (from === '/') continue; // the catch-all covers the bare domain
+  row('1-exact', `${OLD_DOMAIN}${from}`, target);
+  row('1-exact', `${OLD_DOMAIN}${from}/`, target);
 }
+row('3-catchall', `${OLD_DOMAIN}/`, `https://${DOMAIN}/`, { subpath: true });
+
 mkdirSync('deploy/cloudflare', { recursive: true });
-writeFileSync('deploy/cloudflare/bulk-redirects.csv', csv.join('\n') + '\n');
+if (existsSync('deploy/cloudflare/bulk-redirects.csv')) rmSync('deploy/cloudflare/bulk-redirects.csv');
+for (const [name, rows] of Object.entries(lists)) writeFileSync(`deploy/cloudflare/bulk-redirects-${name}.csv`, rows.join('\n') + '\n');
+const csvCount = Object.values(lists).reduce((n, l) => n + l.length, 0);
 
 // --- _redirects ---------------------------------------------------------------------------------------
 // Only old paths that differ from the target by more than a trailing slash and can't shadow a real route.
@@ -93,4 +100,4 @@ const headers = [
 ];
 writeFileSync('dist/_headers', headers.join('\n'));
 
-console.log(`cloudflare: ${csv.length} bulk redirects, ${lines.length - 1} _redirects rules, _headers written`);
+console.log(`cloudflare: ${csvCount} bulk redirects in 3 lists, ${lines.length - 1} _redirects rules, _headers written`);
