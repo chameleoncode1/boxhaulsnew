@@ -93,6 +93,15 @@ if (!args.has('--no-build')) {
     process.exit(1);
   }
 }
+// Booking functions (functions/) have their own Workers types; type-check them too.
+if (!args.has('--no-build')) {
+  const f = spawnSync('npx', ['tsc', '-p', 'functions/tsconfig.json'], { encoding: 'utf8', shell: process.platform === 'win32' });
+  if (f.status !== 0) {
+    console.error(`${f.stdout}\n${f.stderr}`);
+    console.error('qa: functions/ must type-check');
+    process.exit(1);
+  }
+}
 if (!existsSync('dist/index.html')) {
   console.error('qa: dist/ is missing; run without --no-build');
   process.exit(1);

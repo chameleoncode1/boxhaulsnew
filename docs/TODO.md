@@ -10,7 +10,7 @@ Fill these in `docs/placeholders.json`; every page that uses them updates on the
 - `SOCIAL.app_store`: 175 pages
 - `SOCIAL.google_play`: 175 pages
 
-## Open facts by page (207 markers, 189 distinct questions)
+## Open facts by page (203 markers, 185 distinct questions)
 
 Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, then the copy is updated and the marker removed.
 
@@ -112,7 +112,6 @@ Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, t
 **/faq/**
 - ride-along policy
 - whether someone must be present at both ends
-- same-day and scheduled booking options
 - confirm drivers don't assemble furniture or connect appliances
 - business accounts and invoicing
 
@@ -156,13 +155,13 @@ Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, t
 **/how-it-works/**
 - confirm in-app messaging and live tracking during the trip
 - free-cancellation window and late-cancel fee
-- when the card is authorized and when it is charged
+- how customers pay after the haul
 
 **/legal/driver-agreement/**
 - driver agreement text, reviewed by California counsel, including contractor classification
 
 **/legal/privacy/**
-- privacy policy text, reviewed by California counsel, including CCPA/CPRA rights and the analytics cookies used once GA4 is enabled
+- privacy policy text, reviewed by California counsel, including CCPA/CPRA rights, booking data (name, phone, email and addresses, stored with Cloudflare; addresses looked up with Google Maps), and the analytics cookies used once GA4 is enabled
 
 **/legal/terms/**
 - terms of service text, reviewed by California counsel
@@ -228,7 +227,6 @@ Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, t
 
 **/services/furniture-delivery/**
 - whether drivers bring items inside, and how far
-- same-day and scheduled delivery windows
 - whether the customer must be present or authorize the pickup with the store
 - confirm whether drivers bring items inside and how far (for example, to the first room)
 
@@ -245,9 +243,7 @@ Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, t
 **/services/furniture-delivery/store-pickup/**
 - whether the customer must be present or authorize the pickup with the store
 - pickup-area location and notes for each store
-- same-day and scheduled pickup windows
 - confirm the store-pickup authorization process
-- same-day booking availability
 
 **/services/furniture-delivery/what-we-cant-move/**
 - whether drivers take upright pianos

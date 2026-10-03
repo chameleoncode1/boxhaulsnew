@@ -41,3 +41,81 @@ curl -sI https://truck-n-go.com/cities/london | grep -i '^location'         # �
 curl -sI https://truck-n-go.com/blog/some-post | grep -i '^location'        # → /guides/
 curl -sI https://truck-n-go.com/anything-else | grep -i '^location'         # → https://boxhauls.com/ (catch-all)
 ```
+
+## Booking backend
+
+The site's booking widget (`/` and `/book/`) talks to three Pages Functions in `functions/api/`:
+
+| Endpoint | What it does |
+|---|---|
+| `POST /api/places` | Address suggestions from Google Places API (New), limited to the service area |
+| `POST /api/quote` | Looks up both places, checks both are within `RADIUS` miles of `SERVICE_CENTER`, gets driving miles from the Google Routes API, prices the trip from `docs/placeholders.json`, and returns a signed quote that's valid for 30 minutes |
+| `POST /api/book` | Verifies the signed quote, validates contact details and timing, rate-limits to 5 bookings per connection per hour, saves the booking to D1 (`boxhauls-bookings`), and emails BoxHauls plus a receipt to the customer when email is configured |
+
+No payment is taken online. The Google key lives only on the server and is never sent to browsers.
+
+### One-time setup
+
+**1. Google Maps key.** In the [Google Cloud console](https://console.cloud.google.com/):
+
+- Create a project and attach a billing account. Google gives a monthly free credit.
+- Enable **Places API (New)** and **Routes API**.
+- Go to **Credentials → Create credentials → API key**.
+- Under **API restrictions**, restrict the key to *Places API (New)* and *Routes API*. Leave **Application restrictions** as *None*; the key is used from Cloudflare's servers, whose IPs vary.
+- Set a budget alert, plus daily quotas on both APIs, so abuse can't run up a bill.
+
+**2. Store the secrets.** Run this yourself in a terminal:
+
+```bash
+bash scripts/setup-secrets.sh
+```
+
+It stores `GOOGLE_MAPS_API_KEY`, generates `QUOTE_SECRET`, and optionally stores `CF_EMAIL_API_TOKEN`. Input is hidden and goes straight to Cloudflare.
+
+**3. Deploy.** Pages applies secrets at the next deployment:
+
+```bash
+npm run deploy
+```
+
+Until the key and `QUOTE_SECRET` are set, the widget doesn't show a price. It shows "Online booking is unavailable right now. Call (559) 628-2794 to book."
+
+### Booking alert emails (optional)
+
+Bookings are always saved. Emails go out only when both of these are true:
+
+1. boxhauls.com is onboarded to **Cloudflare Email Sending**: Dashboard → Email → Email Sending, or `npx wrangler email sending enable boxhauls.com`. The zone has to be on this Cloudflare account.
+2. An API token with **Email Sending: Edit** permission is stored as `CF_EMAIL_API_TOKEN` (step 2 above).
+
+The alert goes to `BOOKING_ALERT_TO` (support@boxhauls.com) from `BOOKING_EMAIL_FROM` (bookings@boxhauls.com). Both are set in `wrangler.toml`. Each booking's `alert_status` column records whether the alert was `sent`, `skipped` (email isn't configured) or `failed`.
+
+### See bookings
+
+```bash
+npm run bookings
+```
+
+Prints the 25 most recent bookings from the live D1 database. To mark a booking's status (`new`, `confirmed`, `completed`, `canceled`):
+
+```bash
+npx wrangler d1 execute boxhauls-bookings --remote --command "UPDATE bookings SET status='confirmed' WHERE id='BH-XXXXXX'"
+```
+
+### Abuse protection
+
+- The API only answers requests whose `Origin` is boxhauls.com or this Pages project.
+- Bookings are capped at 5 per connection per hour. IPs are stored only as salted hashes.
+- Quotes are HMAC-signed, so a booked price can't be edited in the browser.
+- **Before launch:** add a Cloudflare **WAF rate-limiting rule** for `/api/places` and `/api/quote`, for example 60 requests per minute per IP. Consider adding **Turnstile** to the booking step.
+
+### Local development
+
+`.dev.vars` (gitignored) holds `DEV_MOCK_MAPS=1` and a local `QUOTE_SECRET`. That gives fake test addresses and straight-line distance × 1.3, so the whole flow runs without Google:
+
+```bash
+npx wrangler d1 migrations apply boxhauls-bookings --local
+```
+
+```bash
+npm run build && npx wrangler pages dev dist
+```

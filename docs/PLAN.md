@@ -170,9 +170,19 @@ The heaviest single item is **1,000 lb** (`{{MAX_ITEM_WEIGHT}}`), and gun safes 
   - If home needs more headroom later, switch the island to Preact (`@astrojs/preact` with compat), which saves about 55 KB.
 - **docs/LAUNCH.md** is the cutover runbook. Its section 7, the Phase-1 TODOs and the pages they block, is rewritten by `scripts/todo.mjs` on every build.
 
+### Booking backend (decided 2026-10-03)
+
+- **Decisions.** Bookings go to a Cloudflare D1 database, with an email alert to support@boxhauls.com. Distance comes from Google Maps. No payment is taken online. Customers choose as soon as possible, or a scheduled date and two-hour window.
+- **Server:** Pages Functions in `functions/api/`: `places`, `quote` and `book`. Shared code is in `functions/_lib/`. Prices come from the same `src/lib/pricing.ts` the pages use, so the site and the booking flow can't disagree.
+- **Quotes are HMAC-signed** (`QUOTE_SECRET`) and valid for 30 minutes. `/api/book` rejects any quote it didn't sign.
+- **Service area:** both addresses must be within `RADIUS` (25) miles of `SERVICE_CENTER` (downtown Fresno). Autocomplete is limited to the same circle. **The center point is my default; please confirm it.**
+- **Booking time windows** (`BOOKING_WINDOWS`: five two-hour windows from 8 AM to 6 PM; `BOOKING_DAYS_AHEAD`: 14) are **my defaults, since operating hours aren't known yet. Please confirm or change them.**
+- **Without secrets,** the API returns 503 and the widget shows the phone number instead of a price. Nothing fake is ever shown.
+- **Tested locally** (wrangler pages dev, mock maps, local D1): autocomplete, quote math, the out-of-area check, tampered and expired quotes, phone and email validation, ASAP and scheduled bookings, the 5-per-hour limit, the saved row, and all three analytics events.
+
 ## Open questions (answer before the prompt that needs them)
 
-1. **Booking backend.** No `./legacy/` component was provided, so the widget is a stub. To make booking real, the stub needs a routing or distance API (trip miles from two addresses) and the booking API, or the Lovable component exported into `./legacy/` for porting.
+1. **Booking go-live.** Create the Google Maps key and run `bash scripts/setup-secrets.sh` (see `deploy/cloudflare/README.md`). For alert emails, onboard boxhauls.com to Cloudflare Email Sending. Confirm `SERVICE_CENTER`, `BOOKING_WINDOWS` and `BOOKING_DAYS_AHEAD`.
 2. **App store links.** `SOCIAL.app_store` and `SOCIAL.google_play` are TODO. Organization `sameAs` and /app/ will show markers until they're filled.
 3. **GA4 measurement ID.** `GA4_MEASUREMENT_ID` is TODO. No Google script loads until it's set (format `G-XXXXXXX`). Before turning it on, the privacy policy (/legal/privacy/) has to disclose analytics cookies; California's CCPA applies.
 4. **Bulk Redirects upload.** Someone with access to the Cloudflare account imports the three CSVs and orders the rules 1 → 3 (steps in `deploy/cloudflare/README.md`). It's on the Prompt 5 launch checklist.

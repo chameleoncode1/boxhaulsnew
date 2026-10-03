@@ -37,8 +37,8 @@
 Answering one question clears it on every page that asks it. The most-referenced ones come first.
 
 **Booking and the trip**
-1. When is the card authorized, and when is it charged?
-2. Same-day booking, scheduled windows, or both?
+1. How do customers pay after the haul (cash, card in the app, invoice)? No payment is taken online.
+2. Confirm the booking time windows (8 AM–6 PM in two-hour slots, up to 14 days ahead) and the service-area center (downtown Fresno).
 3. Do drivers bring items inside, and how far (for example, to the first room)?
 4. Confirm drivers don't assemble furniture or connect water, gas, drain or power.
 5. Does a customer have to be present at pickup and drop-off? (Store pickups, Marketplace sellers, storage units.) How does store-pickup authorization work?
@@ -93,7 +93,7 @@ Answering one question clears it on every page that asks it. The most-referenced
 
 ## Next
 
-- **Make booking real:** connect a routing/distance API and the booking API, or provide the Lovable component in `./legacy/`.
+- **Booking go-live:** the backend is built (Pages Functions + D1). It needs a Google Maps key and `bash scripts/setup-secrets.sh`, then `npm run deploy`. Email alerts need Cloudflare Email Sending.
 - **Work through `docs/LAUNCH.md`** once the Phase-1 TODOs are cleared.
 - **Watch CLS on /cities/fresno/** (0.09, close to the 0.1 budget). It will move when real photos replace the placeholders.
 - **Phase 2** waits until the Phase-1 TODO markers are cleared.

@@ -8,7 +8,7 @@ faq:
   - question: "Is there an IKEA in Fresno?"
     answer: "No. The nearest IKEA is about {{LOCAL_ENTITIES.no_ikea_nearest_hours}} hours away, so BoxHauls doesn't do IKEA store runs from {{METRO}}."
   - question: "Can I get it delivered the same day I buy it?"
-    answer: "[TODO: same-day booking availability]"
+    answer: "You can request it as soon as possible when you book, or schedule a date and two-hour window. BoxHauls contacts you to confirm the trip."
 ---
 
 Store pickup with BoxHauls means a driver with a pickup collects what you bought and brings it home. That works for furniture, appliances, lumber, or anything too big for your car. It costs the standard BoxHauls formula: <F k="BASE_FARE" /> plus <F k="PER_MILE" /> a mile. It's one of the [furniture and large-item delivery](/services/furniture-delivery/) services.
@@ -42,6 +42,6 @@ There's no IKEA in <F k="METRO" />; the nearest is about <F k="LOCAL_ENTITIES.no
 
 A Costco pickup 8 miles from home costs <Price mi={8} />. A washer from Home Depot on the same distance costs <Price mi={8} heavy /> with the heavy-item fee. Add <F k="HELPER_FEE" /> if you want a helper. See [BoxHauls pricing](/pricing/).
 
-## Same-day windows
+## Booking a time
 
-<Todo>same-day and scheduled pickup windows</Todo>
+Choose as soon as possible, or pick a date up to <F k="BOOKING_DAYS_AHEAD" /> days ahead and a two-hour window. Make sure the store has your order ready for pickup before the driver arrives.

@@ -35,6 +35,9 @@
   "MIN_ACTIVE_DRIVERS": "15",
   "YEAR": "2026",
   "GA4_MEASUREMENT_ID": "TODO",
+  "SERVICE_CENTER": { "lat": 36.7378, "lng": -119.7871, "_note": "Downtown Fresno. Both addresses must be within RADIUS miles of this point." },
+  "BOOKING_WINDOWS": ["8–10 AM", "10 AM–12 PM", "12–2 PM", "2–4 PM", "4–6 PM"],
+  "BOOKING_DAYS_AHEAD": "14",
   "SOCIAL": {
     "instagram": "https://instagram.com/boxhauls",
     "tiktok": "https://tiktok.com/@box.hauls",

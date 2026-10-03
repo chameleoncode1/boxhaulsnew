@@ -10,7 +10,11 @@ Work top to bottom. Don't cut over until section 1 is all checked.
 - [ ] **Zero visible TODO markers on Phase-1 pages.** Not yet: see section 7. CLAUDE.md rule 2 says a page with a visible TODO can't ship.
 - [ ] Real photos replace every `[PHOTO: …]` block on Phase-1 pages, at minimum the home hero and the city page.
 - [ ] Counsel has reviewed and supplied the terms, privacy policy and driver agreement.
-- [ ] Booking is live. The widget on `/` and `/book/` is a stub until routing (trip distance) and the booking API are connected. Both show visible TODOs.
+- [ ] Booking is live. The backend is built (Pages Functions + D1). It goes live after the steps in `deploy/cloudflare/README.md` → "Booking backend": a Google Maps key, `bash scripts/setup-secrets.sh`, then `npm run deploy`. Make one real test booking, then check it with `npm run bookings`.
+- [ ] Booking alert emails: onboard boxhauls.com to Cloudflare Email Sending and set `CF_EMAIL_API_TOKEN`. Until then, check new bookings with `npm run bookings`.
+- [ ] A WAF rate-limiting rule on `/api/places` and `/api/quote`, and a Google budget alert plus quotas.
+- [ ] Confirm the booking time windows (`BOOKING_WINDOWS`, `BOOKING_DAYS_AHEAD`) and the service-area center (`SERVICE_CENTER`) in `docs/placeholders.json`.
+- [ ] The privacy policy covers booking data: name, phone, email and addresses stored in D1.
 - [ ] If GA4 is turned on, set `GA4_MEASUREMENT_ID` and update the privacy policy to disclose analytics cookies first.
 
 ## 2. Deploy to Cloudflare
@@ -117,16 +121,16 @@ Generated from the built site by `scripts/todo.mjs` on every build. Phase-1 page
 | /drive/insurance-and-liability/ | confirm; confirm: driver’s own auto policy; occupational accident coverage, if any; when the policy applies: from job acceptance, from arrival at pickup, or only while loaded; when the policy applies to drivers (accepted, en route, loaded) and what it covers for the driver; driver responsibility, deductibles and the claim process for drivers |
 | /drive/requirements/ | minimum model year, bed length and condition standards; license class and driving-record standard; minimum driver age; minimum coverage amounts; confirm minimum gear counts; whether helpers need their own background check; onboarding steps: truck inspection, document upload, app training; minimum coverage amounts drivers must carry |
 | /drive/safety/ | driver safety support line and in-app reporting; how drivers decline or report a job in the app |
-| /faq/ | ride-along policy; whether someone must be present at both ends; same-day and scheduled booking options; confirm drivers don't assemble furniture or connect appliances; business accounts and invoicing |
+| /faq/ | ride-along policy; whether someone must be present at both ends; confirm drivers don't assemble furniture or connect appliances; business accounts and invoicing |
 | /guides/bulky-item-pickup-in-fresno/ | current Operation Clean Up schedule and how to find your area’s date; set-out rules: when, where, and how much; Operation Clean Up accepted items; Operation Clean Up exclusions; Clovis bulky-item program details; current schedule and how to find your area's date |
 | /guides/dump-fees-in-fresno/ | current gate fees at both sites, dated; address; hours; minimum fee; fee; accepted? fee?; “facts checked” date once fees are verified; which site takes which materials; Fresno-area household hazardous waste site and each site’s accepted-materials rules; current gate fees at American Avenue Disposal Site and CARTS, dated; each site's accepted-materials rules |
 | /guides/renting-a-truck-vs-hiring-a-truck-and-driver/ | current Fresno rental rates, dated and sourced; current per-mile rental charge, dated and sourced |
 | /guides/what-to-do-if-an-item-is-damaged/ | BoxHauls reporting deadline |
 | /guides/what-to-expect-from-a-boxhauls-driver/ | confirm in-app tracking during the trip; whether drivers bring items inside, and how far; confirm drivers don’t assemble furniture or connect appliances; confirm drivers don't assemble furniture or connect appliances |
 | /guides/will-it-fit-in-a-pickup-bed/ | heavy fee for mini fridges? |
-| /how-it-works/ | confirm in-app messaging and live tracking during the trip; free-cancellation window and late-cancel fee; when the card is authorized and when it is charged |
+| /how-it-works/ | confirm in-app messaging and live tracking during the trip; free-cancellation window and late-cancel fee; how customers pay after the haul |
 | /legal/driver-agreement/ | driver agreement text, reviewed by California counsel, including contractor classification |
-| /legal/privacy/ | privacy policy text, reviewed by California counsel, including CCPA/CPRA rights and the analytics cookies used once GA4 is enabled |
+| /legal/privacy/ | privacy policy text, reviewed by California counsel, including CCPA/CPRA rights, booking data (name, phone, email and addresses, stored with Cloudflare; addresses looked up with Google Maps), and the analytics cookies used once GA4 is enabled |
 | /legal/terms/ | terms of service text, reviewed by California counsel |
 | /press/ | founding year; founder bio, one or two sentences |
 | /pricing/ | first-haul promo terms, or remove this section if there is no promotion |
@@ -141,10 +145,10 @@ Generated from the built site by `scripts/todo.mjs` on every build. Phase-1 page
 | /services/appliance-delivery/refrigerator/ | whether drivers remove and reinstall refrigerator doors |
 | /services/appliance-delivery/washer-and-dryer/ | whether the heavy-item fee applies to each machine or once per trip |
 | /services/business-hauling/ | business accounts, invoicing and payment terms; whether recurring or scheduled runs are available; confirm pallet handling and weight limits |
-| /services/furniture-delivery/ | whether drivers bring items inside, and how far; same-day and scheduled delivery windows; whether the customer must be present or authorize the pickup with the store; confirm whether drivers bring items inside and how far (for example, to the first room) |
+| /services/furniture-delivery/ | whether drivers bring items inside, and how far; whether the customer must be present or authorize the pickup with the store; confirm whether drivers bring items inside and how far (for example, to the first room) |
 | /services/furniture-delivery/marketplace-pickup/ | whether drivers can carry payment to the seller, or the buyer pays the seller directly; seller no-show policy and what the buyer is charged; whether the buyer must be present at pickup; what the driver will and won’t inspect at pickup; what the driver will and won't inspect at pickup |
 | /services/furniture-delivery/mattress-delivery/ | whether drivers bring mattress bags or the customer provides one |
-| /services/furniture-delivery/store-pickup/ | whether the customer must be present or authorize the pickup with the store; pickup-area location and notes for each store; same-day and scheduled pickup windows; confirm the store-pickup authorization process; same-day booking availability |
+| /services/furniture-delivery/store-pickup/ | whether the customer must be present or authorize the pickup with the store; pickup-area location and notes for each store; confirm the store-pickup authorization process |
 | /services/furniture-delivery/what-we-cant-move/ | whether drivers take upright pianos; Fresno-area household hazardous waste site; whether hot tub removal or relocation is offered |
 | /services/junk-removal/ | confirm the full not-accepted list against the disposal sites’ rules; whether drivers drop usable items at donation centers on the same trip; gate fees; confirm the full not-accepted list against the disposal sites' rules |
 | /services/junk-removal/couch-disposal/ | whether drivers drop items at donation centers; current Operation Clean Up schedule, what’s excluded, and the Clovis program; current Operation Clean Up schedule and what's excluded |

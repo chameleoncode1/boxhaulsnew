@@ -13,7 +13,9 @@
     "todo": "node scripts/todo.mjs",
     "brand": "node scripts/brand-assets.mjs",
     "lighthouse": "lhci autorun",
-    "deploy": "npm run qa && wrangler pages deploy dist --project-name boxhaulsnew --branch main --commit-hash $(git rev-parse HEAD) --commit-message \"$(git log -1 --format=%s)\""
+    "deploy": "npm run qa && wrangler pages deploy dist --project-name boxhaulsnew --branch main --commit-hash $(git rev-parse HEAD) --commit-message \"$(git log -1 --format=%s)\"",
+    "bookings": "wrangler d1 execute boxhauls-bookings --remote --command \"SELECT id, created_at, status, when_type, scheduled_date, scheduled_window, name, phone, item, miles, price_cents, alert_status FROM bookings ORDER BY created_at DESC LIMIT 25\"",
+    "check:functions": "tsc -p functions/tsconfig.json"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.2",
@@ -27,6 +29,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "@cloudflare/workers-types": "^5.20261003.1",
     "@fontsource/inter": "^5.3.0",
     "@lhci/cli": "^0.15.1",
     "@resvg/resvg-js": "^2.6.2",
