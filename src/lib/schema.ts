@@ -11,6 +11,7 @@ import {
   SITE_URL,
   WEBSITE_ID,
   FOUNDER_ID,
+  LOGO_URL,
   appStore,
   brand,
   email,
@@ -74,7 +75,7 @@ function organization(): Node {
     name: brand,
     legalName: legalName.value,
     url: `${SITE_URL}/`,
-    // logo: added when brand assets exist.
+    logo: { '@type': 'ImageObject', url: LOGO_URL, width: 512, height: 381 },
     telephone: phoneE164(),
     email: email.value,
     address: postalAddress() && { '@type': 'PostalAddress', ...postalAddress() },

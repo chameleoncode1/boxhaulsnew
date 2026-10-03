@@ -1,20 +1,37 @@
 ---
-/** Three trust facts (insured / background-checked / upfront price), read from placeholders. */
+/** Three trust facts (insured / background-checked / upfront price) in the banner's red-circle icon style. */
 import { resolve } from '../lib/placeholders';
 import Text from './Text.astro';
 
 const badges = [
-  { title: 'Insured', detail: resolve('{{INSURANCE_CARRIER}} · {{COVERAGE_LIMIT}}').text },
-  { title: 'Background-checked drivers', detail: resolve('Screened by {{BACKGROUND_PROVIDER}}').text },
-  { title: 'Upfront price', detail: 'Shown before you book' },
+  {
+    title: 'Insured',
+    detail: resolve('{{INSURANCE_CARRIER}} · {{COVERAGE_LIMIT}}').text,
+    icon: 'M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z M9 12l2 2 4-4',
+  },
+  {
+    title: 'Background-checked',
+    detail: resolve('Every driver screened by {{BACKGROUND_PROVIDER}}').text,
+    icon: 'M9 11a4 4 0 100-8 4 4 0 000 8z M2 21v-1a6 6 0 016-6h2 M15 17l2 2 4-4',
+  },
+  {
+    title: 'Upfront price',
+    detail: 'Shown before you book',
+    icon: 'M20.6 13.4l-7.2 7.2a2 2 0 01-2.8 0L3 13V3h10l7.6 7.6a2 2 0 010 2.8z M7.5 7.5h.01',
+  },
 ];
 ---
 
-<ul class="grid gap-4 sm:grid-cols-3">
+<ul class="grid gap-6 sm:grid-cols-3 sm:gap-0 sm:divide-x-2 sm:divide-brand">
   {
     badges.map((b) => (
-      <li class="rounded-md border border-border p-4">
-        <p class="font-semibold">{b.title}</p>
+      <li class="flex flex-col items-center px-4 text-center">
+        <span class="flex h-16 w-16 items-center justify-center rounded-full bg-brand text-inverse">
+          <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d={b.icon} />
+          </svg>
+        </span>
+        <p class="display mt-3">{b.title}</p>
         <p class="text-sm text-muted"><Text text={b.detail} /></p>
       </li>
     ))

@@ -55,7 +55,23 @@ Every layout wraps `BaseLayout` (head, canonical, robots, OG, JSON-LD slot, head
 
 ## Styling
 
-`src/styles/tokens.css` is the only place colors, type, spacing and radii are defined. It's a Tailwind v4 `@theme` block whose first line, `--color-*: initial`, removes Tailwind's built-in palette, so `bg-blue-500` doesn't exist and every color utility maps to a token. The neutral default palette passes WCAG AA, with every text pair at 7:1 or better. Fonts are the system stack until branding picks at most two self-hosted families.
+`src/styles/tokens.css` is the only place colors, type, spacing and radii are defined. It's a Tailwind v4 `@theme` block whose first line, `--color-*: initial`, removes Tailwind's built-in palette, so every color utility maps to a token.
+
+**Brand (decided 2026-10-02):** taken from the logo and banner files in `assets/brand-src/`.
+
+- **Colors:** brand red `#C8081A` (sampled from the logo), black `#0D0D0D`, white.
+  - Red on white is 6.0:1. Red on black is only 3.2:1, so red on dark backgrounds is for display text and graphics; small red text there uses `brand-on-night` (`#FF4D5A`, 6.0:1).
+- **Type:** Saira 800 italic, uppercase, for H1/H2, CTAs and the tagline (the closest open font to the logo's lettering). Inter for body text. Both self-hosted with `font-display: swap`.
+- **Motifs from the banner:**
+  - Home H1: the first sentence in black, the second in red.
+  - "Pick up. Deliver. Done." tagline with red rules on each side.
+  - Red-circle icons for the three trust facts.
+  - A slanted black frame with a red offset around the hero photo slot.
+  - A red/black slanted band across the top of the footer.
+- **Headers:** white rider header with a red top rule; black driver header with the white wordmark, so drivers can tell which section they're in.
+- **Footer:** black.
+- **Assets:** `npm run brand` cuts web assets from the two source files: the wordmark (light and dark), the truck mark, the full logo (also the Organization `logo` in JSON-LD), a dark badge, and favicons from the BH monogram.
+- **Not used:** the banner's truck photo is AI-generated, so it's never used (CLAUDE.md: real photography only). `03_31_42` is skipped because its background is a baked-in checkerboard, not real transparency.
 
 ## Stack notes
 
@@ -87,7 +103,7 @@ The heaviest single item is **1,000 lb** (`{{MAX_ITEM_WEIGHT}}`), and gun safes 
 - **Blocks.** Each layout renders its template's blocks in a fixed order. A block holds copy passed through a named slot, or a visible `[TODO: write — …]` marker when there is none. Each page also shows the sitemap's spec in a collapsed box until it's written.
 - **Schema waits for copy.** FAQPage, HowTo, Article and JobPosting are emitted only when their copy exists (FAQ items, steps, publish date, posting date). Until then they are missing from the graph, which makes Prompt 3's QA fail the page. That's intended: an unwritten page isn't shippable. Organization, the founder Person, and a WebPage node are on every page.
 - **Offer.** Built from the real formula: a $17 base `UnitPriceSpecification` plus $3.10 per statute mile (`SMI`). No price ranges until the pricing copy computes them.
-- **Left out of the schema until real:** Organization `logo`, LocalBusiness `geo`, `openingHours`, `priceRange` and a radius `GeoCircle` (needs coordinates), and JobPosting `baseSalary`.
+- **Left out of the schema until real:** LocalBusiness `geo`, `openingHours`, `priceRange` and a radius `GeoCircle` (needs coordinates), and JobPosting `baseSalary`.
 - **Linking.** `BodyLinks` writes each `links_to` target as a sentence anchored on the target's H1. The sentences are placeholders and Prompt 4 prose replaces them. A target that breaks audience isolation is **not** linked; it renders a `[TODO: spec — …]` marker. `RelatedLinks` and the hub child lists only link indexable pages from indexable pages.
 - **Breadcrumbs** skip path segments that have no page: `/services/`, `/legal/`, `/drive/guides/`, `/drive/compare/`.
 - **Legal links** sit in the footer's small-print row with `rel="nofollow"`, outside the 12-link nav. Rider footers show Terms and Privacy; driver footers also show the Driver agreement.
@@ -102,5 +118,4 @@ The heaviest single item is **1,000 lb** (`{{MAX_ITEM_WEIGHT}}`), and gun safes 
 4. **Spec conflicts (4).** These rider pages have a `/drive/` URL in `links_to`, which breaks CLAUDE.md rule 7: /app/, /cities/fresno/, /trust/driver-vetting/, /guides/how-to-tie-down-a-load-in-a-pickup/. Either drop those links in `build_map.py`, or allow a named exception (for example, "/app/ may link to the driver app"). They're unlinked until you decide.
 5. **Phase-1 pages that link to Phase-2 pages (21, listed in docs/TODO.md).** The largest case is `/guides/`: every Phase-1 guide links to it, and the footer links to it on every page, but it's Phase 2. Recommendation: promote `/guides/` and `/services/business-hauling/` to Phase 1 (both are linked sitewide), and drop the remaining links from Phase-1 `links_to` until their targets ship.
 6. **Spanish support.** Map Section 11 asks for ContactPoint `availableLanguage [en, es]`. It's `[en]` until someone confirms support can actually answer in Spanish.
-7. **Logo.** Organization `logo` is omitted until there's a brand asset.
-8. **"vehicles over X"** on /services/furniture-delivery/what-we-cant-move/. The map never filled in the X. Give a vehicle limit, or drop vehicles from that list.
+7. **"vehicles over X"** on /services/furniture-delivery/what-we-cant-move/. The map never filled in the X. Give a vehicle limit, or drop vehicles from that list.

@@ -1,10 +1,14 @@
 ---
 /** Driver header (map Section 10): the driver section's own logo link and a single "For customers" link back to /. */
+import Logo from './Logo.astro';
 ---
 
-<header class="border-b border-border bg-bg">
+<header class="border-t-4 border-brand bg-night">
   <nav class="mx-auto flex max-w-content items-center gap-6 px-4 py-3" aria-label="Main">
-    <a href="/drive/" class="mr-auto text-xl font-bold text-ink no-underline">BoxHauls <span class="font-normal text-muted">for drivers</span></a>
-    <a href="/" class="text-ink">For customers</a>
+    <a href="/drive/" class="mr-auto flex items-end gap-3 no-underline" aria-label="BoxHauls for drivers">
+      <Logo variant="dark" height={44} />
+      <span class="display pb-1 text-sm text-brand-on-night">For drivers</span>
+    </a>
+    <a href="/" class="font-semibold text-inverse hover:text-brand-on-night">For customers</a>
   </nav>
 </header>

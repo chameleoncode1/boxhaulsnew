@@ -1,0 +1,17 @@
+---
+/** Brand wordmark ("BoxHauls" + "PICK UP. DELIVER. DONE."), generated from assets/brand-src by `npm run brand`. */
+interface Props {
+  variant?: 'light' | 'dark';
+  height?: number;
+  class?: string;
+}
+const { variant = 'light', height = 44, class: className } = Astro.props;
+const name = variant === 'dark' ? 'wordmark-on-dark' : 'wordmark';
+// Source crop is 1186×285.
+const width = Math.round((height * 1186) / 285);
+---
+
+<picture class={className}>
+  <source srcset={`/brand/${name}.webp`} type="image/webp" />
+  <img src={`/brand/${name}.png`} alt="BoxHauls" width={width} height={height} decoding="async" />
+</picture>

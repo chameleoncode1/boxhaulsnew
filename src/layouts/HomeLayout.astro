@@ -4,7 +4,8 @@ import type { PageContent } from '../lib/schema';
 import { pages } from '../lib/sitemap';
 import { shortLabel } from '../lib/labels';
 import BaseLayout from './BaseLayout.astro';
-import PageTitle from '../components/PageTitle.astro';
+import Text from '../components/Text.astro';
+import PhotoPlaceholder from '../components/PhotoPlaceholder.astro';
 import Block from '../components/Block.astro';
 import TrustBadges from '../components/TrustBadges.astro';
 import EmptyState from '../components/EmptyState.astro';
@@ -18,17 +19,37 @@ interface Props {
 }
 const { page, content } = Astro.props;
 const hubs = pages.filter((p) => p.template === 'service-hub');
+// Banner style: the H1's first sentence in ink, the rest in brand red.
+const [lead, ...rest] = page.h1.split(/(?<=\.)\s+/);
+const tail = rest.join(' ');
 ---
 
 <BaseLayout page={page} content={content}>
-  <PageTitle page={page} />
+  <section data-block="hero" class="grid items-center gap-8 md:grid-cols-[1.1fr_1fr]">
+    <div>
+      <h1 class="mt-4 text-4xl md:text-5xl"><Text text={lead} />{tail && <><br /><span class="text-brand"><Text text={tail} /></span></>}</h1>
+      <p class="tagline mt-6 text-sm text-ink">
+        <span>Pick up. <span class="text-brand">Deliver.</span> Done.</span>
+      </p>
+    </div>
+    <div class="relative pr-3 pb-3">
+      <div class="slant-left absolute top-3 right-0 bottom-0 left-3 bg-brand" aria-hidden="true"></div>
+      <div class="slant-left relative bg-night p-3">
+        <slot name="hero-photo"><PhotoPlaceholder description="a BoxHauls driver loading a customer's item into a pickup in Fresno" width={1200} height={800} /></slot>
+      </div>
+    </div>
+  </section>
   <Block id="booking" label="Booking widget (React island, Prompt 5)" note="Pickup, drop-off, item picker, tier. Live price only after both addresses. No driver cards, ETAs or ratings."><slot name="booking" /></Block>
   <Block id="launch-metro" label="One-line launch-metro statement"><slot name="launch-metro" /></Block>
   <section data-block="trust" class="mt-10"><TrustBadges /></section>
   <Block id="how-it-works" label="3-step how it works"><slot name="how-it-works" /></Block>
   <section data-block="services" class="mt-10">
     <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {hubs.map((h) => <li class="rounded-md border border-border p-4"><a href={h.url} class="font-semibold">{shortLabel(h)}</a></li>)}
+      {hubs.map((h) => (
+        <li class="border-l-4 border-brand bg-surface p-4">
+          <a href={h.url} class="display text-lg text-ink no-underline hover:text-brand">{shortLabel(h)}</a>
+        </li>
+      ))}
     </ul>
   </section>
   <section data-block="reviews" class="mt-10">

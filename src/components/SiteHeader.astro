@@ -2,24 +2,28 @@
 /** Rider header (map Section 10): logo, Pricing, Services dropdown (five hubs), How it works, Trust, Get the app. No driver link. */
 import { pages } from '../lib/sitemap';
 import { shortLabel } from '../lib/labels';
+import Logo from './Logo.astro';
 
 const hubs = pages.filter((p) => p.template === 'service-hub');
 const current = Astro.url.pathname;
 const aria = (href: string) => (current === href ? 'page' : undefined);
+const link = 'whitespace-nowrap font-semibold text-ink no-underline hover:text-brand';
 ---
 
-<header class="border-b border-border bg-bg">
-  <nav class="mx-auto flex max-w-content flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3" aria-label="Main">
-    <a href="/" class="mr-auto text-xl font-bold text-ink no-underline">BoxHauls</a>
-    <a href="/pricing/" aria-current={aria('/pricing/')} class="text-ink">Pricing</a>
-    <details class="relative">
-      <summary class="cursor-pointer text-ink">Services</summary>
-      <ul class="absolute right-0 z-10 mt-2 w-64 space-y-1 rounded-md border border-border bg-bg p-3">
-        {hubs.map((hub) => <li><a href={hub.url} aria-current={aria(hub.url)}>{shortLabel(hub)}</a></li>)}
-      </ul>
-    </details>
-    <a href="/how-it-works/" aria-current={aria('/how-it-works/')} class="text-ink">How it works</a>
-    <a href="/trust/" aria-current={aria('/trust/')} class="text-ink">Trust</a>
-    <a href="/app/" class="rounded-md bg-accent px-3 py-1.5 font-semibold text-inverse no-underline hover:bg-accent-hover hover:text-inverse">Get the app</a>
+<header class="border-t-4 border-brand bg-bg shadow-[0_1px_0_var(--color-border)]">
+  <nav class="mx-auto flex max-w-content flex-wrap items-center gap-x-6 gap-y-3 px-4 py-3" aria-label="Main">
+    <a href="/" class="mr-auto no-underline" aria-label="BoxHauls home"><Logo height={44} /></a>
+    <a href="/app/" class="display rounded-sm bg-brand px-4 py-2 text-inverse no-underline hover:bg-brand-hover hover:text-inverse md:order-last">Get the app</a>
+    <div class="flex w-full items-center justify-between gap-3 border-t text-sm sm:justify-start sm:gap-6 sm:text-base border-border pt-3 md:w-auto md:border-0 md:pt-0">
+      <a href="/pricing/" aria-current={aria('/pricing/')} class={link}>Pricing</a>
+      <details class="relative">
+        <summary class:list={[link, 'cursor-pointer']}>Services</summary>
+        <ul class="absolute left-0 z-10 mt-3 w-72 space-y-1 border-t-4 border-brand bg-bg p-3 shadow-[0_8px_24px_var(--color-border)] md:right-0 md:left-auto">
+          {hubs.map((hub) => <li><a href={hub.url} aria-current={aria(hub.url)} class={link}>{shortLabel(hub)}</a></li>)}
+        </ul>
+      </details>
+      <a href="/how-it-works/" aria-current={aria('/how-it-works/')} class={link}>How it works</a>
+      <a href="/trust/" aria-current={aria('/trust/')} class={link}>Trust</a>
+    </div>
   </nav>
 </header>

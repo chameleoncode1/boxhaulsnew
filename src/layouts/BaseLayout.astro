@@ -33,6 +33,9 @@ const driver = page.audience === 'driver';
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" sizes="32x32" href="/brand/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/brand/icon-192.png" />
+    <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />
     {!page.indexable && <meta name="robots" content="noindex" />}
 
     <meta property="og:type" content={page.template === 'guide' ? 'article' : 'website'} />

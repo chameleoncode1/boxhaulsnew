@@ -1,43 +1,57 @@
 /*
  * BoxHauls design tokens — the only file where colors, type, spacing and radii are defined.
- * Branding is undecided: this is a neutral, high-contrast default. Swap the palette here and
- * nothing else needs to change.
+ * Brand: red / black / white, from the logo and banner in assets/brand-src/ (red sampled at #C8081A).
  *
- * Tailwind v4 reads this @theme block: each variable becomes a utility (bg-surface, text-ink,
+ * Tailwind v4 reads this @theme block: each variable becomes a utility (bg-brand, text-ink,
  * rounded-md, …) and is also emitted on :root for plain CSS. `--color-*: initial` removes
  * Tailwind's built-in palette so no component can reach for a hard-coded color.
+ *
+ * Contrast (WCAG): ink on bg 19.4:1 · muted on bg 8.5:1 · brand on bg 6.0:1 · white on brand 6.0:1 ·
+ * white on night 19.4:1 · night-muted on night 9.3:1 · brand-on-night on night 6.0:1.
+ * Brand red on night is 3.2:1 — large display text and graphics only, never body text.
  */
 @theme {
   --color-*: initial;
 
   /* Surfaces */
   --color-bg: #ffffff;
-  --color-surface: #f4f4f5;
-  --color-surface-strong: #e4e4e7;
+  --color-surface: #f5f5f5;
+  --color-surface-strong: #e6e6e6;
 
-  /* Text — ink on bg 18.9:1, muted on bg 7.7:1, muted on surface 7.0:1 */
-  --color-ink: #111113;
-  --color-muted: #52525b;
+  /* Text */
+  --color-ink: #0d0d0d;
+  --color-muted: #4d4d4d;
   --color-inverse: #ffffff;
 
-  /* Lines */
-  --color-border: #d4d4d8;
-  --color-border-strong: #71717a;
+  /* Brand */
+  --color-brand: #c8081a;
+  --color-brand-hover: #9e0614;
+  --color-brand-on-night: #ff4d5a;
 
-  /* Action — accent on bg 8.3:1 (same for inverse text on accent) */
-  --color-accent: #1d3fbf;
-  --color-accent-hover: #162f8f;
-  --color-focus: #1d3fbf;
+  /* Dark bands (header strip, footer, banner-style blocks) */
+  --color-night: #0d0d0d;
+  --color-night-muted: #b3b3b3;
+  --color-night-border: #333333;
+
+  /* Lines */
+  --color-border: #d9d9d9;
+  --color-border-strong: #737373;
+
+  /* Aliases used by components */
+  --color-accent: var(--color-brand);
+  --color-accent-hover: var(--color-brand-hover);
+  --color-focus: var(--color-brand);
 
   /* Status */
   --color-todo-bg: #fff4c2;
   --color-todo-ink: #5c4400;
   --color-todo-border: #b38600;
-  --color-placeholder-bg: #e4e4e7;
-  --color-placeholder-ink: #3f3f46;
+  --color-placeholder-bg: #e6e6e6;
+  --color-placeholder-ink: #3d3d3d;
 
-  /* Type */
-  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  /* Type — Saira (display: heavy italic, uppercase, like the logo and banner) + Inter (body). Self-hosted. */
+  --font-display: 'Saira', 'Arial Narrow', Arial, sans-serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
   --text-xs: 0.75rem;
@@ -49,22 +63,24 @@
   --text-lg: 1.125rem;
   --text-lg--line-height: 1.6;
   --text-xl: 1.375rem;
-  --text-xl--line-height: 1.4;
+  --text-xl--line-height: 1.35;
   --text-2xl: 1.75rem;
-  --text-2xl--line-height: 1.3;
+  --text-2xl--line-height: 1.2;
   --text-3xl: 2.25rem;
-  --text-3xl--line-height: 1.2;
+  --text-3xl--line-height: 1.1;
   --text-4xl: 3rem;
-  --text-4xl--line-height: 1.1;
+  --text-4xl--line-height: 1.05;
+  --text-5xl: 3.75rem;
+  --text-5xl--line-height: 1;
 
   /* Spacing — Tailwind multiplies this base (p-4 = 4 × 0.25rem) */
   --spacing: 0.25rem;
   --container-content: 72rem;
   --container-prose: 42rem;
 
-  /* Radii */
-  --radius-sm: 0.25rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
+  /* Radii — the brand is angular; keep corners tight */
+  --radius-sm: 0.125rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.5rem;
   --radius-full: 9999px;
 }

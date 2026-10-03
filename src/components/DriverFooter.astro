@@ -2,6 +2,7 @@
 /** Driver footer: driver-section links only. Never links to /services/ (CLAUDE.md rule 7). */
 import { getPage } from '../lib/sitemap';
 import NapBlock from './NapBlock.astro';
+import Logo from './Logo.astro';
 import { year } from '../lib/site';
 
 const links = [
@@ -15,21 +16,27 @@ const links = [
   { url: '/contact/', label: 'Contact' },
 ];
 for (const l of links) if (!getPage(l.url)) throw new Error(`Driver footer link ${l.url} is not in sitemap.json`);
+const link = 'text-inverse no-underline hover:text-brand-on-night hover:underline';
 ---
 
-<footer class="mt-16 border-t border-border bg-surface">
-  <div class="mx-auto grid max-w-content gap-8 px-4 py-10 md:grid-cols-3">
+<footer class="mt-16 border-t-4 border-brand bg-night text-night-muted">
+  <div class="mx-auto grid max-w-content gap-10 px-4 py-12 md:grid-cols-3">
+    <div class="space-y-4">
+      <Logo variant="dark" height={52} />
+      <NapBlock tone="dark" />
+    </div>
     <nav aria-label="Footer" class="md:col-span-2">
-      <ul class="grid grid-cols-2 gap-2 sm:grid-cols-3">
-        {links.map((l) => <li><a href={l.url}>{l.label}</a></li>)}
+      <ul class="grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-3">
+        {links.map((l) => <li><a href={l.url} class={link}>{l.label}</a></li>)}
       </ul>
     </nav>
-    <NapBlock />
   </div>
-  <div class="mx-auto flex max-w-content flex-wrap gap-4 border-t border-border px-4 py-4 text-sm text-muted">
-    <span>© {year.value} BoxHauls</span>
-    <a href="/legal/driver-agreement/" rel="nofollow">Driver agreement</a>
-    <a href="/legal/terms/" rel="nofollow">Terms</a>
-    <a href="/legal/privacy/" rel="nofollow">Privacy</a>
+  <div class="border-t border-night-border">
+    <div class="mx-auto flex max-w-content flex-wrap gap-4 px-4 py-4 text-sm">
+      <span>© {year.value} BoxHauls</span>
+      <a href="/legal/driver-agreement/" rel="nofollow" class={link}>Driver agreement</a>
+      <a href="/legal/terms/" rel="nofollow" class={link}>Terms</a>
+      <a href="/legal/privacy/" rel="nofollow" class={link}>Privacy</a>
+    </div>
   </div>
 </footer>

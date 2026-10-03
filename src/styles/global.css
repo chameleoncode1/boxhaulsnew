@@ -1,11 +1,25 @@
 @import 'tailwindcss';
 @import './tokens.css';
 
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/600.css';
+@import '@fontsource/inter/700.css';
+@import '@fontsource/saira/800-italic.css';
+
 @layer base {
   html {
     background: var(--color-bg);
     color: var(--color-ink);
     font-family: var(--font-sans);
+  }
+
+  h1,
+  h2 {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
   }
 
   :focus-visible {
@@ -25,6 +39,39 @@
 }
 
 @layer components {
+  /* Display type: the logo's heavy italic caps. */
+  .display {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+
+  /* "PICK UP. DELIVER. DONE." with a rule on each side, like the logo lockup. */
+  .tagline {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .tagline::before,
+  .tagline::after {
+    content: '';
+    height: 3px;
+    width: 2.5rem;
+    background: var(--color-brand);
+  }
+
+  /* Diagonal edge used on banner-style bands. */
+  .slant-left {
+    clip-path: polygon(2.5rem 0, 100% 0, 100% 100%, 0 100%);
+  }
+
   /* Visible marker for an unknown fact. QA lists every one; a page with any is not shippable. */
   .todo {
     background: var(--color-todo-bg);
@@ -34,5 +81,9 @@
     padding: 0 0.25em;
     font-family: var(--font-mono);
     font-size: 0.875em;
+    font-style: normal;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 400;
   }
 }

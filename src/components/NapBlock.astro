@@ -3,14 +3,19 @@
 import Text from './Text.astro';
 import { email, napParts, phoneE164 } from '../lib/site';
 
+interface Props {
+  tone?: 'light' | 'dark';
+}
+const { tone = 'light' } = Astro.props;
 const [name, address, phone] = napParts;
 const tel = phoneE164();
 const show = (f: { key: string; value?: string }) => f.value ?? `[TODO: ${f.key}]`;
+const linkClass = tone === 'dark' ? 'text-inverse hover:text-brand-on-night' : undefined;
 ---
 
 <address class="not-italic">
   <strong><Text text={show(name)} /></strong><br />
   <Text text={show(address)} /><br />
-  {tel ? <a href={`tel:${tel}`}>{phone.value}</a> : <Text text={show(phone)} />}
-  {email.value && (<><br /><a href={`mailto:${email.value}`}>{email.value}</a></>)}
+  {tel ? <a href={`tel:${tel}`} class={linkClass}>{phone.value}</a> : <Text text={show(phone)} />}
+  {email.value && (<><br /><a href={`mailto:${email.value}`} class={linkClass}>{email.value}</a></>)}
 </address>

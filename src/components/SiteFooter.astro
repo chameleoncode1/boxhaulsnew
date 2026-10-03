@@ -8,6 +8,8 @@ import { getPage, pages } from '../lib/sitemap';
 import { shortLabel } from '../lib/labels';
 import NapBlock from './NapBlock.astro';
 import AppBadges from './AppBadges.astro';
+import Logo from './Logo.astro';
+import FooterBand from './FooterBand.astro';
 import { year } from '../lib/site';
 
 const hubs = pages.filter((p) => p.template === 'service-hub');
@@ -25,22 +27,27 @@ if (links.length > 12) throw new Error(`Footer has ${links.length} links; the li
 for (const l of links) if (!getPage(l.url)) throw new Error(`Footer link ${l.url} is not in sitemap.json`);
 
 const legal = pages.filter((p) => p.template === 'legal' && p.url !== '/legal/driver-agreement/');
+const link = 'text-inverse no-underline hover:text-brand-on-night hover:underline';
 ---
 
-<footer class="mt-16 border-t border-border bg-surface">
-  <div class="mx-auto grid max-w-content gap-8 px-4 py-10 md:grid-cols-3">
-    <nav aria-label="Footer" class="md:col-span-2">
-      <ul class="grid grid-cols-2 gap-2 sm:grid-cols-3">
-        {links.map((l) => <li><a href={l.url}>{l.label}</a></li>)}
-      </ul>
-    </nav>
+<footer class="mt-16 bg-night text-night-muted">
+  <FooterBand />
+  <div class="mx-auto grid max-w-content gap-10 px-4 py-12 md:grid-cols-3">
     <div class="space-y-4">
-      <NapBlock />
-      <AppBadges />
+      <Logo variant="dark" height={52} />
+      <NapBlock tone="dark" />
     </div>
+    <nav aria-label="Footer" class="md:col-span-2">
+      <ul class="grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-3">
+        {links.map((l) => <li><a href={l.url} class={link}>{l.label}</a></li>)}
+      </ul>
+      <div class="mt-8"><AppBadges tone="dark" /></div>
+    </nav>
   </div>
-  <div class="mx-auto flex max-w-content flex-wrap gap-4 border-t border-border px-4 py-4 text-sm text-muted">
-    <span>© {year.value} BoxHauls</span>
-    {legal.map((p) => <a href={p.url} rel="nofollow">{shortLabel(p)}</a>)}
+  <div class="border-t border-night-border">
+    <div class="mx-auto flex max-w-content flex-wrap gap-4 px-4 py-4 text-sm">
+      <span>© {year.value} BoxHauls</span>
+      {legal.map((p) => <a href={p.url} rel="nofollow" class={link}>{shortLabel(p)}</a>)}
+    </div>
   </div>
 </footer>

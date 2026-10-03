@@ -3,10 +3,15 @@
 import Text from './Text.astro';
 import { appStore, googlePlay } from '../lib/site';
 
+interface Props {
+  tone?: 'light' | 'dark';
+}
+const { tone = 'light' } = Astro.props;
 const stores = [
   { label: 'Download on the App Store', fact: appStore },
   { label: 'Get it on Google Play', fact: googlePlay },
 ];
+const live = tone === 'dark' ? 'border-inverse text-inverse' : 'border-ink text-ink';
 ---
 
 <ul class="flex flex-wrap gap-3">
@@ -14,9 +19,9 @@ const stores = [
     stores.map(({ label, fact }) => (
       <li>
         {fact.value ? (
-          <a href={fact.value} class="inline-block rounded-md border border-border-strong px-3 py-2 text-ink no-underline">{label}</a>
+          <a href={fact.value} class:list={['inline-block rounded-sm border-2 px-3 py-2 font-semibold no-underline', live]}>{label}</a>
         ) : (
-          <span class="inline-block rounded-md border border-dashed border-border-strong px-3 py-2 text-muted">
+          <span class:list={['inline-block rounded-sm border-2 border-dashed px-3 py-2', tone === 'dark' ? 'border-night-muted text-night-muted' : 'border-border-strong text-muted']}>
             {label} <Text text={`[TODO: ${fact.key}]`} />
           </span>
         )}
