@@ -1,0 +1,61 @@
+---
+description: "Moving a refrigerator in Fresno with BoxHauls costs {{price:3:heavy}} for 3 miles to {{price:25:heavy}} for 25, including the {{HEAVY_FEE}} heavy-item fee. Upright only."
+checked: "October 2026"
+faq:
+  - question: "How much does it cost to move a refrigerator?"
+    answer: "With BoxHauls, moving a refrigerator in {{METRO}} costs {{price:3:heavy}} for 3 miles, {{price:10:heavy}} for 10 miles and {{price:25:heavy}} for 25 miles. That includes the {{HEAVY_FEE}} heavy-item fee. Add {{HELPER_FEE}} for a helper."
+  - question: "Can a refrigerator be moved lying down?"
+    answer: "BoxHauls moves refrigerators upright only. Laying a fridge down can let compressor oil run into the cooling lines. Upright, strapped to the front of the bed, is the safe way."
+  - question: "How long before the move should I unplug the fridge?"
+    answer: "Unplug it and empty it about 24 hours ahead so the freezer can defrost and drain. Wipe it dry and tape the doors shut."
+  - question: "Do I need a helper to move a fridge?"
+    answer: "Yes. A refrigerator weighs 200–350 lb and is a two-person job. Request a helper for {{HELPER_FEE}}, or have a second person ready, since helpers aren't guaranteed."
+  - question: "Will the driver connect the water line or ice maker?"
+    answer: "[TODO: confirm drivers don't connect water lines or install appliances]"
+---
+
+Moving a refrigerator in <F k="METRO" /> costs <Price mi={3} heavy /> for 3 miles and <Price mi={25} heavy /> for 25 miles with BoxHauls. That includes the <F k="HEAVY_FEE" /> heavy-item fee. Add <F k="HELPER_FEE" /> for a helper. Refrigerators always ride upright.
+
+## The formula
+
+<F k="BASE_FARE" /> base, plus <F k="PER_MILE" /> per mile, plus the <F k="HEAVY_FEE" /> heavy-item fee that applies to refrigerators and freezers. The full formula is on [BoxHauls pricing](/pricing/).
+
+## What a refrigerator move costs by distance
+
+<PriceTable heavy />
+
+## Refrigerator sizes and fit
+
+| Type | Width × depth × height (in) | Weight (lb) | Rides | Book as | Helper |
+|---|---|---|---|---|---|
+| Top-freezer | 28–33 × 28–34 × 61–69 | 150–250 | Upright | <F k="TIER_3" /> | Needed |
+| Bottom-freezer | 29–33 × 29–34 × 67–70 | 200–300 | Upright | <F k="TIER_3" /> | Needed |
+| Side-by-side | 33–36 × 28–36 × 65–71 | 250–350 | Upright | <F k="TIER_3" /> | Needed |
+| French door | 30–36 × 29–36 × 68–71 | 250–350 | Upright | <F k="TIER_3" /> | Needed |
+| Mini fridge | 18–24 × 18–26 × 20–35 | 40–80 | Upright | <F k="TIER_3" /> | Optional |
+
+Dimensions and weights are typical manufacturer ranges. Depth includes handles. A 6.5 ft pickup bed holds any of these standing up. See [which job type and truck fit your stuff](/pricing/truck-sizes/).
+
+## What changes the price
+
+- **Distance.** Every mile adds <F k="PER_MILE" />.
+- **A helper.** Adds <F k="HELPER_FEE" />.
+- **A second appliance.** <Todo>whether the heavy-item fee applies per item or per trip</Todo>
+- **Not the stairs.** There's no stairs fee, but stairs with a fridge always need two people.
+
+## Helper guidance
+
+Every full-size refrigerator is a two-person job. Request a helper, but helpers come with the driver and aren't guaranteed. If no driver with a helper accepts, you'll need a second person ready to help load and unload.
+
+## How to prep a refrigerator
+
+1. Empty it and unplug it about 24 hours before the move, so the freezer defrosts and drains.
+2. Remove shelves and drawers, or tape them in place.
+3. Shut off and disconnect the water line if there's an ice maker. <Todo>confirm drivers don't disconnect or connect water lines</Todo>
+4. Tape the doors closed and coil the cord to the back.
+5. Measure the doorways at both ends. Removing the doors can buy 2–4 inches.
+6. Check the manual for how long to wait before plugging it back in. In <F k="METRO" /> summer heat, have its new spot ready so it doesn't sit in a hot garage or driveway.
+
+<Photo>refrigerator strapped upright at the front of a pickup bed</Photo>
+
+Here's [how refrigerator delivery works](/services/appliance-delivery/refrigerator/), plus the rest of [appliance delivery and haul-away](/services/appliance-delivery/). Moving laundry too? See [what a washer and dryer move costs](/pricing/cost-to-move-a-washer-and-dryer/).

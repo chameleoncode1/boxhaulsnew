@@ -1,0 +1,63 @@
+---
+description: "Moving a couch in Fresno with BoxHauls costs {{price:3}} for 3 miles to {{price:25}} for 25 miles, plus {{HELPER_FEE}} if you want a helper. No hourly rate."
+checked: "October 2026"
+faq:
+  - question: "How much does it cost to move a couch?"
+    answer: "With BoxHauls, a couch move in {{METRO}} costs {{price:3}} for 3 miles, {{price:10}} for 10 miles and {{price:25}} for 25 miles. Add {{HELPER_FEE}} if you want a helper. That's the whole price; there's no hourly rate."
+  - question: "Do I need a helper to move a couch?"
+    answer: "Usually yes. Most couches weigh 100–200 lb and take two people to carry safely. Request a helper for {{HELPER_FEE}}, or have someone ready to lift with the driver, since helpers aren't guaranteed."
+  - question: "Is a sleeper sofa priced differently?"
+    answer: "Yes. Sleeper sofas and sectionals get the {{HEAVY_FEE}} heavy-item fee because of their weight. A sleeper sofa moved 10 miles costs {{price:10:heavy}} without a helper."
+  - question: "Will my couch fit in a pickup?"
+    answer: "Most couches up to about 84 inches long ride flat in a 6.5 ft bed. Longer sofas ride with the tailgate down. Measure the couch's length before you book."
+  - question: "Is there a fee for stairs?"
+    answer: "No. BoxHauls doesn't charge for stairs. Couches on stairs are a two-person job, so request a helper or have someone ready."
+---
+
+A couch move in <F k="METRO" /> costs <Price mi={3} /> for 3 miles and <Price mi={25} /> for 25 miles with BoxHauls. Add <F k="HELPER_FEE" /> for a helper. You see the exact price before you book, and there's no hourly rate.
+
+## The formula
+
+<F k="BASE_FARE" /> base, plus <F k="PER_MILE" /> per mile. A standard couch doesn't get the heavy-item fee; sleeper sofas and sectionals do. The full formula is on [BoxHauls pricing](/pricing/).
+
+## What a couch move costs by distance
+
+<PriceTable />
+
+**Sleeper sofa?** It gets the <F k="HEAVY_FEE" /> heavy-item fee:
+
+<PriceTable heavy />
+
+## Couch sizes and fit
+
+| Couch | Length (in) | Depth (in) | Weight (lb) | Fits a 6.5 ft bed? | Book as | Helper |
+|---|---|---|---|---|---|---|
+| Loveseat | 52–68 | 30–38 | 70–120 | Yes | <F k="TIER_3" /> | Recommended |
+| Three-seat sofa | 72–90 | 32–40 | 100–200 | Yes; tailgate down above 78 in | <F k="TIER_3" /> | Recommended |
+| Oversized sofa | 90–96 | 36–42 | 150–250 | Tailgate down | <F k="TIER_3" /> | Recommended |
+| Sleeper sofa | 72–90 | 34–40 | 200–350 | Yes | <F k="TIER_3" /> + heavy fee | Needed |
+
+Dimensions and weights are typical manufacturer ranges. To check your truck fit in detail, see [which job type and truck fit your stuff](/pricing/truck-sizes/).
+
+## What changes the price
+
+- **Distance.** Every mile adds <F k="PER_MILE" />. Across town in <F k="METRO" /> is usually 5–15 miles.
+- **A helper.** Adds <F k="HELPER_FEE" />.
+- **Sleeper mechanism.** Sleeper sofas get the <F k="HEAVY_FEE" /> heavy-item fee.
+- **Not the stairs, the time or the hour.** There's no stairs fee, no wait-time fee and no surge.
+
+## Helper guidance
+
+Most couches take two people. A driver can't safely carry a 150-lb sofa down a staircase alone. If you request a helper, only a driver who brings one can accept the job, and helpers aren't guaranteed. If you don't request one, plan to lift one end yourself or have a friend there.
+
+## How to prep a couch
+
+1. Measure the couch and every doorway on the way out. Most interior doors are 30–36 inches wide.
+2. Take off loose cushions and pillows and bag them.
+3. Remove legs that unscrew. Most do, and it saves an inch or two.
+4. Clear a path to the door and note any tight turns.
+5. For a sleeper sofa, close and secure the mechanism so it can't open in transit.
+
+<Photo>driver and helper carrying a grey three-seat sofa to a pickup in Fresno</Photo>
+
+Drivers bring straps and moving blankets. Here's [how couch delivery works](/services/furniture-delivery/couch-delivery/) start to finish, and what's included in [furniture and large-item delivery](/services/furniture-delivery/). Moving a mattress too? See [what a mattress move costs](/pricing/cost-to-move-a-mattress/).

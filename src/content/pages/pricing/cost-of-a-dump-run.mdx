@@ -1,0 +1,64 @@
+---
+description: "A dump run in Fresno with BoxHauls costs {{BASE_FARE}} plus {{PER_MILE}} a mile, plus the dump fee at cost. Per load, not per hour. What's accepted and what isn't."
+checked: "October 2026"
+faq:
+  - question: "How much does a dump run cost?"
+    answer: "With BoxHauls, a dump run is {{BASE_FARE}} plus {{PER_MILE}} a mile, plus the landfill or transfer-station fee at cost. A 10-mile run is {{price:10}} before the dump fee. There's no hourly rate."
+  - question: "How much is the dump fee in Fresno?"
+    answer: "It depends on the site and the load. [TODO: current gate fees at American Avenue Disposal Site and Cedar Avenue Recycling and Transfer Station]"
+  - question: "Is a dump run priced by load size?"
+    answer: "The trip price is the same for a quarter load or a full bed. What changes is the dump fee, since sites charge by weight or volume, and BoxHauls passes it through at cost."
+  - question: "What can't go on a dump run?"
+    answer: "Hazardous materials like paint, chemicals, motor oil and propane tanks aren't accepted. [TODO: confirm the full not-accepted list against the disposal sites' rules]"
+  - question: "Do you take items to donation instead?"
+    answer: "[TODO: whether drivers drop usable items at donation centers on the same trip]"
+---
+
+A dump run in <F k="METRO" /> with BoxHauls costs <F k="BASE_FARE" /> plus <F k="PER_MILE" /> a mile, plus the dump fee at cost. A 10-mile run is <Price mi={10} /> before the dump fee. You pay by the load, not by the hour.
+
+## The formula
+
+Book a dump run as <F k="TIER_2" />. It uses the same formula as every BoxHauls trip: <F k="BASE_FARE" /> base, plus <F k="PER_MILE" /> per mile. The disposal site's gate fee is passed through at cost, with no markup. The full formula is on [BoxHauls pricing](/pricing/).
+
+## What a dump run costs by distance
+
+<PriceTable note="Plus the dump or transfer-station fee at cost." />
+
+## Load sizes
+
+The trip price doesn't change with load size. The dump fee does, because disposal sites charge by weight or volume.
+
+| Load | Roughly | Example |
+|---|---|---|
+| Quarter bed | A few bags and one piece of furniture | An old recliner and yard bags |
+| Half bed | A room's worth of junk | Garage shelving, boxes, a broken grill |
+| Full bed | Level with the bed sides | A garage cleanout or a full room |
+
+<Photo>quarter, half and full pickup-bed loads of junk side by side</Photo>
+
+## Where it goes
+
+Drivers take loads to the disposal site that fits the job. <Todo>which site drivers use for which loads</Todo>
+
+| Site | Location | Hours | Gate fee |
+|---|---|---|---|
+| American Avenue Disposal Site | Fresno County landfill, near Kerman | <Todo>hours</Todo> | <Todo>gate fee</Todo> |
+| Cedar Avenue Recycling and Transfer Station (CARTS) | Fresno | <Todo>hours</Todo> | <Todo>gate fee</Todo> |
+
+For current fees at each site, see [dump fees in Fresno](/guides/dump-fees-in-fresno/).
+
+## What isn't accepted
+
+- Paint, solvents and household chemicals
+- Motor oil, fuel and propane tanks
+- Car batteries
+- <Todo>confirm tires, electronics and appliances with refrigerant against the sites' rules</Todo>
+
+## What changes the price
+
+- **Distance to the site.** Every mile adds <F k="PER_MILE" />.
+- **The dump fee.** Set by the site, passed through at cost.
+- **A helper.** Adds <F k="HELPER_FEE" /> if you want help loading.
+- **Heavy items.** Refrigerators, freezers, washers and dryers get the <F k="HEAVY_FEE" /> heavy-item fee.
+
+For cleanouts and the services around them, see [junk removal and dump runs](/services/junk-removal/).

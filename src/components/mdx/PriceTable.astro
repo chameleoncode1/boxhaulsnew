@@ -4,7 +4,6 @@
  * Computed from the formula in placeholders — never typed in. `heavy` adds the heavy-item fee.
  */
 import { money } from '../../lib/site';
-import { lookup } from '../../lib/placeholders';
 import { tripPrice, usd as fmt } from '../../lib/pricing';
 
 interface Props {
@@ -22,7 +21,6 @@ if (base === undefined || perMile === undefined || helper === undefined || (heav
   throw new Error('PriceTable needs BASE_FARE, PER_MILE, HELPER_FEE (and HEAVY_FEE) as dollar amounts');
 }
 const rows = miles.map((mi) => ({ mi, trip: tripPrice(mi, { heavy }), withHelper: tripPrice(mi, { heavy, helper: true }) }));
-const policy = lookup('HELPER_POLICY');
 ---
 
 <div class="my-6 overflow-x-auto">
@@ -37,6 +35,6 @@ const policy = lookup('HELPER_POLICY');
   <p class="mt-2 text-sm text-muted">
     {fmt(base)} base + {fmt(perMile)} per mile{heavy ? ` + ${fmt(heavyFee!)} heavy-item fee` : ''}. With a helper adds {fmt(helper)}.
     {note && <> {note}</>}
-    {typeof policy === 'string' && <> {policy}</>}
+    Helpers come with the driver, so one is available only when a driver bringing a helper accepts, and isn't guaranteed.
   </p>
 </div>
