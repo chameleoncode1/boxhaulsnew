@@ -1,0 +1,13 @@
+---
+/** /drive/accept/ — driver job page opened from a dispatch text (app UI: noindex, not in docs/sitemap.json). */
+import AppLayout from '../../layouts/AppLayout.astro';
+import AcceptJob from '../../components/AcceptJob';
+---
+
+<AppLayout title="Job offer | Drive for BoxHauls" audience="driver">
+  <div class="mx-auto max-w-md">
+    <h1 class="text-3xl">Job offer</h1>
+    <div class="mt-6"><AcceptJob client:load /></div>
+    <noscript><p class="mt-4">This page needs JavaScript to accept a job.</p></noscript>
+  </div>
+</AppLayout>

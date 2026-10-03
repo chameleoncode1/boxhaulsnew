@@ -185,7 +185,7 @@ export default function BookingWidget({ source = 'home' }: { source?: string }) 
   const [notes, setNotes] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
-  const [booked, setBooked] = useState<{ id: string; total: string; when: string; phone: string } | null>(null);
+  const [booked, setBooked] = useState<{ id: string; total: string; when: string; phone: string; decideBy: string } | null>(null);
   const priceTracked = useRef(false);
 
   useEffect(() => setDate(dates[0]?.value ?? ''), [dates]);
@@ -243,7 +243,7 @@ export default function BookingWidget({ source = 'home' }: { source?: string }) 
     setSubmitError('');
     track('booking_started', { item: itemSlug, tier, helper, source, total: quote.totalCents / 100 });
     try {
-      const r = await post<{ id: string; total: string; when: string; phone: string }>('/api/book', {
+      const r = await post<{ id: string; total: string; when: string; phone: string; decideBy: string }>('/api/book', {
         quote: quote.quote,
         name,
         phone,
@@ -258,6 +258,9 @@ export default function BookingWidget({ source = 'home' }: { source?: string }) 
       if (ex.error === 'quote_expired') {
         setSession(newSession()); // forces a fresh quote
         setSubmitError('Your price expired, so we refreshed it. Check the new price and book again.');
+      } else if (ex.error === 'no_drivers' || ex.error === 'not_configured') {
+        const tel = phoneFact.value;
+        setSubmitError(`${ex.message}${tel ? ` Call ${tel} to book.` : ''}`);
       } else setSubmitError(ex.message);
     } finally {
       setSubmitting(false);
@@ -271,7 +274,8 @@ export default function BookingWidget({ source = 'home' }: { source?: string }) 
       <div className={box} role="status">
         <h2 className="text-xl">Request received</h2>
         <p className="mt-3">
-          Your reference is <strong>{booked.id}</strong>. BoxHauls will contact you at <strong>{booked.phone}</strong> to confirm your trip.
+          Your reference is <strong>{booked.id}</strong>. We're texting BoxHauls drivers now. You'll get a text at <strong>{booked.phone}</strong> as soon as one accepts, or by{' '}
+          <strong>{new Date(booked.decideBy).toLocaleString('en-US', { timeZone: 'America/Los_Angeles', weekday: 'short', hour: 'numeric', minute: '2-digit' })}</strong> if no driver is available.
         </p>
         <dl className="mt-3 space-y-1 text-sm">
           <div className="flex justify-between gap-4"><dt className="text-muted">When</dt><dd>{booked.when}</dd></div>
@@ -402,7 +406,11 @@ export default function BookingWidget({ source = 'home' }: { source?: string }) 
       >
         {submitting ? 'Sending…' : quote ? `Request this trip · ${usd(quote.totalCents)}` : 'Book this trip'}
       </button>
-      {quote && <p className="mt-2 text-xs text-muted">No payment is taken online.</p>}
+      {quote && (
+        <p className="mt-2 text-xs text-muted">
+          No payment is taken online. By requesting, you agree to receive text messages about this booking from BoxHauls. Message and data rates may apply. Reply STOP to opt out.
+        </p>
+      )}
       {submitError && <p className="mt-3 text-sm text-brand" role="alert">{submitError}</p>}
     </form>
   );

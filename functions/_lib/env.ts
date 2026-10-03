@@ -10,6 +10,14 @@ export interface Env {
   CF_ACCOUNT_ID?: string;
   BOOKING_ALERT_TO?: string;
   BOOKING_EMAIL_FROM?: string;
+  /** Twilio, for dispatch texts. Secrets. TWILIO_FROM is a +1 number or a Messaging Service SID (MG…). */
+  TWILIO_ACCOUNT_SID?: string;
+  TWILIO_AUTH_TOKEN?: string;
+  TWILIO_FROM?: string;
+  /** Base URL for driver accept links, e.g. https://boxhauls.com */
+  PUBLIC_SITE_URL?: string;
   /** Local development only (.dev.vars): fake places and distances so the flow can be tested without Google. */
   DEV_MOCK_MAPS?: string;
+  /** Local development only (.dev.vars): log texts to the console instead of sending them. */
+  DEV_MOCK_SMS?: string;
 }

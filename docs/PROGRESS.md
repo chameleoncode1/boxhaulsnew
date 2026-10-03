@@ -93,7 +93,7 @@ Answering one question clears it on every page that asks it. The most-referenced
 
 ## Next
 
-- **Booking go-live:** the backend is built (Pages Functions + D1). It needs a Google Maps key and `bash scripts/setup-secrets.sh`, then `npm run deploy`. Email alerts need Cloudflare Email Sending.
+- **Booking go-live:** the backend and auto-dispatch are built and tested locally. Going live needs a Google Maps key, a registered Twilio number, `bash scripts/setup-secrets.sh`, drivers added, then `npm run deploy` and `npm run deploy:cron`.
 - **Work through `docs/LAUNCH.md`** once the Phase-1 TODOs are cleared.
 - **Watch CLS on /cities/fresno/** (0.09, close to the 0.1 budget). It will move when real photos replace the placeholders.
 - **Phase 2** waits until the Phase-1 TODO markers are cleared.

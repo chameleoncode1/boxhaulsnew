@@ -158,10 +158,10 @@ Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, t
 - how customers pay after the haul
 
 **/legal/driver-agreement/**
-- driver agreement text, reviewed by California counsel, including contractor classification
+- driver agreement text, reviewed by California counsel, including contractor classification, consent to job texts, and sharing the driver’s first name and phone with the customer
 
 **/legal/privacy/**
-- privacy policy text, reviewed by California counsel, including CCPA/CPRA rights, booking data (name, phone, email and addresses, stored with Cloudflare; addresses looked up with Google Maps), and the analytics cookies used once GA4 is enabled
+- privacy policy text, reviewed by California counsel, including CCPA/CPRA rights, booking data (name, phone, email and addresses, stored with Cloudflare; addresses looked up with Google Maps; shared with the assigned driver; texts sent through Twilio), and the analytics cookies used once GA4 is enabled
 
 **/legal/terms/**
 - terms of service text, reviewed by California counsel

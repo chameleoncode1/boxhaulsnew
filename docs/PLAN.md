@@ -180,9 +180,27 @@ The heaviest single item is **1,000 lb** (`{{MAX_ITEM_WEIGHT}}`), and gun safes 
 - **Without secrets,** the API returns 503 and the widget shows the phone number instead of a price. Nothing fake is ever shown.
 - **Tested locally** (wrangler pages dev, mock maps, local D1): autocomplete, quote math, the out-of-area check, tampered and expired quotes, phone and email validation, ASAP and scheduled bookings, the 5-per-hour limit, the saved row, and all three analytics events.
 
+### Auto-dispatch (decided 2026-10-03)
+
+**Nobody follows up on bookings by hand, so every booking is dispatched automatically by text (Twilio).**
+- **Offers:** each active driver who qualifies gets their own accept link, at `/drive/accept/`.
+- **Assignment:** the first accept wins, through a conditional UPDATE in D1. The winning driver gets the customer details; the customer gets the driver's first name and phone.
+- **Expiry:** `workers/dispatch-cron` runs every 5 minutes and expires bookings nobody accepted by their deadline (`DISPATCH_ASAP_MINUTES`, `DISPATCH_SCHEDULED_LEAD_HOURS`), texting the customer.
+- **Refusal:** `/api/book` turns bookings away when texting isn't configured or no driver qualifies.
+- **Drivers** are managed with `npm run drivers`.
+- **Tested locally** with mock maps and SMS:
+  - routing to all drivers vs. helper-only drivers
+  - the pay calculation
+  - both deadlines
+  - first-accept-wins, including the second driver getting 409 and seeing no customer details
+  - rejecting a fake token
+  - the assignment texts
+  - the cron expiry and its customer text
+- **Defaults to confirm:** 30 minutes for ASAP, and 2 hours before the window for scheduled trips.
+
 ## Open questions (answer before the prompt that needs them)
 
-1. **Booking go-live.** Create the Google Maps key and run `bash scripts/setup-secrets.sh` (see `deploy/cloudflare/README.md`). For alert emails, onboard boxhauls.com to Cloudflare Email Sending. Confirm `SERVICE_CENTER`, `BOOKING_WINDOWS` and `BOOKING_DAYS_AHEAD`.
+1. **Booking go-live.** You need a Google Maps key, a Twilio number (A2P 10DLC or toll-free verification takes days, so start now), `bash scripts/setup-secrets.sh`, and drivers added with `npm run drivers`; full steps in `deploy/cloudflare/README.md`. Also confirm `SERVICE_CENTER`, the booking windows and the dispatch deadlines.
 2. **App store links.** `SOCIAL.app_store` and `SOCIAL.google_play` are TODO. Organization `sameAs` and /app/ will show markers until they're filled.
 3. **GA4 measurement ID.** `GA4_MEASUREMENT_ID` is TODO. No Google script loads until it's set (format `G-XXXXXXX`). Before turning it on, the privacy policy (/legal/privacy/) has to disclose analytics cookies; California's CCPA applies.
 4. **Bulk Redirects upload.** Someone with access to the Cloudflare account imports the three CSVs and orders the rules 1 → 3 (steps in `deploy/cloudflare/README.md`). It's on the Prompt 5 launch checklist.

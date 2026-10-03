@@ -44,50 +44,84 @@ curl -sI https://truck-n-go.com/anything-else | grep -i '^location'         # �
 
 ## Booking backend
 
-The site's booking widget (`/` and `/book/`) talks to three Pages Functions in `functions/api/`:
+The booking widget (`/` and `/book/`) and the driver job page (`/drive/accept/`) use Pages Functions in `functions/api/`, plus one scheduled Worker:
 
-| Endpoint | What it does |
+| Piece | What it does |
 |---|---|
 | `POST /api/places` | Address suggestions from Google Places API (New), limited to the service area |
 | `POST /api/quote` | Looks up both places, checks both are within `RADIUS` miles of `SERVICE_CENTER`, gets driving miles from the Google Routes API, prices the trip from `docs/placeholders.json`, and returns a signed quote that's valid for 30 minutes |
-| `POST /api/book` | Verifies the signed quote, validates contact details and timing, rate-limits to 5 bookings per connection per hour, saves the booking to D1 (`boxhauls-bookings`), and emails BoxHauls plus a receipt to the customer when email is configured |
+| `POST /api/book` | Verifies the quote and validates details. Refuses the booking if texting isn't set up or no driver qualifies. Otherwise it saves the booking to D1 and **auto-dispatches** |
+| `POST /api/offer`, `/api/accept` | What a driver sees from their link, and accepting it. The first accept wins (an atomic update) |
+| `workers/dispatch-cron` | Runs every 5 minutes. Bookings nobody accepted by their deadline become `unfilled`, and the customer gets a text |
 
-No payment is taken online. The Google key lives only on the server and is never sent to browsers.
+### How dispatch works (no one needs to follow up)
+
+1. **The booking is saved.** Every **active** driver gets a text with their own accept link. Helper-requested jobs only go to drivers marked `--helper`. The text shows the item, the cities, miles, time and the driver's pay (`DRIVER_SHARE` of the fare), but no customer details.
+2. **The customer is texted** that the request was received and drivers are being contacted.
+3. **The first driver to accept is assigned.** That driver gets the full addresses, customer name, phone and notes. The customer gets the driver's first name and phone number. Anyone who taps later sees "already accepted".
+4. **If nobody accepts by the deadline,** the booking becomes `unfilled` and the customer gets a text with the office number. The deadline is 30 minutes for ASAP (`DISPATCH_ASAP_MINUTES`); for scheduled trips it's 2 hours before the window starts (`DISPATCH_SCHEDULED_LEAD_HOURS`).
+5. **If no active driver qualifies,** the site doesn't take the booking at all. It shows the office number.
+
+No payment is taken online. The Google key and Twilio credentials live only on Cloudflare's servers.
 
 ### One-time setup
 
 **1. Google Maps key.** In the [Google Cloud console](https://console.cloud.google.com/):
 
-- Create a project and attach a billing account. Google gives a monthly free credit.
+- Create a project and attach billing (Google gives a monthly free credit).
 - Enable **Places API (New)** and **Routes API**.
-- Go to **Credentials → Create credentials → API key**.
-- Under **API restrictions**, restrict the key to *Places API (New)* and *Routes API*. Leave **Application restrictions** as *None*; the key is used from Cloudflare's servers, whose IPs vary.
-- Set a budget alert, plus daily quotas on both APIs, so abuse can't run up a bill.
+- Create an API key, and restrict it to those two APIs. Leave **Application restrictions** as *None*; the calls come from Cloudflare's servers.
+- Add a budget alert and daily quotas.
 
-**2. Store the secrets.** Run this yourself in a terminal:
+**2. Twilio, for texts.** In [Twilio](https://www.twilio.com/):
+
+- Create an account, then buy a number, or set up a Messaging Service.
+- **US carriers require registration before an app can text people.** Either register for **A2P 10DLC** (a brand plus a "customer care / delivery notifications" campaign) for a local 10-digit number, or **verify a toll-free number**. Messages can be blocked until this is approved, which can take several days. Start early.
+- Note your **Account SID** (AC…), **Auth Token**, and the number (+1…) or Messaging Service SID (MG…).
+- Twilio handles STOP/HELP replies on its numbers. The booking form tells customers they'll get texts, and that they can reply STOP.
+
+**3. Store the secrets.** Run this yourself:
 
 ```bash
 bash scripts/setup-secrets.sh
 ```
 
-It stores `GOOGLE_MAPS_API_KEY`, generates `QUOTE_SECRET`, and optionally stores `CF_EMAIL_API_TOKEN`. Input is hidden and goes straight to Cloudflare.
+It stores the Google key, generates `QUOTE_SECRET`, and stores the Twilio credentials. Those go on both the Pages project and the dispatch Worker. It can also store the optional email token. Input is hidden.
 
-**3. Deploy.** Pages applies secrets at the next deployment:
+**4. Add your drivers.** Only add approved drivers who have agreed to receive job texts:
+
+```bash
+npm run drivers -- add "Maria Lopez" 559-555-0123 --helper
+```
+
+```bash
+npm run drivers -- list
+```
+
+Other commands: `helper DRV-ABCD on|off`, `deactivate DRV-ABCD` and `activate DRV-ABCD`.
+
+**5. Deploy both pieces:**
 
 ```bash
 npm run deploy
 ```
 
-Until the key and `QUOTE_SECRET` are set, the widget doesn't show a price. It shows "Online booking is unavailable right now. Call (559) 628-2794 to book."
+```bash
+npm run deploy:cron
+```
 
-### Booking alert emails (optional)
+Until steps 1–4 are done, the widget doesn't take bookings. It shows "Online booking is unavailable right now. Call (559) 628-2794 to book."
 
-Bookings are always saved. Emails go out only when both of these are true:
+### At cutover to boxhauls.com
 
-1. boxhauls.com is onboarded to **Cloudflare Email Sending**: Dashboard → Email → Email Sending, or `npx wrangler email sending enable boxhauls.com`. The zone has to be on this Cloudflare account.
-2. An API token with **Email Sending: Edit** permission is stored as `CF_EMAIL_API_TOKEN` (step 2 above).
+Change `PUBLIC_SITE_URL` to `https://boxhauls.com` in **both** `wrangler.toml` and `workers/dispatch-cron/wrangler.toml`, so driver links point at the real domain. Then redeploy both.
 
-The alert goes to `BOOKING_ALERT_TO` (support@boxhauls.com) from `BOOKING_EMAIL_FROM` (bookings@boxhauls.com). Both are set in `wrangler.toml`. Each booking's `alert_status` column records whether the alert was `sent`, `skipped` (email isn't configured) or `failed`.
+### Booking emails (optional)
+
+Texts handle dispatch. Email is an extra copy for the office, plus a receipt for the customer. To turn it on:
+
+1. Onboard boxhauls.com to **Cloudflare Email Sending** (`npx wrangler email sending enable boxhauls.com`, or use the Dashboard).
+2. Store an API token with **Email Sending: Edit** permission as `CF_EMAIL_API_TOKEN`.
 
 ### See bookings
 
@@ -95,25 +129,25 @@ The alert goes to `BOOKING_ALERT_TO` (support@boxhauls.com) from `BOOKING_EMAIL_
 npm run bookings
 ```
 
-Prints the 25 most recent bookings from the live D1 database. To mark a booking's status (`new`, `confirmed`, `completed`, `canceled`):
-
-```bash
-npx wrangler d1 execute boxhauls-bookings --remote --command "UPDATE bookings SET status='confirmed' WHERE id='BH-XXXXXX'"
-```
+This shows the 25 most recent bookings: status (`dispatching`, `assigned`, `unfilled`, `canceled`, `completed`), the assigned driver, and whether the customer was texted.
 
 ### Abuse protection
 
-- The API only answers requests whose `Origin` is boxhauls.com or this Pages project.
+- The API only answers requests from boxhauls.com or this Pages project.
 - Bookings are capped at 5 per connection per hour. IPs are stored only as salted hashes.
-- Quotes are HMAC-signed, so a booked price can't be edited in the browser.
-- **Before launch:** add a Cloudflare **WAF rate-limiting rule** for `/api/places` and `/api/quote`, for example 60 requests per minute per IP. Consider adding **Turnstile** to the booking step.
+- Quotes are HMAC-signed. Accept links are random 24-byte tokens, and only their hashes are stored.
+- **Before launch:** add a Cloudflare **WAF rate-limiting rule** for `/api/*`, for example 60 requests per minute per IP, and consider **Turnstile** on the booking step.
 
 ### Local development
 
-`.dev.vars` (gitignored) holds `DEV_MOCK_MAPS=1` and a local `QUOTE_SECRET`. That gives fake test addresses and straight-line distance × 1.3, so the whole flow runs without Google:
+`.dev.vars` (gitignored) sets `DEV_MOCK_MAPS=1`, `DEV_MOCK_SMS=1`, a local `QUOTE_SECRET` and `PUBLIC_SITE_URL=http://127.0.0.1:8788`. That gives fake addresses and logs texts to the console instead of sending them:
 
 ```bash
 npx wrangler d1 migrations apply boxhauls-bookings --local
+```
+
+```bash
+npm run drivers -- add "Test Driver" 559-555-0101 --local
 ```
 
 ```bash

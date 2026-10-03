@@ -5,7 +5,7 @@
 import type { APIRoute } from 'astro';
 import { SITE_URL } from '../lib/site';
 
-const DISALLOW = ['/auth', '/account', '/embed/', '/api/', '/book/'];
+const DISALLOW = ['/auth', '/account', '/embed/', '/api/', '/book/', '/drive/accept/'];
 
 export const GET: APIRoute = () => {
   const body = ['User-agent: *', 'Allow: /', ...DISALLOW.map((p) => `Disallow: ${p}`), '', `Sitemap: ${SITE_URL}/sitemap.xml`, ''].join('\n');

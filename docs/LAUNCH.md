@@ -10,11 +10,18 @@ Work top to bottom. Don't cut over until section 1 is all checked.
 - [ ] **Zero visible TODO markers on Phase-1 pages.** Not yet: see section 7. CLAUDE.md rule 2 says a page with a visible TODO can't ship.
 - [ ] Real photos replace every `[PHOTO: …]` block on Phase-1 pages, at minimum the home hero and the city page.
 - [ ] Counsel has reviewed and supplied the terms, privacy policy and driver agreement.
-- [ ] Booking is live. The backend is built (Pages Functions + D1). It goes live after the steps in `deploy/cloudflare/README.md` → "Booking backend": a Google Maps key, `bash scripts/setup-secrets.sh`, then `npm run deploy`. Make one real test booking, then check it with `npm run bookings`.
-- [ ] Booking alert emails: onboard boxhauls.com to Cloudflare Email Sending and set `CF_EMAIL_API_TOKEN`. Until then, check new bookings with `npm run bookings`.
-- [ ] A WAF rate-limiting rule on `/api/places` and `/api/quote`, and a Google budget alert plus quotas.
-- [ ] Confirm the booking time windows (`BOOKING_WINDOWS`, `BOOKING_DAYS_AHEAD`) and the service-area center (`SERVICE_CENTER`) in `docs/placeholders.json`.
-- [ ] The privacy policy covers booking data: name, phone, email and addresses stored in D1.
+- [ ] Booking is live with auto-dispatch. Work through `deploy/cloudflare/README.md` → "Booking backend":
+  - a Google Maps key
+  - a Twilio number with **A2P 10DLC or toll-free verification approved**
+  - `bash scripts/setup-secrets.sh`
+  - drivers added with `npm run drivers -- add …`
+  - `npm run deploy` and `npm run deploy:cron`
+- [ ] An end-to-end test with a real driver phone: book a trip, the driver gets a text, accepts, then the customer gets a text. Then a second test where nobody accepts: the customer gets the "no driver" text.
+- [ ] `PUBLIC_SITE_URL` switched to `https://boxhauls.com` in both wrangler configs at cutover.
+- [ ] A WAF rate-limiting rule on `/api/*`, and a Google budget alert plus quotas.
+- [ ] Confirm `SERVICE_CENTER`, `BOOKING_WINDOWS`, `BOOKING_DAYS_AHEAD` and the dispatch deadlines in `docs/placeholders.json`.
+- [ ] The driver agreement covers job texts, and sharing the driver's first name and phone with the customer.
+- [ ] The privacy policy covers booking data (name, phone, email and addresses, stored in D1), sharing the customer's name, phone and addresses with the assigned driver, and texts sent through Twilio.
 - [ ] If GA4 is turned on, set `GA4_MEASUREMENT_ID` and update the privacy policy to disclose analytics cookies first.
 
 ## 2. Deploy to Cloudflare
@@ -129,8 +136,8 @@ Generated from the built site by `scripts/todo.mjs` on every build. Phase-1 page
 | /guides/what-to-expect-from-a-boxhauls-driver/ | confirm in-app tracking during the trip; whether drivers bring items inside, and how far; confirm drivers don’t assemble furniture or connect appliances; confirm drivers don't assemble furniture or connect appliances |
 | /guides/will-it-fit-in-a-pickup-bed/ | heavy fee for mini fridges? |
 | /how-it-works/ | confirm in-app messaging and live tracking during the trip; free-cancellation window and late-cancel fee; how customers pay after the haul |
-| /legal/driver-agreement/ | driver agreement text, reviewed by California counsel, including contractor classification |
-| /legal/privacy/ | privacy policy text, reviewed by California counsel, including CCPA/CPRA rights, booking data (name, phone, email and addresses, stored with Cloudflare; addresses looked up with Google Maps), and the analytics cookies used once GA4 is enabled |
+| /legal/driver-agreement/ | driver agreement text, reviewed by California counsel, including contractor classification, consent to job texts, and sharing the driver’s first name and phone with the customer |
+| /legal/privacy/ | privacy policy text, reviewed by California counsel, including CCPA/CPRA rights, booking data (name, phone, email and addresses, stored with Cloudflare; addresses looked up with Google Maps; shared with the assigned driver; texts sent through Twilio), and the analytics cookies used once GA4 is enabled |
 | /legal/terms/ | terms of service text, reviewed by California counsel |
 | /press/ | founding year; founder bio, one or two sentences |
 | /pricing/ | first-haul promo terms, or remove this section if there is no promotion |

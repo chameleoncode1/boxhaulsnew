@@ -1,0 +1,17 @@
+# Scheduled Worker that expires unaccepted bookings (see index.ts). Deploy: npm run deploy:cron
+# Secrets (same values as the Pages project): TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_FROM
+name = "boxhauls-dispatch-cron"
+main = "index.ts"
+compatibility_date = "2026-09-01"
+workers_dev = false
+
+[triggers]
+crons = ["*/5 * * * *"]
+
+[vars]
+PUBLIC_SITE_URL = "https://boxhaulsnew.pages.dev"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "boxhauls-bookings"
+database_id = "8de1b07a-000c-45c9-800b-0633c5520f6f"

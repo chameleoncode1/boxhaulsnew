@@ -91,8 +91,8 @@ export async function sendBookingEmails(env: Env, b: BookingSummary): Promise<Al
     to: b.email,
     replyTo: env.BOOKING_ALERT_TO,
     subject: `BoxHauls booking request ${b.id}`,
-    text: `Thanks, ${b.name}. We received your booking request.\n\n${customerRows.map(([k, v]) => `${k}: ${v}`).join('\n')}\n\nBoxHauls will contact you at ${b.phone} to confirm.`,
-    html: `<p>Thanks, ${esc(b.name)}. We received your booking request.</p>${table(customerRows)}<p>BoxHauls will contact you at ${esc(b.phone)} to confirm.</p>`,
+    text: `Thanks, ${b.name}. We received your booking request.\n\n${customerRows.map(([k, v]) => `${k}: ${v}`).join('\n')}\n\nWe're texting BoxHauls drivers now. You'll get a text at ${b.phone} when one accepts, or if none is available in time.`,
+    html: `<p>Thanks, ${esc(b.name)}. We received your booking request.</p>${table(customerRows)}<p>We're texting BoxHauls drivers now. You'll get a text at ${esc(b.phone)} when one accepts, or if none is available in time.</p>`,
   });
 
   return alertOk ? 'sent' : 'failed';
