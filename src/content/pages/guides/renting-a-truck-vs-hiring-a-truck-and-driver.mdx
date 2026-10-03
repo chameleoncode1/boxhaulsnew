@@ -1,0 +1,55 @@
+---
+description: "Is it cheaper to rent a truck or hire a truck and driver? For one or two items across town, hiring is often cheaper all-in. The math, with the hidden costs."
+datePublished: "2026-10-03"
+faq:
+  - question: "Is it cheaper to rent a truck or hire delivery?"
+    answer: "For one or two items across town, hiring a truck and driver is often cheaper once you add up the rental fee, mileage, fuel and your own time. For a full apartment, renting a truck usually wins."
+  - question: "What does a BoxHauls trip cost?"
+    answer: "{{BASE_FARE}} plus {{PER_MILE}} a mile: {{price:10}} for 10 miles. Heavy items add {{HEAVY_FEE}}, and a helper adds {{HELPER_FEE}}."
+  - question: "What costs do people forget when renting?"
+    answer: "Mileage charges, fuel, the time to pick up and return the truck, damage waivers, and the lifting. A 10-mile move can mean 40 or more miles of driving once you count the trips to and from the rental counter."
+---
+
+For one or two items across town, hiring a truck and driver is often cheaper than renting a truck. A rental adds a base fee, per-mile charges, fuel, an optional damage waiver, and two trips to the rental counter, and you still do the lifting. For a full apartment, renting usually wins. Here's the all-in math.
+
+## The rental side
+
+| Cost | Typical |
+|---|---|
+| Rental fee (pickup or van) | <Todo>current Fresno rental rates, dated and sourced</Todo> |
+| Per-mile charge | <Todo>current per-mile rental charge, dated and sourced</Todo> |
+| Fuel | Pay to refill to the starting level |
+| Damage waiver | Optional, extra |
+| Extra miles | Home to the rental counter, and back, twice |
+| Labor | You and a friend |
+| Time | Usually 2–4 hours for one item, counting pickup and return |
+
+## The hired side (BoxHauls)
+
+| Trip | Price | With a helper |
+|---|---|---|
+| 5 miles | <Price mi={5} /> | <Price mi={5} helper /> |
+| 10 miles | <Price mi={10} /> | <Price mi={10} helper /> |
+| 20 miles | <Price mi={20} /> | <Price mi={20} helper /> |
+
+That's the whole price: <F k="BASE_FARE" /> plus <F k="PER_MILE" /> a mile, with no rental counter trips and no fuel.
+
+## The hidden miles
+
+A 10-mile move in a rental is rarely 10 miles. You drive to the counter, take the truck to the pickup, go 10 miles to the drop-off, then return the truck and drive home. That's often 30–50 miles of driving, and a few hours.
+
+## When renting wins
+
+- You're moving a full apartment or house
+- You have help and a free afternoon
+- You need the truck for several stops
+
+## When hiring wins
+
+- One or two big items
+- No one to help lift
+- You don't want to drive a truck you've never driven
+
+<Photo>rental pickup and a hired pickup side by side in a Fresno parking lot</Photo>
+
+More decision guides are in the [guides index](/guides/).
