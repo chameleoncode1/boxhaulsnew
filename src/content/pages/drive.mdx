@@ -1,0 +1,50 @@
+---
+description: "Drive for BoxHauls in Fresno and earn {{DRIVER_SHARE}} of every fare plus 100% of tips, hauling furniture, appliances and junk in your own pickup truck."
+job:
+  title: "Independent pickup-truck driver (hauling), Fresno and Clovis"
+  description: "Haul furniture, appliances, boxes and junk between two addresses in Fresno and Clovis using your own pickup truck. Earn {{DRIVER_SHARE}} of every fare, including helper fees, plus 100% of tips. Independent contractor. Requires a pickup truck, valid driver's license, auto insurance, a smartphone, and a background check through {{BACKGROUND_PROVIDER}}."
+  datePosted: "2026-10-03"
+faq:
+  - question: "How much can I make driving for BoxHauls?"
+    answer: "You earn {{DRIVER_SHARE}} of every fare plus 100% of tips. A 10-mile couch haul pays the customer {{price:10}}, and your share is the {{DRIVER_SHARE}} of that. Your fuel and truck costs come out of your share."
+  - question: "Do I need a special truck?"
+    answer: "You need a pickup truck in good working condition. [TODO: minimum model year and any bed-length requirement]"
+  - question: "Am I an employee?"
+    answer: "No. BoxHauls drivers are independent contractors who choose which jobs to accept."
+  - question: "Can I bring a helper?"
+    answer: "Yes. Drivers who bring a helper can accept jobs where the customer requested one. The helper fee is added to the fare, you earn {{DRIVER_SHARE}} of the total, and you pay your helper yourself."
+---
+
+Drive for BoxHauls and you earn <F k="DRIVER_SHARE" /> of every fare, plus 100% of your tips. You haul furniture, appliances, boxes and junk in your own pickup truck around <F k="METRO" /> and <F k="NEIGHBORHOOD" />. You're an independent contractor, and you choose the jobs you take.
+
+## What you earn
+
+Customers pay <F k="BASE_FARE" /> plus <F k="PER_MILE" /> a mile, plus <F k="HEAVY_FEE" /> for heavy items and <F k="HELPER_FEE" /> when they request a helper. You keep <F k="DRIVER_SHARE" /> of the whole fare, helper fee included, plus every tip.
+
+<Earnings rows={[{ label: 'Couch, 10 miles', mi: 10 }, { label: 'Refrigerator, 10 miles', mi: 10, heavy: true }, { label: 'Refrigerator with your helper, 10 miles', mi: 10, heavy: true, helper: true }]} />
+
+Full worked examples are on [how much BoxHauls drivers make](/drive/earnings/), and payment timing is on [how payouts work](/drive/how-payouts-work/).
+
+## What you need
+
+- A pickup truck in good working condition
+- A valid driver's license and auto insurance
+- A smartphone
+- A background check through <F k="BACKGROUND_PROVIDER" />
+- Ratchet straps and moving blankets
+
+The full list is on [driver requirements](/drive/requirements/), and coverage while you haul is on [driver insurance and liability](/drive/insurance-and-liability/).
+
+## How jobs arrive
+
+<Todo>how jobs are offered to drivers in the app, and how long a driver has to accept</Todo> Every job shows the pickup and drop-off, the items, the job type (<F k="TIER_1" />, <F k="TIER_2" /> or <F k="TIER_3" />), and whether the customer requested a helper.
+
+## A driver's story
+
+<Todo>a real driver's story, once a driver agrees to share it</Todo>
+
+## Where you'll drive
+
+BoxHauls runs in <F k="METRO" /> and <F k="NEIGHBORHOOD" /> within <F k="RADIUS" /> miles. Local details are on [driving for BoxHauls in Fresno](/drive/fresno/).
+
+Ready? [Apply to drive](/drive/apply/).

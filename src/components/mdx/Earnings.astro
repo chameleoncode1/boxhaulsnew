@@ -1,0 +1,55 @@
+---
+/**
+ * Driver earnings table (driver pages only): the driver's share of each example fare, computed from
+ * DRIVER_SHARE and the price formula. Tips are on top and not shown. The helper fee is part of the fare.
+ */
+import { lookup, isTodo } from '../../lib/placeholders';
+import { tripPrice, usd } from '../../lib/pricing';
+
+interface Row {
+  label: string;
+  mi: number;
+  heavy?: boolean;
+  helper?: boolean;
+}
+interface Props {
+  rows?: Row[];
+}
+const {
+  rows = [
+    { label: 'Couch, 5 miles', mi: 5 },
+    { label: 'Couch, 10 miles', mi: 10 },
+    { label: 'Refrigerator, 10 miles', mi: 10, heavy: true },
+    { label: 'Refrigerator with your helper, 10 miles', mi: 10, heavy: true, helper: true },
+    { label: 'Dump run, 20 miles (dump fee passed through)', mi: 20 },
+  ],
+} = Astro.props;
+if (!Astro.url.pathname.startsWith('/drive/')) {
+  throw new Error(`<Earnings> shows the driver payout share and may only appear under /drive/ (CLAUDE.md rule 7), not ${Astro.url.pathname}`);
+}
+const share = lookup('DRIVER_SHARE');
+const pct = typeof share === 'string' && !isTodo(share) ? Number(share.replace('%', '')) : undefined;
+---
+
+<div class="my-6 overflow-x-auto">
+  <table>
+    <thead>
+      <tr><th scope="col">Trip</th><th scope="col">Customer fare</th><th scope="col">You earn {pct !== undefined ? `(${pct}%)` : ''}</th></tr>
+    </thead>
+    <tbody>
+      {
+        rows.map((r) => {
+          const fare = tripPrice(r.mi, { heavy: r.heavy, helper: r.helper });
+          return (
+            <tr>
+              <th scope="row">{r.label}</th>
+              <td>{usd(fare)}</td>
+              <td>{pct !== undefined ? usd((fare * pct) / 100) : <span class="todo">[TODO: DRIVER_SHARE]</span>}</td>
+            </tr>
+          );
+        })
+      }
+    </tbody>
+  </table>
+  <p class="mt-2 text-sm text-muted">Before tips, which you keep in full. Your fuel and truck costs come out of your share. On helper jobs, you pay your helper from your share.</p>
+</div>

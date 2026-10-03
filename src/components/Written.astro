@@ -11,6 +11,7 @@ import Todo from './mdx/Todo.astro';
 import Photo from './mdx/Photo.astro';
 import PriceTable from './mdx/PriceTable.astro';
 import Price from './mdx/Price.astro';
+import Earnings from './mdx/Earnings.astro';
 
 interface Props {
   Body: any;
@@ -20,7 +21,7 @@ const { Body, content } = Astro.props;
 ---
 
 <div class="prose-bh mt-8 max-w-prose">
-  <Body components={{ F, Todo, Photo, PriceTable, Price }} />
+  <Body components={{ F, Todo, Photo, PriceTable, Price, Earnings }} />
 </div>
 {content.steps?.length ? <Steps items={content.steps} /> : null}
 {content.faq?.length ? <Faq items={content.faq} /> : null}

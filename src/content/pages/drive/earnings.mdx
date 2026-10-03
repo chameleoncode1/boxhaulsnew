@@ -1,0 +1,44 @@
+---
+description: "How much BoxHauls drivers make: {{DRIVER_SHARE}} of every fare plus 100% of tips. Worked examples for couches, appliances, helper jobs and dump runs in Fresno."
+faq:
+  - question: "How much do BoxHauls drivers make per trip?"
+    answer: "You earn {{DRIVER_SHARE}} of the fare plus 100% of tips. Fares are {{BASE_FARE}} plus {{PER_MILE}} a mile, plus {{HEAVY_FEE}} for heavy items and {{HELPER_FEE}} for a helper."
+  - question: "How much do drivers make per hour?"
+    answer: "It depends on how many trips you take in an hour and how far you drive between them. [TODO: realistic hourly ranges from real Fresno trip data]"
+  - question: "Do I keep the helper fee?"
+    answer: "The helper fee is part of the fare, so you earn {{DRIVER_SHARE}} of it. You pay your helper yourself."
+  - question: "Who pays for gas?"
+    answer: "You do. Fuel and wear on your truck come out of your share, so track your miles for taxes."
+---
+
+BoxHauls drivers earn <F k="DRIVER_SHARE" /> of every fare plus 100% of tips. The customer's fare is <F k="BASE_FARE" /> plus <F k="PER_MILE" /> a mile, plus <F k="HEAVY_FEE" /> for heavy items and <F k="HELPER_FEE" /> for a helper. Here's what that looks like by trip.
+
+## Worked examples
+
+<Earnings />
+
+## By job type
+
+All three job types (<F k="TIER_1" />, <F k="TIER_2" /> and <F k="TIER_3" />) use the same fare formula. The heavy-item fee applies to <F k="HEAVY_FEE_ITEMS" />, so those jobs pay more for the same miles.
+
+## Per hour
+
+<Todo>realistic hourly ranges from real Fresno trip data</Todo> Your hourly number depends on how long loading takes and how far you drive empty between jobs.
+
+## Tips
+
+Tips are optional for customers, and you keep 100% of them.
+
+## Helper jobs
+
+The <F k="HELPER_FEE" /> helper fee is part of the fare, so you earn <F k="DRIVER_SHARE" /> of it along with the rest. You pay your helper yourself, and any tax obligations that come with paying them are yours.
+
+## Busy times
+
+Demand peaks in January, May and August around campus move weeks. <Todo>busiest days and hours from real trip data</Todo>
+
+## Costs, honestly
+
+You're an independent contractor, so fuel, maintenance, tires and insurance on your truck come out of your share. Track every business mile. The IRS standard mileage rate is a useful benchmark for what a mile really costs you. <Todo>current IRS standard mileage rate</Todo>
+
+Back to [Drive for BoxHauls](/drive/).
