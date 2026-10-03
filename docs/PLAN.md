@@ -76,10 +76,13 @@ A second helper is an optional **$17** add-on (`{{HELPER_FEE}}`). It is availabl
 - /guides/when-you-need-a-second-helper/ (Phase 2) owns the "do I need a helper" question. Other pages link there rather than re-explaining.
 - The driver side (`/drive/earnings/`, `/drive/requirements/`) explains that drivers who bring a helper can accept helper-requested jobs. How the $17 is split between driver and helper is **not known** and renders as a TODO until it's decided.
 
+### Weight limits (decided 2026-10-02)
+
+The heaviest single item is **1,000 lb** (`{{MAX_ITEM_WEIGHT}}`), and gun safes go up to **1,200 lb** (`{{MAX_SAFE_WEIGHT}}`). Both are in pounds. Anything heavier is referred out. /services/furniture-delivery/what-we-cant-move/ and /pricing/cost-to-move-a-gun-safe/ state both limits.
+
 ## Open questions (answer before the prompt that needs them)
 
 1. **Helper fee split (needed before Prompt 4, driver pages).** Does the $17 go to the helper, the driver, or is it shared? Does `DRIVER_SHARE` (71%) apply to it?
 2. **Hosting (needed before Prompt 3).** Vercel or Cloudflare Pages.
 3. **Legacy booking component (needed before Prompt 5).** Can the Lovable component be exported into `./legacy/`?
 4. **App store links.** `SOCIAL.app_store` and `SOCIAL.google_play` are TODO. Organization `sameAs` and /app/ will show markers until they're filled.
-5. **Weight limits.** `MAX_ITEM_WEIGHT` is 1,200 and `MAX_SAFE_WEIGHT` is 3,000; I'm reading both as pounds. The map's examples were 400 / 600 lb, so please confirm these are the real limits (a 3,000 lb safe needs equipment most pickups don't carry).
