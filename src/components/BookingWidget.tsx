@@ -100,7 +100,9 @@ function AddressField({ label, placeholder, value, onPick, sessionToken }: { lab
         setActive(-1);
         setError(r.suggestions.length ? '' : 'No matching addresses in the Fresno and Clovis area.');
       } catch (e) {
-        setError((e as Error).message);
+        const ex = e as Error & Partial<ApiError>;
+        const tel = phoneFact.value;
+        setError(ex.error === 'maps_unavailable' && tel ? `${ex.message} Call ${tel} to book.` : ex.message);
       }
     }, 250);
   }
