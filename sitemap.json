@@ -1,0 +1,4547 @@
+{
+  "brand": "BoxHauls",
+  "domain": "boxhauls.com",
+  "version": "1.0",
+  "pages": [
+    {
+      "url": "/",
+      "h1": "A truck and driver, on demand. Price shown before you book.",
+      "primary_query": "truck and driver near me",
+      "secondary_queries": [
+        "on demand truck delivery {{METRO}}",
+        "pickup truck delivery service",
+        "boxhauls"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/how-it-works/",
+        "/trust/",
+        "/services/furniture-delivery/",
+        "/services/small-moves/",
+        "/services/appliance-delivery/",
+        "/services/junk-removal/",
+        "/services/business-hauling/",
+        "/cities/{{metro-slug}}/",
+        "/app/"
+      ],
+      "schema": [
+        "Organization",
+        "WebSite"
+      ],
+      "content_blocks": "Booking widget above the fold (pickup, dropoff, item picker, tier, live price only after both addresses); one-line launch-metro statement; three trust badges (insured / background-checked / upfront price); real reviews module; 3-step how-it-works; five service tiles; app download; single driver CTA in footer. No placeholder driver cards, ETAs, or ratings.",
+      "cluster": "core",
+      "page_type": "home",
+      "phase": 1,
+      "template": "home"
+    },
+    {
+      "url": "/how-it-works/",
+      "h1": "How BoxHauls works",
+      "primary_query": "how does boxhauls work",
+      "secondary_queries": [
+        "how does on demand truck delivery work",
+        "how to book a pickup truck and driver"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/trust/",
+        "/pricing/truck-sizes/",
+        "/faq/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "HowTo"
+      ],
+      "content_blocks": "Numbered steps with real app screenshots: enter addresses \u2192 pick item/tier \u2192 see price \u2192 match driver \u2192 track \u2192 load/unload \u2192 pay \u2192 rate. Payment hold explained. Messaging. Cancellation window. Link to driver side once.",
+      "cluster": "core",
+      "page_type": "hub",
+      "phase": 1,
+      "template": "core"
+    },
+    {
+      "url": "/pricing/",
+      "h1": "BoxHauls pricing: what a truck and driver costs",
+      "primary_query": "how much does a truck and driver cost",
+      "secondary_queries": [
+        "boxhauls pricing",
+        "pickup truck delivery cost",
+        "on demand hauling prices {{METRO}}"
+      ],
+      "links_to": [
+        "/pricing/truck-sizes/",
+        "/pricing/fees/",
+        "/pricing/cost-to-move-a-couch/",
+        "/pricing/cost-of-a-dump-run/",
+        "/pricing/truck-and-driver-hourly-vs-per-trip/",
+        "/services/furniture-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Formula stated in one sentence ({{BASE_FARE}} + {{PER_MILE}}/mi + item/helper fees); tier table with bed length, payload, what fits; every fee listed (heavy item {{HEAVY_FEE}}, helper {{HELPER_FEE}}, stairs, wait time); worked examples at 3 / 10 / 25 miles; first-haul promo terms; link grid to every item-cost page; FAQ (6\u20138).",
+      "cluster": "core",
+      "page_type": "hub",
+      "phase": 1,
+      "template": "core"
+    },
+    {
+      "url": "/pricing/truck-sizes/",
+      "h1": "Truck sizes: which BoxHauls tier fits your stuff",
+      "primary_query": "what size truck do I need to move a couch",
+      "secondary_queries": [
+        "pickup truck bed sizes",
+        "what fits in a pickup truck bed",
+        "boxhauls truck tiers"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/guides/will-it-fit-in-a-pickup-bed/",
+        "/services/furniture-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service"
+      ],
+      "content_blocks": "One section per tier ({{TIER_1}} / {{TIER_2}} / {{TIER_3}}): bed length, width between wheel wells, payload, typical vehicles, what fits (with item silhouettes to scale), what does not, price difference. This is the fleet-attributes page for the whole entity.",
+      "cluster": "core",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "core"
+    },
+    {
+      "url": "/pricing/fees/",
+      "h1": "Every BoxHauls fee, explained",
+      "primary_query": "boxhauls fees",
+      "secondary_queries": [
+        "heavy item fee",
+        "helper fee truck delivery",
+        "cancellation fee truck delivery"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/trust/cancellation-and-refunds/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Table of every possible line item with trigger and amount; what is never charged (no surge, no fuel surcharge if true); how tips work; how dump fees are passed through.",
+      "cluster": "core",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "core"
+    },
+    {
+      "url": "/trust/",
+      "h1": "Trust & safety: insurance, driver vetting, and what happens if something breaks",
+      "primary_query": "is boxhauls safe",
+      "secondary_queries": [
+        "is boxhauls legit",
+        "boxhauls insurance",
+        "are boxhauls drivers background checked"
+      ],
+      "links_to": [
+        "/trust/insurance/",
+        "/trust/driver-vetting/",
+        "/trust/damage-claims/",
+        "/trust/cancellation-and-refunds/",
+        "/reviews/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Plain-language overview with links into the four sub-pages; insurance carrier and limits stated; vetting steps listed; support hours and channels; link to reviews.",
+      "cluster": "core",
+      "page_type": "hub",
+      "phase": 1,
+      "template": "core"
+    },
+    {
+      "url": "/trust/insurance/",
+      "h1": "How your items are insured during a BoxHauls haul",
+      "primary_query": "is my furniture insured during delivery",
+      "secondary_queries": [
+        "cargo insurance truck delivery",
+        "boxhauls insurance coverage"
+      ],
+      "links_to": [
+        "/trust/",
+        "/trust/damage-claims/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Who carries the policy ({{INSURANCE_CARRIER}}), coverage limits, what is excluded, how to declare high-value items, difference between cargo and liability.",
+      "cluster": "core",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "core"
+    },
+    {
+      "url": "/trust/driver-vetting/",
+      "h1": "How BoxHauls checks drivers and trucks",
+      "primary_query": "are boxhauls drivers background checked",
+      "secondary_queries": [
+        "truck delivery driver background check",
+        "how are gig hauling drivers vetted"
+      ],
+      "links_to": [
+        "/trust/",
+        "/drive/requirements/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Each check listed with provider ({{BACKGROUND_PROVIDER}}): identity, license, driving record, criminal background, vehicle inspection, insurance verification; re-check cadence; rating threshold for staying active.",
+      "cluster": "core",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "core"
+    },
+    {
+      "url": "/trust/damage-claims/",
+      "h1": "What happens if something is damaged",
+      "primary_query": "what if my furniture is damaged during delivery",
+      "secondary_queries": [
+        "truck delivery damage claim",
+        "boxhauls damage policy"
+      ],
+      "links_to": [
+        "/trust/",
+        "/trust/insurance/",
+        "/guides/what-to-do-if-an-item-is-damaged/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage",
+        "HowTo"
+      ],
+      "content_blocks": "Step-by-step claim process with timeline, photo requirements, who pays, typical resolution window.",
+      "cluster": "core",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "core"
+    },
+    {
+      "url": "/trust/cancellation-and-refunds/",
+      "h1": "Cancellation and refund policy",
+      "primary_query": "boxhauls cancellation policy",
+      "secondary_queries": [
+        "cancel truck delivery fee",
+        "truck delivery no show refund"
+      ],
+      "links_to": [
+        "/trust/",
+        "/pricing/fees/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Free-cancellation window, late-cancel fee, driver no-show policy, weather policy, refund timing.",
+      "cluster": "core",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "core"
+    },
+    {
+      "url": "/about/",
+      "h1": "About BoxHauls",
+      "primary_query": "who owns boxhauls",
+      "secondary_queries": [
+        "boxhauls company",
+        "boxhauls {{METRO}}"
+      ],
+      "links_to": [
+        "/press/",
+        "/trust/",
+        "/contact/"
+      ],
+      "schema": [
+        "Organization",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Founder with real name and photo; legal entity ({{LEGAL_NAME}}); headquarters ({{ADDRESS}}); founding year; what BoxHauls is in one sentence and what it is not (not freight, not long-distance moving, not dumpster rental, not rideshare). Disambiguation paragraph.",
+      "cluster": "core",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "core"
+    },
+    {
+      "url": "/contact/",
+      "h1": "Contact BoxHauls",
+      "primary_query": "boxhauls phone number",
+      "secondary_queries": [
+        "boxhauls support",
+        "boxhauls customer service"
+      ],
+      "links_to": [
+        "/faq/",
+        "/trust/"
+      ],
+      "schema": [
+        "Organization",
+        "ContactPoint",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "One phone ({{PHONE}}), one email, one address, hours, in-app chat note. NAP block identical to GBP.",
+      "cluster": "core",
+      "page_type": "utility",
+      "phase": 1,
+      "template": "core"
+    },
+    {
+      "url": "/press/",
+      "h1": "Press & media kit",
+      "primary_query": "boxhauls press",
+      "secondary_queries": [
+        "boxhauls media kit",
+        "boxhauls logo"
+      ],
+      "links_to": [
+        "/about/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Boilerplate, facts sheet (founded, HQ, service area = real metros only), logo files, founder bio, contact.",
+      "cluster": "core",
+      "page_type": "utility",
+      "phase": 1,
+      "template": "core"
+    },
+    {
+      "url": "/faq/",
+      "h1": "BoxHauls FAQ",
+      "primary_query": "boxhauls faq",
+      "secondary_queries": [
+        "truck delivery questions"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/trust/",
+        "/how-it-works/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Only questions not owned by another page; each answer is 2\u20133 sentences and links to the page that covers it in depth. Grouped: booking, pricing, safety, drivers, business.",
+      "cluster": "core",
+      "page_type": "utility",
+      "phase": 1,
+      "template": "core"
+    },
+    {
+      "url": "/reviews/",
+      "h1": "BoxHauls reviews",
+      "primary_query": "boxhauls reviews",
+      "secondary_queries": [
+        "boxhauls {{METRO}} reviews"
+      ],
+      "links_to": [
+        "/trust/",
+        "/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Organization"
+      ],
+      "content_blocks": "Real reviews only, pulled from Google; rating summary; filter by service; link to leave a review. Empty state acceptable at launch.",
+      "cluster": "core",
+      "page_type": "utility",
+      "phase": 1,
+      "template": "core"
+    },
+    {
+      "url": "/app/",
+      "h1": "Get the BoxHauls app",
+      "primary_query": "boxhauls app",
+      "secondary_queries": [
+        "boxhauls app download",
+        "boxhauls ios",
+        "boxhauls android"
+      ],
+      "links_to": [
+        "/how-it-works/",
+        "/drive/"
+      ],
+      "schema": [
+        "MobileApplication",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Store badges, screenshots, feature list, QR code, driver app link.",
+      "cluster": "core",
+      "page_type": "utility",
+      "phase": 1,
+      "template": "core"
+    },
+    {
+      "url": "/cities/",
+      "h1": "Where BoxHauls operates",
+      "primary_query": "boxhauls service area",
+      "secondary_queries": [
+        "boxhauls cities",
+        "boxhauls near me"
+      ],
+      "links_to": [
+        "/cities/{{metro-slug}}/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Real metros only. One card per live city. Waitlist form for others. Never claims 'anywhere'.",
+      "cluster": "core",
+      "page_type": "hub",
+      "phase": 1,
+      "template": "core"
+    },
+    {
+      "url": "/pricing/cost-to-move-a-couch/",
+      "h1": "How much does it cost to move a couch?",
+      "primary_query": "cost to move a couch",
+      "secondary_queries": [
+        "couch delivery cost",
+        "how much to move a sofa"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/truck-sizes/",
+        "/services/furniture-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Length 72\u201396 in, 100\u2013200 lb, one helper recommended, {{TIER_2}}; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: migrate.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/cost-to-move-a-sectional/",
+      "h1": "How much does it cost to move a sectional?",
+      "primary_query": "cost to move a sectional sofa",
+      "secondary_queries": [
+        "sectional delivery cost",
+        "how much to move a sectional"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/truck-sizes/",
+        "/services/furniture-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: 2\u20135 pieces, 250\u2013450 lb total, helper required, {{TIER_2}}/{{TIER_3}}; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/cost-to-move-a-mattress/",
+      "h1": "How much does it cost to move a mattress?",
+      "primary_query": "cost to move a mattress",
+      "secondary_queries": [
+        "mattress delivery cost",
+        "how much to move a king mattress"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/truck-sizes/",
+        "/services/furniture-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Twin\u2013king dimensions table, 50\u2013150 lb, bag recommended, {{TIER_1}}/{{TIER_2}}; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: migrate.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/cost-to-move-a-bed-frame/",
+      "h1": "How much does it cost to move a bed frame?",
+      "primary_query": "cost to move a bed frame",
+      "secondary_queries": [
+        "bedroom set moving cost",
+        "how much to move a bed"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/truck-sizes/",
+        "/services/furniture-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Disassembly notes, headboard sizes, {{TIER_2}}; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/cost-to-move-a-dresser/",
+      "h1": "How much does it cost to move a dresser?",
+      "primary_query": "cost to move a dresser",
+      "secondary_queries": [
+        "dresser delivery cost"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/truck-sizes/",
+        "/services/furniture-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Drawers out or taped, 100\u2013250 lb, helper for stairs; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/cost-to-move-a-dining-table/",
+      "h1": "How much does it cost to move a dining table?",
+      "primary_query": "cost to move a dining table",
+      "secondary_queries": [
+        "dining table delivery cost"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/truck-sizes/",
+        "/services/furniture-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Leg removal, glass tops, chairs count, {{TIER_2}}; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/cost-to-move-a-desk/",
+      "h1": "How much does it cost to move a desk?",
+      "primary_query": "cost to move a desk",
+      "secondary_queries": [
+        "desk delivery cost",
+        "office desk moving cost"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/truck-sizes/",
+        "/services/furniture-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: L-desks, standing desks, disassembly; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/cost-to-move-a-refrigerator/",
+      "h1": "How much does it cost to move a refrigerator?",
+      "primary_query": "cost to move a refrigerator",
+      "secondary_queries": [
+        "refrigerator delivery cost",
+        "how much to move a fridge"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/truck-sizes/",
+        "/services/appliance-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Upright transport only, 200\u2013350 lb, two-person, defrost 24h, {{TIER_2}}/{{TIER_3}}; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: migrate.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/cost-to-move-a-washer-and-dryer/",
+      "h1": "How much does it cost to move a washer and dryer?",
+      "primary_query": "cost to move a washer and dryer",
+      "secondary_queries": [
+        "washer dryer delivery cost"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/truck-sizes/",
+        "/services/appliance-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Shipping bolts, 150\u2013250 lb each, two-person; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: migrate.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/cost-to-move-a-dishwasher/",
+      "h1": "How much does it cost to move a dishwasher?",
+      "primary_query": "cost to move a dishwasher",
+      "secondary_queries": [
+        "dishwasher delivery cost"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/truck-sizes/",
+        "/services/appliance-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Disconnect required, 75\u2013125 lb; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/cost-to-move-a-stove/",
+      "h1": "How much does it cost to move a stove?",
+      "primary_query": "cost to move a stove",
+      "secondary_queries": [
+        "range delivery cost",
+        "how much to move an oven"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/truck-sizes/",
+        "/services/appliance-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Gas disconnect by licensed pro, 150\u2013250 lb; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/cost-to-move-a-treadmill/",
+      "h1": "How much does it cost to move a treadmill?",
+      "primary_query": "cost to move a treadmill",
+      "secondary_queries": [
+        "treadmill delivery cost",
+        "how much to move gym equipment"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/truck-sizes/",
+        "/services/furniture-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Fold vs non-fold, 200\u2013350 lb, helper required; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/cost-to-move-a-gun-safe/",
+      "h1": "How much does it cost to move a gun safe?",
+      "primary_query": "cost to move a gun safe",
+      "secondary_queries": [
+        "safe moving cost",
+        "how much to move a safe"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/truck-sizes/",
+        "/services/furniture-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Weight tiers 300/600/1000 lb, stair limits, {{TIER_3}} + helper; refer out above {{MAX_SAFE_WEIGHT}} lb; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/cost-to-move-a-piano/",
+      "h1": "How much does it cost to move a piano?",
+      "primary_query": "cost to move a piano",
+      "secondary_queries": [
+        "piano moving cost"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/truck-sizes/",
+        "/services/furniture-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Honest limit page: uprights only if drivers can; grands referred to specialists. Sets entity boundary.; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/cost-to-move-a-hot-tub/",
+      "h1": "How much does it cost to move a hot tub?",
+      "primary_query": "cost to move a hot tub",
+      "secondary_queries": [
+        "hot tub removal cost",
+        "hot tub moving cost"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/truck-sizes/",
+        "/services/furniture-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Removal/disposal yes, relocation only with {{TIER_3}} + 2 helpers; permit notes; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/cost-to-move-a-tv/",
+      "h1": "How much does it cost to move a tv?",
+      "primary_query": "cost to move a tv",
+      "secondary_queries": [
+        "tv delivery cost",
+        "how much to deliver a 75 inch tv"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/truck-sizes/",
+        "/services/furniture-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Box or blanket, upright, {{TIER_1}}; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/cost-to-move-a-grill/",
+      "h1": "How much does it cost to move a grill?",
+      "primary_query": "cost to move a grill",
+      "secondary_queries": [
+        "grill delivery cost",
+        "how much to deliver a bbq"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/truck-sizes/",
+        "/services/furniture-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Propane tank rules (tank rides separately), 100\u2013200 lb; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/cost-to-deliver-patio-furniture/",
+      "h1": "How much does it cost to deliver a patio furniture?",
+      "primary_query": "cost to deliver patio furniture",
+      "secondary_queries": [
+        "patio furniture delivery cost"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/truck-sizes/",
+        "/services/furniture-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Sets vs single pieces, stacking, weather; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/cost-to-move-an-exercise-bike/",
+      "h1": "How much does it cost to move an exercise bike?",
+      "primary_query": "cost to move an exercise bike",
+      "secondary_queries": [
+        "peloton delivery cost",
+        "how much to move a peloton"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/truck-sizes/",
+        "/services/furniture-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Peloton/rower dimensions, screen protection; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/cost-to-deliver-a-kayak/",
+      "h1": "How much does it cost to deliver a kayak?",
+      "primary_query": "cost to deliver a kayak",
+      "secondary_queries": [
+        "kayak delivery cost",
+        "how to transport a kayak without a roof rack"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/truck-sizes/",
+        "/services/furniture-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Overhang rules, red flag, {{TIER_2}}; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/cost-to-haul-a-motorcycle/",
+      "h1": "How much does it cost to haul a motorcycle?",
+      "primary_query": "cost to haul a motorcycle",
+      "secondary_queries": [
+        "motorcycle transport local cost"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/truck-sizes/",
+        "/services/furniture-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Ramp + tie-downs, {{TIER_3}} only if driver equipped; else refer out; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/cost-to-deliver-plywood-and-lumber/",
+      "h1": "How much does it cost to deliver a plywood and lumber?",
+      "primary_query": "cost to deliver plywood and lumber",
+      "secondary_queries": [
+        "lumber delivery cost",
+        "home depot delivery cost lumber"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/truck-sizes/",
+        "/services/furniture-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: 4x8 sheets flat vs angled, overhang, {{TIER_2}}/{{TIER_3}}; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/cost-to-deliver-a-pallet/",
+      "h1": "How much does it cost to deliver a pallet?",
+      "primary_query": "cost to deliver a pallet",
+      "secondary_queries": [
+        "pallet delivery cost local"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/truck-sizes/",
+        "/services/furniture-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Business hub cross-link, liftgate not available, forklift-to-bed loading; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/cost-to-move-a-studio-apartment/",
+      "h1": "How much does it cost to move a studio apartment?",
+      "primary_query": "cost to move a studio apartment",
+      "secondary_queries": [
+        "studio apartment moving cost",
+        "small move cost"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/truck-sizes/",
+        "/services/furniture-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: One or two trips, helper, boxes count table; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/cost-to-move-a-one-bedroom-apartment/",
+      "h1": "How much does it cost to move a one bedroom apartment?",
+      "primary_query": "cost to move a one bedroom apartment",
+      "secondary_queries": [
+        "1 bedroom apartment moving cost"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/truck-sizes/",
+        "/services/furniture-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Two trips typical, helper, when movers are cheaper; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/cost-to-move-a-storage-unit/",
+      "h1": "How much does it cost to move a storage unit?",
+      "primary_query": "cost to move a storage unit",
+      "secondary_queries": [
+        "storage unit moving cost"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/truck-sizes/",
+        "/services/furniture-delivery/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: 5x5 / 5x10 / 10x10 load estimates; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/cost-of-a-dump-run/",
+      "h1": "How much does a dump run cost?",
+      "primary_query": "how much does a dump run cost",
+      "secondary_queries": [
+        "dump run price",
+        "cost to haul junk to the dump"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/services/junk-removal/",
+        "/guides/dump-fees-in-{{metro-slug}}/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Per-load pricing; how dump fees pass through; load-size photos (quarter / half / full bed); what is not accepted.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/truck-and-driver-hourly-vs-per-trip/",
+      "h1": "Hourly movers vs. per-trip truck and driver: real cost comparison",
+      "primary_query": "truck and driver hourly rate",
+      "secondary_queries": [
+        "hourly movers vs truck delivery",
+        "cheapest way to move one item"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/compare/boxhauls-vs-hiring-movers/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Side-by-side math for 1 item / 5 items / studio; break-even point; when hourly wins.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "pricing"
+    },
+    {
+      "url": "/pricing/pickup-truck-delivery-cost/",
+      "h1": "Pickup truck delivery cost: what people actually pay",
+      "primary_query": "pickup truck delivery cost",
+      "secondary_queries": [
+        "how much does pickup truck delivery cost",
+        "average cost of truck delivery service"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/pricing/cost-to-move-a-couch/",
+        "/compare/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Anonymized real trip data from the launch metro once available; distribution chart; medians by item type. Information-gain page.",
+      "cluster": "pricing",
+      "page_type": "spoke",
+      "phase": 3,
+      "template": "pricing"
+    },
+    {
+      "url": "/services/furniture-delivery/",
+      "h1": "Furniture & large-item delivery with a truck and driver",
+      "primary_query": "furniture delivery service {{METRO}}",
+      "secondary_queries": [
+        "large item delivery",
+        "same day furniture delivery near me",
+        "furniture pickup and delivery"
+      ],
+      "links_to": [
+        "/services/furniture-delivery/store-pickup/",
+        "/services/furniture-delivery/marketplace-pickup/",
+        "/services/furniture-delivery/couch-delivery/",
+        "/services/furniture-delivery/mattress-delivery/",
+        "/services/furniture-delivery/single-item-delivery/",
+        "/services/furniture-delivery/what-we-cant-move/",
+        "/pricing/cost-to-move-a-couch/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Definition sentence; who uses it (store buyers, marketplace buyers, one-item moves); what is included (load, secure, unload, placement to first room); wrapping and protection; delivery windows; tier fit table; price example; trust strip; real photo; FAQs.",
+      "cluster": "services",
+      "page_type": "hub",
+      "phase": 1,
+      "template": "service-hub"
+    },
+    {
+      "url": "/services/furniture-delivery/store-pickup/",
+      "h1": "Store pickup and delivery: we bring it home from the store",
+      "primary_query": "store pickup and delivery service",
+      "secondary_queries": [
+        "furniture store delivery alternative",
+        "pick up my order from the store"
+      ],
+      "links_to": [
+        "/services/furniture-delivery/",
+        "/services/furniture-delivery/store-pickup/ikea/",
+        "/services/furniture-delivery/store-pickup/costco/",
+        "/services/furniture-delivery/store-pickup/home-depot/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Sub-hub. How store pickup works (order number, pickup lane, ID); which stores; same-day windows; links to each retailer page.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/furniture-delivery/store-pickup/ikea/",
+      "h1": "Ikea pickup and delivery in {{METRO}}",
+      "primary_query": "ikea pickup and delivery {{METRO}}",
+      "secondary_queries": [
+        "ikea pickup and delivery",
+        "ikea delivery cost"
+      ],
+      "links_to": [
+        "/services/furniture-delivery/store-pickup/",
+        "/services/furniture-delivery/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Retailer-specific: Click-and-collect pickup, flat-pack counts, the {{METRO}} IKEA (or nearest) pickup lane notes, assembly not included. Pickup lane instructions for the launch-metro location. Price example from that store to three neighborhoods.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/furniture-delivery/store-pickup/costco/",
+      "h1": "Costco pickup and delivery in {{METRO}}",
+      "primary_query": "costco delivery alternative {{METRO}}",
+      "secondary_queries": [
+        "costco delivery alternative",
+        "costco delivery cost"
+      ],
+      "links_to": [
+        "/services/furniture-delivery/store-pickup/",
+        "/services/furniture-delivery/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Retailer-specific: Warehouse pickup logistics, membership card rule, TVs and furniture, mattress-in-a-box. Pickup lane instructions for the launch-metro location. Price example from that store to three neighborhoods.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/furniture-delivery/store-pickup/home-depot/",
+      "h1": "Home Depot pickup and delivery in {{METRO}}",
+      "primary_query": "home depot truck delivery alternative {{METRO}}",
+      "secondary_queries": [
+        "home depot truck delivery alternative",
+        "home depot delivery cost"
+      ],
+      "links_to": [
+        "/services/furniture-delivery/store-pickup/",
+        "/services/furniture-delivery/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Retailer-specific: Pro desk pickup, lumber overhang, appliances, cheaper than store truck rental for one trip. Pickup lane instructions for the launch-metro location. Price example from that store to three neighborhoods.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/furniture-delivery/store-pickup/lowes/",
+      "h1": "Lowes pickup and delivery in {{METRO}}",
+      "primary_query": "lowes delivery alternative {{METRO}}",
+      "secondary_queries": [
+        "lowes delivery alternative",
+        "lowes delivery cost"
+      ],
+      "links_to": [
+        "/services/furniture-delivery/store-pickup/",
+        "/services/furniture-delivery/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Retailer-specific: Same as Home Depot with store-specific notes. Pickup lane instructions for the launch-metro location. Price example from that store to three neighborhoods.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/furniture-delivery/store-pickup/living-spaces/",
+      "h1": "Living Spaces pickup and delivery in {{METRO}}",
+      "primary_query": "living spaces delivery alternative {{METRO}}",
+      "secondary_queries": [
+        "living spaces delivery alternative",
+        "living spaces delivery cost"
+      ],
+      "links_to": [
+        "/services/furniture-delivery/store-pickup/",
+        "/services/furniture-delivery/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Retailer-specific: Warehouse pickup, protected transport. Pickup lane instructions for the launch-metro location. Price example from that store to three neighborhoods.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/furniture-delivery/store-pickup/ashley-furniture/",
+      "h1": "Ashley Furniture pickup and delivery in {{METRO}}",
+      "primary_query": "ashley furniture delivery alternative {{METRO}}",
+      "secondary_queries": [
+        "ashley furniture delivery alternative",
+        "ashley furniture delivery cost"
+      ],
+      "links_to": [
+        "/services/furniture-delivery/store-pickup/",
+        "/services/furniture-delivery/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Retailer-specific: Outlet pickup, boxed vs assembled. Pickup lane instructions for the launch-metro location. Price example from that store to three neighborhoods.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/furniture-delivery/store-pickup/big-lots/",
+      "h1": "Big Lots pickup and delivery in {{METRO}}",
+      "primary_query": "big lots furniture delivery {{METRO}}",
+      "secondary_queries": [
+        "big lots furniture delivery",
+        "big lots delivery cost"
+      ],
+      "links_to": [
+        "/services/furniture-delivery/store-pickup/",
+        "/services/furniture-delivery/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Retailer-specific: Boxed furniture, mattress-in-a-box. Pickup lane instructions for the launch-metro location. Price example from that store to three neighborhoods.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/furniture-delivery/store-pickup/walmart/",
+      "h1": "Walmart pickup and delivery in {{METRO}}",
+      "primary_query": "walmart big item pickup delivery {{METRO}}",
+      "secondary_queries": [
+        "walmart big item pickup delivery",
+        "walmart delivery cost"
+      ],
+      "links_to": [
+        "/services/furniture-delivery/store-pickup/",
+        "/services/furniture-delivery/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Retailer-specific: Pickup tower vs curbside, TVs, furniture. Pickup lane instructions for the launch-metro location. Price example from that store to three neighborhoods.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/furniture-delivery/store-pickup/target/",
+      "h1": "Target pickup and delivery in {{METRO}}",
+      "primary_query": "target large item delivery alternative {{METRO}}",
+      "secondary_queries": [
+        "target large item delivery alternative",
+        "target delivery cost"
+      ],
+      "links_to": [
+        "/services/furniture-delivery/store-pickup/",
+        "/services/furniture-delivery/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Retailer-specific: Drive Up limits, furniture pickup. Pickup lane instructions for the launch-metro location. Price example from that store to three neighborhoods.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/furniture-delivery/store-pickup/mattress-firm/",
+      "h1": "Mattress Firm pickup and delivery in {{METRO}}",
+      "primary_query": "mattress firm delivery alternative {{METRO}}",
+      "secondary_queries": [
+        "mattress firm delivery alternative",
+        "mattress firm delivery cost"
+      ],
+      "links_to": [
+        "/services/furniture-delivery/store-pickup/",
+        "/services/furniture-delivery/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Retailer-specific: Same-day mattress pickup. Pickup lane instructions for the launch-metro location. Price example from that store to three neighborhoods.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/furniture-delivery/marketplace-pickup/",
+      "h1": "Facebook Marketplace, Craigslist & OfferUp pickup with a truck",
+      "primary_query": "facebook marketplace pickup service",
+      "secondary_queries": [
+        "marketplace delivery service",
+        "craigslist delivery service",
+        "offerup delivery"
+      ],
+      "links_to": [
+        "/services/furniture-delivery/",
+        "/services/furniture-delivery/marketplace-pickup/facebook-marketplace/",
+        "/services/furniture-delivery/marketplace-pickup/craigslist/",
+        "/services/furniture-delivery/marketplace-pickup/offerup/",
+        "/guides/how-to-get-a-facebook-marketplace-purchase-home/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Sub-hub. Pay-on-pickup handling, seller no-show policy, safety, what the driver will/won't inspect.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/furniture-delivery/marketplace-pickup/facebook-marketplace/",
+      "h1": "Facebook Marketplace pickup and delivery",
+      "primary_query": "facebook marketplace delivery {{METRO}}",
+      "secondary_queries": [
+        "facebook marketplace delivery"
+      ],
+      "links_to": [
+        "/services/furniture-delivery/marketplace-pickup/",
+        "/services/furniture-delivery/",
+        "/trust/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Platform-specific flow, meeting-point rules, what to send the driver (listing link, seller phone), price example.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/furniture-delivery/marketplace-pickup/craigslist/",
+      "h1": "Craigslist pickup and delivery",
+      "primary_query": "craigslist pickup service {{METRO}}",
+      "secondary_queries": [
+        "craigslist pickup service"
+      ],
+      "links_to": [
+        "/services/furniture-delivery/marketplace-pickup/",
+        "/services/furniture-delivery/",
+        "/trust/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Platform-specific flow, meeting-point rules, what to send the driver (listing link, seller phone), price example.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/furniture-delivery/marketplace-pickup/offerup/",
+      "h1": "Offerup pickup and delivery",
+      "primary_query": "offerup delivery service {{METRO}}",
+      "secondary_queries": [
+        "offerup delivery service"
+      ],
+      "links_to": [
+        "/services/furniture-delivery/marketplace-pickup/",
+        "/services/furniture-delivery/",
+        "/trust/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Platform-specific flow, meeting-point rules, what to send the driver (listing link, seller phone), price example.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/furniture-delivery/marketplace-pickup/nextdoor/",
+      "h1": "Nextdoor pickup and delivery",
+      "primary_query": "nextdoor furniture pickup {{METRO}}",
+      "secondary_queries": [
+        "nextdoor furniture pickup"
+      ],
+      "links_to": [
+        "/services/furniture-delivery/marketplace-pickup/",
+        "/services/furniture-delivery/",
+        "/trust/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Platform-specific flow, meeting-point rules, what to send the driver (listing link, seller phone), price example.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/furniture-delivery/couch-delivery/",
+      "h1": "Couch and sofa delivery",
+      "primary_query": "couch delivery service {{METRO}}",
+      "secondary_queries": [
+        "couch delivery service"
+      ],
+      "links_to": [
+        "/services/furniture-delivery/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Sizes, doorway check, stairs, wrapping. Tier fit, price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/furniture-delivery/mattress-delivery/",
+      "h1": "Mattress delivery",
+      "primary_query": "mattress delivery service {{METRO}}",
+      "secondary_queries": [
+        "mattress delivery service"
+      ],
+      "links_to": [
+        "/services/furniture-delivery/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Bag provided, upright transport, box spring. Tier fit, price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/furniture-delivery/single-item-delivery/",
+      "h1": "Single-item delivery, no minimum",
+      "primary_query": "single item delivery service {{METRO}}",
+      "secondary_queries": [
+        "single item delivery service"
+      ],
+      "links_to": [
+        "/services/furniture-delivery/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "The no-minimum promise; typical single items; price example. Tier fit, price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/furniture-delivery/thrift-store-pickup/",
+      "h1": "Thrift store & consignment pickup",
+      "primary_query": "thrift store furniture delivery {{METRO}}",
+      "secondary_queries": [
+        "thrift store furniture delivery"
+      ],
+      "links_to": [
+        "/services/furniture-delivery/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Goodwill/Habitat ReStore/consignment pickup windows. Tier fit, price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/furniture-delivery/estate-sale-pickup/",
+      "h1": "Estate sale & auction pickup",
+      "primary_query": "estate sale pickup service {{METRO}}",
+      "secondary_queries": [
+        "estate sale pickup service"
+      ],
+      "links_to": [
+        "/services/furniture-delivery/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Pickup-day timing, multiple items, fragile pieces. Tier fit, price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/furniture-delivery/what-we-cant-move/",
+      "h1": "What BoxHauls cannot move",
+      "primary_query": "what won't a truck delivery service move {{METRO}}",
+      "secondary_queries": [
+        "what won't a truck delivery service move"
+      ],
+      "links_to": [
+        "/services/furniture-delivery/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Honest limits: grand pianos, hazmat, vehicles over X, items over {{MAX_ITEM_WEIGHT}} lb without equipment, live animals, etc. Referrals for each.. Tier fit, price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/small-moves/",
+      "h1": "Small moves: studio, one-bedroom, dorm and storage moves by the trip",
+      "primary_query": "small moving service {{METRO}}",
+      "secondary_queries": [
+        "small movers near me",
+        "one item movers",
+        "cheap studio apartment movers"
+      ],
+      "links_to": [
+        "/services/small-moves/studio-apartment-move/",
+        "/services/small-moves/one-bedroom-move/",
+        "/services/small-moves/dorm-move/",
+        "/services/small-moves/storage-unit-move/",
+        "/pricing/cost-to-move-a-studio-apartment/",
+        "/compare/boxhauls-vs-hiring-movers/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Per-trip vs hourly explained; what fits in one {{TIER_3}} load; helper add-on; multi-trip logic; what is not a small move; price examples; FAQs.",
+      "cluster": "services",
+      "page_type": "hub",
+      "phase": 1,
+      "template": "service-hub"
+    },
+    {
+      "url": "/services/small-moves/studio-apartment-move/",
+      "h1": "Studio apartment move",
+      "primary_query": "studio apartment movers",
+      "secondary_queries": [
+        "studio apartment movers {{METRO}}"
+      ],
+      "links_to": [
+        "/services/small-moves/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "1\u20132 trips, box counts, helper. Price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/small-moves/one-bedroom-move/",
+      "h1": "One-bedroom apartment move",
+      "primary_query": "one bedroom apartment movers",
+      "secondary_queries": [
+        "one bedroom apartment movers {{METRO}}"
+      ],
+      "links_to": [
+        "/services/small-moves/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "2 trips typical, when to add a second truck. Price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/small-moves/dorm-move/",
+      "h1": "Dorm move-in and move-out",
+      "primary_query": "dorm movers {{METRO}}",
+      "secondary_queries": [
+        "dorm movers {{METRO}} {{METRO}}"
+      ],
+      "links_to": [
+        "/services/small-moves/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "{{UNIVERSITY}} dates, parking rules, mini-fridge and futon. Price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/small-moves/storage-unit-move/",
+      "h1": "Storage unit moves",
+      "primary_query": "storage unit movers",
+      "secondary_queries": [
+        "storage unit movers {{METRO}}"
+      ],
+      "links_to": [
+        "/services/small-moves/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Unit sizes to loads, gate codes, hours. Price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/small-moves/senior-downsizing-move/",
+      "h1": "Senior downsizing moves",
+      "primary_query": "senior downsizing movers",
+      "secondary_queries": [
+        "senior downsizing movers {{METRO}}"
+      ],
+      "links_to": [
+        "/services/small-moves/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Partial moves, donation drop-offs, patience. Price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/small-moves/small-office-move/",
+      "h1": "Small office moves",
+      "primary_query": "small office movers",
+      "secondary_queries": [
+        "small office movers {{METRO}}"
+      ],
+      "links_to": [
+        "/services/small-moves/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Desks, chairs, after-hours, elevators. Price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/small-moves/last-minute-move/",
+      "h1": "Last-minute and same-day moves",
+      "primary_query": "same day movers near me",
+      "secondary_queries": [
+        "same day movers near me {{METRO}}"
+      ],
+      "links_to": [
+        "/services/small-moves/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "What can be done today, realistic limits. Price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/small-moves/in-building-move/",
+      "h1": "In-building and across-the-street moves",
+      "primary_query": "movers for moving within same building",
+      "secondary_queries": [
+        "movers for moving within same building {{METRO}}"
+      ],
+      "links_to": [
+        "/services/small-moves/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Labor-only option, no truck needed pricing. Price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/appliance-delivery/",
+      "h1": "Appliance delivery and haul-away",
+      "primary_query": "appliance delivery service {{METRO}}",
+      "secondary_queries": [
+        "appliance delivery near me",
+        "refrigerator delivery service",
+        "appliance haul away"
+      ],
+      "links_to": [
+        "/services/appliance-delivery/refrigerator/",
+        "/services/appliance-delivery/washer-and-dryer/",
+        "/services/appliance-delivery/dishwasher-and-range/",
+        "/services/appliance-delivery/haul-away/",
+        "/pricing/cost-to-move-a-refrigerator/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Two-person handling standard; prep checklist (defrost, disconnect, strap doors); stairs and doorways; old-unit haul-away; what drivers do not do (gas/water hookups); tier fit; FAQs.",
+      "cluster": "services",
+      "page_type": "hub",
+      "phase": 1,
+      "template": "service-hub"
+    },
+    {
+      "url": "/services/appliance-delivery/refrigerator/",
+      "h1": "Refrigerator delivery",
+      "primary_query": "refrigerator delivery service",
+      "secondary_queries": [
+        "refrigerator delivery service {{METRO}}"
+      ],
+      "links_to": [
+        "/services/appliance-delivery/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Upright only, defrost 24h, door removal for tight doorways. Price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/appliance-delivery/washer-and-dryer/",
+      "h1": "Washer and dryer delivery",
+      "primary_query": "washer dryer delivery service",
+      "secondary_queries": [
+        "washer dryer delivery service {{METRO}}"
+      ],
+      "links_to": [
+        "/services/appliance-delivery/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Shipping bolts, stacking kits, dryer vent note. Price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/appliance-delivery/dishwasher-and-range/",
+      "h1": "Dishwasher and range delivery",
+      "primary_query": "stove delivery service",
+      "secondary_queries": [
+        "stove delivery service {{METRO}}"
+      ],
+      "links_to": [
+        "/services/appliance-delivery/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Disconnect by licensed pro, gas safety. Price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/appliance-delivery/water-heater/",
+      "h1": "Water heater pickup and delivery",
+      "primary_query": "water heater delivery",
+      "secondary_queries": [
+        "water heater delivery {{METRO}}"
+      ],
+      "links_to": [
+        "/services/appliance-delivery/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Tank sizes, upright, plumber coordination. Price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/appliance-delivery/freezer/",
+      "h1": "Chest and upright freezer delivery",
+      "primary_query": "freezer delivery service",
+      "secondary_queries": [
+        "freezer delivery service {{METRO}}"
+      ],
+      "links_to": [
+        "/services/appliance-delivery/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Lay-flat rules, 24h rest before plugging in. Price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/appliance-delivery/haul-away/",
+      "h1": "Old appliance haul-away and recycling",
+      "primary_query": "appliance removal service",
+      "secondary_queries": [
+        "appliance removal service {{METRO}}"
+      ],
+      "links_to": [
+        "/services/appliance-delivery/",
+        "/pricing/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Refrigerant rules, recycling fees, utility rebate programs in {{METRO}}. Price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/junk-removal/",
+      "h1": "Junk removal and dump runs by the truckload",
+      "primary_query": "junk removal {{METRO}}",
+      "secondary_queries": [
+        "junk hauling near me",
+        "dump run service",
+        "cheap junk removal"
+      ],
+      "links_to": [
+        "/services/junk-removal/couch-disposal/",
+        "/services/junk-removal/mattress-disposal/",
+        "/services/junk-removal/garage-cleanout/",
+        "/services/junk-removal/dump-runs/",
+        "/pricing/cost-of-a-dump-run/",
+        "/guides/dump-fees-in-{{metro-slug}}/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Per-load pricing with load-size photos; what is accepted / not accepted; how dump fees pass through; donation-first option; local transfer stations; FAQs.",
+      "cluster": "services",
+      "page_type": "hub",
+      "phase": 1,
+      "template": "service-hub"
+    },
+    {
+      "url": "/services/junk-removal/dump-runs/",
+      "h1": "Dump runs",
+      "primary_query": "dump run service near me",
+      "secondary_queries": [
+        "dump run service near me {{METRO}}"
+      ],
+      "links_to": [
+        "/services/junk-removal/",
+        "/pricing/cost-of-a-dump-run/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "You load or we load, transfer station list, fee pass-through. Price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/junk-removal/couch-disposal/",
+      "h1": "Couch disposal",
+      "primary_query": "couch removal service",
+      "secondary_queries": [
+        "couch removal service {{METRO}}"
+      ],
+      "links_to": [
+        "/services/junk-removal/",
+        "/pricing/cost-of-a-dump-run/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Donation vs dump, {{METRO}} bulky-item rules. Price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/junk-removal/mattress-disposal/",
+      "h1": "Mattress disposal",
+      "primary_query": "mattress removal service",
+      "secondary_queries": [
+        "mattress removal service {{METRO}}"
+      ],
+      "links_to": [
+        "/services/junk-removal/",
+        "/pricing/cost-of-a-dump-run/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Recycling programs, bag requirement, fees. Price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/junk-removal/garage-cleanout/",
+      "h1": "Garage cleanouts",
+      "primary_query": "garage cleanout service",
+      "secondary_queries": [
+        "garage cleanout service {{METRO}}"
+      ],
+      "links_to": [
+        "/services/junk-removal/",
+        "/pricing/cost-of-a-dump-run/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Sorting, hazmat exclusions, multi-load. Price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/junk-removal/yard-waste-removal/",
+      "h1": "Yard waste removal",
+      "primary_query": "yard waste removal service",
+      "secondary_queries": [
+        "yard waste removal service {{METRO}}"
+      ],
+      "links_to": [
+        "/services/junk-removal/",
+        "/pricing/cost-of-a-dump-run/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Green waste sites, bagging, branches length. Price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/junk-removal/construction-debris-removal/",
+      "h1": "Construction debris removal",
+      "primary_query": "construction debris removal",
+      "secondary_queries": [
+        "construction debris removal {{METRO}}"
+      ],
+      "links_to": [
+        "/services/junk-removal/",
+        "/pricing/cost-of-a-dump-run/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Drywall, tile, weight limits per load, contractor accounts. Price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/junk-removal/e-waste-and-electronics/",
+      "h1": "E-waste and electronics pickup",
+      "primary_query": "electronics recycling pickup",
+      "secondary_queries": [
+        "electronics recycling pickup {{METRO}}"
+      ],
+      "links_to": [
+        "/services/junk-removal/",
+        "/pricing/cost-of-a-dump-run/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "TVs, monitors, recycling fees, data note. Price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/junk-removal/hot-tub-removal/",
+      "h1": "Hot tub removal",
+      "primary_query": "hot tub removal service",
+      "secondary_queries": [
+        "hot tub removal service {{METRO}}"
+      ],
+      "links_to": [
+        "/services/junk-removal/",
+        "/pricing/cost-of-a-dump-run/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Cut vs whole, crew size, disposal fee. Price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/junk-removal/estate-cleanout/",
+      "h1": "Estate cleanouts",
+      "primary_query": "estate cleanout service",
+      "secondary_queries": [
+        "estate cleanout service {{METRO}}"
+      ],
+      "links_to": [
+        "/services/junk-removal/",
+        "/pricing/cost-of-a-dump-run/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Multi-day, donation coordination, sensitivity. Price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/junk-removal/furniture-donation-pickup/",
+      "h1": "Furniture donation drop-off",
+      "primary_query": "furniture donation pickup",
+      "secondary_queries": [
+        "furniture donation pickup {{METRO}}"
+      ],
+      "links_to": [
+        "/services/junk-removal/",
+        "/pricing/cost-of-a-dump-run/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Which charities accept what in {{METRO}}, receipts. Price example, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/business-hauling/",
+      "h1": "Business and jobsite hauling",
+      "primary_query": "business delivery service pickup truck {{METRO}}",
+      "secondary_queries": [
+        "jobsite delivery service",
+        "pallet delivery local",
+        "on demand delivery for contractors"
+      ],
+      "links_to": [
+        "/services/business-hauling/pallet-and-bulk-pickup/",
+        "/services/business-hauling/jobsite-material-runs/",
+        "/services/business-hauling/property-manager-turnovers/",
+        "/services/business-hauling/retail-last-mile/",
+        "/partners/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "Offer",
+        "FAQPage"
+      ],
+      "content_blocks": "Account setup, invoicing, recurring runs, who this is for (contractors, suppliers, property managers, retailers, restaurants), price model, FAQs.",
+      "cluster": "services",
+      "page_type": "hub",
+      "phase": 2,
+      "template": "service-hub"
+    },
+    {
+      "url": "/services/business-hauling/pallet-and-bulk-pickup/",
+      "h1": "Pallet and bulk pickup",
+      "primary_query": "pallet pickup and delivery local",
+      "secondary_queries": [
+        "pallet pickup and delivery local {{METRO}}"
+      ],
+      "links_to": [
+        "/services/business-hauling/",
+        "/partners/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Forklift-to-bed, weight per pallet, no liftgate. Price model, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/business-hauling/jobsite-material-runs/",
+      "h1": "Jobsite material runs",
+      "primary_query": "jobsite delivery service",
+      "secondary_queries": [
+        "jobsite delivery service {{METRO}}"
+      ],
+      "links_to": [
+        "/services/business-hauling/",
+        "/partners/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Supply-house pickup, overhang, same-day. Price model, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/business-hauling/property-manager-turnovers/",
+      "h1": "Property manager unit turnovers",
+      "primary_query": "property management hauling service",
+      "secondary_queries": [
+        "property management hauling service {{METRO}}"
+      ],
+      "links_to": [
+        "/services/business-hauling/",
+        "/partners/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Left-behind furniture, 48-hour turns, recurring accounts. Price model, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/business-hauling/retail-last-mile/",
+      "h1": "Retail last-mile delivery",
+      "primary_query": "last mile delivery for furniture stores",
+      "secondary_queries": [
+        "last mile delivery for furniture stores {{METRO}}"
+      ],
+      "links_to": [
+        "/services/business-hauling/",
+        "/partners/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "How stores offer BoxHauls at checkout, partner program. Price model, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/services/business-hauling/restaurant-and-office-equipment/",
+      "h1": "Restaurant and office equipment moves",
+      "primary_query": "restaurant equipment movers",
+      "secondary_queries": [
+        "restaurant equipment movers {{METRO}}"
+      ],
+      "links_to": [
+        "/services/business-hauling/",
+        "/partners/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Commercial fridges, desks, after-hours. Price model, FAQs.",
+      "cluster": "services",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "service-spoke"
+    },
+    {
+      "url": "/cities/{{metro-slug}}/",
+      "h1": "Truck and driver on demand in {{METRO}}",
+      "primary_query": "truck delivery service {{METRO}}",
+      "secondary_queries": [
+        "furniture delivery {{METRO}}",
+        "junk removal {{METRO}}",
+        "small movers {{METRO}}",
+        "dump run {{METRO}}"
+      ],
+      "links_to": [
+        "/pricing/",
+        "/services/furniture-delivery/",
+        "/services/junk-removal/",
+        "/services/small-moves/",
+        "/guides/dump-fees-in-{{metro-slug}}/",
+        "/drive/{{metro-slug}}/"
+      ],
+      "schema": [
+        "LocalBusiness",
+        "Service",
+        "FAQPage",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "MUST CONTAIN (no template filler): local transfer stations/landfills with address, hours, fees; the retailers drivers pick up from most with pickup-lane notes; {{METRO}} bulky-item pickup rules and gaps; {{UNIVERSITY}} move-in/out dates; apartment corridors; real driver profiles with photos; real reviews from {{METRO}}; pricing table from actual trips; coverage map. Neighborhood sub-pages only when trip volume justifies.",
+      "cluster": "cities",
+      "page_type": "hub",
+      "phase": 1,
+      "template": "city"
+    },
+    {
+      "url": "/cities/{{metro-slug}}/{{neighborhood-slug}}/",
+      "h1": "BoxHauls in {{NEIGHBORHOOD}}",
+      "primary_query": "furniture delivery {{NEIGHBORHOOD}}",
+      "secondary_queries": [
+        "truck delivery {{NEIGHBORHOOD}}"
+      ],
+      "links_to": [
+        "/cities/{{metro-slug}}/"
+      ],
+      "schema": [
+        "LocalBusiness",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "OPTIONAL, phase 3, only with \u226520 completed trips in the neighborhood: local landmarks drivers use, parking/loading realities, nearest transfer station, real trips and reviews.",
+      "cluster": "cities",
+      "page_type": "spoke",
+      "phase": 3,
+      "template": "city"
+    },
+    {
+      "url": "/compare/",
+      "h1": "BoxHauls vs. the alternatives",
+      "primary_query": "best on demand truck delivery app",
+      "secondary_queries": [
+        "lugg alternatives",
+        "apps like lugg"
+      ],
+      "links_to": [
+        "/compare/boxhauls-vs-lugg/",
+        "/compare/boxhauls-vs-dolly/",
+        "/compare/boxhauls-vs-goshare/",
+        "/compare/boxhauls-vs-uhaul-truck-rental/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Index with one-line verdict per comparison and a master table.",
+      "cluster": "compare",
+      "page_type": "hub",
+      "phase": 2,
+      "template": "compare"
+    },
+    {
+      "url": "/compare/boxhauls-vs-lugg/",
+      "h1": "BoxHauls vs. Lugg",
+      "primary_query": "boxhauls vs lugg",
+      "secondary_queries": [
+        "Lugg alternative",
+        "Lugg vs boxhauls"
+      ],
+      "links_to": [
+        "/compare/",
+        "/pricing/",
+        "/trust/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, helpers, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
+      "cluster": "compare",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "compare"
+    },
+    {
+      "url": "/compare/boxhauls-vs-dolly/",
+      "h1": "BoxHauls vs. Dolly",
+      "primary_query": "boxhauls vs dolly",
+      "secondary_queries": [
+        "Dolly alternative",
+        "Dolly vs boxhauls"
+      ],
+      "links_to": [
+        "/compare/",
+        "/pricing/",
+        "/trust/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, helpers, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
+      "cluster": "compare",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "compare"
+    },
+    {
+      "url": "/compare/boxhauls-vs-goshare/",
+      "h1": "BoxHauls vs. GoShare",
+      "primary_query": "boxhauls vs goshare",
+      "secondary_queries": [
+        "GoShare alternative",
+        "GoShare vs boxhauls"
+      ],
+      "links_to": [
+        "/compare/",
+        "/pricing/",
+        "/trust/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, helpers, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
+      "cluster": "compare",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "compare"
+    },
+    {
+      "url": "/compare/boxhauls-vs-bungii/",
+      "h1": "BoxHauls vs. Bungii",
+      "primary_query": "boxhauls vs bungii",
+      "secondary_queries": [
+        "Bungii alternative",
+        "Bungii vs boxhauls"
+      ],
+      "links_to": [
+        "/compare/",
+        "/pricing/",
+        "/trust/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, helpers, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
+      "cluster": "compare",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "compare"
+    },
+    {
+      "url": "/compare/boxhauls-vs-taskrabbit/",
+      "h1": "BoxHauls vs. TaskRabbit",
+      "primary_query": "boxhauls vs taskrabbit",
+      "secondary_queries": [
+        "TaskRabbit alternative",
+        "TaskRabbit vs boxhauls"
+      ],
+      "links_to": [
+        "/compare/",
+        "/pricing/",
+        "/trust/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, helpers, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
+      "cluster": "compare",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "compare"
+    },
+    {
+      "url": "/compare/boxhauls-vs-truck-it/",
+      "h1": "BoxHauls vs. Truck It",
+      "primary_query": "boxhauls vs truck it app",
+      "secondary_queries": [
+        "Truck It alternative",
+        "Truck It vs boxhauls"
+      ],
+      "links_to": [
+        "/compare/",
+        "/pricing/",
+        "/trust/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, helpers, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
+      "cluster": "compare",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "compare"
+    },
+    {
+      "url": "/compare/boxhauls-vs-curri/",
+      "h1": "BoxHauls vs. Curri",
+      "primary_query": "boxhauls vs curri",
+      "secondary_queries": [
+        "Curri alternative",
+        "Curri vs boxhauls"
+      ],
+      "links_to": [
+        "/compare/",
+        "/pricing/",
+        "/trust/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, helpers, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
+      "cluster": "compare",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "compare"
+    },
+    {
+      "url": "/compare/boxhauls-vs-uhaul-truck-rental/",
+      "h1": "BoxHauls vs. renting a U-Haul",
+      "primary_query": "truck delivery service vs uhaul rental",
+      "secondary_queries": [
+        "renting a U-Haul alternative",
+        "renting a U-Haul vs boxhauls"
+      ],
+      "links_to": [
+        "/compare/",
+        "/pricing/",
+        "/trust/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, helpers, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
+      "cluster": "compare",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "compare"
+    },
+    {
+      "url": "/compare/boxhauls-vs-home-depot-truck-rental/",
+      "h1": "BoxHauls vs. Home Depot truck rental",
+      "primary_query": "home depot truck rental vs delivery service",
+      "secondary_queries": [
+        "Home Depot truck rental alternative",
+        "Home Depot truck rental vs boxhauls"
+      ],
+      "links_to": [
+        "/compare/",
+        "/pricing/",
+        "/trust/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, helpers, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
+      "cluster": "compare",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "compare"
+    },
+    {
+      "url": "/compare/boxhauls-vs-store-delivery/",
+      "h1": "BoxHauls vs. store delivery",
+      "primary_query": "store delivery vs pickup truck delivery service",
+      "secondary_queries": [
+        "store delivery alternative",
+        "store delivery vs boxhauls"
+      ],
+      "links_to": [
+        "/compare/",
+        "/pricing/",
+        "/trust/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, helpers, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
+      "cluster": "compare",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "compare"
+    },
+    {
+      "url": "/compare/boxhauls-vs-hiring-movers/",
+      "h1": "BoxHauls vs. hiring movers",
+      "primary_query": "movers vs truck and driver for one item",
+      "secondary_queries": [
+        "hiring movers alternative",
+        "hiring movers vs boxhauls"
+      ],
+      "links_to": [
+        "/compare/",
+        "/pricing/",
+        "/trust/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, helpers, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
+      "cluster": "compare",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "compare"
+    },
+    {
+      "url": "/compare/boxhauls-vs-borrowing-a-friends-truck/",
+      "h1": "BoxHauls vs. borrowing a friend's truck",
+      "primary_query": "is it worth borrowing a friends truck",
+      "secondary_queries": [
+        "borrowing a friend's truck alternative",
+        "borrowing a friend's truck vs boxhauls"
+      ],
+      "links_to": [
+        "/compare/",
+        "/pricing/",
+        "/trust/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, helpers, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
+      "cluster": "compare",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "compare"
+    },
+    {
+      "url": "/guides/",
+      "h1": "Guides: moving big stuff without owning a truck",
+      "primary_query": "how to move furniture without a truck",
+      "secondary_queries": [
+        "moving guides",
+        "how to haul furniture"
+      ],
+      "links_to": [
+        "/guides/will-it-fit-in-a-pickup-bed/",
+        "/guides/how-to-move-a-couch-without-a-truck/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Index grouped by cluster with one-line summaries.",
+      "cluster": "guides",
+      "page_type": "hub",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/will-it-fit-in-a-pickup-bed/",
+      "h1": "Will it fit in a pickup bed? Dimensions for 40 common items",
+      "primary_query": "will a couch fit in a truck bed",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/pricing/truck-sizes/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: fit. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /pricing/truck-sizes/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/will-a-sectional-fit-in-a-pickup/",
+      "h1": "Will a sectional fit in a pickup truck?",
+      "primary_query": "sectional fit in truck bed",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/pricing/cost-to-move-a-sectional/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: fit. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /pricing/cost-to-move-a-sectional/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/will-a-king-mattress-fit-in-a-pickup/",
+      "h1": "Will a king mattress fit in a pickup truck?",
+      "primary_query": "king mattress fit in truck bed",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/pricing/cost-to-move-a-mattress/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: fit. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /pricing/cost-to-move-a-mattress/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/will-a-refrigerator-fit-in-a-pickup/",
+      "h1": "Will a refrigerator fit in a pickup truck? (and can it lay down?)",
+      "primary_query": "can you lay a refrigerator down in a truck",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/pricing/cost-to-move-a-refrigerator/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: fit. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /pricing/cost-to-move-a-refrigerator/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/will-a-washer-fit-in-a-pickup/",
+      "h1": "Will a washer and dryer fit in a pickup truck?",
+      "primary_query": "washer dryer fit in truck bed",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/pricing/cost-to-move-a-washer-and-dryer/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: fit. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /pricing/cost-to-move-a-washer-and-dryer/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/will-4x8-plywood-fit-in-a-pickup/",
+      "h1": "Will 4x8 plywood fit in a short-bed pickup?",
+      "primary_query": "4x8 sheet fit in 5.5 ft bed",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/pricing/cost-to-deliver-plywood-and-lumber/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: fit. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /pricing/cost-to-deliver-plywood-and-lumber/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/pickup-truck-bed-sizes-explained/",
+      "h1": "Pickup truck bed sizes explained (5.5, 6.5, 8 ft)",
+      "primary_query": "pickup truck bed sizes",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/pricing/truck-sizes/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: fit. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /pricing/truck-sizes/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/how-much-weight-can-a-pickup-carry/",
+      "h1": "How much weight can a pickup truck carry?",
+      "primary_query": "how much weight can a half ton truck carry",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/pricing/truck-sizes/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: fit. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /pricing/truck-sizes/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/how-to-move-a-couch-without-a-truck/",
+      "h1": "How to move a couch without a truck",
+      "primary_query": "how to move a couch without a truck",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/furniture-delivery/couch-delivery/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList",
+        "HowTo"
+      ],
+      "content_blocks": "Cluster: howto. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/furniture-delivery/couch-delivery/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/how-to-move-a-refrigerator/",
+      "h1": "How to move a refrigerator (prep, transport, restart)",
+      "primary_query": "how to move a refrigerator",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/appliance-delivery/refrigerator/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList",
+        "HowTo"
+      ],
+      "content_blocks": "Cluster: howto. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/appliance-delivery/refrigerator/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/how-to-move-a-washer-and-dryer/",
+      "h1": "How to move a washer and dryer without breaking them",
+      "primary_query": "how to move a washing machine",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/appliance-delivery/washer-and-dryer/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList",
+        "HowTo"
+      ],
+      "content_blocks": "Cluster: howto. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/appliance-delivery/washer-and-dryer/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/how-to-tie-down-a-load-in-a-pickup/",
+      "h1": "How to tie down a load in a pickup bed",
+      "primary_query": "how to secure furniture in a truck bed",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/drive/equipment/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList",
+        "HowTo"
+      ],
+      "content_blocks": "Cluster: howto. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /drive/equipment/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/how-to-move-a-mattress-without-getting-it-dirty/",
+      "h1": "How to move a mattress without getting it dirty",
+      "primary_query": "how to transport a mattress in a truck",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/furniture-delivery/mattress-delivery/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList",
+        "HowTo"
+      ],
+      "content_blocks": "Cluster: howto. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/furniture-delivery/mattress-delivery/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/how-to-get-a-couch-up-stairs/",
+      "h1": "How to get a couch up stairs or through a tight doorway",
+      "primary_query": "couch won't fit through door",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/furniture-delivery/couch-delivery/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList",
+        "HowTo"
+      ],
+      "content_blocks": "Cluster: howto. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/furniture-delivery/couch-delivery/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/how-to-prep-appliances-for-transport/",
+      "h1": "How to prep appliances for transport",
+      "primary_query": "prepare appliance for moving",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/appliance-delivery/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList",
+        "HowTo"
+      ],
+      "content_blocks": "Cluster: howto. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/appliance-delivery/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/how-to-wrap-furniture-for-a-truck/",
+      "h1": "How to wrap furniture for an open truck bed",
+      "primary_query": "how to protect furniture in truck bed",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/furniture-delivery/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList",
+        "HowTo"
+      ],
+      "content_blocks": "Cluster: howto. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/furniture-delivery/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/how-to-load-a-pickup-bed/",
+      "h1": "How to load a pickup bed (weight, order, tailgate)",
+      "primary_query": "how to load a pickup truck bed",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/pricing/truck-sizes/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList",
+        "HowTo"
+      ],
+      "content_blocks": "Cluster: howto. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /pricing/truck-sizes/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/how-to-disassemble-a-bed-frame/",
+      "h1": "How to disassemble a bed frame for moving",
+      "primary_query": "how to take apart a bed frame",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/pricing/cost-to-move-a-bed-frame/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList",
+        "HowTo"
+      ],
+      "content_blocks": "Cluster: howto. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /pricing/cost-to-move-a-bed-frame/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 3,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/renting-a-truck-vs-hiring-a-truck-and-driver/",
+      "h1": "Renting a truck vs. hiring a truck and driver: the real all-in cost",
+      "primary_query": "is it cheaper to rent a truck or hire delivery",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/compare/boxhauls-vs-uhaul-truck-rental/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: decision. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /compare/boxhauls-vs-uhaul-truck-rental/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/when-you-need-a-second-helper/",
+      "h1": "When you need a second helper (stairs, doorways, weight)",
+      "primary_query": "do I need a helper to move a couch",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/pricing/fees/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: decision. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /pricing/fees/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/is-it-worth-hiring-delivery-for-one-item/",
+      "h1": "Is it worth hiring delivery for one item?",
+      "primary_query": "cheapest way to move one piece of furniture",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/furniture-delivery/single-item-delivery/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: decision. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/furniture-delivery/single-item-delivery/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/how-much-to-tip-a-truck-driver/",
+      "h1": "How much to tip a truck delivery driver",
+      "primary_query": "how much to tip furniture delivery",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/how-it-works/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: decision. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /how-it-works/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/movers-vs-truck-and-driver-for-a-studio/",
+      "h1": "Movers vs. a truck and driver for a studio apartment",
+      "primary_query": "cheapest way to move a studio apartment",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/small-moves/studio-apartment-move/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: decision. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/small-moves/studio-apartment-move/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/what-to-expect-from-a-boxhauls-driver/",
+      "h1": "What to expect from a BoxHauls driver",
+      "primary_query": "what does a truck delivery driver do",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/trust/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: decision. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /trust/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/how-to-get-a-facebook-marketplace-purchase-home/",
+      "h1": "How to get a Facebook Marketplace purchase home safely",
+      "primary_query": "how to pick up furniture from facebook marketplace",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/furniture-delivery/marketplace-pickup/facebook-marketplace/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: marketplace. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/furniture-delivery/marketplace-pickup/facebook-marketplace/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/what-to-do-when-a-marketplace-seller-no-shows/",
+      "h1": "What to do when a Marketplace seller no-shows",
+      "primary_query": "facebook marketplace seller didn't show up",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/furniture-delivery/marketplace-pickup/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: marketplace. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/furniture-delivery/marketplace-pickup/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/how-to-inspect-used-furniture-before-buying/",
+      "h1": "How to inspect used furniture before you buy it",
+      "primary_query": "what to check when buying used couch",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/furniture-delivery/marketplace-pickup/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: marketplace. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/furniture-delivery/marketplace-pickup/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/how-to-pay-safely-on-marketplace-pickups/",
+      "h1": "How to pay safely on Marketplace pickups",
+      "primary_query": "safest way to pay facebook marketplace",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/furniture-delivery/marketplace-pickup/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: marketplace. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/furniture-delivery/marketplace-pickup/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 3,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/ikea-flat-pack-vs-assembled/",
+      "h1": "IKEA flat-pack vs. assembled: what to buy if a pickup is bringing it home",
+      "primary_query": "should I buy ikea furniture assembled",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/furniture-delivery/store-pickup/ikea/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: retail. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/furniture-delivery/store-pickup/ikea/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/how-costco-warehouse-pickup-works/",
+      "h1": "How Costco warehouse pickup works for big items",
+      "primary_query": "costco pickup large items",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/furniture-delivery/store-pickup/costco/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: retail. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/furniture-delivery/store-pickup/costco/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/getting-lumber-home-from-home-depot/",
+      "h1": "Getting lumber home from Home Depot without a truck",
+      "primary_query": "how to transport lumber without a truck",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/furniture-delivery/store-pickup/home-depot/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: retail. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/furniture-delivery/store-pickup/home-depot/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/mattress-in-a-box-vs-traditional-delivery/",
+      "h1": "Mattress-in-a-box vs. traditional mattress delivery",
+      "primary_query": "mattress in a box vs regular mattress delivery",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/furniture-delivery/mattress-delivery/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: retail. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/furniture-delivery/mattress-delivery/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 3,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/dump-fees-in-{{metro-slug}}/",
+      "h1": "Dump fees in {{METRO}}: what the transfer stations charge",
+      "primary_query": "dump fees {{METRO}}",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/cities/{{metro-slug}}/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: local. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /cities/{{metro-slug}}/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/bulky-item-pickup-in-{{metro-slug}}/",
+      "h1": "What {{METRO}}'s bulky-item pickup will and won't take",
+      "primary_query": "bulky item pickup {{METRO}}",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/cities/{{metro-slug}}/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: local. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /cities/{{metro-slug}}/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/college-move-in-{{metro-slug}}/",
+      "h1": "{{UNIVERSITY}} move-in and move-out: what fits in one truck",
+      "primary_query": "{{UNIVERSITY}} move in day tips",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/small-moves/dorm-move/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: local. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/small-moves/dorm-move/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/where-to-donate-furniture-in-{{metro-slug}}/",
+      "h1": "Where to donate furniture in {{METRO}} (and who picks up)",
+      "primary_query": "donate furniture {{METRO}}",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/junk-removal/furniture-donation-pickup/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: local. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/junk-removal/furniture-donation-pickup/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/mattress-recycling-in-{{metro-slug}}/",
+      "h1": "Mattress recycling in {{METRO}}",
+      "primary_query": "mattress recycling {{METRO}}",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/junk-removal/mattress-disposal/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: local. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/junk-removal/mattress-disposal/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/storage-unit-run-in-one-trip/",
+      "h1": "Storage-unit runs: how to load it in one trip",
+      "primary_query": "how to move storage unit",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/small-moves/storage-unit-move/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: scenario. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/small-moves/storage-unit-move/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/estate-cleanout-in-one-weekend/",
+      "h1": "Clearing out an estate in one weekend",
+      "primary_query": "how to clean out a parents house",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/junk-removal/estate-cleanout/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: scenario. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/junk-removal/estate-cleanout/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/apartment-turnover-in-48-hours/",
+      "h1": "Property managers: turning a unit in 48 hours",
+      "primary_query": "apartment turnover checklist",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/business-hauling/property-manager-turnovers/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: scenario. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/business-hauling/property-manager-turnovers/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 3,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/moving-out-of-a-dorm-in-one-trip/",
+      "h1": "Moving out of a dorm in one trip",
+      "primary_query": "dorm move out tips",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/small-moves/dorm-move/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: scenario. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/small-moves/dorm-move/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/what-to-do-if-an-item-is-damaged/",
+      "h1": "What to do if an item is damaged in delivery",
+      "primary_query": "furniture damaged during delivery what to do",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/trust/damage-claims/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: trust. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /trust/damage-claims/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/delivery-insurance-explained/",
+      "h1": "Delivery insurance explained: cargo vs. liability",
+      "primary_query": "does delivery insurance cover furniture",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/trust/insurance/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: trust. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /trust/insurance/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/spring-cleanout-checklist/",
+      "h1": "Spring cleanout checklist",
+      "primary_query": "spring garage cleanout checklist",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/junk-removal/garage-cleanout/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: seasonal. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/junk-removal/garage-cleanout/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 3,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/holiday-furniture-delivery-tips/",
+      "h1": "Holiday furniture delivery: getting it there before guests arrive",
+      "primary_query": "furniture delivery before christmas",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/furniture-delivery/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: seasonal. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/furniture-delivery/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 3,
+      "template": "guide"
+    },
+    {
+      "url": "/guides/college-move-out-week/",
+      "h1": "College move-out week: booking ahead",
+      "primary_query": "when to book movers for college move out",
+      "secondary_queries": [],
+      "links_to": [
+        "/guides/",
+        "/services/small-moves/dorm-move/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Cluster: seasonal. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /services/small-moves/dorm-move/; 3 FAQs.",
+      "cluster": "guides",
+      "page_type": "spoke",
+      "phase": 3,
+      "template": "guide"
+    },
+    {
+      "url": "/drive/",
+      "h1": "Drive for BoxHauls: get paid for your pickup truck",
+      "primary_query": "make money with my pickup truck",
+      "secondary_queries": [
+        "pickup truck gigs",
+        "hauling gigs near me",
+        "drive for boxhauls"
+      ],
+      "links_to": [
+        "/drive/requirements/",
+        "/drive/earnings/",
+        "/drive/insurance-and-liability/",
+        "/drive/how-payouts-work/",
+        "/drive/{{metro-slug}}/",
+        "/drive/apply/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "JobPosting",
+        "FAQPage"
+      ],
+      "content_blocks": "Driver-side hub. Earnings headline ({{DRIVER_SHARE}}% of fare + 100% tips); requirements summary; how jobs arrive; a real driver story; apply CTA. Never links to rider service pages.",
+      "cluster": "drive",
+      "page_type": "hub",
+      "phase": 1,
+      "template": "driver"
+    },
+    {
+      "url": "/drive/requirements/",
+      "h1": "Driver requirements",
+      "primary_query": "boxhauls driver requirements",
+      "secondary_queries": [],
+      "links_to": [
+        "/drive/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Truck year/condition, license, age, insurance minimums, background check, phone, straps/blankets.",
+      "cluster": "drive",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "driver"
+    },
+    {
+      "url": "/drive/earnings/",
+      "h1": "How much BoxHauls drivers make",
+      "primary_query": "how much do truck delivery drivers make",
+      "secondary_queries": [],
+      "links_to": [
+        "/drive/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Payout math per tier with worked examples; per-hour realistic ranges; tips; busy times; fuel and wear considered honestly.",
+      "cluster": "drive",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "driver"
+    },
+    {
+      "url": "/drive/insurance-and-liability/",
+      "h1": "Driver insurance and liability",
+      "primary_query": "gig hauling insurance",
+      "secondary_queries": [],
+      "links_to": [
+        "/drive/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "What the platform covers when, what personal auto policies exclude, commercial add-on options.",
+      "cluster": "drive",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "driver"
+    },
+    {
+      "url": "/drive/how-payouts-work/",
+      "h1": "How payouts work",
+      "primary_query": "boxhauls driver pay schedule",
+      "secondary_queries": [],
+      "links_to": [
+        "/drive/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Payout schedule, instant vs weekly, fees, tax forms.",
+      "cluster": "drive",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "driver"
+    },
+    {
+      "url": "/drive/taxes/",
+      "h1": "Taxes for gig haulers",
+      "primary_query": "1099 truck delivery driver taxes",
+      "secondary_queries": [],
+      "links_to": [
+        "/drive/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "1099 status, mileage vs actual expenses, deductible gear, quarterly estimates.",
+      "cluster": "drive",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "driver"
+    },
+    {
+      "url": "/drive/equipment/",
+      "h1": "Equipment every hauling driver should carry",
+      "primary_query": "what equipment do I need for hauling gigs",
+      "secondary_queries": [],
+      "links_to": [
+        "/drive/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Ratchet straps, blankets, dolly, ramps, tarp, gloves; buy list with rough costs.",
+      "cluster": "drive",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "driver"
+    },
+    {
+      "url": "/drive/best-trucks-for-hauling-gigs/",
+      "h1": "Best trucks for hauling gigs",
+      "primary_query": "best truck for gig hauling",
+      "secondary_queries": [],
+      "links_to": [
+        "/drive/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "F-150 vs Tacoma vs 2500 vs trailer; bed length, payload, fuel economy tradeoffs.",
+      "cluster": "drive",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "driver"
+    },
+    {
+      "url": "/drive/ratings-and-tips/",
+      "h1": "Ratings, tips, and staying active",
+      "primary_query": "boxhauls driver rating",
+      "secondary_queries": [],
+      "links_to": [
+        "/drive/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Rating threshold, how to earn tips, common deductions.",
+      "cluster": "drive",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "driver"
+    },
+    {
+      "url": "/drive/safety/",
+      "h1": "Driver safety",
+      "primary_query": "safe practices for hauling gigs",
+      "secondary_queries": [],
+      "links_to": [
+        "/drive/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Lifting, meeting-point safety, weather, what to refuse.",
+      "cluster": "drive",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "driver"
+    },
+    {
+      "url": "/drive/faq/",
+      "h1": "Driver FAQ",
+      "primary_query": "boxhauls driver faq",
+      "secondary_queries": [],
+      "links_to": [
+        "/drive/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Everything not owned elsewhere.",
+      "cluster": "drive",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "driver"
+    },
+    {
+      "url": "/drive/apply/",
+      "h1": "Apply to drive",
+      "primary_query": "boxhauls driver application",
+      "secondary_queries": [],
+      "links_to": [
+        "/drive/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Form or app link, what happens next, timeline.",
+      "cluster": "drive",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "driver"
+    },
+    {
+      "url": "/drive/{{metro-slug}}/",
+      "h1": "Drive for BoxHauls in {{METRO}}",
+      "primary_query": "hauling gigs {{METRO}}",
+      "secondary_queries": [
+        "pickup truck jobs {{METRO}}",
+        "make money with truck {{METRO}}"
+      ],
+      "links_to": [
+        "/drive/",
+        "/drive/earnings/",
+        "/drive/apply/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "JobPosting"
+      ],
+      "content_blocks": "Where demand is, busiest zones and hours, local transfer stations, local retailer pickup lanes, real earnings examples from {{METRO}}.",
+      "cluster": "drive",
+      "page_type": "spoke",
+      "phase": 1,
+      "template": "driver"
+    },
+    {
+      "url": "/drive/compare/boxhauls-vs-goshare-vs-lugg-vs-dolly-for-drivers/",
+      "h1": "BoxHauls vs. GoShare vs. Lugg vs. Dolly for drivers",
+      "primary_query": "goshare vs lugg vs dolly driver pay",
+      "secondary_queries": [
+        "best truck delivery app to drive for"
+      ],
+      "links_to": [
+        "/drive/",
+        "/drive/earnings/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "FAQPage"
+      ],
+      "content_blocks": "Driver-side comparison: payout %, minimums, vehicle rules, insurance, payout speed, markets. Honest.",
+      "cluster": "drive",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "driver"
+    },
+    {
+      "url": "/drive/guides/how-to-strap-a-couch-in-a-pickup/",
+      "h1": "How to strap a couch in a pickup bed",
+      "primary_query": "how to secure a couch in truck bed",
+      "secondary_queries": [],
+      "links_to": [
+        "/drive/",
+        "/drive/equipment/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Driver guide; answer-first; real photos; links only within /drive/.",
+      "cluster": "drive",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/drive/guides/how-to-load-a-refrigerator-alone/",
+      "h1": "How to load a refrigerator with one person (and when not to)",
+      "primary_query": "how to load a fridge into a truck by yourself",
+      "secondary_queries": [],
+      "links_to": [
+        "/drive/",
+        "/drive/equipment/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Driver guide; answer-first; real photos; links only within /drive/.",
+      "cluster": "drive",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/drive/guides/handling-a-customer-no-show/",
+      "h1": "Handling a customer no-show",
+      "primary_query": "what to do when delivery customer doesn't answer",
+      "secondary_queries": [],
+      "links_to": [
+        "/drive/",
+        "/drive/equipment/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Driver guide; answer-first; real photos; links only within /drive/.",
+      "cluster": "drive",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/drive/guides/is-hauling-worth-it-for-my-truck/",
+      "h1": "Is gig hauling worth it for my truck? Fuel and wear math",
+      "primary_query": "is gig hauling worth it",
+      "secondary_queries": [],
+      "links_to": [
+        "/drive/",
+        "/drive/equipment/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Driver guide; answer-first; real photos; links only within /drive/.",
+      "cluster": "drive",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "guide"
+    },
+    {
+      "url": "/drive/guides/tax-deductions-for-gig-haulers/",
+      "h1": "Tax deductions for gig haulers",
+      "primary_query": "gig driver tax deductions truck",
+      "secondary_queries": [],
+      "links_to": [
+        "/drive/",
+        "/drive/equipment/"
+      ],
+      "schema": [
+        "Article",
+        "Person",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Driver guide; answer-first; real photos; links only within /drive/.",
+      "cluster": "drive",
+      "page_type": "spoke",
+      "phase": 3,
+      "template": "guide"
+    },
+    {
+      "url": "/partners/",
+      "h1": "Offer BoxHauls delivery at your store",
+      "primary_query": "offer delivery to customers without a truck",
+      "secondary_queries": [
+        "last mile delivery partner for furniture store",
+        "delivery option for small retailers"
+      ],
+      "links_to": [
+        "/partners/for-furniture-stores/",
+        "/partners/for-appliance-dealers/",
+        "/partners/for-property-managers/",
+        "/partners/for-contractors-and-suppliers/",
+        "/partners/directory/",
+        "/partners/apply/",
+        "/services/business-hauling/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service"
+      ],
+      "content_blocks": "How it works at checkout (QR / link / staff booking); what the customer pays; what the store gets (sales, no fleet); real partner logos only; apply. NO reciprocal-link language, no badges-for-links.",
+      "cluster": "partners",
+      "page_type": "hub",
+      "phase": 2,
+      "template": "partners"
+    },
+    {
+      "url": "/partners/for-furniture-stores/",
+      "h1": "For furniture and mattress stores",
+      "primary_query": "furniture store delivery solution",
+      "secondary_queries": [],
+      "links_to": [
+        "/partners/",
+        "/partners/apply/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Vertical-specific pitch, checkout flow, pricing model, case example once available.",
+      "cluster": "partners",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "partners"
+    },
+    {
+      "url": "/partners/for-appliance-dealers/",
+      "h1": "For appliance dealers",
+      "primary_query": "appliance store delivery partner",
+      "secondary_queries": [],
+      "links_to": [
+        "/partners/",
+        "/partners/apply/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Vertical-specific pitch, checkout flow, pricing model, case example once available.",
+      "cluster": "partners",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "partners"
+    },
+    {
+      "url": "/partners/for-property-managers/",
+      "h1": "For property managers",
+      "primary_query": "property management hauling partner",
+      "secondary_queries": [],
+      "links_to": [
+        "/partners/",
+        "/partners/apply/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Vertical-specific pitch, checkout flow, pricing model, case example once available.",
+      "cluster": "partners",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "partners"
+    },
+    {
+      "url": "/partners/for-contractors-and-suppliers/",
+      "h1": "For contractors and supply houses",
+      "primary_query": "supply house delivery partner",
+      "secondary_queries": [],
+      "links_to": [
+        "/partners/",
+        "/partners/apply/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Vertical-specific pitch, checkout flow, pricing model, case example once available.",
+      "cluster": "partners",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "partners"
+    },
+    {
+      "url": "/partners/for-thrift-stores/",
+      "h1": "For thrift stores and consignment shops",
+      "primary_query": "thrift store delivery option",
+      "secondary_queries": [],
+      "links_to": [
+        "/partners/",
+        "/partners/apply/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList",
+        "Service",
+        "FAQPage"
+      ],
+      "content_blocks": "Vertical-specific pitch, checkout flow, pricing model, case example once available.",
+      "cluster": "partners",
+      "page_type": "spoke",
+      "phase": 2,
+      "template": "partners"
+    },
+    {
+      "url": "/partners/directory/",
+      "h1": "Stores that offer BoxHauls delivery",
+      "primary_query": "stores with boxhauls delivery {{METRO}}",
+      "secondary_queries": [],
+      "links_to": [
+        "/partners/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Real partner locations only, with address and hours. Empty state is fine. No links-for-links.",
+      "cluster": "partners",
+      "page_type": "utility",
+      "phase": 2,
+      "template": "partners"
+    },
+    {
+      "url": "/partners/apply/",
+      "h1": "Become a BoxHauls partner",
+      "primary_query": "boxhauls partner application",
+      "secondary_queries": [],
+      "links_to": [
+        "/partners/"
+      ],
+      "schema": [
+        "Organization",
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Form, what happens next.",
+      "cluster": "partners",
+      "page_type": "utility",
+      "phase": 2,
+      "template": "partners"
+    },
+    {
+      "url": "/legal/terms/",
+      "h1": "Terms of service",
+      "primary_query": "",
+      "secondary_queries": [],
+      "links_to": [],
+      "schema": [
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Legal. Indexable but no-follow in nav; plain text.",
+      "cluster": "legal",
+      "page_type": "utility",
+      "phase": 1,
+      "template": "legal"
+    },
+    {
+      "url": "/legal/privacy/",
+      "h1": "Privacy policy",
+      "primary_query": "",
+      "secondary_queries": [],
+      "links_to": [],
+      "schema": [
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Legal. Indexable but no-follow in nav; plain text.",
+      "cluster": "legal",
+      "page_type": "utility",
+      "phase": 1,
+      "template": "legal"
+    },
+    {
+      "url": "/legal/driver-agreement/",
+      "h1": "Driver agreement",
+      "primary_query": "",
+      "secondary_queries": [],
+      "links_to": [],
+      "schema": [
+        "BreadcrumbList"
+      ],
+      "content_blocks": "Legal. Indexable but no-follow in nav; plain text.",
+      "cluster": "legal",
+      "page_type": "utility",
+      "phase": 1,
+      "template": "legal"
+    }
+  ],
+  "redirects": [
+    {
+      "from": "/",
+      "to": "/"
+    },
+    {
+      "from": "/how-it-works",
+      "to": "/how-it-works/"
+    },
+    {
+      "from": "/pricing",
+      "to": "/pricing/"
+    },
+    {
+      "from": "/faq",
+      "to": "/faq/"
+    },
+    {
+      "from": "/contact",
+      "to": "/contact/"
+    },
+    {
+      "from": "/press",
+      "to": "/press/"
+    },
+    {
+      "from": "/drive",
+      "to": "/drive/"
+    },
+    {
+      "from": "/partners",
+      "to": "/partners/"
+    },
+    {
+      "from": "/link-to-us",
+      "to": "/press/"
+    },
+    {
+      "from": "/blog",
+      "to": "/guides/"
+    },
+    {
+      "from": "/blog/*",
+      "to": "/guides/  (map each post to its rewritten guide; else /guides/)"
+    },
+    {
+      "from": "/services/on-demand-moving-and-hauling",
+      "to": "/"
+    },
+    {
+      "from": "/services/furniture-delivery",
+      "to": "/services/furniture-delivery/"
+    },
+    {
+      "from": "/services/large-item-delivery",
+      "to": "/services/furniture-delivery/"
+    },
+    {
+      "from": "/services/move-furniture",
+      "to": "/services/furniture-delivery/"
+    },
+    {
+      "from": "/services/single-item-movers",
+      "to": "/services/furniture-delivery/single-item-delivery/"
+    },
+    {
+      "from": "/services/same-day-delivery",
+      "to": "/"
+    },
+    {
+      "from": "/services/local-hauling",
+      "to": "/"
+    },
+    {
+      "from": "/services/truck-and-driver-for-hire",
+      "to": "/"
+    },
+    {
+      "from": "/services/small-moves",
+      "to": "/services/small-moves/"
+    },
+    {
+      "from": "/services/junk-hauling",
+      "to": "/services/junk-removal/"
+    },
+    {
+      "from": "/cities",
+      "to": "/cities/"
+    },
+    {
+      "from": "/cities/{{metro-slug}}",
+      "to": "/cities/{{metro-slug}}/"
+    },
+    {
+      "from": "/cities/* (all other cities incl. Europe)",
+      "to": "/cities/  (301; do not recreate)"
+    },
+    {
+      "from": "/cost-to-move-a-couch",
+      "to": "/pricing/cost-to-move-a-couch/"
+    },
+    {
+      "from": "/cost-to-move-a-mattress",
+      "to": "/pricing/cost-to-move-a-mattress/"
+    },
+    {
+      "from": "/cost-to-move-a-refrigerator",
+      "to": "/pricing/cost-to-move-a-refrigerator/"
+    },
+    {
+      "from": "/cost-to-move-a-washer-and-dryer",
+      "to": "/pricing/cost-to-move-a-washer-and-dryer/"
+    },
+    {
+      "from": "/embed/moving-cost-calculator",
+      "to": "keep on new domain, noindex"
+    },
+    {
+      "from": "/auth, /account",
+      "to": "keep, noindex"
+    }
+  ]
+}

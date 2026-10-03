@@ -1,0 +1,47 @@
+{
+  "_readme": "Values for every {{PLACEHOLDER}} in topical-map.md. Any value beginning with TODO must be filled by John before the page that uses it ships. Claude Code must render TODO values as visible markers, never invent them.",
+  "BRAND": "BoxHauls",
+  "DOMAIN": "boxhauls.com",
+  "LEGAL_NAME": "BoxHauls, LLC",
+  "FOUNDER_NAME": John Marcus IV",
+  "METRO": "Fresno":  "metro-slug": "fresno",
+  "NEIGHBORHOOD": "Clovis",
+  "neighborhood-slug": "clovis",
+  "UNIVERSITY": "Fresno State",
+  "ADDRESS": "3690 E. International, Clovis, CA 93619",
+  "PHONE": "(559) 628-2794",
+  "EMAIL": "support@boxhauls.com",
+  "RADIUS": "25",
+  "TIER_1": "Movin' Boxes",
+  "TIER_2": "Dump Run",
+  "TIER_3": "Large Item Pick-up",
+  "BASE_FARE": "$17.00",
+  "PER_MILE": "$3.10",
+  "HEAVY_FEE": "$29",
+  "HELPER_FEE": "No helpers are offered by BoxHauls",
+  "MAX_ITEM_WEIGHT": "1,200",
+  "MAX_SAFE_WEIGHT": "3,000",
+  "INSURANCE_CARRIER": "Tivly", "Hiscox Inc."
+  "COVERAGE_LIMIT": "$10,000 cargo / $1M liability",
+  "BACKGROUND_PROVIDER": "Checkr",
+  "DRIVER_SHARE": "71%",
+  "MIN_ACTIVE_DRIVERS": "15",
+  "YEAR": "2026",
+  "SOCIAL": {
+    "instagram": "https://instagram.com/boxhauls",
+    "tiktok": "https://tiktok.com/@box.hauls",
+    "facebook": "https://www.facebook.com/profile.php?id=61593315751551",
+    "x": "https://x.com/box_hauls",
+    "linkedin": "https://www.linkedin.com/company/boxhauls/about/?viewAsMember=true",
+    "app_store": "TODO",
+    "google_play": "TODO"
+  },
+  "LOCAL_ENTITIES": {
+    "landfill": "American Avenue Disposal Site (Fresno County) — verify address, hours, fees",
+    "transfer_station": "Cedar Avenue Recycling & Transfer Station (CARTS), Fresno — verify",
+    "bulky_pickup_program": "City of Fresno Operation Clean Up — verify current schedule; Clovis program separate",
+    "retailer_order": ["Costco Clovis", "Living Spaces Fresno", "Home Depot Clovis", "Costco Fresno", "Lowe's", "Ashley", "Big Lots", "Walmart", "Target", "Mattress Firm"],
+    "campuses": ["Fresno State", "Clovis Community College", "Fresno City College"],
+    "no_ikea_nearest_hours": "≈3"
+  }
+}
