@@ -55,7 +55,7 @@ export interface Page {
 }
 
 function audienceFor(url: string): Audience {
-  if (url.startsWith('/drive/')) return 'driver';
+  if (url.startsWith('/drive/') || url.startsWith('/es/drive/')) return 'driver';
   if (url.startsWith('/partners/')) return 'partner';
   return 'rider';
 }

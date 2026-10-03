@@ -379,7 +379,7 @@ These `links_to` targets are Phase 2/3. The link is held back and appears automa
 
 | Page | Phase | Blocks to write |
 |---|---|---|
-| / | 1 | 1 |
+| / | 1 | 0 |
 | /about/ | 1 | 0 |
 | /app/ | 1 | 0 |
 | /cities/ | 1 | 0 |

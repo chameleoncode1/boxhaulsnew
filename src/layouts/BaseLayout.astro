@@ -11,6 +11,7 @@ import DriverHeader from '../components/DriverHeader.astro';
 import DriverFooter from '../components/DriverFooter.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Analytics from '../components/Analytics.astro';
+import { alternates, langOf } from '../lib/i18n';
 // The H1 is the LCP element on most pages; fetch its font with the HTML instead of after the CSS.
 import sairaDisplay from '@fontsource/saira/files/saira-latin-800-italic.woff2?url';
 
@@ -26,10 +27,11 @@ const description = content.description;
 const ogImage = new URL(ogImagePath(page), SITE_URL).href;
 const { graph } = buildGraph(page, content);
 const driver = page.audience === 'driver';
+const hreflang = alternates(page);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={langOf(page.url)}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -41,6 +43,7 @@ const driver = page.audience === 'driver';
     <link rel="icon" type="image/png" sizes="192x192" href="/brand/icon-192.png" />
     <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />
     {!page.indexable && <meta name="robots" content="noindex" />}
+    {hreflang.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
 
     <meta property="og:type" content={page.template === 'guide' ? 'article' : 'website'} />
     <meta property="og:site_name" content="BoxHauls" />

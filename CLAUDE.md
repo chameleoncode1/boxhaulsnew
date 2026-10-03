@@ -8,7 +8,7 @@ You are building boxhauls.com, the marketing site for BoxHauls: an on-demand mar
 - `docs/placeholders.json` — resolved values for `{{PLACEHOLDERS}}`. Any value starting with `TODO` is unknown.
 
 ## Hard rules
-1. **Do not add, rename, or remove pages** outside `docs/sitemap.json`. If a page is needed, add it to `build_map.py` (or `sitemap.json` if the generator isn't in the repo), regenerate, then build it.
+1. **Do not add, rename, or remove pages** outside `docs/sitemap.json`. If a page is needed, add it to `build_map.py` (or `sitemap.json` if the generator isn't in the repo), regenerate, then build it. The one exception is `/book/` (`src/pages/book.astro`): app UI that map Section 12 requires, which stays noindex, out of sitemap.xml, and disallowed in robots.txt.
 2. **Never invent facts.** Prices, fees, insurance carrier and limits, background-check vendor, driver share, addresses, phone numbers, tier specs, dump fees, store hours, dates. If the value is `TODO` in `placeholders.json`, render a visible `[TODO: …]` marker in the page and list it in `docs/TODO.md`. A page with a visible TODO cannot be marked shippable.
 3. **No placeholder social proof.** No fake driver cards, ratings, haul counts, ETAs, testimonials, partner logos, or review counts. Empty states are correct until real data exists.
 4. **Every indexable route must render complete HTML with JavaScript disabled**: H1, body content, internal links, JSON-LD, breadcrumbs. Verify with `curl` in the QA script, not by trusting the framework.
@@ -34,7 +34,7 @@ You are building boxhauls.com, the marketing site for BoxHauls: an on-demand mar
 - `npm run dev` — local
 - `npm run build` — static build; must pass with zero warnings
 - `npm run map` — regenerate `docs/topical-map.md` and `docs/sitemap.json` from `build_map.py`
-- `npm run qa` — runs `scripts/qa.mjs`: for every Phase-1 route, checks H1 present and unique, JSON-LD parses and includes required types, breadcrumb matches path, every `links_to` target is linked in body, no unresolved `{{…}}`, TODO markers listed, no banned phrases, canonical correct, sitemap.xml includes it, no orphans. Fails the build if any Phase-1 page fails.
+- `npm run qa` — builds, runs `astro check` (0 errors and 0 warnings required), then runs `scripts/qa.mjs`: for every Phase-1 route, checks H1 present and unique, JSON-LD parses and includes required types, breadcrumb matches path, every `links_to` target is linked in body, no unresolved `{{…}}`, TODO markers listed, no banned phrases, canonical correct, sitemap.xml includes it, no orphans. Fails the build if any Phase-1 page fails.
 - `npm run links` — crawls the built site for broken internal links.
 - `npm run qa -- --structural` — the same gate, failing only on structure (use while copy is still being written); `--no-build` reuses `dist/`.
 - `npm run lighthouse` — Lighthouse CI mobile budgets (LCP < 2.5 s, CLS < 0.1, TBT < 200 ms) on one page per template.

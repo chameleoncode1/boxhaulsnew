@@ -31,6 +31,10 @@ const pages = htmlFiles(DIST).map((file) => {
   const links = [...main.matchAll(/href="(\/[^"#?]*)"/g)].map((m) => m[1]);
   return { url, phase, indexable, markers, links };
 });
+// App UI like /book/ has no sitemap phase; it isn't a site page for this report.
+const sitePages = pages.filter((p) => p.phase > 0);
+pages.length = 0;
+pages.push(...sitePages);
 pages.sort((a, b) => a.phase - b.phase || a.url.localeCompare(b.url));
 const byUrl = new Map(pages.map((p) => [p.url, p]));
 
@@ -136,4 +140,24 @@ out(`Phase 2–3: ${later.length} pages, ${later.reduce((n, p) => n + content.ge
 out();
 
 writeFileSync(OUT, lines.join('\n'));
+
+// docs/LAUNCH.md section 7: every Phase-1 TODO and the page it blocks, rewritten between markers.
+const LAUNCH = 'docs/LAUNCH.md';
+try {
+  const launch = readFileSync(LAUNCH, 'utf8');
+  const blocked = pages.filter((p) => p.phase === 1 && p.markers.some((m) => !m.startsWith('write — ')));
+  const block = ['<!-- TODO:START -->', ''];
+  block.push(`${blocked.length} of ${pages.filter((p) => p.phase === 1).length} Phase-1 pages are blocked by visible TODO markers.`, '');
+  const shared = [...facts].filter(([, urls]) => urls.size > 6).map(([k, urls]) => `\`${k}\` (${urls.size} pages, in the footer)`);
+  if (shared.length) block.push(`**On nearly every page:** ${shared.join(', ')}.`, '');
+  block.push('| Page | Blocked by |', '|---|---|');
+  for (const p of blocked) {
+    const items = [...new Set(p.markers.filter((m) => !m.startsWith('write — ') && !(facts.get(m)?.size > 6)))];
+    if (items.length) block.push(`| ${p.url} | ${items.join('; ').replace(/\|/g, '\\|')} |`);
+  }
+  block.push('', '<!-- TODO:END -->');
+  writeFileSync(LAUNCH, launch.replace(/<!-- TODO:START -->[\s\S]*<!-- TODO:END -->/, block.join('\n')));
+} catch (e) {
+  if (e.code !== 'ENOENT') throw e;
+}
 console.log(`todo: wrote ${OUT} — ${facts.size} placeholder keys, ${distinct.size} open questions, ${spec.length} spec conflicts, ${earlyLinks.length} live→stub links, ${deferred.length} deferred`);

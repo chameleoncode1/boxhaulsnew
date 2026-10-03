@@ -150,9 +150,29 @@ The heaviest single item is **1,000 lb** (`{{MAX_ITEM_WEIGHT}}`), and gun safes 
 - **GA4.** Keep the stub until there's a measurement ID. The privacy policy must disclose analytics cookies before it goes live.
 - **Unmapped truck-n-go.com paths** redirect to the boxhauls.com homepage. The catch-all is its own Bulk Redirect list, ordered last, so exact paths and sections always win (`deploy/cloudflare/README.md`).
 
+### Prompt 5 implementation notes
+
+- **Booking widget** (`src/components/BookingWidget.tsx`). It's a React island on `/` (in the hero, above the fold) and on `/book/`, hydrated with `client:idle`. The form is server-rendered, so it's visible without JavaScript.
+  - **Preselect:** item and job type come from `?item=<slug>&tier=<slug>`. Item slugs are in `src/lib/items.ts`; tier slugs come from the tier names (`movin-boxes`, `dump-run`, `large-item-pick-up`).
+  - **Price:** none until both addresses are entered. The breakdown and total come from `src/lib/pricing.ts`.
+  - **Stub:** there's no `./legacy/` component, no routing and no booking API, so the trip distance is a labeled demo slider with a visible TODO, and submitting shows a TODO instead of booking.
+  - **Events:** `price_shown` fires once when the price first appears, and `booking_started` fires on submit. `booking_completed` waits for the booking API.
+  - **Never shown:** driver cards, ETAs, ratings or the payout split.
+- **`/book/`** is the one route outside `sitemap.json` (CLAUDE.md rule 1 exception). It uses `AppLayout`, with noindex, no JSON-LD and no canonical. It's already disallowed in robots.txt, and `_headers` sends X-Robots-Tag noindex.
+- **Spanish scaffolding** (`src/lib/i18n.ts`). hreflang en/es/x-default appears only when both `/drive/<path>/` and `/es/drive/<path>/` are pages in the sitemap.
+  - Spanish pages get `lang="es"` and driver chrome.
+  - QA checks that every hreflang target exists and links back.
+  - No `/es/` routes exist yet. The steps to add them are in the `i18n.ts` header.
+- **QA now type-checks.** `npm run qa` fails on any `astro check` error or warning. An earlier `tail`-truncated check had hidden 4 type errors from Prompt 4; they're fixed.
+- **Performance.** Footer logos load lazily, and the wordmarks were cut to 440 px lossless WebP.
+  - Content pages: LCP about 1.8 s.
+  - Home and `/book/`: about 2.4 s, because React's roughly 66 KB runtime is on the critical path.
+  - If home needs more headroom later, switch the island to Preact (`@astrojs/preact` with compat), which saves about 55 KB.
+- **docs/LAUNCH.md** is the cutover runbook. Its section 7, the Phase-1 TODOs and the pages they block, is rewritten by `scripts/todo.mjs` on every build.
+
 ## Open questions (answer before the prompt that needs them)
 
-1. **Legacy booking component (needed before Prompt 5).** Can the Lovable component be exported into `./legacy/`?
+1. **Booking backend.** No `./legacy/` component was provided, so the widget is a stub. To make booking real, the stub needs a routing or distance API (trip miles from two addresses) and the booking API, or the Lovable component exported into `./legacy/` for porting.
 2. **App store links.** `SOCIAL.app_store` and `SOCIAL.google_play` are TODO. Organization `sameAs` and /app/ will show markers until they're filled.
 3. **GA4 measurement ID.** `GA4_MEASUREMENT_ID` is TODO. No Google script loads until it's set (format `G-XXXXXXX`). Before turning it on, the privacy policy (/legal/privacy/) has to disclose analytics cookies; California's CCPA applies.
 4. **Bulk Redirects upload.** Someone with access to the Cloudflare account imports the three CSVs and orders the rules 1 → 3 (steps in `deploy/cloudflare/README.md`). It's on the Prompt 5 launch checklist.

@@ -42,17 +42,19 @@ async function blackToWhite(input) {
   return sharp(data, { raw: { width: info.width, height: info.height, channels: 4 } });
 }
 
-async function write(img, name, width) {
+/** `webp: 'lossless'` suits flat logo art: smaller than lossy here and pixel-sharp. */
+async function write(img, name, width, webp = { quality: 90 }) {
   const buf = await img.png().toBuffer();
-  await sharp(buf).resize({ width }).png({ compressionLevel: 9 }).toFile(`${OUT}/${name}.png`);
-  await sharp(buf).resize({ width }).webp({ quality: 90 }).toFile(`${OUT}/${name}.webp`);
+  await sharp(buf).resize({ width }).png({ compressionLevel: 9, palette: true }).toFile(`${OUT}/${name}.png`);
+  await sharp(buf).resize({ width }).webp(webp === 'lossless' ? { lossless: true } : webp).toFile(`${OUT}/${name}.webp`);
 }
 
 const primary = `${SRC}/logo-primary.png`;
 const cut = async (band) => sharp(await (await unmatteWhite(sharp(primary).extract(band))).png().toBuffer());
 
-await write(await cut(BANDS.wordmark), 'wordmark', 480);
-await write(await blackToWhite(await cut(BANDS.wordmark)), 'wordmark-on-dark', 480);
+// Header and footer wordmarks render at 44–52 px tall (~220 px wide); 440 px covers 2x screens.
+await write(await cut(BANDS.wordmark), 'wordmark', 440, 'lossless');
+await write(await blackToWhite(await cut(BANDS.wordmark)), 'wordmark-on-dark', 440, 'lossless');
 await write(await cut(BANDS.mark), 'mark', 600);
 await write(await cut(BANDS.full), 'logo', 512);
 

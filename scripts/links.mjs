@@ -2,8 +2,8 @@
 // Checks every <a href>, <link href>, <img src>, <source srcset> and og:image that points at this site.
 // Also visits pages no link reaches (from docs/sitemap.json) so stubs get checked too.
 //
-// App routes (/book/, /auth, /account, /embed/, /api/) are served by the booking app, not this static build.
-// Links to them are listed separately and do not fail the crawl. /book/ arrives with the booking island (Prompt 5).
+// App routes (/auth, /account, /embed/, /api/) are served by the app, not this static build. Links to them are
+// listed separately and do not fail the crawl. /book/ is built here (src/pages/book.astro) and checked normally.
 import { readFileSync, existsSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -11,7 +11,7 @@ const DIST = 'dist';
 const ph = JSON.parse(readFileSync('docs/placeholders.json', 'utf8'));
 const map = JSON.parse(readFileSync('docs/sitemap.json', 'utf8'));
 const SITE = `https://${ph.DOMAIN}`;
-const APP_ROUTES = ['/book/', '/auth', '/account', '/embed/', '/api/'];
+const APP_ROUTES = ['/auth', '/account', '/embed/', '/api/'];
 const sub = (s) => s.replace(/\{\{\s*([\w.-]+)\s*\}\}/g, (_, k) => ph[k]);
 
 if (!existsSync(join(DIST, 'index.html'))) {

@@ -27,7 +27,7 @@ const sub = (s) => s.replace(/\{\{\s*([\w.-]+)\s*\}\}/g, (m, k) => (typeof ph[k]
 const SITE = `https://${ph.DOMAIN}`;
 const pages = map.pages.map((p) => ({ ...p, url: sub(p.url), links_to: p.links_to.map(sub) }));
 const byUrl = new Map(pages.map((p) => [p.url, p]));
-const audience = (url) => (url.startsWith('/drive/') ? 'driver' : url.startsWith('/partners/') ? 'partner' : 'rider');
+const audience = (url) => (/^\/(es\/)?drive\//.test(url) ? 'driver' : url.startsWith('/partners/') ? 'partner' : 'rider');
 
 // Mirrors AUDIENCE_EXCEPTIONS in src/lib/links.ts (CLAUDE.md rule 7). Keep both lists identical.
 const linksSrc = readFileSync('src/lib/links.ts', 'utf8');
@@ -75,6 +75,21 @@ if (!args.has('--no-build')) {
   if (warnings.length) {
     console.error(warnings.join('\n'));
     console.error('qa: build must pass with zero warnings');
+    process.exit(1);
+  }
+}
+// Type check: CLAUDE.md wants zero warnings; a type error fails the gate. Skipped with --no-build.
+if (!args.has('--no-build')) {
+  console.log('qa: type-checking…');
+  const c = spawnSync('npx', ['astro', 'check'], { encoding: 'utf8', shell: process.platform === 'win32' });
+  const out = `${c.stdout}\n${c.stderr}`.replace(/\x1b\[[0-9;]*m/g, ''); // strip terminal colors
+  // Astro prints "1 error" / "2 errors".
+  const count = (k) => Number(out.match(new RegExp(`- (\\d+) ${k}s?\\b`))?.[1] ?? NaN);
+  const errors = count('error');
+  const warnings = count('warning');
+  if (c.status !== 0 || !(errors === 0) || !(warnings === 0)) {
+    console.error(out);
+    console.error(`qa: astro check must report 0 errors and 0 warnings (got ${errors} errors, ${warnings} warnings)`);
     process.exit(1);
   }
 }
@@ -277,6 +292,15 @@ for (const p of pages.filter((p) => p.phase === 1)) {
   // CLAUDE.md rule 7: the driver payout percentage appears only under /drive/.
   if (audience(p.url) !== 'driver' && ph.DRIVER_SHARE && !String(ph.DRIVER_SHARE).startsWith('TODO')) {
     if (visibleText(body).includes(ph.DRIVER_SHARE)) fail('Banned', `driver payout share ${ph.DRIVER_SHARE} shown on a non-driver page`);
+  }
+
+  // hreflang (Spanish /es/ pages, Phase 2): every alternate must exist and point back.
+  const alts = [...body.matchAll(/<link rel="alternate" hreflang="([^"]+)" href="([^"]+)"/g)].map((m) => ({ lang: m[1], href: m[2] }));
+  for (const a of alts) {
+    const path = a.href.startsWith(SITE) ? a.href.slice(SITE.length) : null;
+    const other = path && html.get(path);
+    if (!other || other.status !== 200) fail('Canon', `hreflang ${a.lang} → ${a.href} is not a published page`);
+    else if (!other.body.includes(`href="${canonical}"`)) fail('Canon', `hreflang ${a.lang} → ${a.href} does not link back`);
   }
 
   // Canonical

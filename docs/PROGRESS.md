@@ -8,9 +8,9 @@
 |---|---|
 | `npm run qa` | PASS: 67 routes, 0 structure failures, 0 content pending |
 | `npm run links` | 0 broken across 194 pages (`/book/` is reported as an app route until Prompt 5) |
-| `npm run build` | 194 pages, 0 warnings |
-| Type check | 0 errors |
-| Lighthouse (mobile, written pages) | Every budget passes: LCP about 2.0 s, TBT 0 ms, SEO 1.00, accessibility 1.00. CLS is at most 0.09 on /cities/fresno/ (budget 0.1) and under 0.04 everywhere else. |
+| `npm run build` | 195 pages (194 + `/book/`), 0 warnings |
+| Type check | 0 errors, 0 warnings. Now part of `npm run qa`. A truncated earlier check had hidden 4 Prompt-4 type errors; they're fixed. |
+| Lighthouse (mobile) | Every budget passes. Content pages: LCP about 1.8 s. Home and /book/: about 2.4 s (React island). TBT 0 ms, accessibility 1.00, SEO 1.00 (except /book/, which is noindex by design). CLS is at most 0.09 on /cities/fresno/. |
 
 ## What shipped
 
@@ -21,6 +21,7 @@
 | Brand | Red, black and white palette; logo assets; banner-style hero, header, footer and OG images | `256171e` |
 | 3 | sitemap.xml, robots.txt, Cloudflare redirects and headers, QA gate, link crawler, Lighthouse CI, GA4 stub | `892e519`, `0ccb7db` |
 | 4 | Content for all 67 Phase-1 pages, cluster by cluster: core, pricing, services, city, drive, guides, legal | `e2718b1` … `4d792e5` |
+| 5 | Booking widget stub on `/` and `/book/`, `/es/` hreflang scaffolding, `docs/LAUNCH.md`, type check inside QA | see git log |
 
 ## How the copy stays honest
 
@@ -92,6 +93,7 @@ Answering one question clears it on every page that asks it. The most-referenced
 
 ## Next
 
-- **Prompt 5:** the booking island, `/es/` scaffolding for `/drive/`, and `docs/LAUNCH.md`. It needs an answer on whether the Lovable booking component can be exported into `./legacy/`.
+- **Make booking real:** connect a routing/distance API and the booking API, or provide the Lovable component in `./legacy/`.
+- **Work through `docs/LAUNCH.md`** once the Phase-1 TODOs are cleared.
 - **Watch CLS on /cities/fresno/** (0.09, close to the 0.1 budget). It will move when real photos replace the placeholders.
 - **Phase 2** waits until the Phase-1 TODO markers are cleared.

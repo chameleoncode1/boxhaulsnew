@@ -24,7 +24,7 @@ const {
     { label: 'Dump run, 20 miles (dump fee passed through)', mi: 20 },
   ],
 } = Astro.props;
-if (!Astro.url.pathname.startsWith('/drive/')) {
+if (!/^\/(es\/)?drive\//.test(Astro.url.pathname)) {
   throw new Error(`<Earnings> shows the driver payout share and may only appear under /drive/ (CLAUDE.md rule 7), not ${Astro.url.pathname}`);
 }
 const share = lookup('DRIVER_SHARE');

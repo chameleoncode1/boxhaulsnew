@@ -29,6 +29,10 @@ import {
 /** Copy that comes from the page's MDX (Prompt 4). Every field is optional until the page is written. */
 export interface PageContent {
   description?: string;
+  /** "Prices checked October 2026" line (pricing, compare and local pages). */
+  checked?: string;
+  /** Legal pages: last-updated date. */
+  updated?: string;
   faq?: { question: string; answer: string }[];
   steps?: { name: string; text: string }[];
   datePublished?: string;

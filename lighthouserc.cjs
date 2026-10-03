@@ -18,16 +18,33 @@ module.exports = {
         'http://localhost/guides/will-it-fit-in-a-pickup-bed/',
         'http://localhost/drive/',
         'http://localhost/legal/terms/',
+        'http://localhost/book/?item=couch',
       ],
     },
     assert: {
-      assertions: {
-        'largest-contentful-paint': ['error', { maxNumericValue: 2500, aggregationMethod: 'median-run' }],
-        'cumulative-layout-shift': ['error', { maxNumericValue: 0.1, aggregationMethod: 'median-run' }],
-        'total-blocking-time': ['error', { maxNumericValue: 200, aggregationMethod: 'median-run' }],
-        'categories:accessibility': ['error', { minScore: 0.95 }],
-        'categories:seo': ['error', { minScore: 0.95 }],
-      },
+      // /book/ is noindex app UI (no canonical, no meta description by design), so the SEO category
+      // doesn't apply there; performance and accessibility budgets still do.
+      assertMatrix: [
+        {
+          matchingUrlPattern: '^(?!.*/book/).*$',
+          assertions: {
+            'largest-contentful-paint': ['error', { maxNumericValue: 2500, aggregationMethod: 'median-run' }],
+            'cumulative-layout-shift': ['error', { maxNumericValue: 0.1, aggregationMethod: 'median-run' }],
+            'total-blocking-time': ['error', { maxNumericValue: 200, aggregationMethod: 'median-run' }],
+            'categories:accessibility': ['error', { minScore: 0.95 }],
+            'categories:seo': ['error', { minScore: 0.95 }],
+          },
+        },
+        {
+          matchingUrlPattern: '.*/book/.*',
+          assertions: {
+            'largest-contentful-paint': ['error', { maxNumericValue: 2500, aggregationMethod: 'median-run' }],
+            'cumulative-layout-shift': ['error', { maxNumericValue: 0.1, aggregationMethod: 'median-run' }],
+            'total-blocking-time': ['error', { maxNumericValue: 200, aggregationMethod: 'median-run' }],
+            'categories:accessibility': ['error', { minScore: 0.95 }],
+          },
+        },
+      ],
     },
     upload: { target: 'filesystem', outputDir: './.lighthouseci' },
   },
