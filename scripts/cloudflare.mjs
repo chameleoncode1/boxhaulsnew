@@ -88,6 +88,13 @@ const headers = [
   '  Permissions-Policy: camera=(), microphone=(), geolocation=(self)',
   '',
   ...noindex.flatMap((p) => [p, '  X-Robots-Tag: noindex', '']),
+  // Preview and *.pages.dev hosts must never be indexed; only boxhauls.com is canonical.
+  'https://:project.pages.dev/*',
+  '  X-Robots-Tag: noindex',
+  '',
+  'https://:version.:project.pages.dev/*',
+  '  X-Robots-Tag: noindex',
+  '',
   '/_astro/*',
   '  Cache-Control: public, max-age=31536000, immutable',
   '',
