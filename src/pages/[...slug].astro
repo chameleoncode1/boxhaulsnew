@@ -1,0 +1,41 @@
+---
+/**
+ * The only page route. One static route per entry in docs/sitemap.json — never hand-create a route.
+ * The layout is chosen by the entry's `template` field.
+ */
+import type { GetStaticPaths } from 'astro';
+import { pages, type Page, type Template } from '../lib/sitemap';
+import HomeLayout from '../layouts/HomeLayout.astro';
+import CoreLayout from '../layouts/CoreLayout.astro';
+import PricingLayout from '../layouts/PricingLayout.astro';
+import ServiceHubLayout from '../layouts/ServiceHubLayout.astro';
+import ServiceSpokeLayout from '../layouts/ServiceSpokeLayout.astro';
+import CityLayout from '../layouts/CityLayout.astro';
+import CompareLayout from '../layouts/CompareLayout.astro';
+import GuideLayout from '../layouts/GuideLayout.astro';
+import DriverLayout from '../layouts/DriverLayout.astro';
+import PartnersLayout from '../layouts/PartnersLayout.astro';
+import LegalLayout from '../layouts/LegalLayout.astro';
+
+export const getStaticPaths = (() =>
+  pages.map((page) => ({ params: { slug: page.slug }, props: { page } }))) satisfies GetStaticPaths;
+
+const layouts: Record<Template, typeof HomeLayout> = {
+  home: HomeLayout,
+  core: CoreLayout,
+  pricing: PricingLayout,
+  'service-hub': ServiceHubLayout,
+  'service-spoke': ServiceSpokeLayout,
+  city: CityLayout,
+  compare: CompareLayout,
+  guide: GuideLayout,
+  driver: DriverLayout,
+  partners: PartnersLayout,
+  legal: LegalLayout,
+};
+
+const { page } = Astro.props as { page: Page };
+const Layout = layouts[page.template];
+---
+
+<Layout page={page} />

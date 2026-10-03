@@ -1,4 +1,4 @@
-import json, textwrap
+import json, os, textwrap
 
 # =====================================================================
 # PAGE INVENTORY — single source of truth
@@ -861,8 +861,9 @@ Positioning in this market: "cheaper than a rental, safer than a stranger." The 
 """)
 
 md = "\n".join(doc)
-open("/home/claude/boxhauls/boxhauls-topical-map.md", "w").write(md)
+DOCS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "docs")
+open(os.path.join(DOCS, "topical-map.md"), "w").write(md)
 json.dump({"brand": "BoxHauls", "domain": "boxhauls.com", "version": "1.0", "pages": PAGES, "redirects": [{"from": a, "to": b} for a, b in REDIRECTS]},
-          open("/home/claude/boxhauls/sitemap.json", "w"), indent=2)
+          open(os.path.join(DOCS, "sitemap.json"), "w"), indent=2)
 print(f"pages={len(PAGES)} md_chars={len(md)}")
 print(json.dumps(counts, indent=1)); print(by_phase)

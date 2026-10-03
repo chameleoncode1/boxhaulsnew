@@ -1,0 +1,14 @@
+---
+import type { Page } from '../lib/sitemap';
+import BaseLayout from './BaseLayout.astro';
+import StubBody from '../components/StubBody.astro';
+
+interface Props {
+  page: Page;
+}
+const { page } = Astro.props;
+---
+
+<BaseLayout page={page}>
+  <StubBody page={page} />
+</BaseLayout>

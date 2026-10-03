@@ -1,0 +1,28 @@
+---
+import '../styles/global.css';
+import type { Page } from '../lib/sitemap';
+
+interface Props {
+  page: Page;
+}
+const { page } = Astro.props;
+const canonical = new URL(page.url, Astro.site).href;
+// Stub title; Section 4.1 formulas arrive with the real layouts.
+const title = page.url === '/' ? 'BoxHauls' : `${page.h1} | BoxHauls`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <link rel="canonical" href={canonical} />
+    {!page.indexable && <meta name="robots" content="noindex" />}
+  </head>
+  <body class="bg-bg text-ink" data-template={page.template} data-audience={page.audience}>
+    <main class="mx-auto max-w-content px-4 py-10">
+      <slot />
+    </main>
+  </body>
+</html>

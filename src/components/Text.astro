@@ -1,0 +1,10 @@
+---
+/** Renders resolved text, turning every `[TODO: KEY]` marker into a visible highlighted span. */
+interface Props {
+  text: string;
+}
+const { text } = Astro.props;
+const parts = text.split(/(\[TODO: [^\]]+\])/g).filter(Boolean);
+---
+
+{parts.map((part) => (part.startsWith('[TODO: ') ? <span class="todo">{part}</span> : part))}
