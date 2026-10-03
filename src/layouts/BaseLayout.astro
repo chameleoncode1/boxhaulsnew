@@ -10,6 +10,9 @@ import SiteFooter from '../components/SiteFooter.astro';
 import DriverHeader from '../components/DriverHeader.astro';
 import DriverFooter from '../components/DriverFooter.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Analytics from '../components/Analytics.astro';
+// The H1 is the LCP element on most pages; fetch its font with the HTML instead of after the CSS.
+import sairaDisplay from '@fontsource/saira/files/saira-latin-800-italic.woff2?url';
 
 interface Props {
   page: Page;
@@ -33,6 +36,7 @@ const driver = page.audience === 'driver';
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     <link rel="canonical" href={canonical} />
+    <link rel="preload" href={sairaDisplay} as="font" type="font/woff2" crossorigin />
     <link rel="icon" type="image/png" sizes="32x32" href="/brand/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="/brand/icon-192.png" />
     <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />
@@ -49,6 +53,7 @@ const driver = page.audience === 'driver';
     <meta property="og:image:alt" content={page.h1} />
     <meta name="twitter:card" content="summary_large_image" />
 
+    <Analytics />
     <script type="application/ld+json" set:html={JSON.stringify(graph).replace(/</g, '\\u003c')} />
   </head>
   <body class="bg-bg text-ink" data-template={page.template} data-audience={page.audience} data-phase={page.phase}>

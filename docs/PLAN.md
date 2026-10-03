@@ -120,7 +120,34 @@ The heaviest single item is **1,000 lb** (`{{MAX_ITEM_WEIGHT}}`), and gun safes 
 - **"What we can't move".** Vehicles are dropped from the list (there's no vehicle limit to state).
 - **Hosting.** Cloudflare, where the site is already hosted. Prompt 3 writes Cloudflare `_redirects` and `_headers` files.
 
+### Prompt 3 implementation notes
+
+- **sitemap.xml** lists the 67 indexable pages. `lastmod` is the last git commit of the page's MDX file and is left out until that file exists, so there are no invented dates. **robots.txt** follows Section 12. Phase-2 stubs are deliberately *not* disallowed, so crawlers can see their noindex tag.
+- **Cloudflare.** `scripts/cloudflare.mjs` runs after every build and writes three files:
+  - `dist/_redirects`: 29 path-only rules that can't shadow a real route.
+  - `dist/_headers`: noindex on app routes, plus cache and security headers.
+  - `deploy/cloudflare/bulk-redirects.csv`: 54 rules for truck-n-go.com → boxhauls.com and www → apex.
+  - `_redirects` can't match hostnames, so the cross-domain rules need Bulk Redirects. They're uploaded once by hand; steps are in `deploy/cloudflare/README.md`.
+- **QA gate** (`npm run qa`). It builds, serves `dist/` like Cloudflare does, and `curl`s every Phase-1 route.
+  - Failures are either STRUCTURE (code or spec) or CONTENT (waits on copy). `--structural` checks only the plumbing.
+  - I verified it by injecting faults: a duplicate H1, a banned word, a misspelled brand, a missing canonical, a missing body link, and an unresolved placeholder. Every one was caught.
+- **Banned-word exceptions** (`ALLOWED` in `scripts/qa.mjs`). The map itself needs two words that CLAUDE.md rule 8 bans:
+  - "cargo", only in insurance terms: the `COVERAGE_LIMIT` value, "cargo insurance", "cargo coverage", "cargo and liability", "cargo vs. liability".
+  - "not freight", only on /about/, because Section 1 requires saying what BoxHauls isn't.
+- **Links crawler** (`npm run links`) checks every internal href, src, srcset and og:image across all 194 pages. `/book/` is reported as an app route, not a failure, until Prompt 5 builds it.
+- **Lighthouse CI** (`npm run lighthouse`) runs mobile budgets on one page per template: LCP < 2.5 s, CLS < 0.1, TBT < 200 ms as the lab stand-in for INP, and accessibility and SEO ≥ 0.95.
+  - Measured on the stub pages: LCP about 2.0 s, CLS about 0.00, TBT 0 ms, accessibility 1.00.
+  - SEO is 0.92 only because meta descriptions don't exist yet (content).
+  - Preloading the Saira display font took CLS from 0.05 to 0.
+- **Analytics.** `bhTrack()` accepts only the six Section 12 events.
+  - Two fire from CTAs today: `booking_started` on pricing CTAs and `driver_apply_started` on driver CTAs.
+  - The booking island (Prompt 5) and the apply forms will fire `price_shown`, `booking_completed`, `driver_apply_completed` and `partner_apply`.
+  - gtag.js loads only once `GA4_MEASUREMENT_ID` is set.
+
 ## Open questions (answer before the prompt that needs them)
 
 1. **Legacy booking component (needed before Prompt 5).** Can the Lovable component be exported into `./legacy/`?
 2. **App store links.** `SOCIAL.app_store` and `SOCIAL.google_play` are TODO. Organization `sameAs` and /app/ will show markers until they're filled.
+3. **GA4 measurement ID.** `GA4_MEASUREMENT_ID` is TODO. No Google script loads until it's set (format `G-XXXXXXX`). Before turning it on, the privacy policy (/legal/privacy/) has to disclose analytics cookies; California's CCPA applies.
+4. **Banned-word exceptions.** Please confirm the two exceptions in "Prompt 3 implementation notes" ("cargo" in insurance terms, and "not freight" on /about/), or tell me to rephrase those pages instead.
+5. **Bulk Redirects upload.** Someone with access to the Cloudflare account has to import `deploy/cloudflare/bulk-redirects.csv` once (steps in `deploy/cloudflare/README.md`). Also decide whether unmapped truck-n-go.com paths should go to the homepage.

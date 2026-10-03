@@ -36,6 +36,10 @@ You are building boxhauls.com, the marketing site for BoxHauls: an on-demand mar
 - `npm run map` — regenerate `docs/topical-map.md` and `docs/sitemap.json` from `build_map.py`
 - `npm run qa` — runs `scripts/qa.mjs`: for every Phase-1 route, checks H1 present and unique, JSON-LD parses and includes required types, breadcrumb matches path, every `links_to` target is linked in body, no unresolved `{{…}}`, TODO markers listed, no banned phrases, canonical correct, sitemap.xml includes it, no orphans. Fails the build if any Phase-1 page fails.
 - `npm run links` — crawls the built site for broken internal links.
+- `npm run qa -- --structural` — the same gate, failing only on structure (use while copy is still being written); `--no-build` reuses `dist/`.
+- `npm run lighthouse` — Lighthouse CI mobile budgets (LCP < 2.5 s, CLS < 0.1, TBT < 200 ms) on one page per template.
+- `npm run brand` — regenerate `public/brand/` from `assets/brand-src/`.
+- `npm run build` also writes the Cloudflare files (`dist/_redirects`, `dist/_headers`, `deploy/cloudflare/bulk-redirects.csv`) and `docs/TODO.md`.
 
 ## Workflow
 - Work in phases per map Section 13. Do not start Phase-2 pages until `npm run qa` passes for all of Phase 1.

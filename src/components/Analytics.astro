@@ -1,0 +1,45 @@
+---
+/**
+ * Analytics stub. Always defines window.bhTrack(event, params), which accepts only the events in
+ * src/lib/analytics.ts, and tracks clicks on any element with data-track="<event>" (extra params from
+ * data-track-* attributes). Events queue in window.dataLayer. gtag.js loads only when GA4_MEASUREMENT_ID is set.
+ * Booking islands (Prompt 5) call bhTrack('price_shown' | 'booking_completed', …) directly.
+ */
+import { EVENTS, ga4Id } from '../lib/analytics';
+
+const id = ga4Id();
+const config = JSON.stringify({ id: id ?? null, events: EVENTS });
+---
+
+{id && <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${id}`}></script>}
+<script is:inline define:vars={{ config }}>
+  (function () {
+    var cfg = JSON.parse(config);
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      window.dataLayer.push(arguments);
+    }
+    window.gtag = window.gtag || gtag;
+    if (cfg.id) {
+      gtag('js', new Date());
+      gtag('config', cfg.id);
+    }
+    window.bhTrack = function (name, params) {
+      if (cfg.events.indexOf(name) === -1) {
+        console.warn('bhTrack: unknown event', name);
+        return;
+      }
+      window.gtag('event', name, params || {});
+    };
+    document.addEventListener('click', function (e) {
+      var el = e.target instanceof Element ? e.target.closest('[data-track]') : null;
+      if (!el) return;
+      var params = {};
+      for (var i = 0; i < el.attributes.length; i++) {
+        var a = el.attributes[i];
+        if (a.name.indexOf('data-track-') === 0) params[a.name.slice(11).replace(/-/g, '_')] = a.value;
+      }
+      window.bhTrack(el.getAttribute('data-track'), params);
+    });
+  })();
+</script>

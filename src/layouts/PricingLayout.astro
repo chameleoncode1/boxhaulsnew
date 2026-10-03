@@ -31,7 +31,7 @@ const item = bookingItem(page);
   <Block id="price-drivers" label="5. What moves the price up or down for this item"><slot name="price-drivers" /></Block>
   <Block id="faq" label="6. FAQ, 4–6 questions (mirrored in FAQPage schema)"><slot name="faq" /></Block>
   <section data-block="book-cta" class="mt-10">
-    <Cta href={item ? `/book/?item=${item}` : '/book/'} label="See your price" />
+    <Cta href={item ? `/book/?item=${item}` : '/book/'} label="See your price" track="booking_started" trackParams={item ? { item, source: 'pricing' } : { source: 'pricing' }} />
   </section>
   <BodyLinks page={page} />
   <RelatedLinks page={page} />

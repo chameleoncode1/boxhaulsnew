@@ -1,9 +1,21 @@
 ---
+import type { AnalyticsEvent } from '../lib/analytics';
+
 interface Props {
   href: string;
   label: string;
+  /** Analytics event fired on click (see src/components/Analytics.astro). */
+  track?: AnalyticsEvent;
+  /** Extra event params, rendered as data-track-<key> attributes. */
+  trackParams?: Record<string, string>;
 }
-const { href, label } = Astro.props;
+const { href, label, track, trackParams = {} } = Astro.props;
+const dataAttrs = Object.fromEntries(Object.entries(trackParams).map(([k, v]) => [`data-track-${k}`, v]));
 ---
 
-<a href={href} class="display inline-block rounded-sm bg-brand px-6 py-3 text-lg text-inverse no-underline hover:bg-brand-hover hover:text-inverse">{label}</a>
+<a
+  href={href}
+  data-track={track}
+  {...dataAttrs}
+  class="display inline-block rounded-sm bg-brand px-6 py-3 text-lg text-inverse no-underline hover:bg-brand-hover hover:text-inverse"
+>{label}</a>

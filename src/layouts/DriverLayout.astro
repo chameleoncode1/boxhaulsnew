@@ -28,7 +28,7 @@ const earningsLabel = resolve('Earnings math: {{DRIVER_SHARE}} of the fare (help
   <Block id="body" label="Page body (see the sitemap spec below)"><slot /></Block>
   <ChildList page={page} />
   {page.schema.includes('FAQPage') && <Block id="faq" label="FAQ (mirrored in FAQPage schema)"><slot name="faq" /></Block>}
-  {page.url !== '/drive/apply/' && <section data-block="apply-cta" class="mt-10"><Cta href="/drive/apply/" label="Apply to drive" /></section>}
+  {page.url !== '/drive/apply/' && <section data-block="apply-cta" class="mt-10"><Cta href="/drive/apply/" label="Apply to drive" track="driver_apply_started" trackParams={{ source: page.url }} /></section>}
   <BodyLinks page={page} />
   <RelatedLinks page={page} />
   <PageSpec page={page} />
