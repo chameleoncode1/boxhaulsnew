@@ -10,7 +10,7 @@
 | `npm run links` | 0 broken across 194 pages (`/book/` is reported as an app route until Prompt 5) |
 | `npm run build` | 194 pages, 0 warnings |
 | Type check | 0 errors |
-| Lighthouse (mobile, stub pages) | LCP about 2.0 s, CLS about 0, TBT 0 ms, accessibility 1.00. Not re-run since the copy was written. |
+| Lighthouse (mobile, written pages) | Every budget passes: LCP about 2.0 s, TBT 0 ms, SEO 1.00, accessibility 1.00. CLS is at most 0.09 on /cities/fresno/ (budget 0.1) and under 0.04 everywhere else. |
 
 ## What shipped
 
@@ -93,5 +93,5 @@ Answering one question clears it on every page that asks it. The most-referenced
 ## Next
 
 - **Prompt 5:** the booking island, `/es/` scaffolding for `/drive/`, and `docs/LAUNCH.md`. It needs an answer on whether the Lovable booking component can be exported into `./legacy/`.
-- **Re-run Lighthouse** now that real copy exists.
+- **Watch CLS on /cities/fresno/** (0.09, close to the 0.1 budget). It will move when real photos replace the placeholders.
 - **Phase 2** waits until the Phase-1 TODO markers are cleared.
