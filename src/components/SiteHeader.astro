@@ -8,6 +8,7 @@ import { pages } from '../lib/sitemap';
 import { shortLabel } from '../lib/labels';
 import Logo from './Logo.astro';
 import InstallApp from './InstallApp.astro';
+import DriverAppButton from './DriverAppButton.astro';
 
 const hubs = pages.filter((p) => p.template === 'service-hub');
 const current = Astro.url.pathname;
@@ -33,6 +34,10 @@ const nav = [
     </details>
     {nav.slice(1).map((n) => <a href={n.url} aria-current={aria(n.url)} class:list={[link, 'hidden lg:inline']}>{n.label}</a>)}
 
+    <a href="/account/" data-account-link class="hidden items-center gap-1.5 font-semibold whitespace-nowrap text-ink no-underline hover:text-brand lg:inline-flex">
+      <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0116 0" /></svg>
+      <span data-account-label>Sign in</span>
+    </a>
     <span class="hidden lg:block"><InstallApp variant="outline" class="text-sm" /></span>
     <a href="/book/" class="display shrink-0 rounded-sm bg-brand px-4 py-2.5 text-sm text-inverse no-underline hover:bg-brand-hover hover:text-inverse sm:text-base">Get a price</a>
 
@@ -54,8 +59,21 @@ const nav = [
         <div class="mt-2 grid gap-3 sm:grid-cols-2">
           <a href="/book/" class="display rounded-sm bg-brand px-4 py-3 text-center text-inverse no-underline hover:bg-brand-hover hover:text-inverse">Get a price</a>
           <InstallApp variant="outline" class="py-3" />
+          <DriverAppButton variant="outline" class="py-3 sm:col-span-2" />
+          <a href="/account/?mode=signup" data-account-create class="display rounded-sm border-2 border-ink px-4 py-3 text-center text-ink no-underline hover:bg-ink hover:text-inverse">Create account</a>
+          <a href="/account/" data-account-link class="rounded-sm px-4 py-3 text-center font-semibold text-ink underline"><span data-account-label>Sign in</span></a>
         </div>
       </div>
     </details>
   </nav>
 </header>
+<script is:inline>
+  // Signed in (remembered by the account page): show "Account" instead of "Sign in" and hide "Create account".
+  (function () {
+    var name = null;
+    try { name = localStorage.getItem('bh-account'); } catch (_) {}
+    if (!name) return;
+    document.querySelectorAll('[data-account-label]').forEach(function (el) { el.textContent = 'Account'; });
+    document.querySelectorAll('[data-account-create]').forEach(function (el) { el.hidden = true; });
+  })();
+</script>

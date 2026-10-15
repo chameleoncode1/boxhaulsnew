@@ -12,6 +12,39 @@
 | Type check | 0 errors, 0 warnings. Now part of `npm run qa`. A truncated earlier check had hidden 4 Prompt-4 type errors; they're fixed. |
 | Lighthouse (mobile) | Every budget passes. Content pages: LCP about 1.8 s. Home and /book/: about 2.4 s (React island). TBT 0 ms, accessibility 1.00, SEO 1.00 (except /book/, which is noindex by design). CLS is at most 0.09 on /cities/fresno/. |
 
+## Accounts, tipping and BoxHauls Driver (2026-10-15, built and tested locally; not deployed yet)
+
+- **BoxHauls Driver** (driver.boxhauls.com), an installable app separate from the customer app:
+  - Sign up and sign in.
+  - An Uber-style enrollment checklist: personal info, photo, license, truck, registration, insurance, background-check consent, Stripe payouts and the driver agreement, then submit for review.
+  - Once approved:
+    - Home: a map, a GO button, job offers with a 30-second countdown, accept or decline, and a trip flow (navigate, arrived, loaded, complete, with the dump fee entered at completion) plus cancel.
+    - Earnings by week, with tips and hours online.
+    - Account: profile, documents, payouts dashboard, navigation app, sign out and delete account.
+  - Served from `/driver-app/` by `functions/_middleware.ts`, with its own manifest, service worker and icons.
+- **Customer accounts** (`/account/`): create an account, sign in, trips, profile, saved places, card on file (from Stripe), notifications, password, sign out and delete account. Booking still works without an account. "Sign in" and "Create account" are in the header and the phone menu.
+- **Sign-in** (`functions/_lib/auth.ts`): email and password (PBKDF2), HttpOnly session cookies kept separate per app, and rate limits. Phone plus text code and password reset turn on when Twilio (or email) is configured.
+- **Tipping**: 15/18/20% of the trip total or a custom amount, with 15% preselected every time.
+  - Customers can tip during the trip, and the tip screen opens automatically when the trip is complete. The completion text also links to it.
+  - The card is saved with Stripe at booking, and the tip is charged off-session. If the bank asks for authentication, the browser handles it.
+  - Drivers get 100% of tips, paid at completion and retried by the cron. Tips are refunded if the trip is canceled.
+- **Records**: every driver record (`drivers`, `driver_documents`, hours online) and customer record (`customers`), with deletions logged.
+  - Commands: `npm run drivers -- applicants | show | approve | reject | background | suspend | doc | export` and `npm run customers -- list | find | show | export`.
+  - No full SSNs or bank numbers are stored; Stripe and the background-check provider collect those.
+- **Dispatch**: ASAP jobs go only to drivers online in the app; scheduled jobs go to every approved driver. The cron takes drivers offline after 10 minutes without a check-in.
+- **Privacy of the split**: drivers see only their earnings, never the customer price. The driver share is removed from every script sent to browsers (build plugin in `astro.config.mjs`).
+- **Website**:
+  - A cookie banner (Accept All / Accept Only Essential Cookies / Decline), with "Cookie settings" in the footer. Analytics load only after Accept All.
+  - A "Got a truck? Get paid to drive it" button under "Download app now", opening the driver app's install prompt.
+  - `/drive/apply/` now links to the app and states the 3 to 5 business day approval time, with fine print.
+- **Tests**: a 57-step end-to-end run against local D1 and Stripe test mode, all passing. QA, links, type checks and Lighthouse budgets pass.
+- **To launch**:
+  1. Approve the driver icon.
+  2. Run `bash scripts/launch-accounts.sh`.
+  3. Turn on Stripe Connect, so driver payouts work.
+  4. Set up Twilio, so texts and phone sign-in work.
+  5. Set the production Stripe keys.
+
 ## Helpers removed (2026-10-15)
 
 - The helper option and the $17 helper fee are gone. They were removed from:

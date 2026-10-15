@@ -17,7 +17,8 @@
     "bookings": "wrangler d1 execute boxhauls-bookings --remote --command \"SELECT id, created_at, status, driver_id, when_type, scheduled_date, scheduled_window, name, phone, item, miles, price_cents, customer_sms_status FROM bookings ORDER BY created_at DESC LIMIT 25\"",
     "check:functions": "tsc -p functions/tsconfig.json && tsc -p workers/dispatch-cron/tsconfig.json",
     "deploy:cron": "wrangler deploy --config workers/dispatch-cron/wrangler.toml",
-    "drivers": "node scripts/drivers.mjs"
+    "drivers": "node scripts/drivers.mjs",
+    "customers": "node scripts/customers.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^8.0.2",
@@ -40,6 +41,7 @@
     "@types/node": "^26.6.4",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "opentype.js": "^1.3.4",
     "satori": "^0.35.0",
     "sharp": "^0.35.5",
     "typescript": "^6.0.3",

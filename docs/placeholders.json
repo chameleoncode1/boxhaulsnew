@@ -35,6 +35,8 @@
   "INSURANCE_CARRIER": "Hiscox Inc.",
   "COVERAGE_LIMIT": "$10,000 cargo / $1M liability",
   "BACKGROUND_PROVIDER": "Checkr",
+  "APPROVAL_TIME": "3 to 5 business days",
+  "APPROVAL_FINE_PRINT": "3 to 5 business days is the typical approval time frame. In certain cases, more time may be necessary depending on your specific background and circumstances.",
   "DRIVER_SHARE": "71%",
   "MIN_ACTIVE_DRIVERS": "15",
   "YEAR": "2026",

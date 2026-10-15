@@ -30,7 +30,6 @@ export const onRequestPost: PagesFunction<Env> = ({ request, env }) =>
       payoutCents: payoutCents(row.price_cents),
       completed: row.status === 'completed',
       canceled: row.status === 'canceled',
-      priceCents: row.price_cents,
       // Full details only for the driver who won the job.
       ...(state === 'yours'
         ? { pickup: row.pickup_address, dropoff: row.dropoff_address, customer: row.name, phone: row.phone, notes: row.notes }

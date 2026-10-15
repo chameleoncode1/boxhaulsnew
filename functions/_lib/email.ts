@@ -95,3 +95,11 @@ export async function sendBookingEmails(env: Env, b: BookingSummary): Promise<Al
 
   return alertOk ? 'sent' : 'failed';
 }
+
+export const emailConfigured = (env: Env) => Boolean(env.CF_EMAIL_API_TOKEN && env.CF_ACCOUNT_ID && env.BOOKING_EMAIL_FROM);
+
+/** A short plain message (sign-in codes, account notices). Returns false when email isn't configured or fails. */
+export async function sendNotice(env: Env, to: string, subject: string, text: string): Promise<boolean> {
+  if (!emailConfigured(env)) return false;
+  return send(env, { to, subject, text, html: text.split('\n\n').map((p) => `<p>${esc(p)}</p>`).join('') });
+}

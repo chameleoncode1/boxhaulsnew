@@ -20,7 +20,6 @@ interface Offer {
   completed: boolean;
   canceled: boolean;
   payoutCents: number;
-  priceCents: number;
   pickup?: string;
   dropoff?: string;
   customer?: string;
@@ -120,7 +119,6 @@ export default function AcceptJob() {
         {offer.dumpRun && offer.dumpMaterial && row('Load', `${offer.dumpMaterial}, ${(offer.dumpLoad ?? '').toLowerCase()}`)}
         {offer.dumpRun && row('Dump fee', `Reimbursed in full, up to ${usd(offer.dumpHoldCents)}`)}
         {row('You earn', usd(offer.payoutCents))}
-        {row('Customer pays', usd(offer.priceCents))}
       </dl>
 
       {offer.state === 'open' && (

@@ -121,7 +121,7 @@ Generated from the built site by `scripts/todo.mjs` on every build. Phase-1 page
 | /cities/fresno/ | hours; street addresses for both sites; pickup-area location and loading notes for each store; current Operation Clean Up schedule and exclusions, and the Clovis program; this year’s move-in and move-out dates for each campus; the apartment corridors with the most move-ins and move-outs, written from local knowledge; real driver profiles with photos, once drivers agree to be featured; coverage map; which site drivers use for which loads; pickup-area notes for each store |
 | /contact/ | where customers start a chat, and the support text number if it isn’t the main phone number |
 | /drive/ | how jobs are offered to drivers in the app, and how long a driver has to accept; a real driver’s story, once a driver agrees to share it; minimum model year and any bed-length requirement |
-| /drive/apply/ | driver application form or app download link; truck and document verification step; onboarding or app walkthrough; typical approval timeline; typical approval timeline, including the background check; whether drivers pay for the background check |
+| /drive/apply/ | whether drivers pay for the background check |
 | /drive/earnings/ | realistic hourly ranges from real Fresno trip data; busiest days and hours from real trip data; current IRS standard mileage rate |
 | /drive/equipment/ | confirm required minimum gear for BoxHauls drivers |
 | /drive/faq/ | how drivers go online and offline in the app; whether declining jobs affects a driver's standing; driver ratings and the threshold for staying active; customer no-show policy for drivers and any wait compensation |

@@ -1,0 +1,11 @@
+---
+/** /account/ — customer sign in, create account and account management (app UI: noindex, not in docs/sitemap.json; robots disallows /account). */
+import AppLayout from '../../layouts/AppLayout.astro';
+import AccountApp from '../../components/AccountApp';
+---
+
+<AppLayout title="Your account | BoxHauls">
+  <h1 class="sr-only">Your BoxHauls account</h1>
+  <AccountApp client:load />
+  <noscript><p class="mt-4 text-center">Your account needs JavaScript. You can still <a href="/book/">book a trip</a> without one.</p></noscript>
+</AppLayout>

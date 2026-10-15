@@ -11,6 +11,7 @@ import AppBadges from './AppBadges.astro';
 import Logo from './Logo.astro';
 import FooterBand from './FooterBand.astro';
 import InstallApp from './InstallApp.astro';
+import DriverAppButton from './DriverAppButton.astro';
 import { year } from '../lib/site';
 
 const hubs = pages.filter((p) => p.template === 'service-hub');
@@ -45,6 +46,7 @@ const link = 'text-inverse no-underline hover:text-brand-on-night hover:underlin
       <div class="mt-8 flex flex-wrap items-center gap-4 border-t border-night-border pt-6">
         <p class="display text-inverse">Get the app</p>
         <InstallApp variant="light" class="text-sm" />
+        <DriverAppButton variant="light" class="text-sm" />
         <AppBadges tone="dark" />
       </div>
     </nav>
@@ -53,6 +55,7 @@ const link = 'text-inverse no-underline hover:text-brand-on-night hover:underlin
     <div class="mx-auto flex max-w-content flex-wrap gap-4 px-4 py-4 text-sm">
       <span>© {year.value} BoxHauls</span>
       {legal.map((p) => <a href={p.url} rel="nofollow" class={link}>{shortLabel(p)}</a>)}
+      <a href="#cookie-settings" data-cookie-settings class={link}>Cookie settings</a>
     </div>
   </div>
 </footer>

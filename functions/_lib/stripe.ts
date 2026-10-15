@@ -21,28 +21,38 @@ function encode(params: Params, prefix = ''): string[] {
   });
 }
 
+/** A Stripe API error, with Stripe's error object (e.g. code 'authentication_required' and its payment_intent). */
+export class StripeError extends HttpError {
+  constructor(
+    message: string,
+    public stripeError: { message?: string; code?: string; decline_code?: string; payment_intent?: { id: string; client_secret: string; status: string } },
+  ) {
+    super(402, 'payment_error', message);
+  }
+}
+
 export function stripeConfigured(env: Env): boolean {
   return Boolean(env.STRIPE_SECRET_KEY && env.STRIPE_PUBLISHABLE_KEY);
 }
 
 export async function stripe<T = Record<string, unknown>>(
   env: Env,
-  method: 'GET' | 'POST',
+  method: 'GET' | 'POST' | 'DELETE',
   path: string,
   params: Params = {},
   idempotencyKey?: string,
 ): Promise<T> {
   if (!env.STRIPE_SECRET_KEY) throw new HttpError(503, 'not_configured', 'Payments are temporarily unavailable.');
   const body = encode(params).join('&');
-  const url = `https://api.stripe.com/v1${path}${method === 'GET' && body ? `?${body}` : ''}`;
+  const url = `https://api.stripe.com/v1${path}${method !== 'POST' && body ? `?${body}` : ''}`;
   const headers: Record<string, string> = { Authorization: `Bearer ${env.STRIPE_SECRET_KEY}` };
   if (method === 'POST') headers['Content-Type'] = 'application/x-www-form-urlencoded';
   if (idempotencyKey) headers['Idempotency-Key'] = idempotencyKey;
   const res = await fetch(url, { method, headers, body: method === 'POST' ? body : undefined });
-  const data = (await res.json()) as T & { error?: { message?: string; code?: string } };
+  const data = (await res.json()) as T & { error?: StripeError['stripeError'] };
   if (!res.ok) {
     console.error('stripe error', method, path, res.status, JSON.stringify(data.error));
-    throw new HttpError(502, 'payment_error', data.error?.message ?? 'The payment could not be processed.');
+    throw new StripeError(data.error?.message ?? 'The payment could not be processed.', data.error ?? {});
   }
   return data;
 }
@@ -72,7 +82,7 @@ export async function capture(env: Env, paymentIntentId: string, amountCents: nu
 }
 
 /** Send the driver their share from a captured charge (funds come from that charge, so they're available). */
-export async function transferToDriver(env: Env, opts: { bookingId: string; accountId: string; amountCents: number; chargeId: string; kind: 'trip' | 'cancel_fee' }) {
+export async function transferToDriver(env: Env, opts: { bookingId: string; accountId: string; amountCents: number; chargeId: string; kind: 'trip' | 'cancel_fee' | 'tip'; key?: string }) {
   if (opts.amountCents <= 0) return null;
   return stripe<{ id: string }>(
     env,
@@ -84,10 +94,10 @@ export async function transferToDriver(env: Env, opts: { bookingId: string; acco
       destination: opts.accountId,
       source_transaction: opts.chargeId,
       transfer_group: opts.bookingId,
-      description: `BoxHauls ${opts.bookingId} (${opts.kind === 'trip' ? 'trip' : 'cancellation fee'})`,
+      description: `BoxHauls ${opts.bookingId} (${opts.kind === 'trip' ? 'trip' : opts.kind === 'tip' ? 'tip' : 'cancellation fee'})`,
       metadata: { booking_id: opts.bookingId, kind: opts.kind },
     },
-    `transfer-${opts.bookingId}-${opts.kind}`,
+    opts.key ?? `transfer-${opts.bookingId}-${opts.kind}`,
   );
 }
 

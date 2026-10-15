@@ -28,7 +28,7 @@ export async function handle(fn: () => Promise<Response>): Promise<Response> {
   }
 }
 
-const ALLOWED_HOSTS = [/^boxhauls\.com$/, /^www\.boxhauls\.com$/, /^([a-z0-9-]+\.)?boxhaulsnew\.pages\.dev$/, /^localhost$/, /^127\.0\.0\.1$/];
+const ALLOWED_HOSTS = [/^boxhauls\.com$/, /^www\.boxhauls\.com$/, /^driver\.boxhauls\.com$/, /^([a-z0-9-]+\.)?boxhaulsnew\.pages\.dev$/, /^localhost$/, /^127\.0\.0\.1$/];
 
 /** Browser requests must come from this site. Blocks other sites from spending the Maps budget through us. */
 export function assertSameOrigin(request: Request): void {
@@ -38,11 +38,11 @@ export function assertSameOrigin(request: Request): void {
   if (!ALLOWED_HOSTS.some((re) => re.test(host))) throw new HttpError(403, 'forbidden', 'Origin not allowed.');
 }
 
-/** Parse a small JSON body (≤ 8 KB). */
-export async function readJson<T>(request: Request): Promise<T> {
+/** Parse a JSON body (≤ 8 KB by default; document uploads pass a larger limit). */
+export async function readJson<T>(request: Request, maxBytes = 8192): Promise<T> {
   if (request.method !== 'POST') throw new HttpError(405, 'method_not_allowed', 'Use POST.');
   const text = await request.text();
-  if (text.length > 8192) throw new HttpError(413, 'too_large', 'Request too large.');
+  if (text.length > maxBytes) throw new HttpError(413, 'too_large', 'Request too large.');
   try {
     return JSON.parse(text) as T;
   } catch {

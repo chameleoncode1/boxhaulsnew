@@ -1,0 +1,54 @@
+---
+/**
+ * Cookie banner (customer website only; not BoxHauls Driver). Choices: Accept All, Accept Only Essential Cookies,
+ * Decline. The choice is kept for a year (localStorage + a first-party cookie) and can be changed from "Cookie settings"
+ * in the footer. Essential cookies (sign-in, booking and payment security) are always used; analytics load only after
+ * "Accept All" (see Analytics.astro). Decline and Essential behave the same way today.
+ */
+---
+
+<div id="cookie-consent" class="cookie-consent fixed inset-x-0 bottom-0 z-50 hidden px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]" role="dialog" aria-modal="false" aria-labelledby="cookie-title">
+  <div class="mx-auto max-w-content rounded-md border-t-4 border-brand bg-night p-5 text-inverse shadow-[0_-8px_40px_rgba(0,0,0,0.45)] md:flex md:items-center md:gap-8">
+    <div class="md:flex-1">
+      <p id="cookie-title" class="display text-lg">Cookies on BoxHauls</p>
+      <p class="mt-1 text-sm text-night-muted">
+        We use essential cookies to keep you signed in and to process bookings and payments securely. With your OK, we'd also use analytics cookies to understand how the site is used. See our <a href="/legal/privacy/" class="text-inverse">Privacy Policy</a>.
+      </p>
+      <p class="mt-1 text-xs text-night-muted">Essential cookies are needed for sign-in and payments, so they stay on even if you decline.</p>
+    </div>
+    <div class="mt-4 grid gap-2 sm:grid-cols-3 md:mt-0 md:w-auto md:shrink-0 md:grid-cols-1 lg:grid-cols-3">
+      <button type="button" data-consent="all" class="display rounded-sm bg-brand px-4 py-3 text-inverse hover:bg-brand-hover">Accept All</button>
+      <button type="button" data-consent="essential" class="display rounded-sm border-2 border-inverse px-4 py-3 text-inverse hover:bg-inverse hover:text-ink">Accept Only Essential Cookies</button>
+      <button type="button" data-consent="declined" class="display rounded-sm border-2 border-night-border px-4 py-3 text-night-muted hover:border-inverse hover:text-inverse">Decline</button>
+    </div>
+  </div>
+</div>
+<script is:inline>
+  (function () {
+    var KEY = 'bh-consent';
+    var box = document.getElementById('cookie-consent');
+    function read() {
+      try { var v = localStorage.getItem(KEY); if (v) return v; } catch (_) {}
+      var m = document.cookie.match(/(?:^|; )bh_consent=([a-z]+)/);
+      return m ? m[1] : null;
+    }
+    function save(v) {
+      try { localStorage.setItem(KEY, v); } catch (_) {}
+      document.cookie = 'bh_consent=' + v + '; Path=/; Max-Age=31536000; SameSite=Lax' + (location.protocol === 'https:' ? '; Secure' : '');
+      window.bhConsent = v;
+      window.dispatchEvent(new CustomEvent('bh:consent', { detail: v }));
+    }
+    window.bhConsent = read();
+    function show() { box.classList.remove('hidden'); }
+    if (!window.bhConsent) show();
+    box.addEventListener('click', function (e) {
+      var b = e.target instanceof Element ? e.target.closest('[data-consent]') : null;
+      if (!b) return;
+      save(b.getAttribute('data-consent'));
+      box.classList.add('hidden');
+    });
+    document.addEventListener('click', function (e) {
+      if (e.target instanceof Element && e.target.closest('[data-cookie-settings]')) { e.preventDefault(); show(); }
+    });
+  })();
+</script>

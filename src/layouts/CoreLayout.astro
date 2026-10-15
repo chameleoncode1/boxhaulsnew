@@ -9,6 +9,7 @@ import Block from '../components/Block.astro';
 import NapBlock from '../components/NapBlock.astro';
 import AppBadges from '../components/AppBadges.astro';
 import InstallApp from '../components/InstallApp.astro';
+import DriverAppButton from '../components/DriverAppButton.astro';
 import EmptyState from '../components/EmptyState.astro';
 import ChildList from '../components/ChildList.astro';
 import BodyLinks from '../components/BodyLinks.astro';
@@ -36,7 +37,7 @@ const has = (t: string) => page.schema.includes(t);
     <section data-block="app" class="mt-10 rounded-md bg-night p-6 text-inverse md:p-8">
       <h2 class="text-2xl md:text-3xl">Install BoxHauls on your phone or tablet</h2>
       <p class="mt-2 max-w-xl text-night-muted">Works on iPhone, iPad and Android. It installs from your browser in seconds, opens full screen from your home screen, and takes almost no storage.</p>
-      <div class="mt-5"><InstallApp class="px-6 py-3 text-lg" /></div>
+      <div class="mt-5 flex flex-col items-start gap-3"><InstallApp class="px-6 py-3 text-lg" /><DriverAppButton variant="light" class="px-6 py-3" /></div>
       <div class="mt-6"><AppBadges tone="dark" showMissing /></div>
     </section>
   )}

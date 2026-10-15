@@ -18,6 +18,8 @@ import { sendSms, toE164 } from './sms';
 import { hash } from './quote';
 import { fresnoInstant } from './time';
 import { itemBySlug } from '../../src/lib/items';
+import { newToken } from './dispatch';
+import { payTips, refundTips } from './tips';
 import placeholders from '../../docs/placeholders.json';
 
 const ph = placeholders as Record<string, unknown>;
@@ -45,6 +47,15 @@ export interface FullBooking extends BookingRow {
   dump_load: string | null;
   dump_hold_cents: number | null;
   cancel_reason: string | null;
+  tier: string;
+  heavy: number;
+  customer_id: string | null;
+  stripe_customer_id: string | null;
+  payment_method_id: string | null;
+  tip_cents: number;
+  arrived_at: string | null;
+  picked_up_at: string | null;
+  completed_at: string | null;
 }
 
 export const isDumpRun = (b: { item: string }) => b.item === 'dump-run';
@@ -63,6 +74,7 @@ export async function activateBooking(env: Env, bookingId: string, salt: string,
   if (b.status !== 'pending_payment') return 'already';
   const pi = await stripe<PaymentIntent>(env, 'GET', `/payment_intents/${b.payment_intent_id}`);
   if (pi.status !== 'requires_capture' || pi.metadata.booking_id !== b.id) return 'not_authorized';
+  await rememberCard(env, b, pi);
 
   const now = new Date();
   const deadline = dispatchDeadline(b, now);
@@ -73,7 +85,7 @@ export async function activateBooking(env: Env, bookingId: string, salt: string,
     .run();
   if (res.meta.changes !== 1) return 'already';
 
-  const drivers = await eligibleDrivers(env);
+  const drivers = await eligibleDrivers(env, b);
   if (!drivers.length) {
     await releaseHold(env, b.payment_intent_id, 'abandoned');
     await env.DB.prepare(`UPDATE bookings SET status = 'unfilled' WHERE id = ?`).bind(b.id).run();
@@ -82,6 +94,25 @@ export async function activateBooking(env: Env, bookingId: string, salt: string,
   }
   await dispatchBooking(env, { ...b, item_label: itemBySlug(b.item)?.label ?? b.item }, drivers, salt, customerToken);
   return 'dispatching';
+}
+
+/** Keep the card for tips, and show it on the customer's account. Best effort: never blocks a booking. */
+async function rememberCard(env: Env, b: FullBooking, pi: PaymentIntent & { payment_method?: string | null }) {
+  try {
+    const pm = typeof pi.payment_method === 'string' ? pi.payment_method : null;
+    if (!pm) return;
+    await env.DB.prepare('UPDATE bookings SET payment_method_id = ? WHERE id = ?').bind(pm, b.id).run();
+    if (!b.customer_id) return;
+    const card = await stripe<{ card?: { brand: string; last4: string; exp_month: number; exp_year: number } }>(env, 'GET', `/payment_methods/${pm}`);
+    if (card.card) {
+      const exp = `${String(card.card.exp_month).padStart(2, '0')}/${String(card.card.exp_year).slice(-2)}`;
+      await env.DB.prepare('UPDATE customers SET default_card_brand = ?, default_card_last4 = ?, default_card_exp = ?, updated_at = ? WHERE id = ?')
+        .bind(card.card.brand, card.card.last4, exp, new Date().toISOString(), b.customer_id)
+        .run();
+    }
+  } catch (e) {
+    console.error('remember card failed', b.id, e);
+  }
 }
 
 /** What cancelling right now would cost. */
@@ -107,6 +138,7 @@ export async function cancelBooking(env: Env, b: FullBooking): Promise<{ feeCent
   if (terms.feeCents === 0) {
     await releaseHold(env, b.payment_intent_id);
     await env.DB.prepare('UPDATE bookings SET cancel_fee_cents = 0, captured_cents = 0 WHERE id = ?').bind(b.id).run();
+    await refundTips(env, b.id);
     return { feeCents: 0 };
   }
 
@@ -121,6 +153,7 @@ export async function cancelBooking(env: Env, b: FullBooking): Promise<{ feeCent
     if (driver) await sendSms(env, driver.phone, `BoxHauls: the customer canceled ${b.id}. You'll receive ${usd(driverCents)} from the cancellation fee.`);
   }
   await env.DB.prepare('UPDATE bookings SET cancel_fee_cents = ?, captured_cents = ? WHERE id = ?').bind(terms.feeCents, terms.feeCents, b.id).run();
+  await refundTips(env, b.id);
   return { feeCents: terms.feeCents };
 }
 
@@ -144,15 +177,25 @@ export async function completeBooking(env: Env, b: FullBooking, driver: { id: st
   const ch = chargeId(pi) ?? null;
   await env.DB.prepare('UPDATE bookings SET captured_cents = ?, driver_transfer_cents = ?, transfer_charge_id = ? WHERE id = ?').bind(total, driverCents, ch, b.id).run();
   const payout = await payDriver(env, { bookingId: b.id, accountId: driver.stripe_account_id, amountCents: driverCents, chargeId: ch, kind: 'trip' });
+  await payTips(env, b.id);
 
-  await sendSms(env, toE164(b.phone), `BoxHauls: trip ${b.id} is complete. Your card was charged ${usd(total)}${dump ? ` (${usd(b.price_cents)} trip + ${usd(dump)} dump fee)` : ''}. Thanks for using BoxHauls.`);
+  // The completion text links straight to the tip screen (its own token: the manage-trip token is stored only as a hash).
+  const tipToken = newToken();
+  if (env.QUOTE_SECRET) await env.DB.prepare('UPDATE bookings SET tip_token_hash = ? WHERE id = ?').bind(await hash(tipToken, env.QUOTE_SECRET), b.id).run();
+  const base = env.PUBLIC_SITE_URL ?? 'https://boxhauls.com';
+  await sendSms(
+    env,
+    toE164(b.phone),
+    `BoxHauls: trip ${b.id} is complete. Your card was charged ${usd(total)}${dump ? ` (${usd(b.price_cents)} trip + ${usd(dump)} dump fee)` : ''}. Tip your driver: ${base}/book/trip/?t=${tipToken}&tip=1`,
+  );
   return { chargedCents: total, driverCents, payout };
 }
 
 /** The booking behind a customer's manage-trip link. */
 export async function bookingByCustomerToken(env: Env, token: string): Promise<FullBooking> {
   if (!env.QUOTE_SECRET || token.length < 20) throw new HttpError(404, 'not_found', 'This trip link is not valid.');
-  const b = await env.DB.prepare('SELECT * FROM bookings WHERE customer_token_hash = ?').bind(await hash(token, env.QUOTE_SECRET)).first<FullBooking>();
+  const h = await hash(token, env.QUOTE_SECRET);
+  const b = await env.DB.prepare('SELECT * FROM bookings WHERE customer_token_hash = ? OR tip_token_hash = ?').bind(h, h).first<FullBooking>();
   if (!b) throw new HttpError(404, 'not_found', 'This trip link is not valid.');
   return b;
 }
@@ -185,6 +228,7 @@ export async function releaseForDriver(env: Env, b: FullBooking, reason: 'driver
     .run();
   if (claim.meta.changes !== 1) throw new HttpError(409, 'changed', 'This trip just changed. Refresh and try again.');
   if (b.payment_intent_id) await releaseHold(env, b.payment_intent_id, reason === 'driver' ? 'requested_by_customer' : 'abandoned');
+  await refundTips(env, b.id);
 
   const driver = b.driver_id ? await env.DB.prepare('SELECT phone FROM drivers WHERE id = ?').bind(b.driver_id).first<{ phone: string }>() : null;
   const customerMsg =

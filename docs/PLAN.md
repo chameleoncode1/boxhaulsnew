@@ -221,3 +221,15 @@ A Stripe Checkout Studio setup task was considered and declined. Hosted Checkout
 2. **App store links.** `SOCIAL.app_store` and `SOCIAL.google_play` are TODO. Organization `sameAs` and /app/ will show markers until they're filled.
 3. **GA4 measurement ID.** `GA4_MEASUREMENT_ID` is TODO. No Google script loads until it's set (format `G-XXXXXXX`). Before turning it on, the privacy policy (/legal/privacy/) has to disclose analytics cookies; California's CCPA applies.
 4. **Bulk Redirects upload.** Someone with access to the Cloudflare account imports the three CSVs and orders the rules 1 → 3 (steps in `deploy/cloudflare/README.md`). It's on the Prompt 5 launch checklist.
+
+
+### Accounts and BoxHauls Driver (decided 2026-10-15)
+
+- Customer and driver apps are separate installable apps: boxhauls.com (customers) and driver.boxhauls.com ("BoxHauls Driver"). They share one Pages project, one D1 database and one API.
+- Sign-in uses email and password now. Phone plus texted code turns on automatically when Twilio is configured.
+- Customer accounts are optional; guest booking stays.
+- Sensitive data: Stripe collects tax ID and bank details, and the background-check provider collects SSN. BoxHauls stores only statuses and last 4 digits. Document photos are stored privately in D1.
+- Tips: 15/18/20%/custom, 15% preselected, 100% to the driver. Available during the trip and automatically after completion.
+- Drivers see only their own earnings. The customer price and BoxHauls' share are never shown to drivers, and the driver share never reaches the customer's browser.
+- Approval time: 3 to 5 business days typical, with fine print that some cases take longer.
+- The cookie banner (Accept All / Essential / Decline) is on the website only. Analytics require Accept All.

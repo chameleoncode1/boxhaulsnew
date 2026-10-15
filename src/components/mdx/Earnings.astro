@@ -1,6 +1,7 @@
 ---
 /**
- * Driver earnings table (driver pages only): the driver's share of each example fare, computed from
+ * Driver earnings table (driver pages only): what the driver earns on each example trip (their share only; the
+ * customer fare and BoxHauls' part are never shown), computed from
  * DRIVER_SHARE and the price formula. Tips are on top and not shown.
  */
 import { lookup, isTodo } from '../../lib/placeholders';
@@ -32,7 +33,7 @@ const pct = typeof share === 'string' && !isTodo(share) ? Number(share.replace('
 <div class="my-6 overflow-x-auto">
   <table>
     <thead>
-      <tr><th scope="col">Trip</th><th scope="col">Customer fare</th><th scope="col">You earn {pct !== undefined ? `(${pct}%)` : ''}</th></tr>
+      <tr><th scope="col">Trip</th><th scope="col">You earn</th></tr>
     </thead>
     <tbody>
       {
@@ -41,7 +42,6 @@ const pct = typeof share === 'string' && !isTodo(share) ? Number(share.replace('
           return (
             <tr>
               <th scope="row">{r.label}</th>
-              <td>{usd(fare)}</td>
               <td>{pct !== undefined ? usd((fare * pct) / 100) : <span class="todo">[TODO: DRIVER_SHARE]</span>}</td>
             </tr>
           );

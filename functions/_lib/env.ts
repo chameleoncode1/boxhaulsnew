@@ -1,6 +1,8 @@
 /** Bindings and settings for the booking functions (wrangler.toml + secrets). */
 export interface Env {
   DB: D1Database;
+  /** Static files of the Pages project (used to serve BoxHauls Driver on driver.boxhauls.com). */
+  ASSETS: Fetcher;
   /** Server-side Google key: Places API (New) + Routes API. Secret. */
   GOOGLE_MAPS_API_KEY?: string;
   /** HMAC key for signing quotes. Secret. */

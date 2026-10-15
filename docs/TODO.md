@@ -10,7 +10,7 @@ Fill these in `docs/placeholders.json`; every page that uses them updates on the
 - `SOCIAL.app_store`: /app/
 - `SOCIAL.google_play`: /app/
 
-## Open facts by page (165 markers, 151 distinct questions)
+## Open facts by page (160 markers, 146 distinct questions)
 
 Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, then the copy is updated and the marker removed.
 
@@ -47,11 +47,6 @@ Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, t
 - minimum model year and any bed-length requirement
 
 **/drive/apply/**
-- driver application form or app download link
-- truck and document verification step
-- onboarding or app walkthrough
-- typical approval timeline
-- typical approval timeline, including the background check
 - whether drivers pay for the background check
 
 **/drive/earnings/**

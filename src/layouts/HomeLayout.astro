@@ -14,6 +14,7 @@ import TrustBadges from '../components/TrustBadges.astro';
 import EmptyState from '../components/EmptyState.astro';
 import AppBadges from '../components/AppBadges.astro';
 import InstallApp from '../components/InstallApp.astro';
+import DriverAppButton from '../components/DriverAppButton.astro';
 import Steps from '../components/Steps.astro';
 import BodyLinks from '../components/BodyLinks.astro';
 import PageSpec from '../components/PageSpec.astro';
@@ -53,7 +54,7 @@ const hubs = pages.filter((p) => p.template === 'service-hub');
             <li class="flex items-center gap-2"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="var(--color-brand-on-night)" stroke-width="2.5" /></svg>{t}</li>
           ))}
         </ul>
-        <div class="mt-7 hidden lg:block"><InstallApp variant="light" /></div>
+        <div class="mt-7 hidden flex-col items-start gap-3 lg:flex"><InstallApp variant="light" /><DriverAppButton variant="light" /></div>
       </div>
       <div id="get-a-price" class="relative sm:pr-3 sm:pb-3">
         <div class="slant-left absolute top-3 right-0 bottom-0 left-3 hidden bg-brand sm:block" aria-hidden="true"></div>
@@ -118,6 +119,9 @@ const hubs = pages.filter((p) => p.template === 'service-hub');
         <div class="mt-6 flex flex-wrap items-center gap-3">
           <InstallApp class="px-6 py-3 text-lg" />
           <AppBadges tone="dark" />
+        </div>
+        <div class="mt-3">
+          <DriverAppButton variant="light" class="px-6 py-3" />
         </div>
       </div>
       <picture class="hidden md:block">

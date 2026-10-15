@@ -3,6 +3,7 @@
 import { resolve } from '../lib/placeholders';
 import Text from './Text.astro';
 import InstallApp from './InstallApp.astro';
+import DriverAppButton from './DriverAppButton.astro';
 
 const facts = [
   resolve('{{BASE_FARE}} base + {{PER_MILE}} a mile').text,
@@ -25,6 +26,7 @@ const facts = [
       </ul>
       <a href="/book/" class="display mt-6 flex items-center justify-center rounded-sm bg-brand px-4 py-3 text-lg text-inverse no-underline hover:bg-brand-hover hover:text-inverse">Get a price</a>
       <InstallApp variant="light" class="mt-3 flex w-full py-3" />
+      <DriverAppButton variant="light" class="mt-3 flex w-full py-3 text-sm" />
     </div>
   </div>
 </aside>

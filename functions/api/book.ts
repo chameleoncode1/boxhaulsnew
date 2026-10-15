@@ -13,6 +13,7 @@ import { fresnoToday } from '../_lib/time';
 import { eligibleDrivers, newToken } from '../_lib/dispatch';
 import { stripe, stripeConfigured, type PaymentIntent } from '../_lib/stripe';
 import { itemBySlug } from '../../src/lib/items';
+import { sessionUser } from '../_lib/auth';
 import placeholders from '../../docs/placeholders.json';
 
 const WINDOWS = placeholders.BOOKING_WINDOWS as string[];
@@ -66,12 +67,23 @@ export const onRequestPost: PagesFunction<Env> = ({ request, env }) =>
     const recent = await env.DB.prepare('SELECT COUNT(*) AS n FROM bookings WHERE ip_hash = ? AND created_at > ?').bind(ipHash, since).first<{ n: number }>();
     if ((recent?.n ?? 0) >= MAX_PER_HOUR) throw new HttpError(429, 'rate_limited', 'Too many bookings from this connection. Please call us instead.');
 
-    if (!(await eligibleDrivers(env)).length) {
-      throw new HttpError(409, 'no_drivers', 'No drivers are available for online booking right now.');
+    if (!(await eligibleDrivers(env, { when_type: whenType })).length) {
+      throw new HttpError(409, 'no_drivers', whenType === 'asap' ? 'No drivers are online right now. Schedule a time instead, or try again soon.' : 'No drivers are available for online booking right now.');
     }
 
     const id = newId();
     const customerToken = newToken();
+
+    // Signed-in customers: link the booking and reuse their Stripe customer. Guests get a Stripe customer per booking.
+    // Either way the card is saved with Stripe (never by BoxHauls) so a tip can be charged during or after the trip.
+    const accountId = await sessionUser(env, request, 'customer');
+    const account = accountId ? await env.DB.prepare(`SELECT id, stripe_customer_id FROM customers WHERE id = ? AND status = 'active'`).bind(accountId).first<{ id: string; stripe_customer_id: string | null }>() : null;
+    let stripeCustomer = account?.stripe_customer_id ?? null;
+    if (!stripeCustomer) {
+      const sc = await stripe<{ id: string }>(env, 'POST', '/customers', { name, email, phone: `+1${phoneDigits}`, metadata: account ? { customer_id: account.id } : { booking_id: id } }, `cus-${account?.id ?? id}`);
+      stripeCustomer = sc.id;
+      if (account) await env.DB.prepare('UPDATE customers SET stripe_customer_id = ? WHERE id = ?').bind(stripeCustomer, account.id).run();
+    }
     const hold = q.totalCents + (q.dumpHoldCents ?? 0);
     const itemLabel = itemBySlug(q.item)?.label ?? q.item;
     const pi = await stripe<PaymentIntent>(
@@ -83,6 +95,8 @@ export const onRequestPost: PagesFunction<Env> = ({ request, env }) =>
         currency: 'usd',
         capture_method: 'manual',
         payment_method_types: ['card'],
+        customer: stripeCustomer,
+        setup_future_usage: 'off_session',
         receipt_email: email,
         description: `BoxHauls ${id}: ${itemLabel}`,
         transfer_group: id,
@@ -94,12 +108,12 @@ export const onRequestPost: PagesFunction<Env> = ({ request, env }) =>
     await env.DB.prepare(
       `INSERT INTO bookings (id, created_at, status, name, phone, email, pickup_address, pickup_place_id, dropoff_address, dropoff_place_id,
         miles, item, tier, helper, heavy, price_cents, when_type, scheduled_date, scheduled_window, notes, ip_hash,
-        payment_intent_id, authorized_cents, customer_token_hash, dump_material, dump_load, dump_hold_cents)
-       VALUES (?, ?, 'pending_payment', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        payment_intent_id, authorized_cents, customer_token_hash, dump_material, dump_load, dump_hold_cents, customer_id, stripe_customer_id)
+       VALUES (?, ?, 'pending_payment', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     )
       .bind(id, new Date().toISOString(), name, phone, email, q.pickup.address, q.pickup.placeId, q.dropoff.address, q.dropoff.placeId,
         q.miles, q.item, q.tier, 0, q.heavy ? 1 : 0, q.totalCents, whenType, date, window, notes || null, ipHash,
-        pi.id, hold, await hash(customerToken, env.QUOTE_SECRET), q.dumpMaterial ?? null, q.dumpLoad ?? null, q.dumpHoldCents ?? null)
+        pi.id, hold, await hash(customerToken, env.QUOTE_SECRET), q.dumpMaterial ?? null, q.dumpLoad ?? null, q.dumpHoldCents ?? null, account?.id ?? null, stripeCustomer)
       .run();
 
     return json({ id, clientSecret: pi.client_secret, customerToken, totalCents: q.totalCents, holdCents: hold });

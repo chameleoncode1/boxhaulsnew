@@ -13,6 +13,7 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Analytics from '../components/Analytics.astro';
 import PwaHead from '../components/PwaHead.astro';
 import InstallHelp from '../components/InstallHelp.astro';
+import CookieConsent from '../components/CookieConsent.astro';
 import CtaBand from '../components/CtaBand.astro';
 import MobileBar from '../components/MobileBar.astro';
 import PriceAside from '../components/PriceAside.astro';
@@ -99,5 +100,6 @@ const aside = !driver && page.template !== 'home' && page.template !== 'legal';
     {driver ? <DriverFooter /> : <SiteFooter />}
     {!driver && <MobileBar />}
     <InstallHelp />
+    <CookieConsent />
   </body>
 </html>

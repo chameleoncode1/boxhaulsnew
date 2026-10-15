@@ -2,7 +2,8 @@
 /**
  * Analytics stub. Always defines window.bhTrack(event, params), which accepts only the events in
  * src/lib/analytics.ts, and tracks clicks on any element with data-track="<event>" (extra params from
- * data-track-* attributes). Events queue in window.dataLayer. gtag.js loads only when GA4_MEASUREMENT_ID is set.
+ * data-track-* attributes). Events queue in window.dataLayer. gtag.js loads only when GA4_MEASUREMENT_ID is set
+ * AND the visitor chose "Accept All" in the cookie banner (CookieConsent.astro); until then nothing is sent to Google.
  * Booking islands (Prompt 5) call bhTrack('price_shown' | 'booking_completed', …) directly.
  */
 import { EVENTS, ga4Id } from '../lib/analytics';
@@ -11,7 +12,6 @@ const id = ga4Id();
 const config = JSON.stringify({ id: id ?? null, events: EVENTS });
 ---
 
-{id && <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${id}`}></script>}
 <script is:inline define:vars={{ config }}>
   (function () {
     var cfg = JSON.parse(config);
@@ -20,10 +20,23 @@ const config = JSON.stringify({ id: id ?? null, events: EVENTS });
       window.dataLayer.push(arguments);
     }
     window.gtag = window.gtag || gtag;
-    if (cfg.id) {
+    var loaded = false;
+    function loadAnalytics() {
+      if (!cfg.id || loaded) return;
+      loaded = true;
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + cfg.id;
+      document.head.appendChild(s);
       gtag('js', new Date());
       gtag('config', cfg.id);
     }
+    function consented() {
+      try { if (localStorage.getItem('bh-consent') === 'all') return true; } catch (_) {}
+      return /(?:^|; )bh_consent=all/.test(document.cookie);
+    }
+    if (consented()) loadAnalytics();
+    window.addEventListener('bh:consent', function (e) { if (e.detail === 'all') loadAnalytics(); });
     window.bhTrack = function (name, params) {
       if (cfg.events.indexOf(name) === -1) {
         console.warn('bhTrack: unknown event', name);

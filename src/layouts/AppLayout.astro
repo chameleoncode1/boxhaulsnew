@@ -12,6 +12,7 @@ import DriverFooter from '../components/DriverFooter.astro';
 import Analytics from '../components/Analytics.astro';
 import PwaHead from '../components/PwaHead.astro';
 import InstallHelp from '../components/InstallHelp.astro';
+import CookieConsent from '../components/CookieConsent.astro';
 import sairaDisplay from '@fontsource/saira/files/saira-latin-800-italic.woff2?url';
 
 interface Props {
@@ -42,5 +43,6 @@ const driver = audience === 'driver';
     </main>
     {driver ? <DriverFooter /> : <SiteFooter />}
     <InstallHelp />
+    <CookieConsent />
   </body>
 </html>

@@ -5,16 +5,23 @@
  * as soon as the head parses (not on window load) and the event is stashed for any "Download app now" button.
  */
 import { tokenColor } from '../lib/theme';
+interface Props {
+  /** Manifest and service worker URLs. The driver app passes relative URLs (it's served at / on driver.boxhauls.com and at /driver-app/ on previews). */
+  manifest?: string;
+  sw?: string;
+  title?: string;
+}
+const { manifest = '/manifest.webmanifest', sw = '/sw.js', title = 'BoxHauls' } = Astro.props;
 const theme = tokenColor('night');
 ---
 
-<link rel="manifest" href="/manifest.webmanifest" />
+<link rel="manifest" href={manifest} />
 <meta name="theme-color" content={theme} />
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-title" content="BoxHauls" />
+<meta name="apple-mobile-web-app-title" content={title} />
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<script is:inline>
+<script is:inline define:vars={{ swUrl: sw }}>
   (function () {
     var root = document.documentElement;
     window.__bhInstallPrompt = null;
@@ -35,7 +42,7 @@ const theme = tokenColor('night');
     if (standalone) root.dataset.installed = 'true';
     var local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
     if ('serviceWorker' in navigator && !local) {
-      navigator.serviceWorker.register('/sw.js').catch(function () {});
+      navigator.serviceWorker.register(swUrl).catch(function () {});
     }
   })();
 </script>

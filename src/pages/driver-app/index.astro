@@ -1,0 +1,32 @@
+---
+/**
+ * BoxHauls Driver (app UI). Served at driver.boxhauls.com/ by functions/_middleware.ts, and at /driver-app/ on
+ * localhost and preview hosts; boxhauls.com/driver-app/ redirects to driver.boxhauls.com. Never indexed; not in docs/sitemap.json.
+ * A full-screen React app (map, go online, offers, trips, earnings, account, enrollment). Same tokens and fonts as the customer site.
+ */
+import '../../styles/global.css';
+import PwaHead from '../../components/PwaHead.astro';
+import InstallHelp from '../../components/InstallHelp.astro';
+import DriverApp from '../../components/driver/DriverApp';
+import sairaDisplay from '@fontsource/saira/files/saira-latin-800-italic.woff2?url';
+---
+
+<!doctype html>
+<html lang="en" class="h-full bg-night">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>BoxHauls Driver</title>
+    <meta name="description" content="Drive with BoxHauls in Fresno and Clovis." />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="preload" href={sairaDisplay} as="font" type="font/woff2" crossorigin />
+    <link rel="icon" type="image/png" sizes="32x32" href="/brand/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/brand/driver-apple-touch-icon.png" />
+    <PwaHead manifest="manifest.webmanifest" sw="sw.js" title="BH Driver" />
+  </head>
+  <body class="h-full overflow-hidden bg-night text-inverse antialiased">
+    <DriverApp client:load />
+    <noscript><p style="padding:2rem">BoxHauls Driver needs JavaScript.</p></noscript>
+    <InstallHelp appName="BoxHauls Driver" icon="/brand/driver-icon-192.png" />
+  </body>
+</html>

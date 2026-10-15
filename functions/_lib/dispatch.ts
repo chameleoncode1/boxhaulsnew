@@ -69,10 +69,20 @@ export function newToken(): string {
   return btoa(String.fromCharCode(...bytes)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
 
-export async function eligibleDrivers(env: Env): Promise<Driver[]> {
-  // Only drivers Stripe can pay (payouts set up) get offers.
-  const sql = 'SELECT id, name, phone FROM drivers WHERE active = 1 AND payouts_ready = 1';
-  return (await env.DB.prepare(sql).all<Driver>()).results;
+/** A BoxHauls Driver user counts as online while the app has checked in within this window. */
+export const ONLINE_WINDOW_MS = 3 * 60_000;
+
+/**
+ * Drivers who get a job: approved, active, and payouts set up (Stripe can pay them).
+ * ASAP jobs go only to drivers who are online in BoxHauls Driver (as with Uber). Scheduled jobs go to every
+ * approved driver, online or not. Drivers added with the admin script (not app users) get every job by text.
+ */
+export async function eligibleDrivers(env: Env, job?: { when_type?: string | null }): Promise<Driver[]> {
+  const asap = job?.when_type === 'asap';
+  const since = new Date(Date.now() - ONLINE_WINDOW_MS).toISOString();
+  const sql = `SELECT id, name, phone FROM drivers WHERE active = 1 AND payouts_ready = 1 AND application_status = 'approved'${asap ? ' AND (app_user = 0 OR (online = 1 AND last_seen_at > ?))' : ''}`;
+  const stmt = env.DB.prepare(sql);
+  return (await (asap ? stmt.bind(since) : stmt).all<Driver>()).results;
 }
 
 /** Offer a booking to every eligible driver and text the customer. Run in the background after the booking is saved. */
@@ -110,7 +120,7 @@ export async function notifyAssigned(env: Env, b: BookingRow, d: Driver): Promis
   await sendSms(
     env,
     d.phone,
-    `BoxHauls ${b.id} is yours. ${whenText(b)}. Pickup: ${b.pickup_address}. Drop-off: ${b.dropoff_address}. Item: ${b.item_label ?? b.item}. Customer: ${b.name}, ${b.phone}.${b.notes ? ` Notes: ${b.notes}` : ''} Customer price ${usd(b.price_cents)}, you earn ${usd(payoutCents(b.price_cents))}.`,
+    `BoxHauls ${b.id} is yours. ${whenText(b)}. Pickup: ${b.pickup_address}. Drop-off: ${b.dropoff_address}. Item: ${b.item_label ?? b.item}. Customer: ${b.name}, ${b.phone}.${b.notes ? ` Notes: ${b.notes}` : ''} You earn ${usd(payoutCents(b.price_cents))} plus tips.`,
   );
   await sendSms(
     env,

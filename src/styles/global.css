@@ -8,6 +8,7 @@
 
 @layer base {
   html {
+    overflow-x: clip;
     background: var(--color-bg);
     color: var(--color-ink);
     font-family: var(--font-sans);
@@ -111,6 +112,12 @@
   .prose-bh .faq-item h3 {
     margin-top: 0;
   }
+  .prose-bh small {
+    display: block;
+    font-size: var(--text-xs);
+    line-height: var(--text-xs--line-height);
+    color: var(--color-muted);
+  }
   .prose-bh strong {
     font-weight: 700;
   }
@@ -179,6 +186,22 @@
     border: 3px solid var(--color-border);
     border-top-color: var(--color-brand);
     animation: bh-spin 0.8s linear infinite;
+  }
+  @keyframes slideup {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  @keyframes scan {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(300%);
+    }
   }
   @keyframes bh-spin {
     to {

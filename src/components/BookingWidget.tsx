@@ -10,7 +10,7 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import { ITEMS, TIERS, itemBySlug, tierBySlug, type TierKey } from '../lib/items';
 import { DUMP_LOADS, DUMP_MATERIALS } from '../lib/dumpFees';
-import { money, phone as phoneFact, phoneE164 } from '../lib/site';
+import { phone as phoneFact, phoneE164 } from '../lib/site';
 import placeholders from '../../docs/placeholders.json';
 import { lazy, Suspense } from 'react';
 import type { Activated, PaymentSession } from './PaymentStep';
@@ -212,6 +212,28 @@ export default function BookingWidget({ source = 'home' }: { source?: string }) 
     if (t) setTier(t.key);
   }, []);
 
+  // Signed-in customers: fill in their details (the hint in localStorage avoids a request for everyone else).
+  const [account, setAccount] = useState<{ firstName: string } | null>(null);
+  useEffect(() => {
+    let hint: string | null = null;
+    try {
+      hint = localStorage.getItem('bh-account');
+    } catch {
+      /* storage blocked */
+    }
+    if (!hint) return;
+    post<{ signedIn: boolean; customer?: { firstName: string; lastName: string; phone: string; email: string } }>('/api/account/me', {})
+      .then((r) => {
+        if (!r.signedIn || !r.customer) return;
+        const c = r.customer;
+        setAccount({ firstName: c.firstName });
+        setName((v) => v || `${c.firstName} ${c.lastName}`.trim());
+        setPhone((v) => v || c.phone);
+        setEmail((v) => v || c.email);
+      })
+      .catch(() => undefined);
+  }, []);
+
   const item = itemBySlug(itemSlug) ?? ITEMS[0];
 
   // Re-quote whenever the trip changes.
@@ -300,8 +322,9 @@ export default function BookingWidget({ source = 'home' }: { source?: string }) 
         )}
         <p className="mt-3 text-sm text-muted">Your card is authorized for {`$${(booked.totalCents / 100).toFixed(2)}`} and charged only when the driver marks the trip complete.</p>
         <p className="mt-3 text-sm">
-          <a href={manage}>See or cancel this trip</a>. Cancel within {String(placeholders.CANCEL_FREE_MINUTES)} minutes, before a driver accepts, for a full refund.
+          <a href={manage}>Track, tip or cancel this trip</a>. Cancel within {String(placeholders.CANCEL_FREE_MINUTES)} minutes, before a driver accepts, for a full refund.
         </p>
+        {!account && <p className="mt-3 text-sm"><a href="/account/?mode=signup">Create an account</a> to see all your trips in one place next time.</p>}
       </div>
     );
   }
