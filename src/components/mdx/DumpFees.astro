@@ -1,0 +1,83 @@
+---
+/**
+ * Dump-site gate fees from docs/placeholders.json (DUMP_FEES). `view="sites"` lists each site's rates;
+ * `view="holds"` shows the card hold for each material and load size (what the booking widget uses).
+ */
+import { DUMP, DUMP_LOADS, DUMP_MATERIALS, estimateDump } from '../../lib/dumpFees';
+
+interface Props {
+  view?: 'sites' | 'holds';
+}
+const { view = 'sites' } = Astro.props;
+const usd = (c: number) => (c === 0 ? 'Free' : `$${(c / 100).toFixed(2)}`);
+const LABEL: Record<string, string> = {
+  general: 'General refuse / household junk',
+  green: 'Clean green (yard waste)',
+  construction: 'Construction debris, wood, C&D',
+  dirt: 'Dirt, dirty concrete',
+  comingled: 'Comingled, brick',
+  metal: 'Clean metal',
+  mattress: 'Mattresses',
+  hard: 'Hard-to-handle loads',
+};
+const keys = Object.keys(LABEL);
+const sites = Object.entries(DUMP.sites);
+---
+
+{
+  view === 'sites' ? (
+    <div class="my-6 overflow-x-auto">
+      <table>
+        <thead>
+          <tr><th scope="col">Material (per ton)</th>{sites.map(([, s]) => <th scope="col">{s.name}</th>)}</tr>
+        </thead>
+        <tbody>
+          {keys.map((k) => (
+            <tr>
+              <th scope="row">{LABEL[k]}</th>
+              {sites.map(([, s]) => {
+                const rate = s.rates_cents_per_ton[k];
+                const min = s.minimums?.[k];
+                return (
+                  <td>
+                    {rate === undefined ? 'Not listed' : usd(rate)}
+                    {min && <><br /><span class="text-muted">{min.up_to_lb ? `${usd(min.cents)} flat up to ${min.up_to_lb} lb` : `${usd(min.cents)} minimum`}</span></>}
+                    {s.notes?.[k] && <><br /><span class="text-muted">{s.notes[k]}</span></>}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+          <tr>
+            <th scope="row">Per-load fees</th>
+            {sites.map(([, s]) => (
+              <td>
+                {s.per_load_cents ? usd(s.per_load_cents) : 'None listed'}
+                {(s as { per_load_note?: string }).per_load_note && <><br /><span class="text-muted">{(s as { per_load_note?: string }).per_load_note}</span></>}
+                {s.uncovered_load_fee_cents ? <><br /><span class="text-muted">{usd(s.uncovered_load_fee_cents)} if the load isn't covered</span></> : null}
+              </td>
+            ))}
+          </tr>
+        </tbody>
+      </table>
+      <p class="mt-2 text-sm text-muted">Fees checked {DUMP.checked}. Sites change fees; confirm with the site before you go.</p>
+    </div>
+  ) : (
+    <div class="my-6 overflow-x-auto">
+      <table>
+        <thead>
+          <tr><th scope="col">What's in the load</th>{DUMP_LOADS.map((l) => <th scope="col">{l.key === 'quarter' ? '¼ bed' : l.key === 'half' ? '½ bed' : 'Full bed'}</th>)}</tr>
+        </thead>
+        <tbody>
+          {DUMP_MATERIALS.map((m) => (
+            <tr>
+              <th scope="row">{m.label}</th>
+              {DUMP_LOADS.map((l) => <td>{usd(estimateDump(m.key, l.key)?.holdCents ?? 0)}</td>)}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p class="mt-2 text-sm text-muted">The most we hold on your card for the dump fee, on top of the trip price. You're charged only the actual fee from the dump's receipt.</p>
+    </div>
+  )
+}

@@ -209,6 +209,13 @@ The heaviest single item is **1,000 lb** (`{{MAX_ITEM_WEIGHT}}`), and gun safes 
 - **Code:** `functions/_lib/stripe.ts` (fetch REST client, webhook verification, idempotency keys) and `functions/_lib/payments.ts` (all the money rules). Endpoints: `book`, `confirm`, `trip`, `cancel`, `complete`, `payouts`, `stripe-webhook`, `config`. The cron also releases holds on unfilled and abandoned bookings.
 - **Still open:** tips through the app; driver no-shows and driver cancellations (who pays what); the weather policy.
 
+### Dump fees, driver cancels, no-shows, weather (decided 2026-10-15)
+
+- **Dump runs:** the customer picks what's in the load (8 materials) and how much (¼, ½ or full bed). The hold adds the highest gate fee among the sites that take that material, at an estimated maximum weight, rounded up to $5. The rates come from you (October 2026) and live in `DUMP_FEES` in `docs/placeholders.json`; **confirm them with the sites**. The weights per load size are **my defaults** (light: 250/500/1,000 lb; heavy: 500/1,000/2,000 lb); please confirm. The driver enters the actual fee, capped at that booking's dump hold.
+- **Driver cancels** (any reason, including weather): the hold is released immediately and the customer is texted.
+- **Driver no-show:** the customer reports it from `/book/trip/` once the pickup time has passed (ASAP: `NO_SHOW_ASAP_MINUTES` = 60 after acceptance, my default; scheduled: the end of the window). The hold is released immediately.
+- **Weather** is at the driver's discretion (`WEATHER_POLICY`).
+
 ## Open questions (answer before the prompt that needs them)
 
 1. **Booking go-live.** You need a Google Maps key, a Twilio number (A2P 10DLC or toll-free verification takes days, so start now), `bash scripts/setup-secrets.sh`, and drivers added with `npm run drivers`; full steps in `deploy/cloudflare/README.md`. Also confirm `SERVICE_CENTER`, the booking windows and the dispatch deadlines.

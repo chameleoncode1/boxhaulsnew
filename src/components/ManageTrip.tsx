@@ -19,6 +19,8 @@ interface Trip {
   freeCancelUntil: string | null;
   driver: { firstName: string; phone: string } | null;
   cancel: { allowed: boolean; feeCents: number; reason: string };
+  cancelReason: string | null;
+  noShowAt: string | null;
 }
 
 const usd = (c: number) => `$${(c / 100).toFixed(2)}`;
@@ -69,6 +71,20 @@ export default function ManageTrip() {
     (confirmId ? post('/api/confirm', { id: confirmId, customerToken: t }).catch(() => undefined) : Promise.resolve()).then(() => load(t));
   }, []);
 
+  async function reportNoShow() {
+    if (!window.confirm("Report that your driver didn't show up? The trip is canceled and your card hold is released.")) return;
+    setBusy(true);
+    setError('');
+    try {
+      await post('/api/no-show', { token });
+      await load(token);
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  }
+
   async function cancel() {
     setBusy(true);
     setError('');
@@ -102,7 +118,8 @@ export default function ManageTrip() {
         {row('Price', usd(trip.priceCents))}
         {trip.driver && row('Driver', `${trip.driver.firstName}, ${trip.driver.phone.replace(/^\+1(\d{3})(\d{3})(\d{4})$/, '($1) $2-$3')}`)}
         {trip.status === 'completed' && trip.capturedCents !== null && row('Charged', usd(trip.capturedCents))}
-        {trip.status === 'canceled' && row('Cancellation fee', trip.cancelFeeCents ? usd(trip.cancelFeeCents) : 'None (full refund)')}
+        {trip.status === 'canceled' && row('Canceled by', trip.cancelReason === 'driver' ? 'Your driver' : trip.cancelReason === 'no_show' ? 'You (driver no-show)' : 'You')}
+        {trip.status === 'canceled' && row('Charged', trip.cancelFeeCents ? usd(trip.cancelFeeCents) : 'Nothing, your hold was released')}
       </dl>
 
       {trip.status === 'dispatching' && trip.decideBy && <p className="mt-3 text-sm text-muted">We'll text you when a driver accepts, or by {time(trip.decideBy)} if none is available.</p>}
@@ -125,6 +142,12 @@ export default function ManageTrip() {
             <button onClick={() => setConfirming(false)} className="rounded-sm border-2 border-border-strong px-5 py-2">Keep trip</button>
           </div>
         </div>
+      )}
+      {trip.status === 'assigned' && trip.noShowAt && Date.now() >= Date.parse(trip.noShowAt) && (
+        <button onClick={reportNoShow} disabled={busy} className="mt-3 w-full rounded-sm border-2 border-brand px-6 py-3 font-semibold text-brand">My driver didn't show up</button>
+      )}
+      {trip.status === 'assigned' && trip.noShowAt && Date.now() < Date.parse(trip.noShowAt) && (
+        <p className="mt-3 text-xs text-muted">If your driver doesn't show, you can report it here after {time(trip.noShowAt)} and your hold is released.</p>
       )}
       {error && <p className="mt-3 text-sm text-brand" role="alert">{error}</p>}
     </div>

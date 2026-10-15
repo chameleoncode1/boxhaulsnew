@@ -10,7 +10,7 @@ Fill these in `docs/placeholders.json`; every page that uses them updates on the
 - `SOCIAL.app_store`: 175 pages
 - `SOCIAL.google_play`: 175 pages
 
-## Open facts by page (185 markers, 170 distinct questions)
+## Open facts by page (167 markers, 153 distinct questions)
 
 Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, then the copy is updated and the marker removed.
 
@@ -28,7 +28,6 @@ Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, t
 
 **/cities/fresno/**
 - hours
-- gate fees
 - street addresses for both sites
 - pickup-area location and loading notes for each store
 - current Operation Clean Up schedule and exclusions, and the Clovis program
@@ -72,7 +71,6 @@ Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, t
 
 **/drive/fresno/**
 - busiest zones and hours from real trip data
-- how drivers pay the gate fee and get reimbursed
 - hours and accepted materials at each site
 - pickup-area notes for each store
 - real earnings examples from Fresno trips
@@ -123,16 +121,9 @@ Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, t
 - current schedule and how to find your area's date
 
 **/guides/dump-fees-in-fresno/**
-- current gate fees at both sites, dated
 - address
 - hours
-- minimum fee
-- fee
-- accepted? fee?
-- “facts checked” date once fees are verified
-- which site takes which materials
 - Fresno-area household hazardous waste site and each site’s accepted-materials rules
-- current gate fees at American Avenue Disposal Site and CARTS, dated
 - each site's accepted-materials rules
 
 **/guides/renting-a-truck-vs-hiring-a-truck-and-driver/**
@@ -172,9 +163,7 @@ Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, t
 **/pricing/cost-of-a-dump-run/**
 - which site drivers use for which loads
 - hours
-- gate fee
 - confirm tires, electronics and appliances with refrigerant against the sites’ rules
-- current gate fees at American Avenue Disposal Site and Cedar Avenue Recycling and Transfer Station
 - confirm the full not-accepted list against the disposal sites' rules
 - whether drivers drop usable items at donation centers on the same trip
 
@@ -184,9 +173,6 @@ Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, t
 
 **/pricing/cost-to-move-a-washer-and-dryer/**
 - confirm drivers don't connect water, drain, gas or power
-
-**/pricing/fees/**
-- how the dump fee is shown and charged: on the receipt after the trip, or estimated before booking
 
 **/pricing/truck-sizes/**
 - whether customers can request a long bed
@@ -238,7 +224,6 @@ Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, t
 **/services/junk-removal/**
 - confirm the full not-accepted list against the disposal sites’ rules
 - whether drivers drop usable items at donation centers on the same trip
-- gate fees
 - confirm the full not-accepted list against the disposal sites' rules
 
 **/services/junk-removal/couch-disposal/**
@@ -248,7 +233,6 @@ Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, t
 
 **/services/junk-removal/dump-runs/**
 - which site drivers use for which loads, plus hours
-- how the dump fee is shown and charged
 - which site drivers use for which loads
 
 **/services/junk-removal/garage-cleanout/**
@@ -258,7 +242,6 @@ Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, t
 **/services/junk-removal/mattress-disposal/**
 - nearest participating drop-off site in Fresno and its rules
 - whether disposal or recycling sites require bagged mattresses
-- disposal or recycling fees drivers pay, passed through at cost
 
 **/services/small-moves/**
 - how multi-trip moves are priced and booked, and whether two drivers can be booked at once
@@ -288,10 +271,7 @@ Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, t
 - reporting window and typical resolution time
 
 **/trust/cancellation-and-refunds/**
-- driver no-show policy
-- weather policy
 - policy when the driver arrives and the job can’t be done
-- driver no-show policy and what the customer gets
 
 **/trust/damage-claims/**
 - reporting deadline after drop-off

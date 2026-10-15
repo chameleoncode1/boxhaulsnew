@@ -5,7 +5,7 @@ faq:
   - question: "How much does a dump run cost?"
     answer: "With BoxHauls, a dump run is {{BASE_FARE}} plus {{PER_MILE}} a mile, plus the landfill or transfer-station fee at cost. A 10-mile run is {{price:10}} before the dump fee. There's no hourly rate."
   - question: "How much is the dump fee in Fresno?"
-    answer: "It depends on the site and the load. [TODO: current gate fees at American Avenue Disposal Site and Cedar Avenue Recycling and Transfer Station]"
+    answer: "It depends on the site and the material. General refuse is $29.52 a ton at the American Avenue Disposal Site (loads up to 640 lb are $9.45), and most junk is $90 a ton plus $26 per load at CARTS."
   - question: "Is a dump run priced by load size?"
     answer: "The trip price is the same for a quarter load or a full bed. What changes is the dump fee, since sites charge by weight or volume, and BoxHauls passes it through at cost."
   - question: "What can't go on a dump run?"
@@ -42,10 +42,16 @@ Drivers take loads to the disposal site that fits the job. <Todo>which site driv
 
 | Site | Location | Hours | Gate fee |
 |---|---|---|---|
-| American Avenue Disposal Site | Fresno County landfill, near Kerman | <Todo>hours</Todo> | <Todo>gate fee</Todo> |
-| Cedar Avenue Recycling and Transfer Station (CARTS) | Fresno | <Todo>hours</Todo> | <Todo>gate fee</Todo> |
+| American Avenue Disposal Site | Fresno County landfill, near Kerman | <Todo>hours</Todo> | General refuse $29.52/ton ($9.45 up to 640 lb) |
+| Cedar Avenue Recycling and Transfer Station (CARTS) | Fresno | <Todo>hours</Todo> | Most junk $90/ton + $26 per load |
 
-For current fees at each site, see [dump fees in Fresno](/guides/dump-fees-in-fresno/).
+## What we hold for the dump fee
+
+On a dump run, you tell us what's in the load and roughly how much. We add the most the dump fee could be for that load to your card hold, and you're charged only the actual fee from the dump's receipt.
+
+<DumpFees view="holds" />
+
+For every site's rates by material, see [dump fees in Fresno](/guides/dump-fees-in-fresno/).
 
 ## What isn't accepted
 

@@ -4,7 +4,7 @@ faq:
   - question: "Can I cancel a BoxHauls trip?"
     answer: "Yes. Cancel within {{CANCEL_FREE_MINUTES}} minutes of requesting, before a driver accepts, and you get a full refund. After {{CANCEL_FREE_MINUTES}} minutes, or any time after a driver accepts (even inside the {{CANCEL_FREE_MINUTES}} minutes), the cancellation fee is {{CANCEL_FEE}} of the quoted price."
   - question: "What if the driver doesn't show up?"
-    answer: "[TODO: driver no-show policy and what the customer gets]"
+    answer: "{{DRIVER_CANCEL_POLICY}} You can report a no-show from your trip page once the pickup time has passed."
   - question: "How long do refunds take?"
     answer: "If you cancel for a full refund, the authorization on your card is released and you're never charged; how fast the hold disappears from your statement depends on your bank. If the cancellation fee applies, only that amount is charged."
 ---
@@ -18,8 +18,9 @@ You can cancel a BoxHauls trip. Cancel within <F k="CANCEL_FREE_MINUTES" /> minu
 | You cancel within <F k="CANCEL_FREE_MINUTES" /> minutes of requesting, and no driver has accepted | Full refund |
 | You cancel after <F k="CANCEL_FREE_MINUTES" /> minutes | You're charged <F k="CANCEL_FEE" /> of the quoted price |
 | You cancel after a driver accepts, even within <F k="CANCEL_FREE_MINUTES" /> minutes | You're charged <F k="CANCEL_FEE" /> of the quoted price |
-| The driver doesn't show up | <Todo>driver no-show policy</Todo> |
-| Bad weather | <Todo>weather policy</Todo> |
+| Your driver cancels | Your card hold is released right away. You pay nothing |
+| Your driver doesn't show up | Report it from your trip page once the pickup time has passed. Your hold is released right away and you pay nothing |
+| Bad weather | <F k="WEATHER_POLICY" /> |
 | The item isn't ready, or doesn't fit | <Todo>policy when the driver arrives and the job can't be done</Todo> |
 
 ## Refunds

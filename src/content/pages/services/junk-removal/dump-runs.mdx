@@ -6,7 +6,7 @@ faq:
   - question: "Which dump does the driver use?"
     answer: "The site that fits the load and the location: the American Avenue Disposal Site near Kerman or the Cedar Avenue Recycling and Transfer Station (CARTS) in Fresno. [TODO: which site drivers use for which loads]"
   - question: "How do I pay the dump fee?"
-    answer: "The dump fee is passed through at cost. [TODO: how the dump fee is shown and charged]"
+    answer: "When you book, you pick what's in the load and how much. We hold the most the fee could be for that load on your card, the driver enters the actual fee from the receipt, and you're charged only that, with no markup."
 ---
 
 A dump run with BoxHauls means a driver with a pickup loads your junk and hauls it to the landfill or transfer station. It costs <F k="BASE_FARE" /> plus <F k="PER_MILE" /> a mile plus the dump fee at cost. Book it as <F k="TIER_2" />. It's part of [junk removal and dump runs](/services/junk-removal/).
@@ -26,7 +26,9 @@ The driver loads the truck. To speed things up, pile everything in one spot: the
 
 ## The dump fee
 
-The site's gate fee is passed through at cost, with no markup. <Todo>how the dump fee is shown and charged</Todo>
+The site's gate fee is passed through at cost, with no markup. On a dump run, you tell us what's in the load and roughly how much. We add the most the dump fee could be for that load to your card hold, and you're charged only the actual fee from the dump's receipt.
+
+<DumpFees view="holds" />
 
 ## Price example
 

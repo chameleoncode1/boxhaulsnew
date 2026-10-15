@@ -10,6 +10,7 @@ import { QUOTE_TTL_MS, signQuote, type QuotePayload } from '../_lib/quote';
 import { itemBySlug, TIERS } from '../../src/lib/items';
 import { tripPrice } from '../../src/lib/pricing';
 import { money } from '../../src/lib/site';
+import { estimateDump } from '../../src/lib/dumpFees';
 
 export const onRequestPost: PagesFunction<Env> = ({ request, env }) =>
   handle(async () => {
@@ -28,6 +29,10 @@ export const onRequestPost: PagesFunction<Env> = ({ request, env }) =>
     assertInServiceArea(pickup, 'pickup');
     assertInServiceArea(dropoff, 'drop-off');
 
+    // Dump runs: the customer says what's in the load and how much, which sizes the dump-fee hold.
+    const dump = item.slug === 'dump-run' ? estimateDump(str(body.dumpMaterial, 30), str(body.dumpLoad, 20)) : null;
+    if (item.slug === 'dump-run' && !dump) throw new HttpError(400, 'bad_dump', "Choose what's in the load and how much there is.");
+
     const miles = Math.round((await drivingMiles(env, pickup, dropoff)) * 10) / 10;
     const helper = body.helper === true;
     const total = tripPrice(miles, { heavy: item.heavy, helper });
@@ -40,6 +45,7 @@ export const onRequestPost: PagesFunction<Env> = ({ request, env }) =>
       helper,
       heavy: item.heavy,
       totalCents: Math.round(total * 100),
+      ...(dump ? { dumpMaterial: dump.material, dumpLoad: dump.load, dumpHoldCents: dump.holdCents } : {}),
       exp: Date.now() + QUOTE_TTL_MS,
     };
     const perMile = money('PER_MILE') ?? 0;
@@ -55,6 +61,7 @@ export const onRequestPost: PagesFunction<Env> = ({ request, env }) =>
         ...(helper ? [{ label: 'Helper (when available)', cents: Math.round((money('HELPER_FEE') ?? 0) * 100) }] : []),
       ],
       totalCents: payload.totalCents,
+      dump: dump ? { holdCents: dump.holdCents, maxLb: dump.maxLb, sites: dump.sites } : null,
       expiresAt: payload.exp,
     });
   });

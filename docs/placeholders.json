@@ -46,8 +46,54 @@
   "BOOKING_WINDOWS": ["8–10 AM", "10 AM–12 PM", "12–2 PM", "2–4 PM", "4–6 PM"],
   "BOOKING_WINDOW_STARTS": ["08:00", "10:00", "12:00", "14:00", "16:00"],
   "DISPATCH_ASAP_MINUTES": "30",
-  "DUMP_FEE_HOLD_BUFFER": "$60",
-  "_payments_note": "Card holds last 7 days (Stripe, customer-initiated), so scheduling is capped at BOOKING_DAYS_AHEAD = 6. DUMP_FEE_HOLD_BUFFER is added to the hold on dump runs; the driver enters the actual gate fee (up to the buffer) at completion.",
+  "NO_SHOW_ASAP_MINUTES": "60",
+  "_no_show_note": "When the customer can report a driver no-show: ASAP trips NO_SHOW_ASAP_MINUTES after the driver accepted; scheduled trips once the time window has ended. Default set by Claude: confirm.",
+  "WEATHER_POLICY": "Weather calls are at the driver's discretion. If a driver cancels for weather, your card hold is released right away and you pay nothing.",
+  "DRIVER_CANCEL_POLICY": "If your driver cancels or doesn't show up, your card hold is released right away and you pay nothing.",
+  "_payments_note": "Card holds last 7 days (Stripe, customer-initiated), so scheduling is capped at BOOKING_DAYS_AHEAD = 6. On dump runs the hold adds the estimated dump fee from DUMP_FEES (material + load size); the driver enters the actual gate fee (up to that estimate) at completion.",
+  "DUMP_FEES": {
+    "_source": "Owner-provided local rates, October 2026 (from search results). Confirm with each site before launch.",
+    "checked": "October 2026",
+    "sites": {
+      "aads": {
+        "name": "American Avenue Disposal Site",
+        "where": "Fresno County landfill, near Kerman",
+        "per_load_cents": 0,
+        "uncovered_load_fee_cents": 800,
+        "rates_cents_per_ton": { "general": 2952, "green": 3306, "hard": 3696 },
+        "minimums": { "general": { "cents": 945, "up_to_lb": 640 } }
+      },
+      "carts": {
+        "name": "Cedar Avenue Recycling and Transfer Station (CARTS)",
+        "where": "Fresno (Caglia Environmental)",
+        "per_load_cents": 2600,
+        "per_load_note": "$16 environmental fee + $10 fuel surcharge per incoming load",
+        "rates_cents_per_ton": { "general": 9000, "green": 9000, "construction": 9000, "dirt": 9000, "comingled": 6500, "metal": 0, "mattress": 0, "hard": 9000 },
+        "minimums": { "hard": { "cents": 16000 } },
+        "notes": { "mattress": "Free, up to 10 mattresses per day", "metal": "Free for clean metal", "dirt": "Clean concrete or asphalt is free; dirt and dirty concrete are $90/ton" }
+      }
+    },
+    "materials": [
+      { "key": "general", "label": "Household junk and furniture", "weight": "light" },
+      { "key": "green", "label": "Yard waste (clean green)", "weight": "light" },
+      { "key": "construction", "label": "Construction debris (wood, drywall, C&D)", "weight": "heavy" },
+      { "key": "dirt", "label": "Dirt, rock or broken concrete", "weight": "heavy" },
+      { "key": "comingled", "label": "Brick or mixed recyclables", "weight": "heavy" },
+      { "key": "metal", "label": "Clean scrap metal", "weight": "light" },
+      { "key": "mattress", "label": "Mattresses or box springs", "weight": "light" },
+      { "key": "hard", "label": "Hard-to-handle load (bulky or awkward)", "weight": "heavy" }
+    ],
+    "loads": [
+      { "key": "quarter", "label": "About a quarter of a truck bed" },
+      { "key": "half", "label": "About half a truck bed" },
+      { "key": "full", "label": "A full truck bed" }
+    ],
+    "_weights_note": "Estimated maximum weight per load, used only to size the card hold. Defaults set by Claude, not facts: confirm or change. Heavy full loads are capped near a half-ton pickup's payload.",
+    "max_weight_lb": {
+      "light": { "quarter": 250, "half": 500, "full": 1000 },
+      "heavy": { "quarter": 500, "half": 1000, "full": 2000 }
+    }
+  },
   "DISPATCH_SCHEDULED_LEAD_HOURS": "2",
   "BOOKING_DAYS_AHEAD": "6",
   "SOCIAL": {

@@ -9,6 +9,9 @@ export interface OfferRow extends BookingRow {
   driver_id: string | null;
   dispatch_expires_at: string;
   offer_driver_id: string;
+  dump_material: string | null;
+  dump_load: string | null;
+  dump_hold_cents: number | null;
 }
 
 export async function findOffer(env: Env, token: string): Promise<OfferRow> {
@@ -24,7 +27,7 @@ export async function findOffer(env: Env, token: string): Promise<OfferRow> {
 }
 
 export function offerState(row: OfferRow): 'open' | 'yours' | 'taken' | 'expired' {
-  if (row.status === 'assigned' || row.status === 'completed') return row.driver_id === row.offer_driver_id ? 'yours' : 'taken';
+  if (row.status === 'assigned' || row.status === 'completed' || (row.status === 'canceled' && row.driver_id)) return row.driver_id === row.offer_driver_id ? 'yours' : 'taken';
   if (row.status !== 'dispatching' || Date.now() > Date.parse(row.dispatch_expires_at)) return 'expired';
   return 'open';
 }

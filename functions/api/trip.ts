@@ -2,7 +2,7 @@
 import type { Env } from '../_lib/env';
 import { assertSameOrigin, handle, json, readJson, str } from '../_lib/http';
 import { whenText } from '../_lib/dispatch';
-import { bookingByCustomerToken, cancelTerms, CANCEL_FREE_MS } from '../_lib/payments';
+import { bookingByCustomerToken, cancelTerms, CANCEL_FREE_MS, noShowAvailableAt } from '../_lib/payments';
 import { itemBySlug } from '../../src/lib/items';
 
 export const onRequestPost: PagesFunction<Env> = ({ request, env }) =>
@@ -26,5 +26,8 @@ export const onRequestPost: PagesFunction<Env> = ({ request, env }) =>
       freeCancelUntil: b.confirmed_at && b.status === 'dispatching' ? new Date(Date.parse(b.confirmed_at) + CANCEL_FREE_MS).toISOString() : null,
       driver: driver ? { firstName: driver.name.split(/\s+/)[0], phone: driver.phone } : null,
       cancel: terms,
+      cancelReason: b.cancel_reason,
+      noShowAt: noShowAvailableAt(b)?.toISOString() ?? null,
+      dumpHoldCents: b.dump_hold_cents,
     });
   });

@@ -12,7 +12,6 @@ import { smsConfigured } from '../_lib/sms';
 import { fresnoToday } from '../_lib/time';
 import { eligibleDrivers, newToken } from '../_lib/dispatch';
 import { stripe, stripeConfigured, type PaymentIntent } from '../_lib/stripe';
-import { holdCents } from '../_lib/payments';
 import { itemBySlug } from '../../src/lib/items';
 import placeholders from '../../docs/placeholders.json';
 
@@ -73,7 +72,7 @@ export const onRequestPost: PagesFunction<Env> = ({ request, env }) =>
 
     const id = newId();
     const customerToken = newToken();
-    const hold = holdCents(q.totalCents, q.item);
+    const hold = q.totalCents + (q.dumpHoldCents ?? 0);
     const itemLabel = itemBySlug(q.item)?.label ?? q.item;
     const pi = await stripe<PaymentIntent>(
       env,
@@ -95,12 +94,12 @@ export const onRequestPost: PagesFunction<Env> = ({ request, env }) =>
     await env.DB.prepare(
       `INSERT INTO bookings (id, created_at, status, name, phone, email, pickup_address, pickup_place_id, dropoff_address, dropoff_place_id,
         miles, item, tier, helper, heavy, price_cents, when_type, scheduled_date, scheduled_window, notes, ip_hash,
-        payment_intent_id, authorized_cents, customer_token_hash)
-       VALUES (?, ?, 'pending_payment', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        payment_intent_id, authorized_cents, customer_token_hash, dump_material, dump_load, dump_hold_cents)
+       VALUES (?, ?, 'pending_payment', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     )
       .bind(id, new Date().toISOString(), name, phone, email, q.pickup.address, q.pickup.placeId, q.dropoff.address, q.dropoff.placeId,
         q.miles, q.item, q.tier, q.helper ? 1 : 0, q.heavy ? 1 : 0, q.totalCents, whenType, date, window, notes || null, ipHash,
-        pi.id, hold, await hash(customerToken, env.QUOTE_SECRET))
+        pi.id, hold, await hash(customerToken, env.QUOTE_SECRET), q.dumpMaterial ?? null, q.dumpLoad ?? null, q.dumpHoldCents ?? null)
       .run();
 
     return json({ id, clientSecret: pi.client_secret, customerToken, totalCents: q.totalCents, holdCents: hold });

@@ -120,21 +120,21 @@ Generated from the built site by `scripts/todo.mjs` on every build. Phase-1 page
 | /about/ | founding year |
 | /app/ | confirm the other in-app features: tracking, messaging, receipts, ratings; QR code linking to the app stores |
 | /cities/ | waitlist form for other cities |
-| /cities/fresno/ | hours; gate fees; street addresses for both sites; pickup-area location and loading notes for each store; current Operation Clean Up schedule and exclusions, and the Clovis program; this year’s move-in and move-out dates for each campus; the apartment corridors with the most move-ins and move-outs, written from local knowledge; real driver profiles with photos, once drivers agree to be featured; coverage map; which site drivers use for which loads; pickup-area notes for each store |
+| /cities/fresno/ | hours; street addresses for both sites; pickup-area location and loading notes for each store; current Operation Clean Up schedule and exclusions, and the Clovis program; this year’s move-in and move-out dates for each campus; the apartment corridors with the most move-ins and move-outs, written from local knowledge; real driver profiles with photos, once drivers agree to be featured; coverage map; which site drivers use for which loads; pickup-area notes for each store |
 | /contact/ | where customers start a chat, and the support text number if it isn’t the main phone number |
 | /drive/ | how jobs are offered to drivers in the app, and how long a driver has to accept; a real driver’s story, once a driver agrees to share it; minimum model year and any bed-length requirement |
 | /drive/apply/ | driver application form or app download link; truck and document verification step; onboarding or app walkthrough; typical approval timeline; typical approval timeline, including the background check; whether drivers pay for the background check |
 | /drive/earnings/ | realistic hourly ranges from real Fresno trip data; busiest days and hours from real trip data; current IRS standard mileage rate |
 | /drive/equipment/ | confirm required minimum gear for BoxHauls drivers |
 | /drive/faq/ | how drivers go online and offline in the app; whether declining jobs affects a driver's standing; driver ratings and the threshold for staying active; whether a helper can drive the truck on a job; customer no-show policy for drivers and any wait compensation |
-| /drive/fresno/ | busiest zones and hours from real trip data; how drivers pay the gate fee and get reimbursed; hours and accepted materials at each site; pickup-area notes for each store; real earnings examples from Fresno trips |
+| /drive/fresno/ | busiest zones and hours from real trip data; hours and accepted materials at each site; pickup-area notes for each store; real earnings examples from Fresno trips |
 | /drive/how-payouts-work/ | payout schedule: weekly day and cutoff; whether instant payout is available and its fee; any payout or processing fees drivers pay; confirm tips are paid on the same schedule; which year-end form drivers receive (1099-NEC or 1099-K) and the threshold; payout schedule; which form (1099-NEC or 1099-K) and the threshold |
 | /drive/insurance-and-liability/ | confirm; confirm: driver’s own auto policy; occupational accident coverage, if any; when the policy applies: from job acceptance, from arrival at pickup, or only while loaded; when the policy applies to drivers (accepted, en route, loaded) and what it covers for the driver; driver responsibility, deductibles and the claim process for drivers |
 | /drive/requirements/ | minimum model year, bed length and condition standards; license class and driving-record standard; minimum driver age; minimum coverage amounts; confirm minimum gear counts; whether helpers need their own background check; onboarding steps: truck inspection, document upload, app training; minimum coverage amounts drivers must carry |
 | /drive/safety/ | driver safety support line and in-app reporting; how drivers decline or report a job in the app |
 | /faq/ | ride-along policy; whether someone must be present at both ends; confirm drivers don't assemble furniture or connect appliances; business accounts and invoicing |
 | /guides/bulky-item-pickup-in-fresno/ | current Operation Clean Up schedule and how to find your area’s date; set-out rules: when, where, and how much; Operation Clean Up accepted items; Operation Clean Up exclusions; Clovis bulky-item program details; current schedule and how to find your area's date |
-| /guides/dump-fees-in-fresno/ | current gate fees at both sites, dated; address; hours; minimum fee; fee; accepted? fee?; “facts checked” date once fees are verified; which site takes which materials; Fresno-area household hazardous waste site and each site’s accepted-materials rules; current gate fees at American Avenue Disposal Site and CARTS, dated; each site's accepted-materials rules |
+| /guides/dump-fees-in-fresno/ | address; hours; Fresno-area household hazardous waste site and each site’s accepted-materials rules; each site's accepted-materials rules |
 | /guides/renting-a-truck-vs-hiring-a-truck-and-driver/ | current Fresno rental rates, dated and sourced; current per-mile rental charge, dated and sourced |
 | /guides/what-to-do-if-an-item-is-damaged/ | BoxHauls reporting deadline |
 | /guides/what-to-expect-from-a-boxhauls-driver/ | confirm in-app tracking during the trip; confirm drivers don’t assemble furniture or connect appliances; confirm drivers don't assemble furniture or connect appliances |
@@ -145,10 +145,9 @@ Generated from the built site by `scripts/todo.mjs` on every build. Phase-1 page
 | /legal/terms/ | terms of service text, reviewed by California counsel, including the card authorization at request, the charge on completion, and the cancellation policy (free-cancellation window and cancellation fee) |
 | /press/ | founding year; founder bio, one or two sentences |
 | /pricing/ | first-haul promo terms, or remove this section if there is no promotion |
-| /pricing/cost-of-a-dump-run/ | which site drivers use for which loads; hours; gate fee; confirm tires, electronics and appliances with refrigerant against the sites’ rules; current gate fees at American Avenue Disposal Site and Cedar Avenue Recycling and Transfer Station; confirm the full not-accepted list against the disposal sites' rules; whether drivers drop usable items at donation centers on the same trip |
+| /pricing/cost-of-a-dump-run/ | which site drivers use for which loads; hours; confirm tires, electronics and appliances with refrigerant against the sites’ rules; confirm the full not-accepted list against the disposal sites' rules; whether drivers drop usable items at donation centers on the same trip |
 | /pricing/cost-to-move-a-refrigerator/ | confirm drivers don’t disconnect or connect water lines; confirm drivers don't connect water lines or install appliances |
 | /pricing/cost-to-move-a-washer-and-dryer/ | confirm drivers don't connect water, drain, gas or power |
-| /pricing/fees/ | how the dump fee is shown and charged: on the receipt after the trip, or estimated before booking |
 | /pricing/truck-sizes/ | whether customers can request a long bed |
 | /reviews/ | Google Business Profile review link |
 | /services/appliance-delivery/ | confirm drivers don’t connect or disconnect water, gas, drain or power lines; confirm drivers don't connect water, gas, drain or power |
@@ -160,18 +159,18 @@ Generated from the built site by `scripts/todo.mjs` on every build. Phase-1 page
 | /services/furniture-delivery/mattress-delivery/ | whether drivers bring mattress bags or the customer provides one |
 | /services/furniture-delivery/store-pickup/ | whether the customer must be present or authorize the pickup with the store; pickup-area location and notes for each store; confirm the store-pickup authorization process |
 | /services/furniture-delivery/what-we-cant-move/ | whether drivers take upright pianos; Fresno-area household hazardous waste site; whether hot tub removal or relocation is offered |
-| /services/junk-removal/ | confirm the full not-accepted list against the disposal sites’ rules; whether drivers drop usable items at donation centers on the same trip; gate fees; confirm the full not-accepted list against the disposal sites' rules |
+| /services/junk-removal/ | confirm the full not-accepted list against the disposal sites’ rules; whether drivers drop usable items at donation centers on the same trip; confirm the full not-accepted list against the disposal sites' rules |
 | /services/junk-removal/couch-disposal/ | whether drivers drop items at donation centers; current Operation Clean Up schedule, what’s excluded, and the Clovis program; current Operation Clean Up schedule and what's excluded |
-| /services/junk-removal/dump-runs/ | which site drivers use for which loads, plus hours; how the dump fee is shown and charged; which site drivers use for which loads |
+| /services/junk-removal/dump-runs/ | which site drivers use for which loads, plus hours; which site drivers use for which loads |
 | /services/junk-removal/garage-cleanout/ | Fresno-area household hazardous waste site; how multi-load cleanouts are priced and booked |
-| /services/junk-removal/mattress-disposal/ | nearest participating drop-off site in Fresno and its rules; whether disposal or recycling sites require bagged mattresses; disposal or recycling fees drivers pay, passed through at cost |
+| /services/junk-removal/mattress-disposal/ | nearest participating drop-off site in Fresno and its rules; whether disposal or recycling sites require bagged mattresses |
 | /services/small-moves/ | how multi-trip moves are priced and booked, and whether two drivers can be booked at once; how multi-trip moves are priced and booked |
 | /services/small-moves/dorm-move/ | this year’s Fresno State move-in and move-out dates; campus loading-zone and parking rules for move days; whether mini fridges get the heavy-item fee; this year's Fresno State move-in and move-out dates |
 | /services/small-moves/one-bedroom-move/ | how a second trip is priced and booked; whether two drivers can be booked for the same move; how a second trip is priced |
 | /services/small-moves/storage-unit-move/ | how multi-trip storage moves are priced and booked; whether the customer must be present or can share the gate code and unit access |
 | /services/small-moves/studio-apartment-move/ | how a second trip is priced and booked; how a second trip is priced |
 | /trust/ | where customers start a chat, and the support text number if it isn’t the main phone number; reporting window and typical resolution time |
-| /trust/cancellation-and-refunds/ | driver no-show policy; weather policy; policy when the driver arrives and the job can’t be done; driver no-show policy and what the customer gets |
+| /trust/cancellation-and-refunds/ | policy when the driver arrives and the job can’t be done |
 | /trust/damage-claims/ | reporting deadline after drop-off; who decides the claim and how long review takes; typical resolution window and how payment is made; deductible, if any |
 | /trust/driver-vetting/ | which records the check covers; provider for the driving-record check; how trucks are inspected; minimum auto coverage drivers must carry; confirm the exact list of checks run; re-check cadence and the rating threshold drivers must keep; re-check cadence; rating threshold for staying active |
 | /trust/insurance/ | confirm when coverage starts and ends; cargo coverage limit from the policy; liability coverage limit from the policy; policy exclusions, e.g. items packed by the customer, pre-existing damage, cash, jewelry, documents; how to declare high-value items before booking and whether extra coverage can be added; how to declare high-value items and whether added coverage is available |

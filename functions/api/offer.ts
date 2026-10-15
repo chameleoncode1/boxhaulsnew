@@ -6,7 +6,7 @@ import type { Env } from '../_lib/env';
 import { assertSameOrigin, handle, json, readJson, str } from '../_lib/http';
 import { cityOf, payoutCents, whenText } from '../_lib/dispatch';
 import { findOffer, offerState } from '../_lib/offers';
-import { DUMP_BUFFER_CENTS } from '../_lib/payments';
+import { DUMP_MATERIALS, DUMP_LOADS } from '../../src/lib/dumpFees';
 import { itemBySlug } from '../../src/lib/items';
 
 export const onRequestPost: PagesFunction<Env> = ({ request, env }) =>
@@ -25,9 +25,12 @@ export const onRequestPost: PagesFunction<Env> = ({ request, env }) =>
       when: whenText(row),
       helper: row.helper === 1,
       dumpRun: row.item === 'dump-run',
-      dumpBufferCents: DUMP_BUFFER_CENTS,
+      dumpHoldCents: row.dump_hold_cents ?? 0,
+      dumpMaterial: DUMP_MATERIALS.find((m) => m.key === row.dump_material)?.label ?? null,
+      dumpLoad: DUMP_LOADS.find((l) => l.key === row.dump_load)?.label ?? null,
       payoutCents: payoutCents(row.price_cents),
       completed: row.status === 'completed',
+      canceled: row.status === 'canceled',
       priceCents: row.price_cents,
       // Full details only for the driver who won the job.
       ...(state === 'yours'

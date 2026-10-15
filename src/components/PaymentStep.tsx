@@ -97,7 +97,7 @@ export default function PaymentStep({ session, dumpRun, onDone }: { session: Pay
       <h3 className="text-lg font-semibold">Card</h3>
       <p className="mt-1 text-sm text-muted">
         Your card is authorized now and charged {usd(session.totalCents)} only when the driver marks the trip complete.
-        {dumpRun && session.holdCents > session.totalCents && <> The hold is {usd(session.holdCents)} to cover the dump fee; you're charged only the actual fee from the receipt.</>}
+        {dumpRun && session.holdCents > session.totalCents && <> The hold is {usd(session.holdCents)}, including up to {usd(session.holdCents - session.totalCents)} for the dump fee; you're charged only the actual fee from the receipt.</>}
       </p>
       <div className="mt-3">
         <Elements stripe={stripe} options={{ clientSecret: session.clientSecret, appearance: appearance() }}>

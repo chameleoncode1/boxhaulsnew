@@ -15,8 +15,11 @@ interface Offer {
   when: string;
   helper: boolean;
   dumpRun: boolean;
-  dumpBufferCents: number;
+  dumpHoldCents: number;
+  dumpMaterial: string | null;
+  dumpLoad: string | null;
   completed: boolean;
+  canceled: boolean;
   payoutCents: number;
   priceCents: number;
   pickup?: string;
@@ -86,6 +89,20 @@ export default function AcceptJob() {
     }
   }
 
+  async function cancelTrip() {
+    if (!offer || !window.confirm(`Cancel ${offer.id}? The customer's card hold is released and they're told you canceled.`)) return;
+    setBusy(true);
+    setError('');
+    try {
+      await post('/api/driver-cancel', { token });
+      await load(token);
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  }
+
   if (error && !offer) return <p className="text-brand">{error}</p>;
   if (!offer) return <p className="text-muted">Loading job…</p>;
 
@@ -102,6 +119,8 @@ export default function AcceptJob() {
         {row('Distance', `${offer.miles.toFixed(1)} mi`)}
         {row('When', offer.when)}
         {offer.helper && row('Helper', 'Required: bring your helper')}
+        {offer.dumpRun && offer.dumpMaterial && row('Load', `${offer.dumpMaterial}, ${(offer.dumpLoad ?? '').toLowerCase()}`)}
+        {offer.dumpRun && row('Dump fee', `Reimbursed in full, up to ${usd(offer.dumpHoldCents)}`)}
         {row('You earn', usd(offer.payoutCents))}
         {row('Customer pays', usd(offer.priceCents))}
       </dl>
@@ -123,15 +142,15 @@ export default function AcceptJob() {
             {row('Phone', offer.phone ?? '')}
             {offer.notes ? row('Notes', offer.notes) : null}
           </dl>
-          {offer.phone && !offer.completed && (
+          {offer.phone && !offer.completed && !offer.canceled && (
             <a href={`tel:${offer.phone.replace(/\D/g, '')}`} className="display mt-4 inline-block rounded-sm bg-night px-5 py-3 text-inverse no-underline">Call customer</a>
           )}
-          {!offer.completed && (
+          {!offer.completed && !offer.canceled && (
             <div className="mt-6 border-t border-border pt-4">
               {offer.dumpRun && (
                 <label className="block text-sm font-semibold">
-                  Dump fee from the receipt (up to {usd(offer.dumpBufferCents)})
-                  <input type="number" inputMode="decimal" min="0" step="0.01" max={offer.dumpBufferCents / 100} value={dumpFee} onChange={(e) => setDumpFee(e.target.value)} className="mt-1 w-full rounded-sm border-2 border-border-strong px-3 py-2" />
+                  Dump fee from the receipt (up to {usd(offer.dumpHoldCents)})
+                  <input type="number" inputMode="decimal" min="0" step="0.01" max={offer.dumpHoldCents / 100} value={dumpFee} onChange={(e) => setDumpFee(e.target.value)} className="mt-1 w-full rounded-sm border-2 border-border-strong px-3 py-2" />
                   <span className="mt-1 block font-normal text-muted">You're reimbursed this amount in full.</span>
                 </label>
               )}
@@ -139,8 +158,12 @@ export default function AcceptJob() {
                 {busy ? 'Completing…' : 'Mark trip complete'}
               </button>
               <p className="mt-2 text-xs text-muted">Only after the items are unloaded. This charges the customer and sends your share.</p>
+              <button onClick={cancelTrip} disabled={busy} className="mt-4 w-full rounded-sm border-2 border-ink px-6 py-2 text-sm font-semibold">
+                Can't do this trip (weather or other reason)? Cancel it
+              </button>
             </div>
           )}
+          {offer.canceled && <p className="mt-4 font-semibold">This trip was canceled. The customer's card hold was released.</p>}
           {offer.completed && <p className="mt-4 font-semibold">Trip complete.{done && ` Customer charged ${usd(done.chargedCents)}; ${usd(done.driverCents)} sent to your Stripe account.`}</p>}
         </div>
       )}

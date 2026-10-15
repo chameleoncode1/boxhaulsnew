@@ -8,6 +8,7 @@ import { hash } from './quote';
 import { sendSms, toE164 } from './sms';
 import { fresnoInstant, shortDate } from './time';
 import placeholders from '../../docs/placeholders.json';
+import { DUMP_MATERIALS, DUMP_LOADS } from '../../src/lib/dumpFees';
 
 const ph = placeholders as Record<string, unknown>;
 const WINDOWS = ph.BOOKING_WINDOWS as string[];
@@ -32,6 +33,8 @@ export interface BookingRow {
   scheduled_date: string | null;
   scheduled_window: string | null;
   notes: string | null;
+  dump_material?: string | null;
+  dump_load?: string | null;
 }
 
 export interface Driver {
@@ -78,7 +81,8 @@ export async function eligibleDrivers(env: Env, helper: boolean): Promise<Driver
 /** Offer a booking to every eligible driver and text the customer. Run in the background after the booking is saved. */
 export async function dispatchBooking(env: Env, b: BookingRow, drivers: Driver[], salt: string, customerToken?: string): Promise<void> {
   const base = env.PUBLIC_SITE_URL ?? 'https://boxhauls.com';
-  const job = `${b.item_label ?? b.item}, ${cityOf(b.pickup_address)} to ${cityOf(b.dropoff_address)}, ${b.miles.toFixed(1)} mi, ${whenText(b)}`;
+  const dumpInfo = b.dump_material ? ` (${DUMP_MATERIALS.find((m) => m.key === b.dump_material)?.label ?? b.dump_material}, ${DUMP_LOADS.find((l) => l.key === b.dump_load)?.label.toLowerCase() ?? b.dump_load})` : '';
+  const job = `${b.item_label ?? b.item}${dumpInfo}, ${cityOf(b.pickup_address)} to ${cityOf(b.dropoff_address)}, ${b.miles.toFixed(1)} mi, ${whenText(b)}`;
   const now = new Date().toISOString();
 
   await Promise.all(

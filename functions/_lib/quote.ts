@@ -20,6 +20,10 @@ export interface QuotePayload {
   helper: boolean;
   heavy: boolean;
   totalCents: number;
+  /** Dump runs only: material, load size, and the dump-fee part of the hold. */
+  dumpMaterial?: string;
+  dumpLoad?: string;
+  dumpHoldCents?: number;
   /** Expiry, ms since epoch. */
   exp: number;
 }

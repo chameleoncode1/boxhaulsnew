@@ -9,6 +9,7 @@
  */
 import { useEffect, useId, useRef, useState } from 'react';
 import { ITEMS, TIERS, itemBySlug, tierBySlug, type TierKey } from '../lib/items';
+import { DUMP_LOADS, DUMP_MATERIALS } from '../lib/dumpFees';
 import { money, phone as phoneFact, phoneE164 } from '../lib/site';
 import placeholders from '../../docs/placeholders.json';
 import { lazy, Suspense } from 'react';
@@ -40,6 +41,7 @@ interface Quote {
   miles: number;
   lines: { label: string; cents: number }[];
   totalCents: number;
+  dump: { holdCents: number; maxLb: number } | null;
 }
 interface ApiError {
   error: string;
@@ -178,6 +180,8 @@ export default function BookingWidget({ source = 'home' }: { source?: string }) 
   const [itemSlug, setItemSlug] = useState('couch');
   const [tier, setTier] = useState<TierKey>('TIER_3');
   const [helper, setHelper] = useState(false);
+  const [dumpMaterial, setDumpMaterial] = useState(DUMP_MATERIALS[0]?.key ?? 'general');
+  const [dumpLoad, setDumpLoad] = useState('half');
   const [quote, setQuote] = useState<Quote | null>(null);
   const [quoteState, setQuoteState] = useState<'idle' | 'loading' | 'error' | 'unavailable'>('idle');
   const [quoteError, setQuoteError] = useState('');
@@ -220,7 +224,7 @@ export default function BookingWidget({ source = 'home' }: { source?: string }) 
     }
     let cancelled = false;
     setQuoteState('loading');
-    post<Quote>('/api/quote', { pickupPlaceId: pickup.placeId, dropoffPlaceId: dropoff.placeId, sessionToken: session, item: itemSlug, tier, helper })
+    post<Quote>('/api/quote', { pickupPlaceId: pickup.placeId, dropoffPlaceId: dropoff.placeId, sessionToken: session, item: itemSlug, tier, helper, dumpMaterial, dumpLoad })
       .then((q) => {
         if (cancelled) return;
         setQuote(q);
@@ -241,7 +245,7 @@ export default function BookingWidget({ source = 'home' }: { source?: string }) 
     return () => {
       cancelled = true;
     };
-  }, [pickup, dropoff, itemSlug, tier, helper, session, source]);
+  }, [pickup, dropoff, itemSlug, tier, helper, dumpMaterial, dumpLoad, session, source]);
 
   async function onSubmit(e: { preventDefault(): void }) {
     e.preventDefault();
@@ -323,8 +327,25 @@ export default function BookingWidget({ source = 'home' }: { source?: string }) 
           >
             {ITEMS.map((i) => <option key={i.slug} value={i.slug}>{i.label}</option>)}
           </select>
-          {item.note && <p className="mt-1 text-sm text-muted">{renderNote(item.note)}</p>}
+          {item.note && itemSlug !== 'dump-run' && <p className="mt-1 text-sm text-muted">{renderNote(item.note)}</p>}
         </div>
+        {itemSlug === 'dump-run' && (
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div>
+              <label htmlFor={`${id}-dump-material`} className={labelCls}>What's in the load?</label>
+              <select id={`${id}-dump-material`} className={field} value={dumpMaterial} onChange={(e) => setDumpMaterial(e.target.value)}>
+                {DUMP_MATERIALS.map((m) => <option key={m.key} value={m.key}>{m.label}</option>)}
+              </select>
+            </div>
+            <div>
+              <label htmlFor={`${id}-dump-load`} className={labelCls}>How much?</label>
+              <select id={`${id}-dump-load`} className={field} value={dumpLoad} onChange={(e) => setDumpLoad(e.target.value)}>
+                {DUMP_LOADS.map((l) => <option key={l.key} value={l.key}>{l.label}</option>)}
+              </select>
+            </div>
+            <p className="text-sm text-muted sm:col-span-2">The dump fee depends on what's in the load and how much it weighs. You're charged the actual fee from the dump's receipt.</p>
+          </div>
+        )}
         <fieldset>
           <legend className={labelCls}>Job type</legend>
           <div className="mt-1 grid gap-2 sm:grid-cols-3">
@@ -361,7 +382,11 @@ export default function BookingWidget({ source = 'home' }: { source?: string }) 
               ))}
               <div className="flex justify-between gap-4 border-t border-border pt-2 text-lg font-bold"><dt>Total</dt><dd>{usd(quote.totalCents)}</dd></div>
             </dl>
-            {item.slug === 'dump-run' && <p className="mt-1 text-sm text-muted">Plus the dump fee, passed through at cost.</p>}
+            {quote.dump && (
+              <p className="mt-2 text-sm text-muted">
+                Plus the dump fee at cost, from the receipt. For this load we hold up to {usd(quote.dump.holdCents)} on your card for it; you're charged only the actual fee.
+              </p>
+            )}
           </>
         ) : null}
       </div>
