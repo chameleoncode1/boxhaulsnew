@@ -198,6 +198,17 @@ The heaviest single item is **1,000 lb** (`{{MAX_ITEM_WEIGHT}}`), and gun safes 
   - the cron expiry and its customer text
 - **Defaults to confirm:** 30 minutes for ASAP, and 2 hours before the window for scheduled trips.
 
+### Payments (decided 2026-10-14)
+
+**Uber-style: the customer accepts the total and its breakdown, the card is authorized at request, and it's charged when the driver marks the trip complete.**
+- **Model:** Stripe "separate charges and transfers". The driver's `DRIVER_SHARE` (71%) is transferred to their Stripe Connect Express account from the captured charge; BoxHauls, LLC keeps the rest, minus Stripe fees.
+- **Cancellation:** free within `CANCEL_FREE_MINUTES` (5) if no driver has accepted. Otherwise `CANCEL_FEE` (50%) is captured; if a driver had accepted, they get 71% of the fee, and if not, BoxHauls keeps it.
+- **Dump runs:** the hold includes `DUMP_FEE_HOLD_BUFFER` ($60, my default; please confirm). The driver enters the gate fee at completion, and it's charged and reimbursed to the driver in full.
+- **Scheduling** is capped at 6 days, because customer-initiated card holds last 7 days.
+- **Drivers** get offers only once Stripe can pay them (`payouts_ready`). Each gets a payout-setup link from `npm run drivers -- add`.
+- **Code:** `functions/_lib/stripe.ts` (fetch REST client, webhook verification, idempotency keys) and `functions/_lib/payments.ts` (all the money rules). Endpoints: `book`, `confirm`, `trip`, `cancel`, `complete`, `payouts`, `stripe-webhook`, `config`. The cron also releases holds on unfilled and abandoned bookings.
+- **Still open:** tips through the app; driver no-shows and driver cancellations (who pays what); the weather policy.
+
 ## Open questions (answer before the prompt that needs them)
 
 1. **Booking go-live.** You need a Google Maps key, a Twilio number (A2P 10DLC or toll-free verification takes days, so start now), `bash scripts/setup-secrets.sh`, and drivers added with `npm run drivers`; full steps in `deploy/cloudflare/README.md`. Also confirm `SERVICE_CENTER`, the booking windows and the dispatch deadlines.

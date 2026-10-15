@@ -1,18 +1,19 @@
 /**
- * POST /api/book — save a booking request.
+ * POST /api/book — step 1 of a booking: create it as pending_payment with a Stripe card authorization.
  * Body: { quote, name, phone, email, when: { type: 'asap' } | { type: 'scheduled', date, window }, notes }.
- * Accepts only a quote this server signed. No payment is taken online. Saves to D1, then auto-dispatches:
- * every eligible driver gets a text with an accept link, and the customer is texted (functions/_lib/dispatch.ts).
- * Refuses the booking up front if texting isn't configured or no driver is available, so nobody is left waiting.
+ * Returns the PaymentIntent client secret for the Payment Element and a customer token for the manage-trip link.
+ * Dispatch starts only after the card is authorized (/api/confirm or the Stripe webhook).
+ * Refuses up front if payments or texting aren't configured, or no driver with payouts set up qualifies.
  */
 import type { Env } from '../_lib/env';
 import { assertSameOrigin, handle, HttpError, json, readJson, str } from '../_lib/http';
 import { hash, verifyQuote } from '../_lib/quote';
-import { sendBookingEmails } from '../_lib/email';
 import { smsConfigured } from '../_lib/sms';
 import { fresnoToday } from '../_lib/time';
-import { dispatchBooking, dispatchDeadline, eligibleDrivers, type BookingRow } from '../_lib/dispatch';
-import { itemBySlug, TIERS } from '../../src/lib/items';
+import { eligibleDrivers, newToken } from '../_lib/dispatch';
+import { stripe, stripeConfigured, type PaymentIntent } from '../_lib/stripe';
+import { holdCents } from '../_lib/payments';
+import { itemBySlug } from '../../src/lib/items';
 import placeholders from '../../docs/placeholders.json';
 
 const WINDOWS = placeholders.BOOKING_WINDOWS as string[];
@@ -25,10 +26,12 @@ function newId(): string {
   return `BH-${[...bytes].map((b) => alphabet[b % alphabet.length]).join('')}`;
 }
 
-export const onRequestPost: PagesFunction<Env> = ({ request, env, waitUntil }) =>
+export const onRequestPost: PagesFunction<Env> = ({ request, env }) =>
   handle(async () => {
     assertSameOrigin(request);
-    if (!env.QUOTE_SECRET || !smsConfigured(env)) throw new HttpError(503, 'not_configured', 'Online booking is temporarily unavailable.');
+    if (!env.QUOTE_SECRET || !smsConfigured(env) || !stripeConfigured(env)) {
+      throw new HttpError(503, 'not_configured', 'Online booking is temporarily unavailable.');
+    }
     const body = await readJson<Record<string, unknown>>(request);
     const q = await verifyQuote(str(body.quote, 4000), env.QUOTE_SECRET);
 
@@ -59,48 +62,46 @@ export const onRequestPost: PagesFunction<Env> = ({ request, env, waitUntil }) =
       if (!WINDOWS.includes(window)) throw new HttpError(422, 'bad_window', 'Choose a time window.');
     } else throw new HttpError(422, 'bad_when', 'Choose ASAP or a scheduled time.');
 
-    // Rate limit: a handful of bookings per client per hour.
     const ipHash = await hash(request.headers.get('CF-Connecting-IP') ?? 'unknown', env.QUOTE_SECRET);
     const since = new Date(Date.now() - 3600_000).toISOString();
     const recent = await env.DB.prepare('SELECT COUNT(*) AS n FROM bookings WHERE ip_hash = ? AND created_at > ?').bind(ipHash, since).first<{ n: number }>();
     if ((recent?.n ?? 0) >= MAX_PER_HOUR) throw new HttpError(429, 'rate_limited', 'Too many bookings from this connection. Please call us instead.');
 
-    // Nobody to dispatch to → don't take the booking.
-    const drivers = await eligibleDrivers(env, q.helper);
-    if (!drivers.length) {
+    if (!(await eligibleDrivers(env, q.helper)).length) {
       throw new HttpError(409, 'no_drivers', q.helper ? 'No drivers with a helper are available for online booking right now.' : 'No drivers are available for online booking right now.');
     }
 
     const id = newId();
-    const deadline = dispatchDeadline({ when_type: whenType, scheduled_date: date, scheduled_window: window });
-    await env.DB.prepare(
-      `INSERT INTO bookings (id, created_at, status, name, phone, email, pickup_address, pickup_place_id, dropoff_address, dropoff_place_id,
-        miles, item, tier, helper, heavy, price_cents, when_type, scheduled_date, scheduled_window, notes, ip_hash, dispatch_expires_at)
-       VALUES (?, ?, 'dispatching', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-    )
-      .bind(id, new Date().toISOString(), name, phone, email, q.pickup.address, q.pickup.placeId, q.dropoff.address, q.dropoff.placeId,
-        q.miles, q.item, q.tier, q.helper ? 1 : 0, q.heavy ? 1 : 0, q.totalCents, whenType, date, window, notes || null, ipHash, deadline.toISOString())
-      .run();
-
-    const total = `$${(q.totalCents / 100).toFixed(2)}`;
-    const whenText = whenType === 'asap' ? 'As soon as possible' : `${date}, ${window}`;
+    const customerToken = newToken();
+    const hold = holdCents(q.totalCents, q.item);
     const itemLabel = itemBySlug(q.item)?.label ?? q.item;
-    const row: BookingRow = {
-      id, name, phone, pickup_address: q.pickup.address, dropoff_address: q.dropoff.address, miles: q.miles,
-      item: q.item, item_label: itemLabel, helper: q.helper ? 1 : 0, price_cents: q.totalCents,
-      when_type: whenType, scheduled_date: date, scheduled_window: window, notes: notes || null,
-    };
-    waitUntil(dispatchBooking(env, row, drivers, env.QUOTE_SECRET).catch((e) => console.error('dispatch error', e)));
-    waitUntil(
-      sendBookingEmails(env, {
-        id, name, phone, email, notes, total, when: whenText, miles: q.miles, helper: q.helper,
-        pickup: q.pickup.address, dropoff: q.dropoff.address,
-        item: itemBySlug(q.item)?.label ?? q.item,
-        tier: TIERS.find((t) => t.key === q.tier)?.name ?? q.tier,
-      })
-        .then((status) => env.DB.prepare('UPDATE bookings SET alert_status = ? WHERE id = ?').bind(status, id).run())
-        .catch((e) => console.error('booking alert error', e)),
+    const pi = await stripe<PaymentIntent>(
+      env,
+      'POST',
+      '/payment_intents',
+      {
+        amount: hold,
+        currency: 'usd',
+        capture_method: 'manual',
+        payment_method_types: ['card'],
+        receipt_email: email,
+        description: `BoxHauls ${id}: ${itemLabel}`,
+        transfer_group: id,
+        metadata: { booking_id: id },
+      },
+      `pi-${id}`,
     );
 
-    return json({ id, total, when: whenText, phone, decideBy: deadline.toISOString() });
+    await env.DB.prepare(
+      `INSERT INTO bookings (id, created_at, status, name, phone, email, pickup_address, pickup_place_id, dropoff_address, dropoff_place_id,
+        miles, item, tier, helper, heavy, price_cents, when_type, scheduled_date, scheduled_window, notes, ip_hash,
+        payment_intent_id, authorized_cents, customer_token_hash)
+       VALUES (?, ?, 'pending_payment', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    )
+      .bind(id, new Date().toISOString(), name, phone, email, q.pickup.address, q.pickup.placeId, q.dropoff.address, q.dropoff.placeId,
+        q.miles, q.item, q.tier, q.helper ? 1 : 0, q.heavy ? 1 : 0, q.totalCents, whenType, date, window, notes || null, ipHash,
+        pi.id, hold, await hash(customerToken, env.QUOTE_SECRET))
+      .run();
+
+    return json({ id, clientSecret: pi.client_secret, customerToken, totalCents: q.totalCents, holdCents: hold });
   });

@@ -154,13 +154,13 @@ Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, t
 - confirm in-app messaging and live tracking during the trip
 
 **/legal/driver-agreement/**
-- driver agreement text, reviewed by California counsel, including contractor classification, consent to job texts, and sharing the driver’s first name and phone with the customer
+- driver agreement text, reviewed by California counsel, including contractor classification, consent to job texts, sharing the driver’s first name and phone with the customer, payouts through Stripe Connect (the driver share of fares and of cancellation fees after acceptance, and 100% of dump fees and tips)
 
 **/legal/privacy/**
-- privacy policy text, reviewed by California counsel, including CCPA/CPRA rights, booking data (name, phone, email and addresses, stored with Cloudflare; addresses looked up with Google Maps; shared with the assigned driver; texts sent through Twilio), and the analytics cookies used once GA4 is enabled
+- privacy policy text, reviewed by California counsel, including CCPA/CPRA rights, booking data (name, phone, email and addresses, stored with Cloudflare; addresses looked up with Google Maps; shared with the assigned driver; texts sent through Twilio; payments processed by Stripe, which BoxHauls never sees card numbers for), and the analytics cookies used once GA4 is enabled
 
 **/legal/terms/**
-- terms of service text, reviewed by California counsel
+- terms of service text, reviewed by California counsel, including the card authorization at request, the charge on completion, and the cancellation policy (free-cancellation window and cancellation fee)
 
 **/press/**
 - founding year

@@ -13,10 +13,14 @@ Work top to bottom. Don't cut over until section 1 is all checked.
 - [ ] Booking is live with auto-dispatch. Work through `deploy/cloudflare/README.md` → "Booking backend":
   - a Google Maps key
   - a Twilio number with **A2P 10DLC or toll-free verification approved**
+  - Stripe: Connect enabled (Express), webhook endpoint added, keys stored (test first, then live)
   - `bash scripts/setup-secrets.sh`
   - drivers added with `npm run drivers -- add …`
   - `npm run deploy` and `npm run deploy:cron`
-- [ ] An end-to-end test with a real driver phone: book a trip, the driver gets a text, accepts, then the customer gets a text. Then a second test where nobody accepts: the customer gets the "no driver" text.
+- [ ] An end-to-end test in **Stripe test mode** with a real driver phone:
+  - Book a trip with test card 4242 4242 4242 4242. The driver gets a text, accepts, and marks it complete. The customer is charged, and the driver's Stripe test account receives 71%.
+  - Repeat with a cancellation inside 5 minutes (full refund), one after a driver accepts (50% fee, of which the driver gets 71%), and one nobody accepts (hold released).
+  - Then switch to live keys.
 - [ ] `PUBLIC_SITE_URL` switched to `https://boxhauls.com` in both wrangler configs at cutover.
 - [ ] A WAF rate-limiting rule on `/api/*`, and a Google budget alert plus quotas.
 - [ ] Confirm `SERVICE_CENTER`, `BOOKING_WINDOWS`, `BOOKING_DAYS_AHEAD` and the dispatch deadlines in `docs/placeholders.json`.
@@ -136,9 +140,9 @@ Generated from the built site by `scripts/todo.mjs` on every build. Phase-1 page
 | /guides/what-to-expect-from-a-boxhauls-driver/ | confirm in-app tracking during the trip; confirm drivers don’t assemble furniture or connect appliances; confirm drivers don't assemble furniture or connect appliances |
 | /guides/will-it-fit-in-a-pickup-bed/ | heavy fee for mini fridges? |
 | /how-it-works/ | confirm in-app messaging and live tracking during the trip |
-| /legal/driver-agreement/ | driver agreement text, reviewed by California counsel, including contractor classification, consent to job texts, and sharing the driver’s first name and phone with the customer |
-| /legal/privacy/ | privacy policy text, reviewed by California counsel, including CCPA/CPRA rights, booking data (name, phone, email and addresses, stored with Cloudflare; addresses looked up with Google Maps; shared with the assigned driver; texts sent through Twilio), and the analytics cookies used once GA4 is enabled |
-| /legal/terms/ | terms of service text, reviewed by California counsel |
+| /legal/driver-agreement/ | driver agreement text, reviewed by California counsel, including contractor classification, consent to job texts, sharing the driver’s first name and phone with the customer, payouts through Stripe Connect (the driver share of fares and of cancellation fees after acceptance, and 100% of dump fees and tips) |
+| /legal/privacy/ | privacy policy text, reviewed by California counsel, including CCPA/CPRA rights, booking data (name, phone, email and addresses, stored with Cloudflare; addresses looked up with Google Maps; shared with the assigned driver; texts sent through Twilio; payments processed by Stripe, which BoxHauls never sees card numbers for), and the analytics cookies used once GA4 is enabled |
+| /legal/terms/ | terms of service text, reviewed by California counsel, including the card authorization at request, the charge on completion, and the cancellation policy (free-cancellation window and cancellation fee) |
 | /press/ | founding year; founder bio, one or two sentences |
 | /pricing/ | first-haul promo terms, or remove this section if there is no promotion |
 | /pricing/cost-of-a-dump-run/ | which site drivers use for which loads; hours; gate fee; confirm tires, electronics and appliances with refrigerant against the sites’ rules; current gate fees at American Avenue Disposal Site and Cedar Avenue Recycling and Transfer Station; confirm the full not-accepted list against the disposal sites' rules; whether drivers drop usable items at donation centers on the same trip |

@@ -7,3 +7,4 @@ dist/
 .lighthouseci/
 .dev.vars
 .wrangler/
+.dev.vars.tmp

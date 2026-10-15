@@ -18,8 +18,8 @@ export const onRequestPost: PagesFunction<Env> = ({ request, env, waitUntil }) =
     if (state === 'taken') throw new HttpError(409, 'taken', 'Another driver already accepted this job.');
     if (state === 'expired') throw new HttpError(410, 'expired', 'This job is no longer available.');
 
-    const driver = await env.DB.prepare('SELECT id, name, phone, has_helper FROM drivers WHERE id = ? AND active = 1').bind(row.offer_driver_id).first<Driver>();
-    if (!driver) throw new HttpError(403, 'inactive', 'Your driver account is not active.');
+    const driver = await env.DB.prepare('SELECT id, name, phone, has_helper FROM drivers WHERE id = ? AND active = 1 AND payouts_ready = 1').bind(row.offer_driver_id).first<Driver>();
+    if (!driver) throw new HttpError(403, 'inactive', 'Your driver account is not active, or payouts are not set up.');
     if (row.helper === 1 && driver.has_helper !== 1) throw new HttpError(403, 'needs_helper', 'This job needs a driver with a helper.');
 
     const res = await env.DB.prepare(

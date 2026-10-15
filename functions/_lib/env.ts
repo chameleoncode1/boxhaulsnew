@@ -14,6 +14,10 @@ export interface Env {
   TWILIO_ACCOUNT_SID?: string;
   TWILIO_AUTH_TOKEN?: string;
   TWILIO_FROM?: string;
+  /** Stripe. Secret key and webhook secret are secrets; the publishable key is public but set the same way. */
+  STRIPE_SECRET_KEY?: string;
+  STRIPE_PUBLISHABLE_KEY?: string;
+  STRIPE_WEBHOOK_SECRET?: string;
   /** Base URL for driver accept links, e.g. https://boxhauls.com */
   PUBLIC_SITE_URL?: string;
   /** Local development only (.dev.vars): fake places and distances so the flow can be tested without Google. */

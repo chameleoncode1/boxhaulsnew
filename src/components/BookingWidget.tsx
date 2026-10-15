@@ -2,14 +2,20 @@
  * Booking widget (React island). Mounted on / and /book/.
  *
  * Flow: choose both addresses from suggestions (/api/places) → real price from driving distance (/api/quote,
- * signed by the server) → ASAP or a date and time window → contact details → booking request (/api/book).
- * No payment is taken online. No price is shown until both addresses are chosen. No driver cards, ETAs,
+ * signed by the server) → ASAP or a date and time window → contact details → /api/book creates the booking
+ * and a card authorization → card step (PaymentStep, Stripe) → /api/confirm starts dispatch. The card is charged
+ * only when the driver marks the trip complete. No price is shown until both addresses are chosen. No driver cards, ETAs,
  * ratings or payout split — ever (CLAUDE.md rule 3, map Section 4).
  */
 import { useEffect, useId, useRef, useState } from 'react';
 import { ITEMS, TIERS, itemBySlug, tierBySlug, type TierKey } from '../lib/items';
 import { money, phone as phoneFact, phoneE164 } from '../lib/site';
 import placeholders from '../../docs/placeholders.json';
+import { lazy, Suspense } from 'react';
+import type { Activated, PaymentSession } from './PaymentStep';
+
+// The card step (and Stripe's library) loads only when a customer reaches payment.
+const PaymentStep = lazy(() => import('./PaymentStep'));
 
 declare global {
   interface Window {
@@ -185,7 +191,8 @@ export default function BookingWidget({ source = 'home' }: { source?: string }) 
   const [notes, setNotes] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
-  const [booked, setBooked] = useState<{ id: string; total: string; when: string; phone: string; decideBy: string } | null>(null);
+  const [payment, setPayment] = useState<PaymentSession | null>(null);
+  const [booked, setBooked] = useState<(Activated & { customerToken: string; totalCents: number }) | null>(null);
   const priceTracked = useRef(false);
 
   useEffect(() => setDate(dates[0]?.value ?? ''), [dates]);
@@ -238,12 +245,12 @@ export default function BookingWidget({ source = 'home' }: { source?: string }) 
 
   async function onSubmit(e: { preventDefault(): void }) {
     e.preventDefault();
-    if (!quote || submitting) return;
+    if (!quote || submitting || payment) return;
     setSubmitting(true);
     setSubmitError('');
     track('booking_started', { item: itemSlug, tier, helper, source, total: quote.totalCents / 100 });
     try {
-      const r = await post<{ id: string; total: string; when: string; phone: string; decideBy: string }>('/api/book', {
+      const r = await post<PaymentSession>('/api/book', {
         quote: quote.quote,
         name,
         phone,
@@ -251,13 +258,12 @@ export default function BookingWidget({ source = 'home' }: { source?: string }) 
         notes,
         when: whenType === 'asap' ? { type: 'asap' } : { type: 'scheduled', date, window: window_ },
       });
-      setBooked(r);
-      track('booking_completed', { item: itemSlug, tier, helper, source, total: quote.totalCents / 100, when: whenType });
+      setPayment(r);
     } catch (err) {
       const ex = err as Error & Partial<ApiError>;
       if (ex.error === 'quote_expired') {
         setSession(newSession()); // forces a fresh quote
-        setSubmitError('Your price expired, so we refreshed it. Check the new price and book again.');
+        setSubmitError('Your price expired, so we refreshed it. Check the new price and continue again.');
       } else if (ex.error === 'no_drivers' || ex.error === 'not_configured') {
         const tel = phoneFact.value;
         setSubmitError(`${ex.message}${tel ? ` Call ${tel} to book.` : ''}`);
@@ -267,21 +273,32 @@ export default function BookingWidget({ source = 'home' }: { source?: string }) 
     }
   }
 
+  function onActivated(a: Activated) {
+    if (!payment) return;
+    setBooked({ ...a, customerToken: payment.customerToken, totalCents: payment.totalCents });
+    track('booking_completed', { item: itemSlug, tier, helper, source, total: payment.totalCents / 100, when: whenType });
+  }
+
   const box = 'rounded-sm border-t-4 border-brand bg-bg p-5 shadow-[0_8px_24px_var(--color-border)]';
 
   if (booked) {
+    const manage = `/book/trip/?t=${encodeURIComponent(booked.customerToken)}`;
+    const until = booked.decideBy ? new Date(booked.decideBy).toLocaleString('en-US', { timeZone: 'America/Los_Angeles', weekday: 'short', hour: 'numeric', minute: '2-digit' }) : null;
     return (
       <div className={box} role="status">
-        <h2 className="text-xl">Request received</h2>
-        <p className="mt-3">
-          Your reference is <strong>{booked.id}</strong>. We're texting BoxHauls drivers now. You'll get a text at <strong>{booked.phone}</strong> as soon as one accepts, or by{' '}
-          <strong>{new Date(booked.decideBy).toLocaleString('en-US', { timeZone: 'America/Los_Angeles', weekday: 'short', hour: 'numeric', minute: '2-digit' })}</strong> if no driver is available.
+        <h2 className="text-xl">Trip requested</h2>
+        {booked.status === 'unfilled' ? (
+          <p className="mt-3">Sorry, no driver is available for this trip right now. Your card was not charged. {phoneFact.value && <>Call {phoneFact.value} to book.</>}</p>
+        ) : (
+          <p className="mt-3">
+            Your reference is <strong>{booked.id}</strong>. We're texting BoxHauls drivers now. You'll get a text when one accepts
+            {until && <>, or by <strong>{until}</strong> if no driver is available</>}.
+          </p>
+        )}
+        <p className="mt-3 text-sm text-muted">Your card is authorized for {`$${(booked.totalCents / 100).toFixed(2)}`} and charged only when the driver marks the trip complete.</p>
+        <p className="mt-3 text-sm">
+          <a href={manage}>See or cancel this trip</a>. Cancel within {String(placeholders.CANCEL_FREE_MINUTES)} minutes, before a driver accepts, for a full refund.
         </p>
-        <dl className="mt-3 space-y-1 text-sm">
-          <div className="flex justify-between gap-4"><dt className="text-muted">When</dt><dd>{booked.when}</dd></div>
-          <div className="flex justify-between gap-4"><dt className="text-muted">Quoted price</dt><dd>{booked.total}</dd></div>
-        </dl>
-        <p className="mt-3 text-sm text-muted">No payment was taken online.</p>
       </div>
     );
   }
@@ -290,7 +307,7 @@ export default function BookingWidget({ source = 'home' }: { source?: string }) 
     <form onSubmit={onSubmit} className={box} aria-labelledby={`${id}-title`}>
       <h2 id={`${id}-title`} className="text-xl">See your price</h2>
 
-      <div className="mt-4 grid gap-4">
+      <div className="mt-4 grid gap-4" inert={payment ? true : undefined}>
         <AddressField label="Pickup address" placeholder="Where is it now?" value={pickup} onPick={setPickup} sessionToken={session} />
         <AddressField label="Drop-off address" placeholder="Where is it going?" value={dropoff} onPick={setDropoff} sessionToken={session} />
         <div>
@@ -350,7 +367,7 @@ export default function BookingWidget({ source = 'home' }: { source?: string }) 
       </div>
 
       {quote && (
-        <div className="mt-5 grid gap-4 border-t border-border pt-4">
+        <div className="mt-5 grid gap-4 border-t border-border pt-4" inert={payment ? true : undefined}>
           <fieldset>
             <legend className={labelCls}>When</legend>
             <div className="mt-1 grid gap-2 sm:grid-cols-2">
@@ -399,17 +416,29 @@ export default function BookingWidget({ source = 'home' }: { source?: string }) 
         </div>
       )}
 
-      <button
-        type="submit"
-        disabled={!quote || submitting}
-        className="display mt-5 w-full rounded-sm bg-brand px-6 py-3 text-lg text-inverse hover:bg-brand-hover disabled:cursor-not-allowed disabled:bg-border-strong"
-      >
-        {submitting ? 'Sending…' : quote ? `Request this trip · ${usd(quote.totalCents)}` : 'Book this trip'}
-      </button>
-      {quote && (
+      {!payment && (
+        <button
+          type="submit"
+          disabled={!quote || submitting}
+          className="display mt-5 w-full rounded-sm bg-brand px-6 py-3 text-lg text-inverse hover:bg-brand-hover disabled:cursor-not-allowed disabled:bg-border-strong"
+        >
+          {submitting ? 'One moment…' : quote ? 'Continue to payment' : 'Book this trip'}
+        </button>
+      )}
+      {quote && !payment && (
         <p className="mt-2 text-xs text-muted">
-          No payment is taken online. By requesting, you agree to receive text messages about this booking from BoxHauls. Message and data rates may apply. Reply STOP to opt out.
+          You'll review the total and add a card next. By requesting, you agree to receive text messages about this booking from BoxHauls. Message and data rates may apply. Reply STOP to opt out.
         </p>
+      )}
+      {payment && (
+        <button type="button" className="mt-3 text-sm underline" onClick={() => setPayment(null)}>
+          Change trip details
+        </button>
+      )}
+      {payment && (
+        <Suspense fallback={<p className="mt-4 text-sm text-muted">Loading secure card form…</p>}>
+          <PaymentStep session={payment} dumpRun={itemSlug === 'dump-run'} onDone={onActivated} />
+        </Suspense>
       )}
       {submitError && <p className="mt-3 text-sm text-brand" role="alert">{submitError}</p>}
     </form>

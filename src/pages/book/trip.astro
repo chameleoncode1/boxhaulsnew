@@ -1,0 +1,13 @@
+---
+/** /book/trip/ — customer's manage-trip page (app UI: noindex, not in docs/sitemap.json; robots disallows /book/). */
+import AppLayout from '../../layouts/AppLayout.astro';
+import ManageTrip from '../../components/ManageTrip';
+---
+
+<AppLayout title="Your trip | BoxHauls">
+  <div class="mx-auto max-w-md">
+    <h1 class="text-3xl">Your trip</h1>
+    <div class="mt-6"><ManageTrip client:load /></div>
+    <noscript><p class="mt-4">This page needs JavaScript. Call us to manage your trip.</p></noscript>
+  </div>
+</AppLayout>

@@ -33,7 +33,18 @@ if [ -n "$TSID" ]; then
 else echo "  - skipped"; fi
 unset TSID TTOK TFROM
 
-echo "4) Optional: Cloudflare API token with Email Sending permission, for booking alert emails."
+echo "4) Stripe, for payments (Developers → API keys). Use test keys (sk_test_/pk_test_) until you're ready for live."
+read -rsp "   Secret key sk_... (input hidden, Enter to skip): " SSK; echo
+if [ -n "$SSK" ]; then
+  printf '%s' "$SSK" | put_both STRIPE_SECRET_KEY
+  read -rp "   Publishable key pk_...: " SPK
+  printf '%s' "$SPK" | put STRIPE_PUBLISHABLE_KEY
+  read -rsp "   Webhook signing secret whsec_... (from the webhook endpoint you create; Enter to add later): " SWH; echo
+  if [ -n "$SWH" ]; then printf '%s' "$SWH" | put STRIPE_WEBHOOK_SECRET; fi
+else echo "  - skipped"; fi
+unset SSK SPK SWH
+
+echo "5) Optional: Cloudflare API token with Email Sending permission, for booking alert emails."
 read -rsp "   Paste the token (input hidden, Enter to skip): " ETOKEN; echo
 if [ -n "$ETOKEN" ]; then printf '%s' "$ETOKEN" | put CF_EMAIL_API_TOKEN; else echo "  - skipped"; fi
 unset ETOKEN

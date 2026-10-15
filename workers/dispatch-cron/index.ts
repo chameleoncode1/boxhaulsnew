@@ -1,23 +1,40 @@
 /**
- * boxhauls-dispatch-cron — runs every 5 minutes. Any booking still dispatching past its deadline is marked
- * 'unfilled' and the customer is texted, so nobody waits on a request no driver took.
- * Shares the D1 database and dispatch code with the Pages Functions (functions/_lib).
+ * boxhauls-dispatch-cron — runs every 5 minutes:
+ *  1. Bookings still dispatching past their deadline → 'unfilled', card hold released, customer texted.
+ *  2. Bookings that never got a card authorization within an hour → 'abandoned', PaymentIntent canceled.
+ * Shares the D1 database and code with the Pages Functions (functions/_lib).
  */
 import type { Env } from '../../functions/_lib/env';
 import { notifyUnfilled } from '../../functions/_lib/dispatch';
+import { releaseHold } from '../../functions/_lib/stripe';
 
 export async function expireUnfilled(env: Env, now = new Date()): Promise<number> {
-  const due = await env.DB.prepare(`SELECT id, phone FROM bookings WHERE status = 'dispatching' AND dispatch_expires_at <= ? LIMIT 100`)
+  const due = await env.DB.prepare(`SELECT id, phone, payment_intent_id FROM bookings WHERE status = 'dispatching' AND dispatch_expires_at <= ? LIMIT 100`)
     .bind(now.toISOString())
-    .all<{ id: string; phone: string }>();
+    .all<{ id: string; phone: string; payment_intent_id: string | null }>();
   let n = 0;
   for (const b of due.results) {
-    // Conditional update: if a driver accepted in the meantime, this changes nothing and no text goes out.
+    // Conditional update: if a driver accepted (or the customer canceled) meanwhile, nothing changes.
     const res = await env.DB.prepare(`UPDATE bookings SET status = 'unfilled' WHERE id = ? AND status = 'dispatching'`).bind(b.id).run();
-    if (res.meta.changes === 1) {
-      await notifyUnfilled(env, b);
-      n++;
-    }
+    if (res.meta.changes !== 1) continue;
+    if (b.payment_intent_id && env.STRIPE_SECRET_KEY) await releaseHold(env, b.payment_intent_id, 'abandoned').catch((e) => console.error('release failed', b.id, e));
+    await notifyUnfilled(env, b);
+    n++;
+  }
+  return n;
+}
+
+export async function abandonUnpaid(env: Env, now = new Date()): Promise<number> {
+  const cutoff = new Date(now.getTime() - 3600_000).toISOString();
+  const due = await env.DB.prepare(`SELECT id, payment_intent_id FROM bookings WHERE status = 'pending_payment' AND created_at <= ? LIMIT 100`)
+    .bind(cutoff)
+    .all<{ id: string; payment_intent_id: string | null }>();
+  let n = 0;
+  for (const b of due.results) {
+    const res = await env.DB.prepare(`UPDATE bookings SET status = 'abandoned' WHERE id = ? AND status = 'pending_payment'`).bind(b.id).run();
+    if (res.meta.changes !== 1) continue;
+    if (b.payment_intent_id && env.STRIPE_SECRET_KEY) await releaseHold(env, b.payment_intent_id, 'abandoned').catch((e) => console.error('release failed', b.id, e));
+    n++;
   }
   return n;
 }
@@ -25,8 +42,8 @@ export async function expireUnfilled(env: Env, now = new Date()): Promise<number
 export default {
   async scheduled(_event: ScheduledController, env: Env, ctx: ExecutionContext) {
     ctx.waitUntil(
-      expireUnfilled(env).then((n) => {
-        if (n) console.log(`marked ${n} booking(s) unfilled`);
+      Promise.all([expireUnfilled(env), abandonUnpaid(env)]).then(([u, a]) => {
+        if (u || a) console.log(`unfilled: ${u}, abandoned: ${a}`);
       }),
     );
   },

@@ -64,18 +64,19 @@ const usd = (cents: number) => `$${(cents / 100).toFixed(2)}`;
 export const payoutCents = (priceCents: number) => Math.round(priceCents * SHARE);
 const firstName = (name: string) => name.split(/\s+/)[0];
 
-function newToken(): string {
+export function newToken(): string {
   const bytes = crypto.getRandomValues(new Uint8Array(24));
   return btoa(String.fromCharCode(...bytes)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
 
 export async function eligibleDrivers(env: Env, helper: boolean): Promise<Driver[]> {
-  const sql = `SELECT id, name, phone, has_helper FROM drivers WHERE active = 1${helper ? ' AND has_helper = 1' : ''}`;
+  // Only drivers Stripe can pay (payouts set up) get offers.
+  const sql = `SELECT id, name, phone, has_helper FROM drivers WHERE active = 1 AND payouts_ready = 1${helper ? ' AND has_helper = 1' : ''}`;
   return (await env.DB.prepare(sql).all<Driver>()).results;
 }
 
 /** Offer a booking to every eligible driver and text the customer. Run in the background after the booking is saved. */
-export async function dispatchBooking(env: Env, b: BookingRow, drivers: Driver[], salt: string): Promise<void> {
+export async function dispatchBooking(env: Env, b: BookingRow, drivers: Driver[], salt: string, customerToken?: string): Promise<void> {
   const base = env.PUBLIC_SITE_URL ?? 'https://boxhauls.com';
   const job = `${b.item_label ?? b.item}, ${cityOf(b.pickup_address)} to ${cityOf(b.dropoff_address)}, ${b.miles.toFixed(1)} mi, ${whenText(b)}`;
   const now = new Date().toISOString();
@@ -98,7 +99,7 @@ export async function dispatchBooking(env: Env, b: BookingRow, drivers: Driver[]
   const ok = await sendSms(
     env,
     toE164(b.phone),
-    `BoxHauls: request ${b.id} received (${b.item_label ?? b.item}, ${whenText(b)}, ${usd(b.price_cents)}). We're texting BoxHauls drivers now and will text you when one accepts. Reply STOP to opt out.`,
+    `BoxHauls: request ${b.id} received (${b.item_label ?? b.item}, ${whenText(b)}, ${usd(b.price_cents)}). Your card is authorized, not charged. We're texting drivers now and will text you when one accepts.${customerToken ? ` Manage or cancel: ${base}/book/trip/?t=${customerToken}` : ''} Reply STOP to opt out.`,
   );
   await env.DB.prepare('UPDATE bookings SET customer_sms_status = ? WHERE id = ?').bind(ok ? 'sent' : 'failed', b.id).run();
 }

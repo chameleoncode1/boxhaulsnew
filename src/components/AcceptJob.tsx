@@ -14,6 +14,9 @@ interface Offer {
   miles: number;
   when: string;
   helper: boolean;
+  dumpRun: boolean;
+  dumpBufferCents: number;
+  completed: boolean;
   payoutCents: number;
   priceCents: number;
   pickup?: string;
@@ -37,6 +40,8 @@ export default function AcceptJob() {
   const [offer, setOffer] = useState<Offer | null>(null);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+  const [dumpFee, setDumpFee] = useState('');
+  const [done, setDone] = useState<{ chargedCents: number; driverCents: number } | null>(null);
 
   const load = (t: string) =>
     post<Offer>('/api/offer', { token: t })
@@ -59,6 +64,23 @@ export default function AcceptJob() {
     } catch (e) {
       setError((e as Error).message);
       await load(token);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function complete() {
+    if (!offer) return;
+    const dumpFeeCents = offer.dumpRun ? Math.round(Number(dumpFee || '0') * 100) : 0;
+    if (offer.dumpRun && (!Number.isFinite(dumpFeeCents) || dumpFeeCents < 0)) return setError('Enter the dump fee from the receipt.');
+    if (!window.confirm(`Mark ${offer.id} complete? The customer's card will be charged now.`)) return;
+    setBusy(true);
+    setError('');
+    try {
+      setDone(await post<{ chargedCents: number; driverCents: number }>('/api/complete', { token, dumpFeeCents }));
+      await load(token);
+    } catch (e) {
+      setError((e as Error).message);
     } finally {
       setBusy(false);
     }
@@ -101,9 +123,25 @@ export default function AcceptJob() {
             {row('Phone', offer.phone ?? '')}
             {offer.notes ? row('Notes', offer.notes) : null}
           </dl>
-          {offer.phone && (
+          {offer.phone && !offer.completed && (
             <a href={`tel:${offer.phone.replace(/\D/g, '')}`} className="display mt-4 inline-block rounded-sm bg-night px-5 py-3 text-inverse no-underline">Call customer</a>
           )}
+          {!offer.completed && (
+            <div className="mt-6 border-t border-border pt-4">
+              {offer.dumpRun && (
+                <label className="block text-sm font-semibold">
+                  Dump fee from the receipt (up to {usd(offer.dumpBufferCents)})
+                  <input type="number" inputMode="decimal" min="0" step="0.01" max={offer.dumpBufferCents / 100} value={dumpFee} onChange={(e) => setDumpFee(e.target.value)} className="mt-1 w-full rounded-sm border-2 border-border-strong px-3 py-2" />
+                  <span className="mt-1 block font-normal text-muted">You're reimbursed this amount in full.</span>
+                </label>
+              )}
+              <button onClick={complete} disabled={busy} className="display mt-4 w-full rounded-sm bg-brand px-6 py-3 text-lg text-inverse hover:bg-brand-hover disabled:bg-border-strong">
+                {busy ? 'Completing…' : 'Mark trip complete'}
+              </button>
+              <p className="mt-2 text-xs text-muted">Only after the items are unloaded. This charges the customer and sends your share.</p>
+            </div>
+          )}
+          {offer.completed && <p className="mt-4 font-semibold">Trip complete.{done && ` Customer charged ${usd(done.chargedCents)}; ${usd(done.driverCents)} sent to your Stripe account.`}</p>}
         </div>
       )}
       {error && <p className="mt-3 text-sm text-brand" role="alert">{error}</p>}

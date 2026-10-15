@@ -1,0 +1,13 @@
+---
+/** /drive/payouts/ — driver payout setup via Stripe Connect (app UI: noindex, not in docs/sitemap.json). */
+import AppLayout from '../../layouts/AppLayout.astro';
+import DriverPayouts from '../../components/DriverPayouts';
+---
+
+<AppLayout title="Payouts | Drive for BoxHauls" audience="driver">
+  <div class="mx-auto max-w-md">
+    <h1 class="text-3xl">Payouts</h1>
+    <div class="mt-6"><DriverPayouts client:load /></div>
+    <noscript><p class="mt-4">This page needs JavaScript.</p></noscript>
+  </div>
+</AppLayout>

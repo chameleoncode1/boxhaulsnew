@@ -56,3 +56,9 @@ export async function hash(value: string, salt: string): Promise<string> {
   const digest = await crypto.subtle.digest('SHA-256', enc.encode(`${salt}:${value}`));
   return b64url(digest).slice(0, 32);
 }
+
+/** Unsalted SHA-256 (hex) for long random tokens created outside the Worker, e.g. driver payout links. */
+export async function sha256(value: string): Promise<string> {
+  const d = new Uint8Array(await crypto.subtle.digest('SHA-256', enc.encode(value)));
+  return [...d].map((b) => b.toString(16).padStart(2, '0')).join('');
+}

@@ -46,8 +46,10 @@
   "BOOKING_WINDOWS": ["8–10 AM", "10 AM–12 PM", "12–2 PM", "2–4 PM", "4–6 PM"],
   "BOOKING_WINDOW_STARTS": ["08:00", "10:00", "12:00", "14:00", "16:00"],
   "DISPATCH_ASAP_MINUTES": "30",
+  "DUMP_FEE_HOLD_BUFFER": "$60",
+  "_payments_note": "Card holds last 7 days (Stripe, customer-initiated), so scheduling is capped at BOOKING_DAYS_AHEAD = 6. DUMP_FEE_HOLD_BUFFER is added to the hold on dump runs; the driver enters the actual gate fee (up to the buffer) at completion.",
   "DISPATCH_SCHEDULED_LEAD_HOURS": "2",
-  "BOOKING_DAYS_AHEAD": "14",
+  "BOOKING_DAYS_AHEAD": "6",
   "SOCIAL": {
     "instagram": "https://instagram.com/boxhauls",
     "tiktok": "https://tiktok.com/@box.hauls",

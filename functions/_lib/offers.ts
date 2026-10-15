@@ -24,7 +24,7 @@ export async function findOffer(env: Env, token: string): Promise<OfferRow> {
 }
 
 export function offerState(row: OfferRow): 'open' | 'yours' | 'taken' | 'expired' {
-  if (row.status === 'assigned') return row.driver_id === row.offer_driver_id ? 'yours' : 'taken';
+  if (row.status === 'assigned' || row.status === 'completed') return row.driver_id === row.offer_driver_id ? 'yours' : 'taken';
   if (row.status !== 'dispatching' || Date.now() > Date.parse(row.dispatch_expires_at)) return 'expired';
   return 'open';
 }
