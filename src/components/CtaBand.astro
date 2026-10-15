@@ -1,0 +1,21 @@
+---
+/** Closing call to action on rider pages: get a price, or install the app. Sits outside <main>, above the footer. */
+import InstallApp from './InstallApp.astro';
+import { resolve } from '../lib/placeholders';
+import Text from './Text.astro';
+const area = resolve('{{METRO}} & {{NEIGHBORHOOD}}').text;
+---
+
+<section class="mt-16 border-t border-border bg-surface" aria-labelledby="cta-band-heading">
+  <div class="mx-auto flex max-w-content flex-col gap-6 px-4 py-10 md:flex-row md:items-center md:justify-between md:py-12">
+    <div>
+      <p class="eyebrow"><Text text={area} /></p>
+      <h2 id="cta-band-heading" class="mt-1 text-3xl md:text-4xl">See your price before you book</h2>
+      <p class="mt-2 max-w-xl text-lg text-muted">Enter pickup and drop-off. The full price shows up front, and your card is charged only when the trip is done.</p>
+    </div>
+    <div class="flex flex-col gap-3 sm:flex-row md:shrink-0">
+      <a href="/book/" class="display inline-flex items-center justify-center rounded-sm bg-brand px-6 py-3 text-lg text-inverse no-underline hover:bg-brand-hover hover:text-inverse">Get a price</a>
+      <InstallApp variant="outline" class="px-6 py-3 text-lg" />
+    </div>
+  </div>
+</section>

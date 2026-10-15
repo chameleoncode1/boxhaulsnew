@@ -10,6 +10,8 @@ import SiteFooter from '../components/SiteFooter.astro';
 import DriverHeader from '../components/DriverHeader.astro';
 import DriverFooter from '../components/DriverFooter.astro';
 import Analytics from '../components/Analytics.astro';
+import PwaHead from '../components/PwaHead.astro';
+import InstallHelp from '../components/InstallHelp.astro';
 import sairaDisplay from '@fontsource/saira/files/saira-latin-800-italic.woff2?url';
 
 interface Props {
@@ -30,13 +32,15 @@ const driver = audience === 'driver';
     <link rel="preload" href={sairaDisplay} as="font" type="font/woff2" crossorigin />
     <link rel="icon" type="image/png" sizes="32x32" href="/brand/favicon-32.png" />
     <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />
+    <PwaHead />
     <Analytics />
   </head>
   <body class="bg-bg text-ink" data-template="app">
     {driver ? <DriverHeader /> : <SiteHeader />}
-    <main class="mx-auto max-w-content px-4 py-8">
+    <main class="mx-auto max-w-content px-4 pt-8 pb-16">
       <slot />
     </main>
     {driver ? <DriverFooter /> : <SiteFooter />}
+    <InstallHelp />
   </body>
 </html>

@@ -111,14 +111,12 @@ Generated from the built site by `scripts/todo.mjs` on every build. Phase-1 page
 
 <!-- TODO:START -->
 
-67 of 67 Phase-1 pages are blocked by visible TODO markers.
-
-**On nearly every page:** `SOCIAL.app_store` (175 pages, in the footer), `SOCIAL.google_play` (175 pages, in the footer).
+57 of 67 Phase-1 pages are blocked by visible TODO markers.
 
 | Page | Blocked by |
 |---|---|
 | /about/ | founding year |
-| /app/ | confirm the other in-app features: tracking, messaging, receipts, ratings; QR code linking to the app stores |
+| /app/ | confirm the other in-app features: tracking, messaging, receipts, ratings; QR code linking to the app stores; SOCIAL.app_store; SOCIAL.google_play |
 | /cities/ | waitlist form for other cities |
 | /cities/fresno/ | hours; street addresses for both sites; pickup-area location and loading notes for each store; current Operation Clean Up schedule and exclusions, and the Clovis program; this year’s move-in and move-out dates for each campus; the apartment corridors with the most move-ins and move-outs, written from local knowledge; real driver profiles with photos, once drivers agree to be featured; coverage map; which site drivers use for which loads; pickup-area notes for each store |
 | /contact/ | where customers start a chat, and the support text number if it isn’t the main phone number |

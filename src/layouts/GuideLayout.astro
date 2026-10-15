@@ -24,8 +24,10 @@ const isIndex = page.url === '/guides/';
 ---
 
 <BaseLayout page={page} content={content}>
-  <PageTitle page={page} />
-  {!isIndex && <Byline kind="guide" checked={false} />}
+  <Fragment slot="hero">
+    <PageTitle page={page} />
+    {!isIndex && <Byline kind="guide" checked={false} />}
+  </Fragment>
   {Body && <Written Body={Body} content={content} />}
   {
     isIndex ? (

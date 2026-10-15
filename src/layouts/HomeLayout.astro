@@ -3,6 +3,7 @@ import type { Page } from '../lib/sitemap';
 import type { PageContent } from '../lib/schema';
 import { pages } from '../lib/sitemap';
 import { shortLabel } from '../lib/labels';
+import { resolve } from '../lib/placeholders';
 import BaseLayout from './BaseLayout.astro';
 import Written from '../components/Written.astro';
 import Text from '../components/Text.astro';
@@ -12,6 +13,8 @@ import Block from '../components/Block.astro';
 import TrustBadges from '../components/TrustBadges.astro';
 import EmptyState from '../components/EmptyState.astro';
 import AppBadges from '../components/AppBadges.astro';
+import InstallApp from '../components/InstallApp.astro';
+import Steps from '../components/Steps.astro';
 import BodyLinks from '../components/BodyLinks.astro';
 import PageSpec from '../components/PageSpec.astro';
 
@@ -22,46 +25,106 @@ interface Props {
   Body?: any;
 }
 const { page, content = {}, Body } = Astro.props;
-const hubs = pages.filter((p) => p.template === 'service-hub');
-// Banner style: the H1's first sentence in ink, the rest in brand red.
+// Banner style: the H1's first sentence in white, the rest in brand red.
 const [lead, ...rest] = page.h1.split(/(?<=\.)\s+/);
 const tail = rest.join(' ');
+const area = resolve('Local pickup-truck owners move your big stuff across {{METRO}} and {{NEIGHBORHOOD}}.').text;
+
+// Five service tiles (map Section 4). Icons are simple line drawings; blurbs are page copy, not facts.
+const tiles: Record<string, { blurb: string; icon: string }> = {
+  '/services/furniture-delivery/': { blurb: 'Single large items from stores, Marketplace sellers and estate sales.', icon: 'M4 11V8a2 2 0 012-2h12a2 2 0 012 2v3 M3 11h18v5H3z M5 16v3 M19 16v3' },
+  '/services/small-moves/': { blurb: 'Studios, one-bedrooms, dorms and storage units, by the trip.', icon: 'M3 7l9-4 9 4v10l-9 4-9-4z M3 7l9 4 9-4 M12 11v10' },
+  '/services/appliance-delivery/': { blurb: 'Refrigerators, washers and dryers, delivered or hauled away.', icon: 'M6 2h12a1 1 0 011 1v18a1 1 0 01-1 1H6a1 1 0 01-1-1V3a1 1 0 011-1z M5 9h14 M9 5v2 M9 12v4' },
+  '/services/junk-removal/': { blurb: 'Dump runs priced by the trip, dump fees passed through at cost.', icon: 'M4 7h16 M10 11v6 M14 11v6 M6 7l1 13a1 1 0 001 1h8a1 1 0 001-1l1-13 M9 7V4h6v3' },
+  '/services/business-hauling/': { blurb: 'Contractors, property managers and stores that need a truck today.', icon: 'M3 21V8l9-5 9 5v13 M9 21v-7h6v7 M3 21h18' },
+};
+const hubs = pages.filter((p) => p.template === 'service-hub');
 ---
 
 <BaseLayout page={page} content={content}>
-  <section data-block="hero" class="grid items-center gap-8 md:grid-cols-[1.1fr_1fr]">
-    <div>
-      <h1 class="mt-4 text-4xl md:text-5xl"><Text text={lead} />{tail && <><br /><span class="text-brand"><Text text={tail} /></span></>}</h1>
-      <p class="tagline mt-6 text-sm text-ink">
-        <span>Pick up. <span class="text-brand">Deliver.</span> Done.</span>
-      </p>
-    </div>
-    <div class="relative pr-3 pb-3">
-      <div class="slant-left absolute top-3 right-0 bottom-0 left-3 bg-brand" aria-hidden="true"></div>
-      <div class="relative">
+  <section slot="full-hero" data-block="hero" class="relative overflow-hidden border-b-4 border-brand bg-night text-inverse">
+    <div class="relative mx-auto grid max-w-content items-center gap-8 px-4 pt-7 pb-10 md:py-14 lg:grid-cols-[1.05fr_1fr] lg:gap-12 lg:py-20">
+      <div>
+        <p class="tagline text-xs text-inverse sm:text-sm"><span>Pick up. <span class="text-brand-on-night">Deliver.</span> Done.</span></p>
+        <h1 class="mt-4 text-[2.375rem] leading-[0.98] sm:mt-5 sm:text-5xl lg:text-[4.25rem] lg:leading-[0.95]"><Text text={lead} />{tail && <><br /><span class="text-brand-on-night"><Text text={tail} /></span></>}</h1>
+        <p class="mt-4 max-w-lg text-night-muted sm:mt-5 sm:text-lg"><Text text={area} /></p>
+        <ul class="mt-4 flex flex-wrap gap-x-5 gap-y-1.5 text-sm font-semibold sm:mt-6">
+          {['No hourly rate', 'No surge', 'Charged when it’s done'].map((t) => (
+            <li class="flex items-center gap-2"><svg aria-hidden="true" width="16" height="16" viewBox="0 0 16 16"><path d="M3 8.5l3 3 7-7" fill="none" stroke="var(--color-brand-on-night)" stroke-width="2.5" /></svg>{t}</li>
+          ))}
+        </ul>
+        <div class="mt-7 hidden lg:block"><InstallApp variant="light" /></div>
+      </div>
+      <div id="get-a-price" class="relative sm:pr-3 sm:pb-3">
+        <div class="slant-left absolute top-3 right-0 bottom-0 left-3 hidden bg-brand sm:block" aria-hidden="true"></div>
         <!-- Booking widget above the fold (map Section 4). No price until both addresses are entered. -->
-        <BookingWidget client:idle source="home" />
+        <div class="relative"><BookingWidget client:idle source="home" /></div>
       </div>
     </div>
   </section>
-  {Body && <Written Body={Body} content={content} />}
-  {!Body && (<Block id="launch-metro" label="One-line launch-metro statement"><slot name="launch-metro" /></Block>)}
-  <section data-block="trust" class="mt-10"><TrustBadges /></section>
-  <section data-block="photo" class="mt-10"><slot name="hero-photo"><PhotoPlaceholder description="a BoxHauls driver loading a customer's item into a pickup in Fresno" width={1200} height={500} /></slot></section>
-  {!Body && (<Block id="how-it-works" label="3-step how it works"><slot name="how-it-works" /></Block>)}
-  <section data-block="services" class="mt-10">
-    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+
+  <section data-block="trust" class="-mx-4 border-b border-border px-4 pb-10"><TrustBadges /></section>
+
+  <div class="mt-12 grid items-start gap-10 lg:grid-cols-[1fr_0.9fr]">
+    <div>
+      {Body && <Written Body={Body} content={content} steps={false} />}
+      {!Body && (<Block id="launch-metro" label="One-line launch-metro statement"><slot name="launch-metro" /></Block>)}
+    </div>
+    <section data-block="photo" class="lg:sticky lg:top-24"><slot name="hero-photo"><PhotoPlaceholder description="a BoxHauls driver loading a customer's item into a pickup in Fresno" width={900} height={700} /></slot></section>
+  </div>
+
+  <section data-block="how-it-works" class="mt-16" aria-labelledby="how-heading">
+    <p class="eyebrow">How it works</p>
+    <h2 id="how-heading" class="mt-1 text-3xl md:text-4xl">Three steps</h2>
+    {content.steps?.length ? <Steps items={content.steps} /> : <Block id="how-it-works" label="3-step how it works"><slot name="how-it-works" /></Block>}
+    <p class="mt-5">For the full picture, from booking to drop-off, see <a href="/how-it-works/">how a BoxHauls trip works</a>.</p>
+  </section>
+
+  <section data-block="services" class="mt-16" aria-labelledby="services-heading">
+    <p class="eyebrow">Services</p>
+    <h2 id="services-heading" class="mt-1 text-3xl md:text-4xl">What we haul</h2>
+    <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {hubs.map((h) => (
-        <li class="border-l-4 border-brand bg-surface p-4">
-          <a href={h.url} class="display text-lg text-ink no-underline hover:text-brand">{shortLabel(h)}</a>
+        <li>
+          <a href={h.url} class="card group flex h-full gap-4 p-5 pl-6">
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand text-inverse">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d={tiles[h.url]?.icon ?? 'M4 12h16'} /></svg>
+            </span>
+            <span>
+              <span class="display block text-lg group-hover:text-brand">{shortLabel(h)}</span>
+              {tiles[h.url] && <span class="mt-1 block text-sm text-muted">{tiles[h.url].blurb}</span>}
+            </span>
+          </a>
         </li>
       ))}
+      <li class="flex flex-col justify-center rounded-md bg-surface p-5">
+        <p class="display text-lg">Not sure which?</p>
+        <p class="mt-1 text-sm text-muted">Enter both addresses and see the price. <a href="/pricing/">See all prices</a>.</p>
+      </li>
     </ul>
   </section>
-  <section data-block="reviews" class="mt-10">
+
+  <section data-block="reviews" class="mt-16">
     <EmptyState title="Reviews" message="Reviews from Google will show here once customers leave them." />
   </section>
-  <section data-block="app" class="mt-10"><AppBadges /></section>
+
+  <section data-block="app" class="relative mt-16 overflow-hidden rounded-md bg-night text-inverse" aria-labelledby="app-heading">
+    <div class="pointer-events-none absolute inset-y-0 right-0 hidden w-1/3 md:block" aria-hidden="true"><div class="slant-left h-full bg-brand"></div></div>
+    <div class="relative grid items-center gap-8 p-6 md:grid-cols-[1fr_auto] md:p-10">
+      <div>
+        <p class="eyebrow text-brand-on-night">The BoxHauls app</p>
+        <h2 id="app-heading" class="mt-1 text-3xl md:text-4xl">Book from your home screen</h2>
+        <p class="mt-3 max-w-lg text-night-muted">Install BoxHauls on any iPhone, iPad or Android phone or tablet, straight from your browser. It opens full screen, like any other app. Learn more about <a href="/app/" class="text-inverse">the BoxHauls app</a>.</p>
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+          <InstallApp class="px-6 py-3 text-lg" />
+          <AppBadges tone="dark" />
+        </div>
+      </div>
+      <picture class="hidden md:block">
+        <img src="/brand/icon-512.png" alt="" width="180" height="180" loading="lazy" decoding="async" class="h-44 w-44 rounded-[2.5rem] bg-night shadow-[0_20px_40px_-10px_var(--color-ink)]" />
+      </picture>
+    </div>
+  </section>
   {!Body && <BodyLinks page={page} />}
   {!Body && <PageSpec page={page} />}
 </BaseLayout>

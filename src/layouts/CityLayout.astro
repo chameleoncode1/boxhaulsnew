@@ -26,8 +26,10 @@ const has = (t: string) => page.schema.includes(t);
 ---
 
 <BaseLayout page={page} content={content}>
-  <PageTitle page={page} />
-  <Byline kind="reviewed" checked={content.checked} checkedLabel="Local facts checked" />
+  <Fragment slot="hero">
+    <PageTitle page={page} />
+    <Byline kind="reviewed" checked={content.checked} checkedLabel="Local facts checked" />
+  </Fragment>
   {Body && <Written Body={Body} content={content} />}
   {!Body && (<Block id="answer" label="Answer-first opening"><slot name="answer" /></Block>)}
   {!Body && (<Block id="disposal" label="Transfer stations and landfills: address, hours, fees"><slot name="disposal" /></Block>)}

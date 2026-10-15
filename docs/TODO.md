@@ -7,8 +7,8 @@ A page with any visible TODO is not shippable. Open decisions live in `docs/PLAN
 
 Fill these in `docs/placeholders.json`; every page that uses them updates on the next build.
 
-- `SOCIAL.app_store`: 175 pages
-- `SOCIAL.google_play`: 175 pages
+- `SOCIAL.app_store`: /app/
+- `SOCIAL.google_play`: /app/
 
 ## Open facts by page (167 markers, 153 distinct questions)
 

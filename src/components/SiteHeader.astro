@@ -1,29 +1,61 @@
 ---
-/** Rider header (map Section 10): logo, Pricing, Services dropdown (five hubs), How it works, Trust, Get the app. No driver link. */
+/**
+ * Rider header (map Section 10): logo, Pricing, Services (five hubs), How it works, Trust, Get the app. No driver link.
+ * Sticky. Desktop: inline nav + "Get a price" + "Download app now". Phones: "Get a price" + a <details> menu
+ * (works without JavaScript) holding the same links.
+ */
 import { pages } from '../lib/sitemap';
 import { shortLabel } from '../lib/labels';
 import Logo from './Logo.astro';
+import InstallApp from './InstallApp.astro';
 
 const hubs = pages.filter((p) => p.template === 'service-hub');
 const current = Astro.url.pathname;
 const aria = (href: string) => (current === href ? 'page' : undefined);
-const link = 'whitespace-nowrap font-semibold text-ink no-underline hover:text-brand';
+const link = 'whitespace-nowrap font-semibold text-ink no-underline hover:text-brand aria-[current=page]:text-brand';
+const nav = [
+  { url: '/pricing/', label: 'Pricing' },
+  { url: '/how-it-works/', label: 'How it works' },
+  { url: '/trust/', label: 'Trust' },
+];
 ---
 
-<header class="border-t-4 border-brand bg-bg shadow-[0_1px_0_var(--color-border)]">
-  <nav class="mx-auto flex max-w-content flex-wrap items-center gap-x-6 gap-y-3 px-4 py-3" aria-label="Main">
-    <a href="/" class="mr-auto no-underline" aria-label="BoxHauls home"><Logo height={44} /></a>
-    <a href="/app/" class="display rounded-sm bg-brand px-4 py-2 text-inverse no-underline hover:bg-brand-hover hover:text-inverse md:order-last">Get the app</a>
-    <div class="flex w-full items-center justify-between gap-3 border-t text-sm sm:justify-start sm:gap-6 sm:text-base border-border pt-3 md:w-auto md:border-0 md:pt-0">
-      <a href="/pricing/" aria-current={aria('/pricing/')} class={link}>Pricing</a>
-      <details class="relative">
-        <summary class:list={[link, 'cursor-pointer']}>Services</summary>
-        <ul class="absolute left-0 z-10 mt-3 w-72 space-y-1 border-t-4 border-brand bg-bg p-3 shadow-[0_8px_24px_var(--color-border)] md:right-0 md:left-auto">
-          {hubs.map((hub) => <li><a href={hub.url} aria-current={aria(hub.url)} class={link}>{shortLabel(hub)}</a></li>)}
+<header class="site-header sticky top-0 z-40 border-t-4 border-brand bg-bg shadow-[0_1px_0_var(--color-border)]">
+  <nav class="mx-auto flex max-w-content items-center gap-4 px-4 py-2.5 lg:gap-7" aria-label="Main">
+    <a href="/" class="mr-auto shrink-0 no-underline" aria-label="BoxHauls home"><Logo height={40} class="block h-9 w-auto sm:h-10" /></a>
+
+    <a href="/pricing/" aria-current={aria('/pricing/')} class:list={[link, 'hidden lg:inline']}>Pricing</a>
+    <details class="services-menu relative hidden lg:block">
+      <summary class:list={[link, 'flex cursor-pointer list-none items-center gap-1']}>Services <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="2" /></svg></summary>
+      <ul class="absolute right-0 z-10 mt-4 w-72 space-y-1 border-t-4 border-brand bg-bg p-3 shadow-[0_12px_32px_-8px_var(--color-border-strong)]">
+        {hubs.map((hub) => <li><a href={hub.url} aria-current={aria(hub.url)} class:list={[link, 'block rounded-sm px-2 py-1.5 hover:bg-surface']}>{shortLabel(hub)}</a></li>)}
+      </ul>
+    </details>
+    {nav.slice(1).map((n) => <a href={n.url} aria-current={aria(n.url)} class:list={[link, 'hidden lg:inline']}>{n.label}</a>)}
+
+    <span class="hidden lg:block"><InstallApp variant="outline" class="text-sm" /></span>
+    <a href="/book/" class="display shrink-0 rounded-sm bg-brand px-4 py-2.5 text-sm text-inverse no-underline hover:bg-brand-hover hover:text-inverse sm:text-base">Get a price</a>
+
+    <details class="mobile-menu lg:hidden">
+      <summary class="flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-sm border-2 border-ink" aria-label="Menu">
+        <svg class="icon-open" aria-hidden="true" width="22" height="22" viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2.5" /></svg>
+        <svg class="icon-close" aria-hidden="true" width="22" height="22" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="2.5" /></svg>
+      </summary>
+      <div class="absolute inset-x-0 top-full max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-border bg-bg px-4 pb-6 shadow-[0_16px_32px_-12px_var(--color-border-strong)]">
+        <ul class="divide-y divide-border">
+          {nav.map((n) => <li><a href={n.url} aria-current={aria(n.url)} class:list={[link, 'block py-3.5 text-lg']}>{n.label}</a></li>)}
+          <li class="py-3.5">
+            <p class="display text-sm text-muted">Services</p>
+            <ul class="mt-2 grid gap-1 sm:grid-cols-2">
+              {hubs.map((hub) => <li><a href={hub.url} aria-current={aria(hub.url)} class:list={[link, 'block py-2']}>{shortLabel(hub)}</a></li>)}
+            </ul>
+          </li>
         </ul>
-      </details>
-      <a href="/how-it-works/" aria-current={aria('/how-it-works/')} class={link}>How it works</a>
-      <a href="/trust/" aria-current={aria('/trust/')} class={link}>Trust</a>
-    </div>
+        <div class="mt-2 grid gap-3 sm:grid-cols-2">
+          <a href="/book/" class="display rounded-sm bg-brand px-4 py-3 text-center text-inverse no-underline hover:bg-brand-hover hover:text-inverse">Get a price</a>
+          <InstallApp variant="outline" class="py-3" />
+        </div>
+      </div>
+    </details>
   </nav>
 </header>

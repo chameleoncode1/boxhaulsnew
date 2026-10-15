@@ -17,12 +17,14 @@ import DumpFees from './mdx/DumpFees.astro';
 interface Props {
   Body: any;
   content: PageContent;
+  /** The homepage renders its steps in its own section. */
+  steps?: boolean;
 }
-const { Body, content } = Astro.props;
+const { Body, content, steps = true } = Astro.props;
 ---
 
-<div class="prose-bh mt-8 max-w-prose">
+<div class="prose-bh max-w-prose">
   <Body components={{ F, Todo, Photo, PriceTable, Price, Earnings, DumpFees }} />
 </div>
-{content.steps?.length ? <Steps items={content.steps} /> : null}
+{steps && content.steps?.length ? <Steps items={content.steps} /> : null}
 {content.faq?.length ? <Faq items={content.faq} /> : null}

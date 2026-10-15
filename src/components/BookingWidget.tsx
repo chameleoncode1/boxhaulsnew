@@ -283,7 +283,7 @@ export default function BookingWidget({ source = 'home' }: { source?: string }) 
     track('booking_completed', { item: itemSlug, tier, helper, source, total: payment.totalCents / 100, when: whenType });
   }
 
-  const box = 'rounded-sm border-t-4 border-brand bg-bg p-5 shadow-[0_8px_24px_var(--color-border)]';
+  const box = 'rounded-md border-t-4 border-brand bg-bg p-5 text-ink shadow-[0_24px_48px_-16px_var(--color-ink)] sm:p-6';
 
   if (booked) {
     const manage = `/book/trip/?t=${encodeURIComponent(booked.customerToken)}`;

@@ -11,6 +11,11 @@ import DriverHeader from '../components/DriverHeader.astro';
 import DriverFooter from '../components/DriverFooter.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Analytics from '../components/Analytics.astro';
+import PwaHead from '../components/PwaHead.astro';
+import InstallHelp from '../components/InstallHelp.astro';
+import CtaBand from '../components/CtaBand.astro';
+import MobileBar from '../components/MobileBar.astro';
+import PriceAside from '../components/PriceAside.astro';
 import { alternates, langOf } from '../lib/i18n';
 // The H1 is the LCP element on most pages; fetch its font with the HTML instead of after the CSS.
 import sairaDisplay from '@fontsource/saira/files/saira-latin-800-italic.woff2?url';
@@ -28,6 +33,8 @@ const ogImage = new URL(ogImagePath(page), SITE_URL).href;
 const { graph } = buildGraph(page, content);
 const driver = page.audience === 'driver';
 const hreflang = alternates(page);
+// Rider inner pages get the sticky price card beside the copy on wide screens.
+const aside = !driver && page.template !== 'home' && page.template !== 'legal';
 ---
 
 <!doctype html>
@@ -40,8 +47,8 @@ const hreflang = alternates(page);
     <link rel="canonical" href={canonical} />
     <link rel="preload" href={sairaDisplay} as="font" type="font/woff2" crossorigin />
     <link rel="icon" type="image/png" sizes="32x32" href="/brand/favicon-32.png" />
-    <link rel="icon" type="image/png" sizes="192x192" href="/brand/icon-192.png" />
     <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />
+    <PwaHead />
     {!page.indexable && <meta name="robots" content="noindex" />}
     {hreflang.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
 
@@ -59,12 +66,38 @@ const hreflang = alternates(page);
     <Analytics />
     <script type="application/ld+json" set:html={JSON.stringify(graph).replace(/</g, '\\u003c')} />
   </head>
-  <body class="bg-bg text-ink" data-template={page.template} data-audience={page.audience} data-phase={page.phase}>
+  <body class:list={['bg-bg text-ink', !driver && 'pb-20 lg:pb-0']} data-template={page.template} data-audience={page.audience} data-phase={page.phase}>
     {driver ? <DriverHeader /> : <SiteHeader />}
-    <main class="mx-auto max-w-content px-4 py-8">
-      <Breadcrumbs page={page} />
-      <slot />
+    <main>
+      <slot name="full-hero" />
+      {
+        Astro.slots.has('hero') && (
+          <section data-block="page-hero" class="page-hero relative overflow-hidden border-b border-border bg-surface">
+            <div class="pointer-events-none absolute inset-y-0 right-0 hidden w-[22%] md:flex" aria-hidden="true">
+              <div class="slant-left w-1/2 bg-brand" />
+              <div class="slant-left -ml-6 w-1/2 bg-night" />
+            </div>
+            <div class="relative mx-auto max-w-content px-4 pt-6 pb-8 md:pt-8 md:pb-12">
+              <div class="md:max-w-[74%]">
+                <Breadcrumbs page={page} />
+                <slot name="hero" />
+                <span class="mt-5 block h-1 w-16 bg-brand md:hidden" aria-hidden="true" />
+              </div>
+            </div>
+          </section>
+        )
+      }
+      <div class:list={['mx-auto max-w-content px-4 py-8 md:py-10', aside && 'lg:grid lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start lg:gap-12']}>
+        <div class="min-w-0">
+          {!Astro.slots.has('hero') && <Breadcrumbs page={page} />}
+          <slot />
+        </div>
+        {aside && <PriceAside />}
+      </div>
     </main>
+    {!driver && <CtaBand />}
     {driver ? <DriverFooter /> : <SiteFooter />}
+    {!driver && <MobileBar />}
+    <InstallHelp />
   </body>
 </html>

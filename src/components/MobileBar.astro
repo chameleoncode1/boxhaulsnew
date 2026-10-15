@@ -1,0 +1,11 @@
+---
+/** Phones and tablets: a fixed bottom bar with the two main actions. Hidden at lg and up (the header has them). */
+import InstallApp from './InstallApp.astro';
+---
+
+<div class="mobile-bar fixed inset-x-0 bottom-0 z-30 border-t border-border bg-bg px-3 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] lg:hidden">
+  <div class="mx-auto flex max-w-content gap-2">
+    <a href="/book/" class="display flex flex-1 items-center justify-center rounded-sm bg-brand px-4 py-3 text-inverse no-underline hover:bg-brand-hover hover:text-inverse">Get a price</a>
+    <InstallApp variant="outline" label="Get app" class="py-3" />
+  </div>
+</div>

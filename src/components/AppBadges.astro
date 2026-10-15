@@ -5,18 +5,21 @@ import { appStore, googlePlay } from '../lib/site';
 
 interface Props {
   tone?: 'light' | 'dark';
+  /** Show TODO markers for store links that aren't set yet (only on /app/, where the store links are the content). */
+  showMissing?: boolean;
 }
-const { tone = 'light' } = Astro.props;
+const { tone = 'light', showMissing = false } = Astro.props;
 const stores = [
   { label: 'Download on the App Store', fact: appStore },
   { label: 'Get it on Google Play', fact: googlePlay },
 ];
+const shown = stores.filter((s) => s.fact.value || showMissing);
 const live = tone === 'dark' ? 'border-inverse text-inverse' : 'border-ink text-ink';
 ---
 
-<ul class="flex flex-wrap gap-3">
+{shown.length > 0 && (<ul class="flex flex-wrap gap-3">
   {
-    stores.map(({ label, fact }) => (
+    shown.map(({ label, fact }) => (
       <li>
         {fact.value ? (
           <a href={fact.value} class:list={['inline-block rounded-sm border-2 px-3 py-2 font-semibold no-underline', live]}>{label}</a>
@@ -28,4 +31,4 @@ const live = tone === 'dark' ? 'border-inverse text-inverse' : 'border-ink text-
       </li>
     ))
   }
-</ul>
+</ul>)}

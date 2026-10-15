@@ -24,8 +24,10 @@ const item = bookingItem(page);
 ---
 
 <BaseLayout page={page} content={content}>
-  <PageTitle page={page} />
-  <Byline kind="reviewed" checked={content.checked} />
+  <Fragment slot="hero">
+    <PageTitle page={page} />
+    <Byline kind="reviewed" checked={content.checked} />
+  </Fragment>
   {Body && <Written Body={Body} content={content} />}
   {!Body && (<Block id="answer" label="1. Price range for Fresno in sentence one"><slot name="answer" /></Block>)}
   {!Body && (<Block id="formula" label="2. The formula, restated"><slot name="formula" /></Block>)}

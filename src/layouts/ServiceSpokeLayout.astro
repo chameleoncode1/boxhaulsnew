@@ -25,9 +25,11 @@ const parent = getPage(page.url.replace(/[^/]+\/$/, ''));
 ---
 
 <BaseLayout page={page} content={content}>
-  <PageTitle page={page} />
-  {parent && <p class="mt-2 text-muted">Part of <a href={parent.url}>{shortLabel(parent)}</a></p>}
-  <Byline kind="reviewed" checked={false} />
+  <Fragment slot="hero">
+    <PageTitle page={page} />
+    {parent && <p class="mt-2 text-muted">Part of <a href={parent.url}>{shortLabel(parent)}</a></p>}
+    <Byline kind="reviewed" checked={false} />
+  </Fragment>
   {Body && <Written Body={Body} content={content} />}
   {!Body && (<Block id="answer" label="Answer-first opening for this scenario"><slot name="answer" /></Block>)}
   {!Body && (<Block id="attributes" label="What this spoke owns that the hub does not (store lane, platform rule, prep step)"><slot name="attributes" /></Block>)}

@@ -24,7 +24,9 @@ const showLogos = page.url === '/partners/' || page.url === '/partners/directory
 ---
 
 <BaseLayout page={page} content={content}>
-  <PageTitle page={page} />
+  <Fragment slot="hero">
+    <PageTitle page={page} />
+  </Fragment>
   {Body && <Written Body={Body} content={content} />}
   {!Body && (<Block id="answer" label="Answer-first opening"><slot name="answer" /></Block>)}
   {!Body && (<Block id="checkout-flow" label="How it works at checkout and what the customer pays"><slot name="checkout-flow" /></Block>)}

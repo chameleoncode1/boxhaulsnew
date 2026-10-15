@@ -10,6 +10,7 @@ import NapBlock from './NapBlock.astro';
 import AppBadges from './AppBadges.astro';
 import Logo from './Logo.astro';
 import FooterBand from './FooterBand.astro';
+import InstallApp from './InstallApp.astro';
 import { year } from '../lib/site';
 
 const hubs = pages.filter((p) => p.template === 'service-hub');
@@ -30,7 +31,7 @@ const legal = pages.filter((p) => p.template === 'legal' && p.url !== '/legal/dr
 const link = 'text-inverse no-underline hover:text-brand-on-night hover:underline';
 ---
 
-<footer class="mt-16 bg-night text-night-muted">
+<footer class="bg-night text-night-muted">
   <FooterBand />
   <div class="mx-auto grid max-w-content gap-10 px-4 py-12 md:grid-cols-3">
     <div class="space-y-4">
@@ -38,10 +39,14 @@ const link = 'text-inverse no-underline hover:text-brand-on-night hover:underlin
       <NapBlock tone="dark" />
     </div>
     <nav aria-label="Footer" class="md:col-span-2">
-      <ul class="grid grid-cols-2 gap-x-6 gap-y-2 sm:grid-cols-3">
+      <ul class="grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-3">
         {links.map((l) => <li><a href={l.url} class={link}>{l.label}</a></li>)}
       </ul>
-      <div class="mt-8"><AppBadges tone="dark" /></div>
+      <div class="mt-8 flex flex-wrap items-center gap-4 border-t border-night-border pt-6">
+        <p class="display text-inverse">Get the app</p>
+        <InstallApp variant="light" class="text-sm" />
+        <AppBadges tone="dark" />
+      </div>
     </nav>
   </div>
   <div class="border-t border-night-border">

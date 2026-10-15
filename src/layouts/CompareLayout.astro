@@ -23,8 +23,10 @@ const isIndex = page.url === '/compare/';
 ---
 
 <BaseLayout page={page} content={content}>
-  <PageTitle page={page} />
-  <Byline kind="reviewed" checked={content.checked} checkedLabel="Facts checked" />
+  <Fragment slot="hero">
+    <PageTitle page={page} />
+    <Byline kind="reviewed" checked={content.checked} checkedLabel="Facts checked" />
+  </Fragment>
   {Body && <Written Body={Body} content={content} />}
   {
     isIndex ? (

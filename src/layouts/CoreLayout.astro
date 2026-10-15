@@ -8,6 +8,7 @@ import PageTitle from '../components/PageTitle.astro';
 import Block from '../components/Block.astro';
 import NapBlock from '../components/NapBlock.astro';
 import AppBadges from '../components/AppBadges.astro';
+import InstallApp from '../components/InstallApp.astro';
 import EmptyState from '../components/EmptyState.astro';
 import ChildList from '../components/ChildList.astro';
 import BodyLinks from '../components/BodyLinks.astro';
@@ -25,11 +26,20 @@ const has = (t: string) => page.schema.includes(t);
 ---
 
 <BaseLayout page={page} content={content}>
-  <PageTitle page={page} />
+  <Fragment slot="hero">
+    <PageTitle page={page} />
+  </Fragment>
   {Body && <Written Body={Body} content={content} />}
   {!Body && (<Block id="answer" label="Answer-first opening (first sentence answers the primary query)"><slot name="answer" /></Block>)}
   {page.url === '/contact/' && <section data-block="nap" class="mt-10"><NapBlock /></section>}
-  {page.url === '/app/' && <section data-block="app" class="mt-10"><AppBadges /></section>}
+  {page.url === '/app/' && (
+    <section data-block="app" class="mt-10 rounded-md bg-night p-6 text-inverse md:p-8">
+      <h2 class="text-2xl md:text-3xl">Install BoxHauls on your phone or tablet</h2>
+      <p class="mt-2 max-w-xl text-night-muted">Works on iPhone, iPad and Android. It installs from your browser in seconds, opens full screen from your home screen, and takes almost no storage.</p>
+      <div class="mt-5"><InstallApp class="px-6 py-3 text-lg" /></div>
+      <div class="mt-6"><AppBadges tone="dark" showMissing /></div>
+    </section>
+  )}
   {page.url === '/reviews/' && (
     <section data-block="reviews" class="mt-10">
       <EmptyState title="No reviews yet" message="Real Google reviews will show here once customers leave them." />

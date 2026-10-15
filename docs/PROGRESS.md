@@ -12,6 +12,18 @@
 | Type check | 0 errors, 0 warnings. Now part of `npm run qa`. A truncated earlier check had hidden 4 Prompt-4 type errors; they're fixed. |
 | Lighthouse (mobile) | Every budget passes. Content pages: LCP about 1.8 s. Home and /book/: about 2.4 s (React island). TBT 0 ms, accessibility 1.00, SEO 1.00 (except /book/, which is noindex by design). CLS is at most 0.09 on /cities/fresno/. |
 
+## Design pass, mobile layout and installable app (2026-10-15)
+
+- **Installable app (PWA):** web app manifest (`/manifest.webmanifest`, opens at `/book/`), a service worker (`public/sw.js`: page requests try the network first, `/api/` is never cached, plus an offline notice), and maskable icons. Every "Download app now" button is a link to `/app/`. With JavaScript it shows the browser's install prompt on Android, Chrome and Edge, or Add to Home Screen steps on iPhone and iPad. Once the app is installed, the button says it's already installed. App Store and Google Play badges show only when their URLs are set; the TODO markers for them now appear on `/app/` only.
+- **Design:**
+  - Sticky header: on desktop, the nav plus "Download app now" and "Get a price"; on phones, "Get a price" plus a menu button.
+  - Homepage: full-width dark hero with the booking widget, step cards, five service tiles with icons, and an app band.
+  - Inner pages: a header band holding breadcrumbs, the H1 and the byline, and a sticky "See your price" card on wide screens.
+  - Child and related links show as cards, and FAQs as an accordion (every answer is still in the HTML).
+  - Rider pages end with a light "Get a price" band. On phones, a "Get a price / Get app" bar is fixed to the bottom of rider pages.
+- **Speed:** the logo is now served as PNG, which is smaller than the WebP here, and an early 192 px icon download was removed. Lighthouse mobile budgets pass: home LCP 1.4–2.4 s, `/book/` 2.48 s (close to the 2.5 s limit).
+- Copy fix: "insured by Hiscox Inc.." no longer shows a double period.
+
 ## Payment tests (2026-10-15, Stripe test mode, local)
 
 All 8 paths passed against real Stripe test mode, with exact amounts verified in Stripe:

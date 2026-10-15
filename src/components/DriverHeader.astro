@@ -3,12 +3,12 @@
 import Logo from './Logo.astro';
 ---
 
-<header class="border-t-4 border-brand bg-night">
-  <nav class="mx-auto flex max-w-content items-center gap-6 px-4 py-3" aria-label="Main">
+<header class="site-header sticky top-0 z-40 border-t-4 border-brand bg-night">
+  <nav class="mx-auto flex max-w-content items-center gap-6 px-4 py-2.5" aria-label="Main">
     <a href="/drive/" class="mr-auto flex items-end gap-3 no-underline" aria-label="BoxHauls for drivers">
-      <Logo variant="dark" height={44} />
-      <span class="display pb-1 text-sm text-brand-on-night">For drivers</span>
+      <Logo variant="dark" height={40} class="block h-9 w-auto sm:h-10" />
+      <span class="display hidden pb-1 text-sm text-brand-on-night sm:inline">For drivers</span>
     </a>
-    <a href="/" class="font-semibold text-inverse hover:text-brand-on-night">For customers</a>
+    <a href="/" class="font-semibold text-inverse no-underline hover:text-brand-on-night">For customers</a>
   </nav>
 </header>

@@ -1,20 +1,21 @@
 ---
 import Text from './Text.astro';
-/** Numbered steps, mirrored in HowTo schema. */
+/** Numbered steps, mirrored in HowTo schema. Cards in a row on wide screens, a numbered timeline on phones. */
 interface Props {
   items: { name: string; text: string }[];
 }
 const { items } = Astro.props;
+const cols = items.length === 3 ? 'md:grid-cols-3' : items.length === 4 ? 'md:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-2';
 ---
 
-<ol data-block="steps" class="mt-8 space-y-6">
+<ol data-block="steps" class:list={['not-prose mt-8 grid gap-4', cols]}>
   {
     items.map((s, i) => (
-      <li class="flex gap-4">
-        <span class="display flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand text-inverse">{i + 1}</span>
+      <li class="relative flex gap-4 rounded-md border border-border bg-surface p-5 md:flex-col md:gap-3">
+        <span class="display flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand text-lg text-inverse">{i + 1}</span>
         <div>
-          <h3 class="text-lg font-semibold"><Text text={s.name} /></h3>
-          <p class="mt-1 max-w-prose"><Text text={s.text} /></p>
+          <h3 class="text-lg font-bold"><Text text={s.name} /></h3>
+          <p class="mt-1"><Text text={s.text} /></p>
         </div>
       </li>
     ))

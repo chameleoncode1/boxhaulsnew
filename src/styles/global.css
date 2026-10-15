@@ -102,6 +102,15 @@
   .prose-bh li::marker {
     color: var(--color-brand);
   }
+  .prose-bh ol.not-prose {
+    padding-left: 0;
+    list-style: none;
+  }
+  .prose-bh .not-prose li + li,
+  .prose-bh .not-prose h3,
+  .prose-bh .faq-item h3 {
+    margin-top: 0;
+  }
   .prose-bh strong {
     font-weight: 700;
   }
@@ -130,6 +139,88 @@
     border-left: 4px solid var(--color-brand);
     padding-left: 1rem;
     color: var(--color-muted);
+  }
+
+  /* <details> menus: no default marker; the hamburger swaps to a close icon when open. */
+  .site-header summary::-webkit-details-marker {
+    display: none;
+  }
+  .mobile-menu .icon-close,
+  .mobile-menu[open] .icon-open {
+    display: none;
+  }
+  .mobile-menu[open] .icon-close {
+    display: block;
+  }
+
+  .install-help::backdrop {
+    background: color-mix(in srgb, var(--color-night) 65%, transparent);
+  }
+
+  /* FAQ accordion */
+  .faq-item summary {
+    list-style: none;
+  }
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-item .faq-icon {
+    transition: transform 0.2s ease;
+  }
+  .faq-item[open] .faq-icon {
+    transform: rotate(45deg);
+  }
+
+  /* Card: white tile with a hairline border and a red bar that grows on hover. */
+  .card {
+    position: relative;
+    display: block;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-bg);
+    color: var(--color-ink);
+    text-decoration: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    left: -1px;
+    top: -1px;
+    bottom: -1px;
+    width: 4px;
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
+    background: var(--color-brand);
+  }
+  a.card:hover,
+  .card:has(a:hover) {
+    border-color: var(--color-border-strong);
+    box-shadow: 0 10px 24px -14px var(--color-border-strong);
+    color: var(--color-ink);
+    transform: translateY(-1px);
+  }
+
+  /* Section eyebrow: small red caps above an H2. */
+  .eyebrow {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: var(--text-sm);
+    color: var(--color-brand);
+  }
+
+  /* Diagonal edge on the right side of a band. */
+  .slant-right {
+    clip-path: polygon(0 0, 100% 0, calc(100% - 2.5rem) 100%, 0 100%);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card,
+    .faq-item .faq-icon {
+      transition: none;
+    }
   }
 
   /* Visible marker for an unknown fact. QA lists every one; a page with any is not shippable. */

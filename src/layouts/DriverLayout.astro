@@ -25,7 +25,9 @@ const earningsLabel = resolve('Earnings math: {{DRIVER_SHARE}} of the fare (help
 ---
 
 <BaseLayout page={page} content={content}>
-  <PageTitle page={page} />
+  <Fragment slot="hero">
+    <PageTitle page={page} />
+  </Fragment>
   {Body && <Written Body={Body} content={content} />}
   {!Body && (<Block id="answer" label="Answer-first opening"><slot name="answer" /></Block>)}
   {!Body && showEarnings && <Block id="earnings" label={earningsLabel}><slot name="earnings" /></Block>}
