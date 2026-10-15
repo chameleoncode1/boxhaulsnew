@@ -1,0 +1,23 @@
+---
+/**
+ * "Download app now": installs the BoxHauls web app (PWA). It's a link to /app/ so it still works without
+ * JavaScript; with JavaScript, InstallHelp.astro intercepts the click and shows the browser's install prompt
+ * (Android / Chrome / Edge) or the Add to Home Screen steps (iPhone / iPad).
+ */
+interface Props {
+  variant?: 'primary' | 'outline' | 'light';
+  class?: string;
+  label?: string;
+}
+const { variant = 'primary', class: className, label = 'Download app now' } = Astro.props;
+const styles = {
+  primary: 'bg-brand text-inverse hover:bg-brand-hover hover:text-inverse',
+  outline: 'border-2 border-ink text-ink hover:bg-ink hover:text-inverse',
+  light: 'border-2 border-inverse text-inverse hover:bg-inverse hover:text-ink',
+};
+---
+
+<a href="/app/" data-install-app class:list={['display inline-flex items-center justify-center gap-2 rounded-sm px-4 py-2.5 no-underline', styles[variant], className]}>
+  <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-5-5m5 5l5-5M5 21h14" /></svg>
+  {label}
+</a>

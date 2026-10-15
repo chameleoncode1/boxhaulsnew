@@ -71,8 +71,23 @@ const quad = (col, row) =>
 const monogram = await quad(1, 1);
 const darkBadge = await quad(1, 0);
 await write(sharp(darkBadge), 'badge-dark', 320);
-for (const [name, size] of [['favicon-32', 32], ['apple-touch-icon', 180], ['icon-192', 192], ['icon-512', 512]]) {
+for (const [name, size] of [['favicon-32', 32], ['icon-192', 192], ['icon-512', 512]]) {
   await sharp(monogram).resize(size, size, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toFile(`${OUT}/${name}.png`);
 }
+
+// Solid-background icons for the installed app (PWA). iOS fills transparency with black, and Android "maskable"
+// icons get cropped to a circle or squircle, so the badge sits inside an 80% safe zone on the night color.
+const night = (await import('node:fs')).readFileSync('src/styles/tokens.css', 'utf8').match(/--color-night:\s*(#[0-9a-fA-F]{6})/)[1];
+async function solidIcon(name, size, scale) {
+  const inner = Math.round(size * scale);
+  const badge = await sharp(monogram).resize(inner, inner, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer();
+  await sharp({ create: { width: size, height: size, channels: 4, background: night } })
+    .composite([{ input: badge, gravity: 'center' }])
+    .png()
+    .toFile(`${OUT}/${name}.png`);
+}
+await solidIcon('apple-touch-icon', 180, 0.86);
+await solidIcon('icon-maskable-192', 192, 0.72);
+await solidIcon('icon-maskable-512', 512, 0.72);
 
 console.log('brand: wrote', OUT);

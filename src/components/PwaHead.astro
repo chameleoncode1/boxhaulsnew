@@ -1,0 +1,36 @@
+---
+/**
+ * PWA head tags + service worker registration + install-prompt capture. Included in every layout.
+ * The install prompt (Android/Chrome/Edge) is caught early so any "Download app now" button can use it.
+ */
+import { tokenColor } from '../lib/theme';
+const theme = tokenColor('night');
+---
+
+<link rel="manifest" href="/manifest.webmanifest" />
+<meta name="theme-color" content={theme} />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="BoxHauls" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<script is:inline>
+  (function () {
+    window.__bhInstallPrompt = null;
+    window.addEventListener('beforeinstallprompt', function (e) {
+      e.preventDefault();
+      window.__bhInstallPrompt = e;
+      document.documentElement.dataset.installable = 'true';
+    });
+    window.addEventListener('appinstalled', function () {
+      window.__bhInstallPrompt = null;
+      document.documentElement.dataset.installed = 'true';
+    });
+    var standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+    if (standalone) document.documentElement.dataset.installed = 'true';
+    if ('serviceWorker' in navigator && location.hostname !== 'localhost') {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/sw.js').catch(function () {});
+      });
+    }
+  })();
+</script>

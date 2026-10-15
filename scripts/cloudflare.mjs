@@ -104,6 +104,15 @@ const headers = [
   '/og/*',
   '  Cache-Control: public, max-age=86400',
   '',
+  // The service worker must be re-checked on every visit so app updates reach installed phones.
+  '/sw.js',
+  '  Cache-Control: no-cache',
+  '  Service-Worker-Allowed: /',
+  '',
+  '/manifest.webmanifest',
+  '  Content-Type: application/manifest+json',
+  '  Cache-Control: public, max-age=3600',
+  '',
 ];
 writeFileSync('dist/_headers', headers.join('\n'));
 
