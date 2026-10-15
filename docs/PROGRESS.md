@@ -12,6 +12,21 @@
 | Type check | 0 errors, 0 warnings. Now part of `npm run qa`. A truncated earlier check had hidden 4 Prompt-4 type errors; they're fixed. |
 | Lighthouse (mobile) | Every budget passes. Content pages: LCP about 1.8 s. Home and /book/: about 2.4 s (React island). TBT 0 ms, accessibility 1.00, SEO 1.00 (except /book/, which is noindex by design). CLS is at most 0.09 on /cities/fresno/. |
 
+## Payment tests (2026-10-15, Stripe test mode, local)
+
+All 8 paths passed against real Stripe test mode, with exact amounts verified in Stripe:
+
+1. **Booking:** a $34.67 hold through the real widget and Payment Element (test card 4242).
+2. **Cancel within 5 minutes:** hold released, $0 charged.
+3. **Completed trip:** $34.67 charged; the driver's $24.62 share (71%) recorded.
+4. **Cancel after acceptance:** $17.34 charged (50%); the driver's $12.31 share (71% of the fee) recorded.
+5. **Late cancel, no driver:** $17.34 charged, kept by BoxHauls.
+6. **Dump run:** $34.67 + a $42 fee = $76.67 charged; the driver gets $66.62. A fee above the $50 hold was rejected.
+7. **Driver cancel:** hold released, $0 charged.
+8. **No driver accepts:** the cron released the hold and texted the customer.
+
+**Not yet tested:** a driver payout actually landing. Stripe Connect isn't enabled on the account yet, so test payouts went to the "failed, retry" path, which also worked. Enable Connect, onboard one test driver through `/drive/payouts/`, and rerun test 3.
+
 ## What shipped
 
 | Prompt | What | Commit |

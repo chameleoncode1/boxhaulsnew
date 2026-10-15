@@ -2,11 +2,13 @@
  * boxhauls-dispatch-cron — runs every 5 minutes:
  *  1. Bookings still dispatching past their deadline → 'unfilled', card hold released, customer texted.
  *  2. Bookings that never got a card authorization within an hour → 'abandoned', PaymentIntent canceled.
+ *  3. Driver payouts that failed after the customer was charged are retried.
  * Shares the D1 database and code with the Pages Functions (functions/_lib).
  */
 import type { Env } from '../../functions/_lib/env';
 import { notifyUnfilled } from '../../functions/_lib/dispatch';
 import { releaseHold } from '../../functions/_lib/stripe';
+import { retryFailedTransfers } from '../../functions/_lib/payments';
 
 export async function expireUnfilled(env: Env, now = new Date()): Promise<number> {
   const due = await env.DB.prepare(`SELECT id, phone, payment_intent_id FROM bookings WHERE status = 'dispatching' AND dispatch_expires_at <= ? LIMIT 100`)
@@ -42,8 +44,8 @@ export async function abandonUnpaid(env: Env, now = new Date()): Promise<number>
 export default {
   async scheduled(_event: ScheduledController, env: Env, ctx: ExecutionContext) {
     ctx.waitUntil(
-      Promise.all([expireUnfilled(env), abandonUnpaid(env)]).then(([u, a]) => {
-        if (u || a) console.log(`unfilled: ${u}, abandoned: ${a}`);
+      Promise.all([expireUnfilled(env), abandonUnpaid(env), env.STRIPE_SECRET_KEY ? retryFailedTransfers(env) : 0]).then(([u, a, t]) => {
+        if (u || a || t) console.log(`unfilled: ${u}, abandoned: ${a}, payouts retried: ${t}`);
       }),
     );
   },

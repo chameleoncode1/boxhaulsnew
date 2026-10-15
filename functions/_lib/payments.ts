@@ -112,19 +112,15 @@ export async function cancelBooking(env: Env, b: FullBooking): Promise<{ feeCent
 
   const pi = await capture(env, b.payment_intent_id, terms.feeCents);
   let driverCents = 0;
-  let transferId: string | null = null;
   if (prevStatus === 'assigned' && b.driver_id) {
     const driver = await env.DB.prepare('SELECT stripe_account_id, phone FROM drivers WHERE id = ?').bind(b.driver_id).first<{ stripe_account_id: string | null; phone: string }>();
     driverCents = Math.round(terms.feeCents * DRIVER_SHARE);
-    const ch = chargeId(pi);
-    if (driver?.stripe_account_id && ch) {
-      transferId = (await transferToDriver(env, { bookingId: b.id, accountId: driver.stripe_account_id, amountCents: driverCents, chargeId: ch, kind: 'cancel_fee' }))?.id ?? null;
-    }
+    const ch = chargeId(pi) ?? null;
+    await env.DB.prepare('UPDATE bookings SET driver_transfer_cents = ?, transfer_charge_id = ? WHERE id = ?').bind(driverCents, ch, b.id).run();
+    if (driver?.stripe_account_id) await payDriver(env, { bookingId: b.id, accountId: driver.stripe_account_id, amountCents: driverCents, chargeId: ch, kind: 'cancel_fee' });
     if (driver) await sendSms(env, driver.phone, `BoxHauls: the customer canceled ${b.id}. You'll receive ${usd(driverCents)} from the cancellation fee.`);
   }
-  await env.DB.prepare('UPDATE bookings SET cancel_fee_cents = ?, captured_cents = ?, driver_transfer_cents = ?, transfer_id = ? WHERE id = ?')
-    .bind(terms.feeCents, terms.feeCents, driverCents, transferId, b.id)
-    .run();
+  await env.DB.prepare('UPDATE bookings SET cancel_fee_cents = ?, captured_cents = ? WHERE id = ?').bind(terms.feeCents, terms.feeCents, b.id).run();
   return { feeCents: terms.feeCents };
 }
 
@@ -145,12 +141,12 @@ export async function completeBooking(env: Env, b: FullBooking, driver: { id: st
   const total = b.price_cents + dump;
   const pi = await capture(env, b.payment_intent_id, total);
   const driverCents = Math.round(b.price_cents * DRIVER_SHARE) + dump;
-  const ch = chargeId(pi);
-  const transfer = ch ? await transferToDriver(env, { bookingId: b.id, accountId: driver.stripe_account_id, amountCents: driverCents, chargeId: ch, kind: 'trip' }) : null;
-  await env.DB.prepare('UPDATE bookings SET captured_cents = ?, driver_transfer_cents = ?, transfer_id = ? WHERE id = ?').bind(total, driverCents, transfer?.id ?? null, b.id).run();
+  const ch = chargeId(pi) ?? null;
+  await env.DB.prepare('UPDATE bookings SET captured_cents = ?, driver_transfer_cents = ?, transfer_charge_id = ? WHERE id = ?').bind(total, driverCents, ch, b.id).run();
+  const payout = await payDriver(env, { bookingId: b.id, accountId: driver.stripe_account_id, amountCents: driverCents, chargeId: ch, kind: 'trip' });
 
   await sendSms(env, toE164(b.phone), `BoxHauls: trip ${b.id} is complete. Your card was charged ${usd(total)}${dump ? ` (${usd(b.price_cents)} trip + ${usd(dump)} dump fee)` : ''}. Thanks for using BoxHauls.`);
-  return { chargedCents: total, driverCents };
+  return { chargedCents: total, driverCents, payout };
 }
 
 /** The booking behind a customer's manage-trip link. */
@@ -197,4 +193,43 @@ export async function releaseForDriver(env: Env, b: FullBooking, reason: 'driver
       : `BoxHauls: we're sorry your driver didn't show for ${b.id}. Your card hold has been released; you won't be charged. Call ${ph.PHONE} if you need help.`;
   await sendSms(env, toE164(b.phone), customerMsg);
   if (driver && reason === 'no_show') await sendSms(env, driver.phone, `BoxHauls: the customer reported a no-show for ${b.id}. The trip is canceled and the customer's hold was released.`);
+}
+
+/**
+ * Send the driver their share and record the outcome. A failure never undoes the customer's charge: the
+ * transfer is marked failed and the dispatch cron retries it (retryFailedTransfers).
+ */
+export async function payDriver(
+  env: Env,
+  t: { bookingId: string; accountId: string; amountCents: number; chargeId: string | null; kind: 'trip' | 'cancel_fee' },
+): Promise<'sent' | 'failed' | 'none'> {
+  if (t.amountCents <= 0) {
+    await env.DB.prepare(`UPDATE bookings SET transfer_status = 'none' WHERE id = ?`).bind(t.bookingId).run();
+    return 'none';
+  }
+  try {
+    if (!t.chargeId) throw new Error('no charge to fund the transfer');
+    const tr = await transferToDriver(env, { bookingId: t.bookingId, accountId: t.accountId, amountCents: t.amountCents, chargeId: t.chargeId, kind: t.kind });
+    await env.DB.prepare(`UPDATE bookings SET transfer_status = 'sent', transfer_id = ?, transfer_attempts = transfer_attempts + 1 WHERE id = ?`).bind(tr?.id ?? null, t.bookingId).run();
+    return 'sent';
+  } catch (e) {
+    console.error('driver transfer failed', t.bookingId, e);
+    await env.DB.prepare(`UPDATE bookings SET transfer_status = 'failed', transfer_attempts = transfer_attempts + 1 WHERE id = ?`).bind(t.bookingId).run();
+    return 'failed';
+  }
+}
+
+/** Retry failed driver transfers (called by the dispatch cron). Gives up after 20 attempts; those need a person. */
+export async function retryFailedTransfers(env: Env): Promise<number> {
+  const due = await env.DB.prepare(
+    `SELECT b.id, b.driver_transfer_cents, b.transfer_charge_id, b.status, d.stripe_account_id
+       FROM bookings b JOIN drivers d ON d.id = b.driver_id
+      WHERE b.transfer_status = 'failed' AND b.transfer_attempts < 20 AND d.stripe_account_id IS NOT NULL LIMIT 50`,
+  ).all<{ id: string; driver_transfer_cents: number; transfer_charge_id: string | null; status: string; stripe_account_id: string }>();
+  let sent = 0;
+  for (const r of due.results) {
+    const kind = r.status === 'canceled' ? 'cancel_fee' : 'trip';
+    if ((await payDriver(env, { bookingId: r.id, accountId: r.stripe_account_id, amountCents: r.driver_transfer_cents, chargeId: r.transfer_charge_id, kind })) === 'sent') sent++;
+  }
+  return sent;
 }

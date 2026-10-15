@@ -44,7 +44,7 @@ export default function AcceptJob() {
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
   const [dumpFee, setDumpFee] = useState('');
-  const [done, setDone] = useState<{ chargedCents: number; driverCents: number } | null>(null);
+  const [done, setDone] = useState<{ chargedCents: number; driverCents: number; payout: string } | null>(null);
 
   const load = (t: string) =>
     post<Offer>('/api/offer', { token: t })
@@ -80,7 +80,7 @@ export default function AcceptJob() {
     setBusy(true);
     setError('');
     try {
-      setDone(await post<{ chargedCents: number; driverCents: number }>('/api/complete', { token, dumpFeeCents }));
+      setDone(await post<{ chargedCents: number; driverCents: number; payout: string }>('/api/complete', { token, dumpFeeCents }));
       await load(token);
     } catch (e) {
       setError((e as Error).message);
@@ -164,7 +164,7 @@ export default function AcceptJob() {
             </div>
           )}
           {offer.canceled && <p className="mt-4 font-semibold">This trip was canceled. The customer's card hold was released.</p>}
-          {offer.completed && <p className="mt-4 font-semibold">Trip complete.{done && ` Customer charged ${usd(done.chargedCents)}; ${usd(done.driverCents)} sent to your Stripe account.`}</p>}
+          {offer.completed && <p className="mt-4 font-semibold">Trip complete.{done && ` Customer charged ${usd(done.chargedCents)}. ${done.payout === 'failed' ? `Your ${usd(done.driverCents)} payout is delayed; it will retry automatically. Check your payout setup.` : `${usd(done.driverCents)} sent to your Stripe account.`}`}</p>}
         </div>
       )}
       {error && <p className="mt-3 text-sm text-brand" role="alert">{error}</p>}

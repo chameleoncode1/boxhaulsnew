@@ -124,5 +124,5 @@ export async function notifyAssigned(env: Env, b: BookingRow, d: Driver): Promis
 
 /** Text when nobody accepted in time. */
 export async function notifyUnfilled(env: Env, b: Pick<BookingRow, 'id' | 'phone'>): Promise<void> {
-  await sendSms(env, toE164(b.phone), `BoxHauls: sorry, no driver accepted ${b.id} in time. Call ${OFFICE_PHONE} or book again for another time.`);
+  await sendSms(env, toE164(b.phone), `BoxHauls: sorry, no driver accepted ${b.id} in time. Your card hold has been released; you won't be charged. Call ${OFFICE_PHONE} or book again for another time.`);
 }
