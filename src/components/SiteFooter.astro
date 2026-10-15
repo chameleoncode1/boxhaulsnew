@@ -39,8 +39,8 @@ const all = [...columns.flatMap((c) => c.links), ...service];
 if (all.length > 13) throw new Error(`Footer has ${all.length} page links; the limit is 13`);
 for (const l of all) if (!getPage(l.url)) throw new Error(`Footer link ${l.url} is not in sitemap.json`);
 
-// "3690 E. International, Clovis, CA 93619" → "Clovis, CA 93619"
-const cityLine = address.value ? address.value.split(',').slice(1).join(',').trim() : '[TODO: ADDRESS]';
+// The public address is the city line only (no street), the same string as /contact/ and Google.
+const cityLine = address.value ?? '[TODO: ADDRESS]';
 const tel = phoneE164();
 const legal = pages.filter((p) => p.template === 'legal' && p.url !== '/legal/driver-agreement/');
 const link = 'text-inverse no-underline hover:text-brand-on-night hover:underline';

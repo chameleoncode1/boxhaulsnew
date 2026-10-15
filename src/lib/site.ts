@@ -32,8 +32,14 @@ export const year = fact('YEAR');
 /** ISO 639-1 codes support can answer in, from SUPPORT_LANGUAGES ("en, es"). */
 export const supportLanguages: string[] = (str('SUPPORT_LANGUAGES') ?? 'en').split(',').map((s) => s.trim()).filter(Boolean);
 
-/** "3690 E. International, Clovis, CA 93619" → PostalAddress parts. Returns undefined if the address is unknown or not in that shape. */
+/**
+ * ADDRESS → PostalAddress parts. BoxHauls is a service-area business: the public address is the city line only
+ * ("Clovis, CA 93619", owner decision 2026-10-15), so there's no streetAddress. A full "street, city, ST ZIP" still parses.
+ * Returns undefined if the address is unknown or not in either shape.
+ */
 export function postalAddress() {
+  const city = address.value?.match(/^([^,]+),\s*([A-Z]{2})\s+(\d{5})$/);
+  if (city) return { addressLocality: city[1], addressRegion: city[2], postalCode: city[3], addressCountry: 'US' };
   const m = address.value?.match(/^(.+?),\s*([^,]+),\s*([A-Z]{2})\s+(\d{5})$/);
   if (!m) return undefined;
   return { streetAddress: m[1], addressLocality: m[2], addressRegion: m[3], postalCode: m[4], addressCountry: 'US' };

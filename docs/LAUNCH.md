@@ -97,11 +97,11 @@ The NAP must match `/contact/`, the site footer and every citation exactly:
 |---|---|
 | Business name | BoxHauls |
 | Legal name (footer, /contact/) | BoxHauls, LLC |
-| Address | 3690 E. International, Clovis, CA 93619 |
+| Address | Clovis, CA 93619 (city only: set the profile up as a service-area business and hide the street address) |
 | Phone | (559) 628-2794 |
 | Website | https://boxhauls.com/ |
 
-- Set it up as a **service-area business** covering Fresno and Clovis (25 miles). If the Clovis address is residential, hide it, as map Section 16 says.
+- Set it up as a **service-area business** covering Fresno and Clovis (25 miles), with the street address hidden. Google still asks for the full street address privately to verify the business; it isn't shown. The website shows "Clovis, CA 93619" everywhere (decided 2026-10-15).
 - Once GBP is verified, put its review link on `/reviews/`. It's a TODO there now.
 - If any of these values change, change them in `docs/placeholders.json` first. The site updates on the next build; then update GBP to match.
 
