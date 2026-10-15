@@ -1,0 +1,13 @@
+---
+/** What a driver earns on an example trip, in dollars: <Earn mi={10} heavy />. Driver pages only. */
+import { driverEarn } from '../../lib/earnings';
+import { usd } from '../../lib/pricing';
+
+interface Props {
+  mi: number;
+  heavy?: boolean;
+}
+const v = driverEarn(Astro.props.mi, Astro.props.heavy);
+---
+
+{v === undefined ? <span class="todo">[TODO: DRIVER_SHARE]</span> : usd(v)}

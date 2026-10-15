@@ -366,7 +366,7 @@ P(DR, "Drive for BoxHauls: get paid for your pickup truck", "make money with my 
   ["pickup truck gigs", "hauling gigs near me", "drive for boxhauls"],
   [DR+"requirements/", DR+"earnings/", DR+"insurance-and-liability/", DR+"how-payouts-work/", f"/drive/{M}/", DR+"apply/"],
   ORG + ["JobPosting", "FAQPage"],
-  "Driver-side hub. Earnings headline ({{DRIVER_SHARE}}% of fare + 100% tips); requirements summary; how jobs arrive; a real driver story; apply CTA. Never links to rider service pages.",
+  "Driver-side hub. Earnings headline (dollar examples per trip, never the share % or customer fare; + 100% tips); requirements summary; how jobs arrive; a real driver story; apply CTA. Never links to rider service pages.",
   "drive", "hub", 1, "driver")
 for s, h1, q, note, ph in [
     ("requirements", "Driver requirements", "boxhauls driver requirements", "Truck year/condition, license, age, insurance minimums, background check, phone, straps/blankets", 1),
@@ -564,7 +564,7 @@ Do not invent content for placeholders; render them as visible TODO markers unti
 | Trust | cargo insurance ({{{{INSURANCE_CARRIER}}}}, {{{{COVERAGE_LIMIT}}}}) · background checks ({{{{BACKGROUND_PROVIDER}}}}) · vehicle inspection · damage-claim process · cancellation window | /trust/ cluster |
 | Coverage | {{{{METRO}}}} metro; service radius {{{{RADIUS}}}} miles | /cities/{{{{metro-slug}}}}/, LocalBusiness.areaServed |
 | Booking channels | iOS app · Android app · web | /app/, MobileApplication schema |
-| Driver share | {{{{DRIVER_SHARE}}}}% of fare + 100% of tips | /drive/ only — never on rider pages |
+| Driver share | {{{{DRIVER_SHARE}}}}% of fare + 100% of tips | Server-side only; never shown on any page (driver pages show dollar earnings) |
 | Founder | {{{{FOUNDER_NAME}}}} | /about/, Person schema |
 | NAP | {{{{LEGAL_NAME}}}} · {{{{ADDRESS}}}} · {{{{PHONE}}}} — identical string on /contact/, footer, GBP, all citations | footer, /contact/, Organization schema |
 

@@ -299,8 +299,9 @@ for (const p of pages.filter((p) => p.phase === 1)) {
   }
 
   // CLAUDE.md rule 7: the driver payout percentage appears only under /drive/.
-  if (audience(p.url) !== 'driver' && ph.DRIVER_SHARE && !String(ph.DRIVER_SHARE).startsWith('TODO')) {
-    if (visibleText(body).includes(ph.DRIVER_SHARE)) fail('Banned', `driver payout share ${ph.DRIVER_SHARE} shown on a non-driver page`);
+  // Owner decision 2026-10-15: the driver share percentage appears on no page at all (drivers see dollar earnings only).
+  if (ph.DRIVER_SHARE && !String(ph.DRIVER_SHARE).startsWith('TODO')) {
+    if (visibleText(body).includes(ph.DRIVER_SHARE)) fail('Banned', `driver payout share ${ph.DRIVER_SHARE} shown on a page`);
   }
 
   // hreflang (Spanish /es/ pages, Phase 2): every alternate must exist and point back.

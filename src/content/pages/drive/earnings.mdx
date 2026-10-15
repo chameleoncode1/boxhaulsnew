@@ -1,15 +1,15 @@
 ---
-description: "How much BoxHauls drivers make: {{DRIVER_SHARE}} of every fare plus 100% of tips. Worked examples for couches, appliances and dump runs in Fresno."
+description: "How much BoxHauls drivers make in Fresno: {{earn:10}} for a 10-mile couch haul, more for heavy items, plus 100% of tips. Worked examples for every job type."
 faq:
   - question: "How much do BoxHauls drivers make per trip?"
-    answer: "You earn {{DRIVER_SHARE}} of the fare plus 100% of tips. Fares are {{BASE_FARE}} plus {{PER_MILE}} a mile, plus {{HEAVY_FEE}} for heavy items."
+    answer: "A 10-mile couch haul pays you {{earn:10}}, a 25-mile one {{earn:25}}, and heavy items like refrigerators pay more ({{earn:10:heavy}} for 10 miles). You also keep 100% of tips."
   - question: "How much do drivers make per hour?"
     answer: "It depends on how many trips you take in an hour and how far you drive between them. [TODO: realistic hourly ranges from real Fresno trip data]"
   - question: "Who pays for gas?"
-    answer: "You do. Fuel and wear on your truck come out of your share, so track your miles for taxes."
+    answer: "You do. Fuel and wear on your truck come out of your earnings, so track your miles for taxes."
 ---
 
-BoxHauls drivers earn <F k="DRIVER_SHARE" /> of every fare plus 100% of tips. The customer's fare is <F k="BASE_FARE" /> plus <F k="PER_MILE" /> a mile, plus <F k="HEAVY_FEE" /> for heavy items. Here's what that looks like by trip.
+BoxHauls drivers get paid for every trip, plus 100% of tips. Pay goes up with distance, and heavy items pay more. Here's what that looks like by trip.
 
 ## Worked examples
 
@@ -17,7 +17,7 @@ BoxHauls drivers earn <F k="DRIVER_SHARE" /> of every fare plus 100% of tips. Th
 
 ## By job type
 
-All three job types (<F k="TIER_1" />, <F k="TIER_2" /> and <F k="TIER_3" />) use the same fare formula. The heavy-item fee applies to <F k="HEAVY_FEE_ITEMS" />, so those jobs pay more for the same miles.
+All three job types (<F k="TIER_1" />, <F k="TIER_2" /> and <F k="TIER_3" />) pay the same way, by distance. Jobs with <F k="HEAVY_FEE_ITEMS" /> pay more for the same miles.
 
 ## Per hour
 
@@ -33,6 +33,6 @@ Demand peaks in January, May and August around campus move weeks. <Todo>busiest 
 
 ## Costs, honestly
 
-You're an independent contractor, so fuel, maintenance, tires and insurance on your truck come out of your share. Track every business mile. The IRS standard mileage rate is a useful benchmark for what a mile really costs you. <Todo>current IRS standard mileage rate</Todo>
+You're an independent contractor, so fuel, maintenance, tires and insurance on your truck come out of your earnings. Track every business mile. The IRS standard mileage rate is a useful benchmark for what a mile really costs you. <Todo>current IRS standard mileage rate</Todo>
 
 Back to [Drive for BoxHauls](/drive/).

@@ -1,55 +1,94 @@
 ---
 /**
- * Rider footer (map Section 10): at most 12 links — five hubs, /pricing/, /trust/, /cities/, /guides/, /drive/,
- * /partners/, /contact/ — plus the NAP block and app badges. /drive/ appears here and nowhere else on rider pages.
- * Legal links sit in the small-print row with rel="nofollow" (sitemap: "indexable but no-follow in nav").
+ * Rider footer (map Section 10), in columns: Services (five hubs) · Company (/pricing/, /trust/, /cities/, /guides/,
+ * /partners/, /drive/) · Customer Service (/contact/, /faq/, phone, email) — 13 page links, one over the map's 12,
+ * approved by the owner 2026-10-15 to add FAQ. /drive/ appears here and nowhere else on rider pages.
+ * Business block: legal name and city line (no street address, per the owner). Legal links sit in the
+ * small-print row with rel="nofollow" (sitemap: "indexable but no-follow in nav").
  */
 import { getPage, pages } from '../lib/sitemap';
 import { shortLabel } from '../lib/labels';
-import NapBlock from './NapBlock.astro';
 import AppBadges from './AppBadges.astro';
 import Logo from './Logo.astro';
 import FooterBand from './FooterBand.astro';
 import InstallApp from './InstallApp.astro';
 import DriverAppButton from './DriverAppButton.astro';
-import { year } from '../lib/site';
+import Text from './Text.astro';
+import { address, email, legalName, phone, phoneE164, year } from '../lib/site';
 
 const hubs = pages.filter((p) => p.template === 'service-hub');
-const more = [
-  { url: '/pricing/', label: 'Pricing' },
-  { url: '/trust/', label: 'Trust & safety' },
-  { url: '/cities/', label: 'Service area' },
-  { url: '/guides/', label: 'Guides' },
-  { url: '/drive/', label: 'Drive with BoxHauls' },
-  { url: '/partners/', label: 'Partners' },
-  { url: '/contact/', label: 'Contact' },
+const columns = [
+  { title: 'Services', links: hubs.map((h) => ({ url: h.url, label: shortLabel(h) })) },
+  {
+    title: 'Company',
+    links: [
+      { url: '/pricing/', label: 'Pricing' },
+      { url: '/trust/', label: 'Trust & safety' },
+      { url: '/cities/', label: 'Service area' },
+      { url: '/guides/', label: 'Guides' },
+      { url: '/partners/', label: 'Partners' },
+      { url: '/drive/', label: 'Drive with BoxHauls' },
+    ],
+  },
 ];
-const links = [...hubs.map((h) => ({ url: h.url, label: shortLabel(h) })), ...more];
-if (links.length > 12) throw new Error(`Footer has ${links.length} links; the limit is 12`);
-for (const l of links) if (!getPage(l.url)) throw new Error(`Footer link ${l.url} is not in sitemap.json`);
+const service = [
+  { url: '/contact/', label: 'Contact Us' },
+  { url: '/faq/', label: 'FAQ' },
+];
+const all = [...columns.flatMap((c) => c.links), ...service];
+if (all.length > 13) throw new Error(`Footer has ${all.length} page links; the limit is 13`);
+for (const l of all) if (!getPage(l.url)) throw new Error(`Footer link ${l.url} is not in sitemap.json`);
 
+// "3690 E. International, Clovis, CA 93619" → "Clovis, CA 93619"
+const cityLine = address.value ? address.value.split(',').slice(1).join(',').trim() : '[TODO: ADDRESS]';
+const tel = phoneE164();
 const legal = pages.filter((p) => p.template === 'legal' && p.url !== '/legal/driver-agreement/');
 const link = 'text-inverse no-underline hover:text-brand-on-night hover:underline';
+const heading = 'display text-sm tracking-wide text-brand-on-night';
 ---
 
 <footer class="bg-night text-night-muted">
   <FooterBand />
-  <div class="mx-auto grid max-w-content gap-10 px-4 py-12 md:grid-cols-3">
-    <div class="space-y-4">
+  <div class="mx-auto grid max-w-content grid-cols-2 gap-x-6 gap-y-10 px-4 py-12 lg:grid-cols-[1.2fr_1fr_1fr_1.1fr]">
+    <div class="col-span-2 space-y-4 lg:col-span-1">
       <Logo variant="dark" height={52} lazy />
-      <NapBlock tone="dark" />
+      <address class="not-italic">
+        <strong class="text-inverse"><Text text={legalName.value ?? '[TODO: LEGAL_NAME]'} /></strong><br />
+        <Text text={cityLine} />
+      </address>
     </div>
-    <nav aria-label="Footer" class="md:col-span-2">
-      <ul class="grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-3">
-        {links.map((l) => <li><a href={l.url} class={link}>{l.label}</a></li>)}
+    {
+      columns.map((c) => (
+        <nav aria-label={`Footer: ${c.title}`}>
+          <p class={heading}>{c.title}</p>
+          <ul class="mt-3 space-y-2.5">
+            {c.links.map((l) => <li><a href={l.url} class={link}>{l.label}</a></li>)}
+          </ul>
+        </nav>
+      ))
+    }
+    <nav aria-label="Footer: Customer Service" class="col-span-2 lg:col-span-1">
+      <p class={heading}>Customer Service</p>
+      <ul class="mt-3 space-y-2.5">
+        {service.map((l) => <li><a href={l.url} class={link}>{l.label}</a></li>)}
+        <li>
+          <span class="block text-xs uppercase tracking-wide">Phone</span>
+          {tel ? <a href={`tel:${tel}`} class={link}>{phone.value}</a> : <Text text="[TODO: PHONE]" />}
+        </li>
+        <li>
+          <span class="block text-xs uppercase tracking-wide">Email</span>
+          {email.value ? <a href={`mailto:${email.value}`} class={link}>{email.value}</a> : <Text text="[TODO: EMAIL]" />}
+        </li>
       </ul>
-      <div class="mt-8 flex flex-wrap items-center gap-4 border-t border-night-border pt-6">
-        <p class="display text-inverse">Get the app</p>
-        <InstallApp variant="light" class="text-sm" />
-        <DriverAppButton variant="light" class="text-sm" />
-        <AppBadges tone="dark" />
-      </div>
     </nav>
+  </div>
+  <div class="mx-auto max-w-content px-4 pb-10">
+    <div class="flex flex-wrap items-center gap-4 border-t border-night-border pt-6">
+      <p class="display text-inverse">Get the app</p>
+      <InstallApp variant="light" class="text-sm" />
+      <DriverAppButton variant="light" class="text-sm" />
+      <AppBadges tone="dark" />
+    </div>
   </div>
   <div class="border-t border-night-border">
     <div class="mx-auto flex max-w-content flex-wrap gap-4 px-4 py-4 text-sm">

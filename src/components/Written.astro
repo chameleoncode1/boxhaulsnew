@@ -13,6 +13,7 @@ import PriceTable from './mdx/PriceTable.astro';
 import Price from './mdx/Price.astro';
 import Earnings from './mdx/Earnings.astro';
 import DumpFees from './mdx/DumpFees.astro';
+import Earn from './mdx/Earn.astro';
 
 interface Props {
   Body: any;
@@ -24,7 +25,7 @@ const { Body, content, steps = true } = Astro.props;
 ---
 
 <div class="prose-bh max-w-prose">
-  <Body components={{ F, Todo, Photo, PriceTable, Price, Earnings, DumpFees }} />
+  <Body components={{ F, Todo, Photo, PriceTable, Price, Earnings, Earn, DumpFees }} />
 </div>
 {steps && content.steps?.length ? <Steps items={content.steps} /> : null}
 {content.faq?.length ? <Faq items={content.faq} /> : null}

@@ -21,7 +21,7 @@ interface Props {
 }
 const { page, content = {}, Body } = Astro.props;
 const showEarnings = page.url === '/drive/' || page.url === '/drive/earnings/';
-const earningsLabel = resolve('Earnings math: {{DRIVER_SHARE}} of the fare + 100% of tips, worked with real tier fares').text;
+const earningsLabel = resolve('Earnings in dollars for example trips (never the share percentage or customer fare) + 100% of tips').text;
 ---
 
 <BaseLayout page={page} content={content}>
