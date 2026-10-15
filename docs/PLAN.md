@@ -216,6 +216,10 @@ The heaviest single item is **1,000 lb** (`{{MAX_ITEM_WEIGHT}}`), and gun safes 
 - **Driver no-show:** the customer reports it from `/book/trip/` once the pickup time has passed (ASAP: `NO_SHOW_ASAP_MINUTES` = 60 after acceptance, my default; scheduled: the end of the window). The hold is released immediately.
 - **Weather** is at the driver's discretion (`WEATHER_POLICY`).
 
+### Stripe Checkout (hosted page): not used (decided 2026-10-15)
+
+A Stripe Checkout Studio setup task was considered and declined. Hosted Checkout charges at checkout with fixed Price IDs. BoxHauls needs the opposite: per-trip pricing, a card hold at request, a charge on completion, Connect payouts and the 5-minute free cancel. The Payment Element flow in `src/components/PaymentStep.tsx` and `functions/_lib/payments.ts` stays the only payment path. Don't add `checkout.sessions.create`.
+
 ## Open questions (answer before the prompt that needs them)
 
 1. **Booking go-live.** You need a Google Maps key, a Twilio number (A2P 10DLC or toll-free verification takes days, so start now), `bash scripts/setup-secrets.sh`, and drivers added with `npm run drivers`; full steps in `deploy/cloudflare/README.md`. Also confirm `SERVICE_CENTER`, the booking windows and the dispatch deadlines.
