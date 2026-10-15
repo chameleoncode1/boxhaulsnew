@@ -21,6 +21,7 @@ export const GET: APIRoute = () =>
       theme_color: tokenColor('night'),
       categories: ['business', 'productivity', 'travel'],
       icons: [
+        { src: '/brand/driver-apple-touch-icon.png?v=3', sizes: '180x180', type: 'image/png', purpose: 'any' },
         { src: '/brand/driver-icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
         { src: '/brand/driver-icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
         { src: '/brand/driver-icon-maskable-192.png', sizes: '192x192', type: 'image/png', purpose: 'maskable' },

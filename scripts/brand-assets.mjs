@@ -87,6 +87,7 @@ async function solidIcon(name, size, scale) {
     .toFile(`${OUT}/${name}.png`);
 }
 await solidIcon('apple-touch-icon', 180, 0.86);
+for (const n of ['apple-touch-icon', 'apple-touch-icon-precomposed']) (await import('node:fs')).copyFileSync(`${OUT}/apple-touch-icon.png`, `public/${n}.png`);
 await solidIcon('icon-maskable-192', 192, 0.72);
 await solidIcon('icon-maskable-512', 512, 0.72);
 
@@ -146,6 +147,10 @@ console.log('brand: wrote', OUT);
   }
   // The badge is round, so it fits Android's circular maskable safe zone at 80%.
   await driverSolid('driver-apple-touch-icon', 180, 0.94);
+  // iOS also probes /apple-touch-icon.png and /apple-touch-icon-precomposed.png at the site root. driver.boxhauls.com's
+  // root is /driver-app/ (functions/_middleware.ts), so the driver badge goes there too.
+  mkdirSync('public/driver-app', { recursive: true });
+  for (const n of ['apple-touch-icon', 'apple-touch-icon-precomposed']) (await import('node:fs')).copyFileSync(`${OUT}/driver-apple-touch-icon.png`, `public/driver-app/${n}.png`);
   await driverSolid('driver-icon-maskable-192', 192, 0.8);
   await driverSolid('driver-icon-maskable-512', 512, 0.8);
   console.log('brand: wrote BoxHauls Driver icons');

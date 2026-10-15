@@ -23,7 +23,8 @@ import sairaDisplay from '@fontsource/saira/files/saira-latin-800-italic.woff2?u
     <link rel="icon" type="image/png" sizes="32x32" href="/brand/driver-favicon-32.png" />
     <link rel="icon" type="image/png" sizes="48x48" href="/brand/driver-favicon-48.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="/brand/driver-icon-192.png" />
-    <link rel="apple-touch-icon" href="/brand/driver-apple-touch-icon.png" />
+    <!-- ?v= forces iOS to fetch the icon again instead of reusing a cached miss. -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/brand/driver-apple-touch-icon.png?v=3" />
     <PwaHead manifest="manifest.webmanifest" sw="sw.js" title="BH Driver" />
   </head>
   <body class="h-full overflow-hidden bg-night text-inverse antialiased">

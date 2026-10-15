@@ -48,7 +48,7 @@ const aside = !driver && page.template !== 'home' && page.template !== 'legal';
     <link rel="canonical" href={canonical} />
     <link rel="preload" href={sairaDisplay} as="font" type="font/woff2" crossorigin />
     <link rel="icon" type="image/png" sizes="32x32" href="/brand/favicon-32.png" />
-    <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/brand/apple-touch-icon.png?v=3" />
     <PwaHead />
     {!page.indexable && <meta name="robots" content="noindex" />}
     {hreflang.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
