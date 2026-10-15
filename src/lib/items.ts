@@ -33,7 +33,7 @@ export const ITEMS: Item[] = [
     label: 'Washer and dryer',
     heavy: true,
     tier: 'TIER_3',
-    note: 'Two-person item. [TODO: whether the heavy-item fee applies to each machine or once per trip]',
+    note: 'Two-person item. The heavy-item fee is charged once per trip.',
   },
   { slug: 'dishwasher', label: 'Dishwasher', heavy: false, tier: 'TIER_3' },
   { slug: 'stove', label: 'Stove or range', heavy: false, tier: 'TIER_3', note: 'Gas lines must be disconnected by a licensed pro first.' },

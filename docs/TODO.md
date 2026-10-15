@@ -10,7 +10,7 @@ Fill these in `docs/placeholders.json`; every page that uses them updates on the
 - `SOCIAL.app_store`: 175 pages
 - `SOCIAL.google_play`: 175 pages
 
-## Open facts by page (203 markers, 185 distinct questions)
+## Open facts by page (185 markers, 170 distinct questions)
 
 Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, then the copy is updated and the marker removed.
 
@@ -40,8 +40,7 @@ Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, t
 - pickup-area notes for each store
 
 **/contact/**
-- support hours
-- confirm in-app chat or messaging with support
+- where customers start a chat, and the support text number if it isn’t the main phone number
 
 **/drive/**
 - how jobs are offered to drivers in the app, and how long a driver has to accept
@@ -145,7 +144,6 @@ Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, t
 
 **/guides/what-to-expect-from-a-boxhauls-driver/**
 - confirm in-app tracking during the trip
-- whether drivers bring items inside, and how far
 - confirm drivers don’t assemble furniture or connect appliances
 - confirm drivers don't assemble furniture or connect appliances
 
@@ -154,8 +152,6 @@ Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, t
 
 **/how-it-works/**
 - confirm in-app messaging and live tracking during the trip
-- free-cancellation window and late-cancel fee
-- how customers pay after the haul
 
 **/legal/driver-agreement/**
 - driver agreement text, reviewed by California counsel, including contractor classification, consent to job texts, and sharing the driver’s first name and phone with the customer
@@ -183,20 +179,14 @@ Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, t
 - whether drivers drop usable items at donation centers on the same trip
 
 **/pricing/cost-to-move-a-refrigerator/**
-- whether the heavy-item fee applies per item or per trip
 - confirm drivers don’t disconnect or connect water lines
 - confirm drivers don't connect water lines or install appliances
 
 **/pricing/cost-to-move-a-washer-and-dryer/**
-- whether the heavy-item fee applies to each machine or once per trip
 - confirm drivers don't connect water, drain, gas or power
 
 **/pricing/fees/**
-- per item or per trip
 - how the dump fee is shown and charged: on the receipt after the trip, or estimated before booking
-- late-cancel fee amount
-- confirm whether the fee is per item or per trip
-- cancellation window and late-cancel fee
 
 **/pricing/truck-sizes/**
 - whether customers can request a long bed
@@ -217,18 +207,13 @@ Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, t
 **/services/appliance-delivery/refrigerator/**
 - whether drivers remove and reinstall refrigerator doors
 
-**/services/appliance-delivery/washer-and-dryer/**
-- whether the heavy-item fee applies to each machine or once per trip
-
 **/services/business-hauling/**
 - business accounts, invoicing and payment terms
 - whether recurring or scheduled runs are available
 - confirm pallet handling and weight limits
 
 **/services/furniture-delivery/**
-- whether drivers bring items inside, and how far
 - whether the customer must be present or authorize the pickup with the store
-- confirm whether drivers bring items inside and how far (for example, to the first room)
 
 **/services/furniture-delivery/marketplace-pickup/**
 - whether drivers can carry payment to the seller, or the buyer pays the seller directly
@@ -299,19 +284,14 @@ Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, t
 - how a second trip is priced
 
 **/trust/**
-- support hours
+- where customers start a chat, and the support text number if it isn’t the main phone number
 - reporting window and typical resolution time
 
 **/trust/cancellation-and-refunds/**
-- free-cancellation window
-- late-cancel fee
 - driver no-show policy
 - weather policy
 - policy when the driver arrives and the job can’t be done
-- refund timing and method
-- free-cancellation window and late-cancel fee
 - driver no-show policy and what the customer gets
-- refund timing
 
 **/trust/damage-claims/**
 - reporting deadline after drop-off

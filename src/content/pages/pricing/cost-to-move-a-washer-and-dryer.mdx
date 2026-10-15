@@ -3,7 +3,7 @@ description: "Moving a washer and dryer in Fresno with BoxHauls starts at {{pric
 checked: "October 2026"
 faq:
   - question: "How much does it cost to move a washer and dryer?"
-    answer: "With BoxHauls, the trip is {{BASE_FARE}} plus {{PER_MILE}} a mile, plus the {{HEAVY_FEE}} heavy-item fee: {{price:10:heavy}} for 10 miles with the fee applied once. [TODO: whether the heavy-item fee applies to each machine or once per trip]"
+    answer: "With BoxHauls, the trip is {{BASE_FARE}} plus {{PER_MILE}} a mile, plus the {{HEAVY_FEE}} heavy-item fee once per trip: {{price:10:heavy}} for both machines over 10 miles."
   - question: "Do I need shipping bolts to move a washer?"
     answer: "For a front-load washer, yes. Shipping bolts lock the drum so it can't bang around in transit. If you've lost them, replacement bolts for most models are sold online."
   - question: "Can a washer and dryer go on the same trip?"
@@ -14,7 +14,7 @@ faq:
     answer: "[TODO: confirm drivers don't connect water, drain, gas or power]"
 ---
 
-Moving a washer and dryer in <F k="METRO" /> with BoxHauls costs <Price mi={3} heavy /> for 3 miles and <Price mi={25} heavy /> for 25 miles with the <F k="HEAVY_FEE" /> heavy-item fee applied once. <Todo>whether the heavy-item fee applies to each machine or once per trip</Todo> Add <F k="HELPER_FEE" /> for a helper. Both machines ride on one trip.
+Moving a washer and dryer in <F k="METRO" /> with BoxHauls costs <Price mi={3} heavy /> for 3 miles and <Price mi={25} heavy /> for 25 miles with the <F k="HEAVY_FEE" /> heavy-item fee, which is charged once per trip, not per machine. Add <F k="HELPER_FEE" /> for a helper. Both machines ride on one trip.
 
 ## The formula
 
@@ -22,7 +22,7 @@ Moving a washer and dryer in <F k="METRO" /> with BoxHauls costs <Price mi={3} h
 
 ## What a washer and dryer move costs by distance
 
-With the heavy-item fee applied once:
+The heavy-item fee is charged once per trip, so this covers both machines:
 
 <PriceTable heavy />
 
@@ -42,7 +42,7 @@ Dimensions and weights are typical manufacturer ranges. Both machines fit side b
 
 - **Distance.** Every mile adds <F k="PER_MILE" />.
 - **A helper.** Adds <F k="HELPER_FEE" />.
-- **One machine or two.** <Todo>whether the heavy-item fee applies to each machine or once per trip</Todo>
+- **Not one machine or two.** The heavy-item fee is per trip, so moving both costs the same as moving one.
 - **Not the stairs.** There's no stairs fee.
 
 ## Helper guidance

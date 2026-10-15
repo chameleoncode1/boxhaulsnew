@@ -3,7 +3,7 @@ description: "Every BoxHauls fee: {{BASE_FARE}} base, {{PER_MILE}} a mile, {{HEA
 checked: "October 2026"
 faq:
   - question: "What is the heavy-item fee?"
-    answer: "It's {{HEAVY_FEE}}, and it applies to {{HEAVY_FEE_ITEMS}}. These items take more effort and equipment to load safely. [TODO: confirm whether the fee is per item or per trip]"
+    answer: "It's {{HEAVY_FEE}} per trip, and it applies when the trip includes {{HEAVY_FEE_ITEMS}}. It's charged once per trip, however many heavy items ride along."
   - question: "How much does a helper cost?"
     answer: "A helper adds {{HELPER_FEE}} to the trip. Helpers come with the driver, so one is only available when a driver bringing a second person accepts your job. BoxHauls doesn't guarantee a helper."
   - question: "Is there a fee for stairs?"
@@ -11,7 +11,7 @@ faq:
   - question: "Do I have to tip?"
     answer: "No. Tips are optional and go to your driver."
   - question: "Is there a cancellation fee?"
-    answer: "[TODO: cancellation window and late-cancel fee]"
+    answer: "Cancel within {{CANCEL_FREE_MINUTES}} minutes of requesting, before a driver accepts, and you get a full refund. After {{CANCEL_FREE_MINUTES}} minutes, or any time after a driver accepts (even inside the {{CANCEL_FREE_MINUTES}} minutes), the cancellation fee is {{CANCEL_FEE}} of the quoted price."
 ---
 
 BoxHauls has five possible line items. Every trip has the first two, and the other three apply only when they're triggered. Nothing else is added.
@@ -20,7 +20,7 @@ BoxHauls has five possible line items. Every trip has the first two, and the oth
 |---|---|---|
 | Base fare | Every trip | <F k="BASE_FARE" /> |
 | Per mile | Every trip, for the trip distance | <F k="PER_MILE" /> per mile |
-| Heavy-item fee | Hauling <F k="HEAVY_FEE_ITEMS" /> | <F k="HEAVY_FEE" /> <Todo>per item or per trip</Todo> |
+| Heavy-item fee | The trip includes <F k="HEAVY_FEE_ITEMS" /> | <F k="HEAVY_FEE" /> per trip, however many heavy items |
 | Helper | You request one and a driver with a helper accepts | <F k="HELPER_FEE" /> |
 | Dump fee | Dump runs: the landfill or transfer station's fee | At cost, no markup |
 
@@ -43,6 +43,6 @@ On a dump run, the driver pays the gate fee at the landfill or transfer station,
 
 ## Cancellations
 
-<Todo>late-cancel fee amount</Todo>. The windows and refund timing are on the [cancellation and refund policy](/trust/cancellation-and-refunds/) page.
+Cancel within <F k="CANCEL_FREE_MINUTES" /> minutes of requesting, before a driver accepts, and you get a full refund. After that, or once a driver accepts, the cancellation fee is <F k="CANCEL_FEE" /> of the quoted price. The details are on the [cancellation and refund policy](/trust/cancellation-and-refunds/) page.
 
 For the formula worked out by distance, go back to [BoxHauls pricing](/pricing/).

@@ -2,27 +2,28 @@
 description: "BoxHauls cancellation and refund policy: the free-cancellation window, late-cancel fee, driver no-shows, weather, and how fast refunds arrive."
 faq:
   - question: "Can I cancel a BoxHauls trip?"
-    answer: "Yes. [TODO: free-cancellation window and late-cancel fee]"
+    answer: "Yes. Cancel within {{CANCEL_FREE_MINUTES}} minutes of requesting, before a driver accepts, and you get a full refund. After {{CANCEL_FREE_MINUTES}} minutes, or any time after a driver accepts (even inside the {{CANCEL_FREE_MINUTES}} minutes), the cancellation fee is {{CANCEL_FEE}} of the quoted price."
   - question: "What if the driver doesn't show up?"
     answer: "[TODO: driver no-show policy and what the customer gets]"
   - question: "How long do refunds take?"
-    answer: "[TODO: refund timing]"
+    answer: "If you cancel for a full refund, the authorization on your card is released and you're never charged; how fast the hold disappears from your statement depends on your bank. If the cancellation fee applies, only that amount is charged."
 ---
 
-You can cancel a BoxHauls trip. <Todo>free-cancellation window</Todo>
+You can cancel a BoxHauls trip. Cancel within <F k="CANCEL_FREE_MINUTES" /> minutes of requesting, before a driver accepts, and you get a full refund. After <F k="CANCEL_FREE_MINUTES" /> minutes, or any time after a driver accepts, the cancellation fee is <F k="CANCEL_FEE" /> of the quoted price.
 
 ## The policy
 
 | Situation | What happens |
 |---|---|
-| You cancel within the free window | <Todo>free-cancellation window</Todo> |
-| You cancel after the free window | <Todo>late-cancel fee</Todo> |
+| You cancel within <F k="CANCEL_FREE_MINUTES" /> minutes of requesting, and no driver has accepted | Full refund |
+| You cancel after <F k="CANCEL_FREE_MINUTES" /> minutes | You're charged <F k="CANCEL_FEE" /> of the quoted price |
+| You cancel after a driver accepts, even within <F k="CANCEL_FREE_MINUTES" /> minutes | You're charged <F k="CANCEL_FEE" /> of the quoted price |
 | The driver doesn't show up | <Todo>driver no-show policy</Todo> |
 | Bad weather | <Todo>weather policy</Todo> |
 | The item isn't ready, or doesn't fit | <Todo>policy when the driver arrives and the job can't be done</Todo> |
 
 ## Refunds
 
-<Todo>refund timing and method</Todo>
+Your card is authorized when you request and charged only when the driver marks the trip complete. If you cancel for a full refund, the authorization is released, so nothing is charged; your bank decides how fast the hold disappears. If the cancellation fee applies, only <F k="CANCEL_FEE" /> of the quoted price is charged.
 
 Every fee BoxHauls can charge is listed on [every BoxHauls fee, explained](/pricing/fees/). For insurance and damage claims, go back to [trust and safety](/trust/).

@@ -117,7 +117,7 @@ Generated from the built site by `scripts/todo.mjs` on every build. Phase-1 page
 | /app/ | confirm the other in-app features: tracking, messaging, receipts, ratings; QR code linking to the app stores |
 | /cities/ | waitlist form for other cities |
 | /cities/fresno/ | hours; gate fees; street addresses for both sites; pickup-area location and loading notes for each store; current Operation Clean Up schedule and exclusions, and the Clovis program; this year’s move-in and move-out dates for each campus; the apartment corridors with the most move-ins and move-outs, written from local knowledge; real driver profiles with photos, once drivers agree to be featured; coverage map; which site drivers use for which loads; pickup-area notes for each store |
-| /contact/ | support hours; confirm in-app chat or messaging with support |
+| /contact/ | where customers start a chat, and the support text number if it isn’t the main phone number |
 | /drive/ | how jobs are offered to drivers in the app, and how long a driver has to accept; a real driver’s story, once a driver agrees to share it; minimum model year and any bed-length requirement |
 | /drive/apply/ | driver application form or app download link; truck and document verification step; onboarding or app walkthrough; typical approval timeline; typical approval timeline, including the background check; whether drivers pay for the background check |
 | /drive/earnings/ | realistic hourly ranges from real Fresno trip data; busiest days and hours from real trip data; current IRS standard mileage rate |
@@ -133,26 +133,25 @@ Generated from the built site by `scripts/todo.mjs` on every build. Phase-1 page
 | /guides/dump-fees-in-fresno/ | current gate fees at both sites, dated; address; hours; minimum fee; fee; accepted? fee?; “facts checked” date once fees are verified; which site takes which materials; Fresno-area household hazardous waste site and each site’s accepted-materials rules; current gate fees at American Avenue Disposal Site and CARTS, dated; each site's accepted-materials rules |
 | /guides/renting-a-truck-vs-hiring-a-truck-and-driver/ | current Fresno rental rates, dated and sourced; current per-mile rental charge, dated and sourced |
 | /guides/what-to-do-if-an-item-is-damaged/ | BoxHauls reporting deadline |
-| /guides/what-to-expect-from-a-boxhauls-driver/ | confirm in-app tracking during the trip; whether drivers bring items inside, and how far; confirm drivers don’t assemble furniture or connect appliances; confirm drivers don't assemble furniture or connect appliances |
+| /guides/what-to-expect-from-a-boxhauls-driver/ | confirm in-app tracking during the trip; confirm drivers don’t assemble furniture or connect appliances; confirm drivers don't assemble furniture or connect appliances |
 | /guides/will-it-fit-in-a-pickup-bed/ | heavy fee for mini fridges? |
-| /how-it-works/ | confirm in-app messaging and live tracking during the trip; free-cancellation window and late-cancel fee; how customers pay after the haul |
+| /how-it-works/ | confirm in-app messaging and live tracking during the trip |
 | /legal/driver-agreement/ | driver agreement text, reviewed by California counsel, including contractor classification, consent to job texts, and sharing the driver’s first name and phone with the customer |
 | /legal/privacy/ | privacy policy text, reviewed by California counsel, including CCPA/CPRA rights, booking data (name, phone, email and addresses, stored with Cloudflare; addresses looked up with Google Maps; shared with the assigned driver; texts sent through Twilio), and the analytics cookies used once GA4 is enabled |
 | /legal/terms/ | terms of service text, reviewed by California counsel |
 | /press/ | founding year; founder bio, one or two sentences |
 | /pricing/ | first-haul promo terms, or remove this section if there is no promotion |
 | /pricing/cost-of-a-dump-run/ | which site drivers use for which loads; hours; gate fee; confirm tires, electronics and appliances with refrigerant against the sites’ rules; current gate fees at American Avenue Disposal Site and Cedar Avenue Recycling and Transfer Station; confirm the full not-accepted list against the disposal sites' rules; whether drivers drop usable items at donation centers on the same trip |
-| /pricing/cost-to-move-a-refrigerator/ | whether the heavy-item fee applies per item or per trip; confirm drivers don’t disconnect or connect water lines; confirm drivers don't connect water lines or install appliances |
-| /pricing/cost-to-move-a-washer-and-dryer/ | whether the heavy-item fee applies to each machine or once per trip; confirm drivers don't connect water, drain, gas or power |
-| /pricing/fees/ | per item or per trip; how the dump fee is shown and charged: on the receipt after the trip, or estimated before booking; late-cancel fee amount; confirm whether the fee is per item or per trip; cancellation window and late-cancel fee |
+| /pricing/cost-to-move-a-refrigerator/ | confirm drivers don’t disconnect or connect water lines; confirm drivers don't connect water lines or install appliances |
+| /pricing/cost-to-move-a-washer-and-dryer/ | confirm drivers don't connect water, drain, gas or power |
+| /pricing/fees/ | how the dump fee is shown and charged: on the receipt after the trip, or estimated before booking |
 | /pricing/truck-sizes/ | whether customers can request a long bed |
 | /reviews/ | Google Business Profile review link |
 | /services/appliance-delivery/ | confirm drivers don’t connect or disconnect water, gas, drain or power lines; confirm drivers don't connect water, gas, drain or power |
 | /services/appliance-delivery/haul-away/ | confirm California requirements and where drivers take refrigerant appliances; recycling fees at the sites drivers use; current utility or city appliance recycling rebate programs in Fresno; confirm California requirements and where drivers take these units |
 | /services/appliance-delivery/refrigerator/ | whether drivers remove and reinstall refrigerator doors |
-| /services/appliance-delivery/washer-and-dryer/ | whether the heavy-item fee applies to each machine or once per trip |
 | /services/business-hauling/ | business accounts, invoicing and payment terms; whether recurring or scheduled runs are available; confirm pallet handling and weight limits |
-| /services/furniture-delivery/ | whether drivers bring items inside, and how far; whether the customer must be present or authorize the pickup with the store; confirm whether drivers bring items inside and how far (for example, to the first room) |
+| /services/furniture-delivery/ | whether the customer must be present or authorize the pickup with the store |
 | /services/furniture-delivery/marketplace-pickup/ | whether drivers can carry payment to the seller, or the buyer pays the seller directly; seller no-show policy and what the buyer is charged; whether the buyer must be present at pickup; what the driver will and won’t inspect at pickup; what the driver will and won't inspect at pickup |
 | /services/furniture-delivery/mattress-delivery/ | whether drivers bring mattress bags or the customer provides one |
 | /services/furniture-delivery/store-pickup/ | whether the customer must be present or authorize the pickup with the store; pickup-area location and notes for each store; confirm the store-pickup authorization process |
@@ -167,8 +166,8 @@ Generated from the built site by `scripts/todo.mjs` on every build. Phase-1 page
 | /services/small-moves/one-bedroom-move/ | how a second trip is priced and booked; whether two drivers can be booked for the same move; how a second trip is priced |
 | /services/small-moves/storage-unit-move/ | how multi-trip storage moves are priced and booked; whether the customer must be present or can share the gate code and unit access |
 | /services/small-moves/studio-apartment-move/ | how a second trip is priced and booked; how a second trip is priced |
-| /trust/ | support hours; reporting window and typical resolution time |
-| /trust/cancellation-and-refunds/ | free-cancellation window; late-cancel fee; driver no-show policy; weather policy; policy when the driver arrives and the job can’t be done; refund timing and method; free-cancellation window and late-cancel fee; driver no-show policy and what the customer gets; refund timing |
+| /trust/ | where customers start a chat, and the support text number if it isn’t the main phone number; reporting window and typical resolution time |
+| /trust/cancellation-and-refunds/ | driver no-show policy; weather policy; policy when the driver arrives and the job can’t be done; driver no-show policy and what the customer gets |
 | /trust/damage-claims/ | reporting deadline after drop-off; who decides the claim and how long review takes; typical resolution window and how payment is made; deductible, if any |
 | /trust/driver-vetting/ | which records the check covers; provider for the driving-record check; how trucks are inspected; minimum auto coverage drivers must carry; confirm the exact list of checks run; re-check cadence and the rating threshold drivers must keep; re-check cadence; rating threshold for staying active |
 | /trust/insurance/ | confirm when coverage starts and ends; cargo coverage limit from the policy; liability coverage limit from the policy; policy exclusions, e.g. items packed by the customer, pre-existing damage, cash, jewelry, documents; how to declare high-value items before booking and whether extra coverage can be added; how to declare high-value items and whether added coverage is available |

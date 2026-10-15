@@ -7,14 +7,14 @@ steps:
     text: "Pick the job type ({{TIER_1}}, {{TIER_2}} or {{TIER_3}}) and tell us what's going, so the driver knows what to bring."
   - name: "See the price before you book"
     text: "The price is {{BASE_FARE}} plus {{PER_MILE}} a mile, plus {{HEAVY_FEE}} for heavy items and {{HELPER_FEE}} if you request a helper. You see the total before you confirm."
-  - name: "Book"
-    text: "Choose as soon as possible or a date and two-hour window, add your contact details, and send the request. No payment is taken online. BoxHauls contacts you to confirm. [TODO: how customers pay after the haul]"
+  - name: "Accept the price"
+    text: "Choose as soon as possible or a date and two-hour window, review the total and its breakdown, and accept it. Your card is authorized, not charged, and drivers are texted the job."
   - name: "A local driver accepts"
     text: "A screened driver with a pickup truck accepts the job. If you asked for a helper, only a driver bringing one can accept it."
   - name: "Load, haul, unload"
     text: "The driver loads and secures your items, drives them to the drop-off address and unloads them."
   - name: "Pay and tip"
-    text: "You pay the price you were shown. Tips are optional and go to your driver."
+    text: "Your card is charged the price you accepted when the driver marks the trip complete. Tips are optional and go to your driver."
 ---
 
 A BoxHauls trip takes seven steps, and the price is fixed at step three, before you book. You enter two addresses and say what's moving. You see a price built from one formula, and a local driver with a pickup does the hauling.
@@ -45,6 +45,6 @@ Drivers use their own pickup trucks and are screened by <F k="BACKGROUND_PROVIDE
 
 ## Changing or canceling
 
-<Todo>free-cancellation window and late-cancel fee</Todo>. The full policy is on the cancellation and refunds page.
+Cancel within <F k="CANCEL_FREE_MINUTES" /> minutes of requesting, before a driver accepts, for a full refund. After that, or once a driver accepts, the cancellation fee is <F k="CANCEL_FEE" /> of the quoted price.
 
 More questions? See the [BoxHauls FAQ](/faq/).
