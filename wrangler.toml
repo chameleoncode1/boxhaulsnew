@@ -11,8 +11,8 @@ pages_build_output_dir = "dist"
 compatibility_date = "2026-09-01"
 
 [vars]
-# Base URL for driver accept links in texts. Switch to https://boxhauls.com at cutover (docs/LAUNCH.md).
-PUBLIC_SITE_URL = "https://boxhaulsnew.pages.dev"
+# Base URL for driver accept links, customer manage-trip links and Stripe return URLs.
+PUBLIC_SITE_URL = "https://boxhauls.com"
 # Booking alerts. Email sends only when CF_EMAIL_API_TOKEN is set and boxhauls.com is onboarded to Email Sending.
 CF_ACCOUNT_ID = "1f24e7762766194f324ea652e0ed4e98"
 BOOKING_ALERT_TO = "support@boxhauls.com"

@@ -9,7 +9,7 @@ workers_dev = false
 crons = ["*/5 * * * *"]
 
 [vars]
-PUBLIC_SITE_URL = "https://boxhaulsnew.pages.dev"
+PUBLIC_SITE_URL = "https://boxhauls.com"
 
 [[d1_databases]]
 binding = "DB"
