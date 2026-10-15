@@ -4,7 +4,7 @@
  *  - pages: network-first, falling back to the cached copy, then to a small offline notice
  *  - /api/*, Stripe, anything cross-origin or non-GET: never cached (prices and bookings must be live)
  */
-const VERSION = 'bh-v1';
+const VERSION = 'bh-v2';
 const STATIC = `${VERSION}-static`;
 const PAGES = `${VERSION}-pages`;
 const PRECACHE = ['/', '/book/', '/pricing/', '/manifest.webmanifest', '/brand/icon-192.png', '/brand/wordmark.png'];

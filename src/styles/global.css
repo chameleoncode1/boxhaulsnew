@@ -157,6 +157,35 @@
     background: color-mix(in srgb, var(--color-night) 65%, transparent);
   }
 
+  .install-help .step-dot {
+    display: flex;
+    height: 1.75rem;
+    width: 1.75rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    background: var(--color-brand);
+    color: var(--color-inverse);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 800;
+    font-size: var(--text-sm);
+  }
+  .install-spinner {
+    height: 1.25rem;
+    width: 1.25rem;
+    border-radius: var(--radius-full);
+    border: 3px solid var(--color-border);
+    border-top-color: var(--color-brand);
+    animation: bh-spin 0.8s linear infinite;
+  }
+  @keyframes bh-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
   /* FAQ accordion */
   .faq-item summary {
     list-style: none;
