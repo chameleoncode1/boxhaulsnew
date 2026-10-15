@@ -4,7 +4,7 @@
  *  - app shell: network-first, cached copy when offline
  *  - /api/* and anything cross-origin or non-GET: never cached (jobs, money and location must be live)
  */
-const VERSION = 'bhd-v1';
+const VERSION = 'bhd-v2';
 const STATIC = `${VERSION}-static`;
 const SHELL = `${VERSION}-shell`;
 const scope = new URL(self.registration.scope);

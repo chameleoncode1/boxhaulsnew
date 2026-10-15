@@ -137,6 +137,9 @@ console.log('brand: wrote', OUT);
   const fit = (size) => sharp(driverBadge).resize(size, size, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } }).png();
   await (await fit(192)).toFile(`${OUT}/driver-icon-192.png`);
   await (await fit(512)).toFile(`${OUT}/driver-icon-512.png`);
+  // Browser-tab icons for the driver app (the customer site keeps the BH monogram).
+  await (await fit(32)).toFile(`${OUT}/driver-favicon-32.png`);
+  await (await fit(48)).toFile(`${OUT}/driver-favicon-48.png`);
   async function driverSolid(name, size, scale) {
     const inner = await fit(Math.round(size * scale)).toBuffer();
     await sharp({ create: { width: size, height: size, channels: 4, background: night } }).composite([{ input: inner, gravity: 'center' }]).png().toFile(`${OUT}/${name}.png`);
