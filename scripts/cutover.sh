@@ -13,7 +13,15 @@ API=https://api.cloudflare.com/client/v4
 T=$(grep -E '^oauth_token' "$HOME/Library/Preferences/.wrangler/config/default.toml" | sed 's/.*= *"\(.*\)"/\1/')
 [ -n "$T" ] || { echo "Run: npx wrangler login"; exit 1; }
 cf() { curl -s -H "Authorization: Bearer $T" -H "Content-Type: application/json" "$@"; }
-ok() { python3 -c "import json,sys;d=json.load(sys.stdin);print('  ok' if d.get('success') else '  FAILED: '+json.dumps(d.get('errors')))"; }
+# Some calls (e.g. DELETE) succeed with an empty body; treat that as ok. Never aborts the script.
+ok() { python3 -c "
+import json,sys
+s=sys.stdin.read().strip()
+if not s: print('  ok'); sys.exit()
+try: d=json.loads(s)
+except Exception: print('  unexpected reply: '+s[:200]); sys.exit()
+print('  ok' if d.get('success') else '  FAILED: '+json.dumps(d.get('errors')))
+"; }
 
 if [ "${1:-}" = "rollback" ]; then
   echo "Removing domains from Pages project boxhaulsnew…"

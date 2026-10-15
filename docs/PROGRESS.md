@@ -12,6 +12,22 @@
 | Type check | 0 errors, 0 warnings. Now part of `npm run qa`. A truncated earlier check had hidden 4 Prompt-4 type errors; they're fixed. |
 | Lighthouse (mobile) | Every budget passes. Content pages: LCP about 1.8 s. Home and /book/: about 2.4 s (React island). TBT 0 ms, accessibility 1.00, SEO 1.00 (except /book/, which is noindex by design). CLS is at most 0.09 on /cities/fresno/. |
 
+## boxhauls.com cutover (2026-10-15)
+
+- boxhauls.com now serves the new site, from the Pages project `boxhaulsnew`. The old `boxhauls` Worker is still deployed but has no domain attached. `api.boxhauls.com` (the `boxhauls-api` Worker) was not touched. `bash scripts/cutover.sh rollback` reattaches the old site.
+- www.boxhauls.com and boxhaulsnew.pages.dev redirect (301) to the same path on boxhauls.com. `/api/*` is exempt, so Stripe webhooks and links in already-sent texts keep working.
+- `PUBLIC_SITE_URL` is `https://boxhauls.com` for the Pages project and the dispatch cron.
+- Checked live:
+  - The home page renders with a self-referencing canonical, no noindex, and the sitemap is in robots.txt.
+  - The service worker is active and the manifest returns 200.
+  - Address search works.
+  - www and pages.dev redirect correctly.
+  - POSTs to `/api/stripe-webhook` on pages.dev aren't redirected.
+- Still open:
+  - The production Stripe and Twilio secrets aren't set (only the Google, quote and email secrets are), so online payment and texts don't work on the live site yet. Run `bash scripts/setup-secrets.sh` when ready.
+  - Point the Stripe webhook at `https://boxhauls.com/api/stripe-webhook`.
+  - Search Console, Bulk Redirects for truck-n-go.com, and Google Business Profile: see `docs/LAUNCH.md` sections 3–6.
+
 ## Design pass, mobile layout and installable app (2026-10-15)
 
 - **Installable app (PWA):** web app manifest (`/manifest.webmanifest`, opens at `/book/`), a service worker (`public/sw.js`: page requests try the network first, `/api/` is never cached, plus an offline notice), and maskable icons. Every "Download app now" button is a link to `/app/`. With JavaScript it shows the browser's install prompt on Android, Chrome and Edge, or Add to Home Screen steps on iPhone and iPad. Once the app is installed, the button says it's already installed. App Store and Google Play badges show only when their URLs are set; the TODO markers for them now appear on `/app/` only.

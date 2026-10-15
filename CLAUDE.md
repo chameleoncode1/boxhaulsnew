@@ -39,7 +39,7 @@ You are building boxhauls.com, the marketing site for BoxHauls: an on-demand mar
 - `npm run qa -- --structural` — the same gate, failing only on structure (use while copy is still being written); `--no-build` reuses `dist/`.
 - `npm run lighthouse` — Lighthouse CI mobile budgets (LCP < 2.5 s, CLS < 0.1, TBT < 200 ms) on one page per template.
 - `npm run brand` — regenerate `public/brand/` from `assets/brand-src/`.
-- `npm run deploy` — runs the QA gate, then deploys `dist/` to the Cloudflare Pages project `boxhaulsnew` (preview: https://boxhaulsnew.pages.dev, noindex). boxhauls.com is not attached yet; see `docs/LAUNCH.md`.
+- `npm run deploy` — runs the QA gate, then deploys `dist/` to the Cloudflare Pages project `boxhaulsnew` which serves **boxhauls.com** (live since 2026-10-15). www.boxhauls.com and boxhaulsnew.pages.dev 301 to boxhauls.com (`functions/_middleware.ts`, except `/api/*`); per-deployment `<hash>.boxhaulsnew.pages.dev` previews stay reachable and noindex. Rollback to the old `boxhauls` Worker: `bash scripts/cutover.sh rollback`.
 - `npm run build` also writes the Cloudflare files (`dist/_redirects`, `dist/_headers`, `deploy/cloudflare/bulk-redirects.csv`) and `docs/TODO.md`.
 
 ## Workflow
