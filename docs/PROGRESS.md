@@ -12,7 +12,14 @@
 | Type check | 0 errors, 0 warnings. Now part of `npm run qa`. A truncated earlier check had hidden 4 Prompt-4 type errors; they're fixed. |
 | Lighthouse (mobile) | Every budget passes. Content pages: LCP about 1.8 s. Home and /book/: about 2.4 s (React island). TBT 0 ms, accessibility 1.00, SEO 1.00 (except /book/, which is noindex by design). CLS is at most 0.09 on /cities/fresno/. |
 
-## Accounts, tipping and BoxHauls Driver (2026-10-15, built and tested locally; not deployed yet)
+## Footer, FAQ and driver earnings copy (2026-10-15, deployed)
+
+- The footer now has columns: Services · Company · Customer Service (Contact Us, FAQ, phone, email). The business block shows "BoxHauls, LLC" and "Clovis, CA 93619" with no street address. There are 13 page links, an owner-approved exception to the map's 12.
+- `/faq/` is linked from the footer and adds accounts, tipping, the app, deleting an account, customer service and becoming a driver.
+- The /drive/ pages show earnings as dollar amounts (`{{earn:N}}`, `<Earn>`), never the share percentage or the customer fare. QA now fails if the percentage appears on any page.
+- driver.boxhauls.com is attached to the Pages project, and the DNS CNAME is pending (needs the dashboard).
+
+## Accounts, tipping and BoxHauls Driver (2026-10-15, deployed; migration 0006 applied to the live D1)
 
 - **BoxHauls Driver** (driver.boxhauls.com), an installable app separate from the customer app:
   - Sign up and sign in.
