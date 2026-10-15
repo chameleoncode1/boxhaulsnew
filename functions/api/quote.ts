@@ -1,5 +1,5 @@
 /**
- * POST /api/quote — the real price for a trip. Body: { pickupPlaceId, dropoffPlaceId, sessionToken, item, tier, helper }.
+ * POST /api/quote — the real price for a trip. Body: { pickupPlaceId, dropoffPlaceId, sessionToken, item, tier }.
  * Looks up both places, checks the service area, gets driving miles, prices it from docs/placeholders.json,
  * and returns a signed quote that /api/book will accept for 30 minutes.
  */
@@ -34,15 +34,13 @@ export const onRequestPost: PagesFunction<Env> = ({ request, env }) =>
     if (item.slug === 'dump-run' && !dump) throw new HttpError(400, 'bad_dump', "Choose what's in the load and how much there is.");
 
     const miles = Math.round((await drivingMiles(env, pickup, dropoff)) * 10) / 10;
-    const helper = body.helper === true;
-    const total = tripPrice(miles, { heavy: item.heavy, helper });
+    const total = tripPrice(miles, { heavy: item.heavy });
     const payload: QuotePayload = {
       pickup,
       dropoff,
       miles,
       item: item.slug,
       tier: tier.key,
-      helper,
       heavy: item.heavy,
       totalCents: Math.round(total * 100),
       ...(dump ? { dumpMaterial: dump.material, dumpLoad: dump.load, dumpHoldCents: dump.holdCents } : {}),
@@ -58,7 +56,6 @@ export const onRequestPost: PagesFunction<Env> = ({ request, env }) =>
         { label: 'Base fare', cents: Math.round((money('BASE_FARE') ?? 0) * 100) },
         { label: `${miles} miles × $${perMile.toFixed(2)}`, cents: Math.round(perMile * miles * 100) },
         ...(item.heavy ? [{ label: 'Heavy-item fee', cents: Math.round((money('HEAVY_FEE') ?? 0) * 100) }] : []),
-        ...(helper ? [{ label: 'Helper (when available)', cents: Math.round((money('HELPER_FEE') ?? 0) * 100) }] : []),
       ],
       totalCents: payload.totalCents,
       dump: dump ? { holdCents: dump.holdCents, maxLb: dump.maxLb, sites: dump.sites } : null,

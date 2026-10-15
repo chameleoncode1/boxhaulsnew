@@ -83,7 +83,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Formula stated in one sentence ({{BASE_FARE}} + {{PER_MILE}}/mi + item/helper fees); tier table with bed length, payload, what fits; every fee listed (heavy item {{HEAVY_FEE}}, helper {{HELPER_FEE}}, stairs, wait time); worked examples at 3 / 10 / 25 miles; first-haul promo terms; link grid to every item-cost page; FAQ (6\u20138).",
+      "content_blocks": "Formula stated in one sentence ({{BASE_FARE}} + {{PER_MILE}}/mi + item fees); tier table with bed length, payload, what fits; every fee listed (heavy item {{HEAVY_FEE}}, stairs, wait time); worked examples at 3 / 10 / 25 miles; first-haul promo terms; link grid to every item-cost page; FAQ (6\u20138).",
       "cluster": "core",
       "page_type": "hub",
       "phase": 1,
@@ -120,7 +120,6 @@
       "primary_query": "boxhauls fees",
       "secondary_queries": [
         "heavy item fee",
-        "helper fee truck delivery",
         "cancellation fee truck delivery"
       ],
       "links_to": [
@@ -436,7 +435,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Length 72\u201396 in, 100\u2013200 lb, one helper recommended, {{TIER_2}}; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: migrate.",
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Length 72\u201396 in, 100\u2013200 lb, {{TIER_2}}; what to prep; 4\u20136 FAQs; book CTA. Status: migrate.",
       "cluster": "pricing",
       "page_type": "spoke",
       "phase": 1,
@@ -462,7 +461,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: 2\u20135 pieces, 250\u2013450 lb total, helper required, {{TIER_2}}/{{TIER_3}}; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: 2\u20135 pieces, 250\u2013450 lb total, {{TIER_2}}/{{TIER_3}}; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
       "cluster": "pricing",
       "page_type": "spoke",
       "phase": 2,
@@ -488,7 +487,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Twin\u2013king dimensions table, 50\u2013150 lb, bag recommended, {{TIER_1}}/{{TIER_2}}; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: migrate.",
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Twin\u2013king dimensions table, 50\u2013150 lb, bag recommended, {{TIER_1}}/{{TIER_2}}; what to prep; 4\u20136 FAQs; book CTA. Status: migrate.",
       "cluster": "pricing",
       "page_type": "spoke",
       "phase": 1,
@@ -514,7 +513,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Disassembly notes, headboard sizes, {{TIER_2}}; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Disassembly notes, headboard sizes, {{TIER_2}}; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
       "cluster": "pricing",
       "page_type": "spoke",
       "phase": 2,
@@ -539,7 +538,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Drawers out or taped, 100\u2013250 lb, helper for stairs; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Drawers out or taped, 100\u2013250 lb; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
       "cluster": "pricing",
       "page_type": "spoke",
       "phase": 2,
@@ -564,7 +563,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Leg removal, glass tops, chairs count, {{TIER_2}}; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Leg removal, glass tops, chairs count, {{TIER_2}}; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
       "cluster": "pricing",
       "page_type": "spoke",
       "phase": 2,
@@ -590,7 +589,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: L-desks, standing desks, disassembly; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: L-desks, standing desks, disassembly; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
       "cluster": "pricing",
       "page_type": "spoke",
       "phase": 2,
@@ -616,7 +615,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Upright transport only, 200\u2013350 lb, two-person, defrost 24h, {{TIER_2}}/{{TIER_3}}; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: migrate.",
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Upright transport only, 200\u2013350 lb, two-person, defrost 24h, {{TIER_2}}/{{TIER_3}}; what to prep; 4\u20136 FAQs; book CTA. Status: migrate.",
       "cluster": "pricing",
       "page_type": "spoke",
       "phase": 1,
@@ -641,7 +640,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Shipping bolts, 150\u2013250 lb each, two-person; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: migrate.",
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Shipping bolts, 150\u2013250 lb each, two-person; what to prep; 4\u20136 FAQs; book CTA. Status: migrate.",
       "cluster": "pricing",
       "page_type": "spoke",
       "phase": 1,
@@ -666,7 +665,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Disconnect required, 75\u2013125 lb; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Disconnect required, 75\u2013125 lb; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
       "cluster": "pricing",
       "page_type": "spoke",
       "phase": 2,
@@ -692,7 +691,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Gas disconnect by licensed pro, 150\u2013250 lb; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Gas disconnect by licensed pro, 150\u2013250 lb; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
       "cluster": "pricing",
       "page_type": "spoke",
       "phase": 2,
@@ -718,7 +717,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Fold vs non-fold, 200\u2013350 lb, helper required; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Fold vs non-fold, 200\u2013350 lb; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
       "cluster": "pricing",
       "page_type": "spoke",
       "phase": 2,
@@ -744,7 +743,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Weight tiers 300/600/1000 lb, stair limits, {{TIER_3}} + helper; refer out above {{MAX_SAFE_WEIGHT}} lb; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Weight tiers 300/600/1000 lb, stair limits, {{TIER_3}}; refer out above {{MAX_SAFE_WEIGHT}} lb; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
       "cluster": "pricing",
       "page_type": "spoke",
       "phase": 2,
@@ -769,7 +768,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Honest limit page: uprights only if drivers can; grands referred to specialists. Sets entity boundary.; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Honest limit page: uprights only if drivers can; grands referred to specialists. Sets entity boundary.; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
       "cluster": "pricing",
       "page_type": "spoke",
       "phase": 2,
@@ -795,7 +794,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Removal/disposal yes, relocation only with {{TIER_3}} + 2 helpers; permit notes; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Removal/disposal yes, relocation not offered; permit notes; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
       "cluster": "pricing",
       "page_type": "spoke",
       "phase": 2,
@@ -821,7 +820,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Box or blanket, upright, {{TIER_1}}; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Box or blanket, upright, {{TIER_1}}; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
       "cluster": "pricing",
       "page_type": "spoke",
       "phase": 2,
@@ -847,7 +846,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Propane tank rules (tank rides separately), 100\u2013200 lb; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Propane tank rules (tank rides separately), 100\u2013200 lb; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
       "cluster": "pricing",
       "page_type": "spoke",
       "phase": 2,
@@ -872,7 +871,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Sets vs single pieces, stacking, weather; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Sets vs single pieces, stacking, weather; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
       "cluster": "pricing",
       "page_type": "spoke",
       "phase": 2,
@@ -898,7 +897,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Peloton/rower dimensions, screen protection; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Peloton/rower dimensions, screen protection; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
       "cluster": "pricing",
       "page_type": "spoke",
       "phase": 2,
@@ -924,7 +923,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Overhang rules, red flag, {{TIER_2}}; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Overhang rules, red flag, {{TIER_2}}; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
       "cluster": "pricing",
       "page_type": "spoke",
       "phase": 2,
@@ -949,7 +948,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Ramp + tie-downs, {{TIER_3}} only if driver equipped; else refer out; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Ramp + tie-downs, {{TIER_3}} only if driver equipped; else refer out; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
       "cluster": "pricing",
       "page_type": "spoke",
       "phase": 2,
@@ -975,7 +974,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: 4x8 sheets flat vs angled, overhang, {{TIER_2}}/{{TIER_3}}; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: 4x8 sheets flat vs angled, overhang, {{TIER_2}}/{{TIER_3}}; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
       "cluster": "pricing",
       "page_type": "spoke",
       "phase": 2,
@@ -1000,7 +999,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Business hub cross-link, liftgate not available, forklift-to-bed loading; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Business hub cross-link, liftgate not available, forklift-to-bed loading; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
       "cluster": "pricing",
       "page_type": "spoke",
       "phase": 2,
@@ -1026,7 +1025,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: One or two trips, helper, boxes count table; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: One or two trips, boxes count table; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
       "cluster": "pricing",
       "page_type": "spoke",
       "phase": 2,
@@ -1051,7 +1050,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Two trips typical, helper, when movers are cheaper; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Two trips typical, when movers are cheaper; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
       "cluster": "pricing",
       "page_type": "spoke",
       "phase": 2,
@@ -1076,7 +1075,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: 5x5 / 5x10 / 10x10 load estimates; helper guidance; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
+      "content_blocks": "Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: 5x5 / 5x10 / 10x10 load estimates; what to prep; 4\u20136 FAQs; book CTA. Status: new.",
       "cluster": "pricing",
       "page_type": "spoke",
       "phase": 2,
@@ -1748,7 +1747,7 @@
         "Offer",
         "FAQPage"
       ],
-      "content_blocks": "Per-trip vs hourly explained; what fits in one {{TIER_3}} load; helper add-on; multi-trip logic; what is not a small move; price examples; FAQs.",
+      "content_blocks": "Per-trip vs hourly explained; what fits in one {{TIER_3}} load; multi-trip logic; what is not a small move; price examples; FAQs.",
       "cluster": "services",
       "page_type": "hub",
       "phase": 1,
@@ -1771,7 +1770,7 @@
         "Service",
         "FAQPage"
       ],
-      "content_blocks": "1\u20132 trips, box counts, helper. Price example, FAQs.",
+      "content_blocks": "1\u20132 trips, box counts. Price example, FAQs.",
       "cluster": "services",
       "page_type": "spoke",
       "phase": 1,
@@ -2601,7 +2600,7 @@
         "BreadcrumbList",
         "FAQPage"
       ],
-      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, helpers, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
+      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
       "cluster": "compare",
       "page_type": "spoke",
       "phase": 2,
@@ -2625,7 +2624,7 @@
         "BreadcrumbList",
         "FAQPage"
       ],
-      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, helpers, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
+      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
       "cluster": "compare",
       "page_type": "spoke",
       "phase": 2,
@@ -2649,7 +2648,7 @@
         "BreadcrumbList",
         "FAQPage"
       ],
-      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, helpers, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
+      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
       "cluster": "compare",
       "page_type": "spoke",
       "phase": 2,
@@ -2673,7 +2672,7 @@
         "BreadcrumbList",
         "FAQPage"
       ],
-      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, helpers, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
+      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
       "cluster": "compare",
       "page_type": "spoke",
       "phase": 2,
@@ -2697,7 +2696,7 @@
         "BreadcrumbList",
         "FAQPage"
       ],
-      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, helpers, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
+      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
       "cluster": "compare",
       "page_type": "spoke",
       "phase": 2,
@@ -2721,7 +2720,7 @@
         "BreadcrumbList",
         "FAQPage"
       ],
-      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, helpers, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
+      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
       "cluster": "compare",
       "page_type": "spoke",
       "phase": 2,
@@ -2745,7 +2744,7 @@
         "BreadcrumbList",
         "FAQPage"
       ],
-      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, helpers, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
+      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
       "cluster": "compare",
       "page_type": "spoke",
       "phase": 2,
@@ -2769,7 +2768,7 @@
         "BreadcrumbList",
         "FAQPage"
       ],
-      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, helpers, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
+      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
       "cluster": "compare",
       "page_type": "spoke",
       "phase": 2,
@@ -2793,7 +2792,7 @@
         "BreadcrumbList",
         "FAQPage"
       ],
-      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, helpers, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
+      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
       "cluster": "compare",
       "page_type": "spoke",
       "phase": 2,
@@ -2817,7 +2816,7 @@
         "BreadcrumbList",
         "FAQPage"
       ],
-      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, helpers, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
+      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
       "cluster": "compare",
       "page_type": "spoke",
       "phase": 2,
@@ -2841,7 +2840,7 @@
         "BreadcrumbList",
         "FAQPage"
       ],
-      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, helpers, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
+      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
       "cluster": "compare",
       "page_type": "spoke",
       "phase": 2,
@@ -2865,7 +2864,7 @@
         "BreadcrumbList",
         "FAQPage"
       ],
-      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, helpers, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
+      "content_blocks": "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
       "cluster": "compare",
       "page_type": "spoke",
       "phase": 2,
@@ -3281,26 +3280,6 @@
       "cluster": "guides",
       "page_type": "spoke",
       "phase": 1,
-      "template": "guide"
-    },
-    {
-      "url": "/guides/when-you-need-a-second-helper/",
-      "h1": "When you need a second helper (stairs, doorways, weight)",
-      "primary_query": "do I need a helper to move a couch",
-      "secondary_queries": [],
-      "links_to": [
-        "/guides/",
-        "/pricing/fees/"
-      ],
-      "schema": [
-        "Article",
-        "Person",
-        "BreadcrumbList"
-      ],
-      "content_blocks": "Cluster: decision. Answer in sentence one; named author with bio; real photos; consistent dimension/weight/price tables; exactly one descriptive-anchor link into /pricing/fees/; 3 FAQs.",
-      "cluster": "guides",
-      "page_type": "spoke",
-      "phase": 2,
       "template": "guide"
     },
     {

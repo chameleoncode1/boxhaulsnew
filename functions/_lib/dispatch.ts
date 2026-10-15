@@ -1,6 +1,5 @@
 /**
- * Auto-dispatch. A new booking is offered by text to every active driver who qualifies (helper jobs only go to
- * drivers with a helper). Each driver gets their own accept link. The first driver to accept is assigned
+ * Auto-dispatch. A new booking is offered by text to every active driver whose payouts are set up. Each driver gets their own accept link. The first driver to accept is assigned
  * atomically; the customer is texted at each step. Unaccepted bookings expire (see workers/dispatch-cron).
  */
 import type { Env } from './env';
@@ -27,7 +26,6 @@ export interface BookingRow {
   miles: number;
   item: string;
   item_label?: string;
-  helper: number;
   price_cents: number;
   when_type: 'asap' | 'scheduled';
   scheduled_date: string | null;
@@ -41,7 +39,6 @@ export interface Driver {
   id: string;
   name: string;
   phone: string;
-  has_helper: number;
 }
 
 /** When dispatch gives up: ASAP → N minutes; scheduled → LEAD hours before the window (at least N minutes from now). */
@@ -72,9 +69,9 @@ export function newToken(): string {
   return btoa(String.fromCharCode(...bytes)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
 
-export async function eligibleDrivers(env: Env, helper: boolean): Promise<Driver[]> {
+export async function eligibleDrivers(env: Env): Promise<Driver[]> {
   // Only drivers Stripe can pay (payouts set up) get offers.
-  const sql = `SELECT id, name, phone, has_helper FROM drivers WHERE active = 1 AND payouts_ready = 1${helper ? ' AND has_helper = 1' : ''}`;
+  const sql = 'SELECT id, name, phone FROM drivers WHERE active = 1 AND payouts_ready = 1';
   return (await env.DB.prepare(sql).all<Driver>()).results;
 }
 
@@ -94,7 +91,7 @@ export async function dispatchBooking(env: Env, b: BookingRow, drivers: Driver[]
       const ok = await sendSms(
         env,
         d.phone,
-        `BoxHauls job ${b.id}: ${job}. You earn ${usd(payoutCents(b.price_cents))}.${b.helper ? ' Helper job: bring your helper.' : ''} First to accept gets it: ${base}/drive/accept/?t=${token}`,
+        `BoxHauls job ${b.id}: ${job}. You earn ${usd(payoutCents(b.price_cents))}. First to accept gets it: ${base}/drive/accept/?t=${token}`,
       );
       await env.DB.prepare('UPDATE offers SET sms_status = ? WHERE booking_id = ? AND driver_id = ?').bind(ok ? 'sent' : 'failed', b.id, d.id).run();
     }),
@@ -113,7 +110,7 @@ export async function notifyAssigned(env: Env, b: BookingRow, d: Driver): Promis
   await sendSms(
     env,
     d.phone,
-    `BoxHauls ${b.id} is yours. ${whenText(b)}. Pickup: ${b.pickup_address}. Drop-off: ${b.dropoff_address}. Item: ${b.item_label ?? b.item}${b.helper ? ' (helper requested)' : ''}. Customer: ${b.name}, ${b.phone}.${b.notes ? ` Notes: ${b.notes}` : ''} Customer price ${usd(b.price_cents)}, you earn ${usd(payoutCents(b.price_cents))}.`,
+    `BoxHauls ${b.id} is yours. ${whenText(b)}. Pickup: ${b.pickup_address}. Drop-off: ${b.dropoff_address}. Item: ${b.item_label ?? b.item}. Customer: ${b.name}, ${b.phone}.${b.notes ? ` Notes: ${b.notes}` : ''} Customer price ${usd(b.price_cents)}, you earn ${usd(payoutCents(b.price_cents))}.`,
   );
   await sendSms(
     env,

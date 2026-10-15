@@ -56,7 +56,7 @@ The booking widget (`/` and `/book/`) and the driver job page (`/drive/accept/`)
 
 ### How dispatch works (no one needs to follow up)
 
-1. **The booking is saved.** Every **active** driver gets a text with their own accept link. Helper-requested jobs only go to drivers marked `--helper`. The text shows the item, the cities, miles, time and the driver's pay (`DRIVER_SHARE` of the fare), but no customer details.
+1. **The booking is saved.** Every **active** driver gets a text with their own accept link. The text shows the item, the cities, miles, time and the driver's pay (`DRIVER_SHARE` of the fare), but no customer details.
 2. **The customer is texted** that the request was received and drivers are being contacted.
 3. **The first driver to accept is assigned.** That driver gets the full addresses, customer name, phone and notes. The customer gets the driver's first name and phone number. Anyone who taps later sees "already accepted".
 4. **If nobody accepts by the deadline,** the booking becomes `unfilled` and the customer gets a text with the office number. The deadline is 30 minutes for ASAP (`DISPATCH_ASAP_MINUTES`); for scheduled trips it's 2 hours before the window starts (`DISPATCH_SCHEDULED_LEAD_HOURS`).
@@ -97,14 +97,14 @@ It stores the Google key, generates `QUOTE_SECRET`, and stores the Twilio creden
 **5. Add your drivers.** Only add approved drivers who have agreed to receive job texts. Each new driver gets a **payout-setup link**: send it to them. They receive job offers only after Stripe can pay them.
 
 ```bash
-npm run drivers -- add "Maria Lopez" 559-555-0123 --helper
+npm run drivers -- add "Maria Lopez" 559-555-0123
 ```
 
 ```bash
 npm run drivers -- list
 ```
 
-Other commands: `payout-link DRV-ABCD` (a new setup link), `helper DRV-ABCD on|off`, `deactivate DRV-ABCD` and `activate DRV-ABCD`. `list` shows whether each driver's payouts are ready.
+Other commands: `payout-link DRV-ABCD` (a new setup link), `deactivate DRV-ABCD` and `activate DRV-ABCD`. `list` shows whether each driver's payouts are ready.
 
 **6. Deploy both pieces:**
 

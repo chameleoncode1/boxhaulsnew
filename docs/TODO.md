@@ -10,7 +10,7 @@ Fill these in `docs/placeholders.json`; every page that uses them updates on the
 - `SOCIAL.app_store`: /app/
 - `SOCIAL.google_play`: /app/
 
-## Open facts by page (167 markers, 153 distinct questions)
+## Open facts by page (165 markers, 151 distinct questions)
 
 Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, then the copy is updated and the marker removed.
 
@@ -66,7 +66,6 @@ Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, t
 - how drivers go online and offline in the app
 - whether declining jobs affects a driver's standing
 - driver ratings and the threshold for staying active
-- whether a helper can drive the truck on a job
 - customer no-show policy for drivers and any wait compensation
 
 **/drive/fresno/**
@@ -98,7 +97,6 @@ Facts the copy needs that aren't in `docs/placeholders.json` yet. Answer them, t
 - minimum driver age
 - minimum coverage amounts
 - confirm minimum gear counts
-- whether helpers need their own background check
 - onboarding steps: truck inspection, document upload, app training
 - minimum coverage amounts drivers must carry
 
@@ -403,4 +401,4 @@ These `links_to` targets are Phase 2/3. The link is held back and appears automa
 | /trust/driver-vetting/ | 1 | 0 |
 | /trust/insurance/ | 1 | 0 |
 
-Phase 2–3: 127 pages, 535 blocks (not listed until Phase 1 passes QA).
+Phase 2–3: 126 pages, 533 blocks (not listed until Phase 1 passes QA).

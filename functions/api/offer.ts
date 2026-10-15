@@ -23,7 +23,6 @@ export const onRequestPost: PagesFunction<Env> = ({ request, env }) =>
       to: cityOf(row.dropoff_address),
       miles: row.miles,
       when: whenText(row),
-      helper: row.helper === 1,
       dumpRun: row.item === 'dump-run',
       dumpHoldCents: row.dump_hold_cents ?? 0,
       dumpMaterial: DUMP_MATERIALS.find((m) => m.key === row.dump_material)?.label ?? null,

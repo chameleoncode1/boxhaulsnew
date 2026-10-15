@@ -179,7 +179,6 @@ export default function BookingWidget({ source = 'home' }: { source?: string }) 
   const [dropoff, setDropoff] = useState<Picked | null>(null);
   const [itemSlug, setItemSlug] = useState('couch');
   const [tier, setTier] = useState<TierKey>('TIER_3');
-  const [helper, setHelper] = useState(false);
   const [dumpMaterial, setDumpMaterial] = useState(DUMP_MATERIALS[0]?.key ?? 'general');
   const [dumpLoad, setDumpLoad] = useState('half');
   const [quote, setQuote] = useState<Quote | null>(null);
@@ -224,14 +223,14 @@ export default function BookingWidget({ source = 'home' }: { source?: string }) 
     }
     let cancelled = false;
     setQuoteState('loading');
-    post<Quote>('/api/quote', { pickupPlaceId: pickup.placeId, dropoffPlaceId: dropoff.placeId, sessionToken: session, item: itemSlug, tier, helper, dumpMaterial, dumpLoad })
+    post<Quote>('/api/quote', { pickupPlaceId: pickup.placeId, dropoffPlaceId: dropoff.placeId, sessionToken: session, item: itemSlug, tier, dumpMaterial, dumpLoad })
       .then((q) => {
         if (cancelled) return;
         setQuote(q);
         setQuoteState('idle');
         if (!priceTracked.current) {
           priceTracked.current = true;
-          track('price_shown', { item: itemSlug, tier, helper, source, total: q.totalCents / 100, miles: q.miles });
+          track('price_shown', { item: itemSlug, tier, source, total: q.totalCents / 100, miles: q.miles });
         }
       })
       .catch((e: Error & Partial<ApiError>) => {
@@ -245,14 +244,14 @@ export default function BookingWidget({ source = 'home' }: { source?: string }) 
     return () => {
       cancelled = true;
     };
-  }, [pickup, dropoff, itemSlug, tier, helper, dumpMaterial, dumpLoad, session, source]);
+  }, [pickup, dropoff, itemSlug, tier, dumpMaterial, dumpLoad, session, source]);
 
   async function onSubmit(e: { preventDefault(): void }) {
     e.preventDefault();
     if (!quote || submitting || payment) return;
     setSubmitting(true);
     setSubmitError('');
-    track('booking_started', { item: itemSlug, tier, helper, source, total: quote.totalCents / 100 });
+    track('booking_started', { item: itemSlug, tier, source, total: quote.totalCents / 100 });
     try {
       const r = await post<PaymentSession>('/api/book', {
         quote: quote.quote,
@@ -280,7 +279,7 @@ export default function BookingWidget({ source = 'home' }: { source?: string }) 
   function onActivated(a: Activated) {
     if (!payment) return;
     setBooked({ ...a, customerToken: payment.customerToken, totalCents: payment.totalCents });
-    track('booking_completed', { item: itemSlug, tier, helper, source, total: payment.totalCents / 100, when: whenType });
+    track('booking_completed', { item: itemSlug, tier, source, total: payment.totalCents / 100, when: whenType });
   }
 
   const box = 'rounded-md border-t-4 border-brand bg-bg p-5 text-ink shadow-[0_24px_48px_-16px_var(--color-ink)] sm:p-6';
@@ -357,12 +356,6 @@ export default function BookingWidget({ source = 'home' }: { source?: string }) 
             ))}
           </div>
         </fieldset>
-        <label className="flex items-start gap-2 text-sm">
-          <input type="checkbox" checked={helper} onChange={(e) => setHelper(e.target.checked)} className="mt-1 accent-[var(--color-brand)]" />
-          <span>
-            <strong>Request a helper</strong> (+${(money('HELPER_FEE') ?? 0).toFixed(2)}). Helpers come with the driver, so one is available only when a driver bringing a helper accepts. Not guaranteed.
-          </span>
-        </label>
       </div>
 
       <div className="mt-5 border-t border-border pt-4" aria-live="polite">

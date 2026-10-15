@@ -17,7 +17,6 @@ export interface QuotePayload {
   miles: number;
   item: string;
   tier: string;
-  helper: boolean;
   heavy: boolean;
   totalCents: number;
   /** Dump runs only: material, load size, and the dump-fee part of the hold. */

@@ -1,7 +1,7 @@
 ---
 /**
  * Driver earnings table (driver pages only): the driver's share of each example fare, computed from
- * DRIVER_SHARE and the price formula. Tips are on top and not shown. The helper fee is part of the fare.
+ * DRIVER_SHARE and the price formula. Tips are on top and not shown.
  */
 import { lookup, isTodo } from '../../lib/placeholders';
 import { tripPrice, usd } from '../../lib/pricing';
@@ -10,7 +10,6 @@ interface Row {
   label: string;
   mi: number;
   heavy?: boolean;
-  helper?: boolean;
 }
 interface Props {
   rows?: Row[];
@@ -20,7 +19,6 @@ const {
     { label: 'Couch, 5 miles', mi: 5 },
     { label: 'Couch, 10 miles', mi: 10 },
     { label: 'Refrigerator, 10 miles', mi: 10, heavy: true },
-    { label: 'Refrigerator with your helper, 10 miles', mi: 10, heavy: true, helper: true },
     { label: 'Dump run, 20 miles (dump fee passed through)', mi: 20 },
   ],
 } = Astro.props;
@@ -39,7 +37,7 @@ const pct = typeof share === 'string' && !isTodo(share) ? Number(share.replace('
     <tbody>
       {
         rows.map((r) => {
-          const fare = tripPrice(r.mi, { heavy: r.heavy, helper: r.helper });
+          const fare = tripPrice(r.mi, { heavy: r.heavy });
           return (
             <tr>
               <th scope="row">{r.label}</th>
@@ -51,5 +49,5 @@ const pct = typeof share === 'string' && !isTodo(share) ? Number(share.replace('
       }
     </tbody>
   </table>
-  <p class="mt-2 text-sm text-muted">Before tips, which you keep in full. Your fuel and truck costs come out of your share. On helper jobs, you pay your helper from your share.</p>
+  <p class="mt-2 text-sm text-muted">Before tips, which you keep in full. Your fuel and truck costs come out of your share.</p>
 </div>

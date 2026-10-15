@@ -73,7 +73,7 @@ export async function activateBooking(env: Env, bookingId: string, salt: string,
     .run();
   if (res.meta.changes !== 1) return 'already';
 
-  const drivers = await eligibleDrivers(env, b.helper === 1);
+  const drivers = await eligibleDrivers(env);
   if (!drivers.length) {
     await releaseHold(env, b.payment_intent_id, 'abandoned');
     await env.DB.prepare(`UPDATE bookings SET status = 'unfilled' WHERE id = ?`).bind(b.id).run();

@@ -49,7 +49,7 @@ const Layout = layouts[page.template];
 // getEntry() warns for every page without copy yet, so look the entry up in the collection instead.
 const entry = (await getCollection('pages')).find((e) => e.id === (page.slug ?? 'index'));
 const Body = entry ? (await render(entry)).Content : undefined;
-// Frontmatter strings may use {{KEY}} placeholders and {{price:MILES[:heavy][:helper]}} tokens.
+// Frontmatter strings may use {{KEY}} placeholders and {{price:MILES[:heavy]}} tokens.
 const subst = (v: unknown): unknown =>
   typeof v === 'string' ? resolve(resolvePriceTokens(v)).text : Array.isArray(v) ? v.map(subst) : v && typeof v === 'object' ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, subst(x)])) : v;
 const content = (entry ? subst(entry.data) : {}) as PageContent;

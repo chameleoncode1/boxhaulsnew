@@ -31,8 +31,8 @@ const item = bookingItem(page);
   {Body && <Written Body={Body} content={content} />}
   {!Body && (<Block id="answer" label="1. Price range for Fresno in sentence one"><slot name="answer" /></Block>)}
   {!Body && (<Block id="formula" label="2. The formula, restated"><slot name="formula" /></Block>)}
-  {!Body && (<Block id="distance-table" label="3. Distance table: 3 / 10 / 25 mi, with and without helper"><slot name="distance-table" /></Block>)}
-  {!Body && (<Block id="item-attributes" label="4. Item attributes: L × W × H (in), weight range (lb), tier, helper, prep"><slot name="item-attributes" /></Block>)}
+  {!Body && (<Block id="distance-table" label="3. Distance table: 3 / 10 / 25 mi"><slot name="distance-table" /></Block>)}
+  {!Body && (<Block id="item-attributes" label="4. Item attributes: L × W × H (in), weight range (lb), tier, prep"><slot name="item-attributes" /></Block>)}
   {!Body && (<Block id="price-drivers" label="5. What moves the price up or down for this item"><slot name="price-drivers" /></Block>)}
   {!Body && (<Block id="faq" label="6. FAQ, 4–6 questions (mirrored in FAQPage schema)"><slot name="faq" /></Block>)}
   <section data-block="book-cta" class="mt-10">

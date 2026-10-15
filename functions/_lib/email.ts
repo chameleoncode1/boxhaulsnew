@@ -52,7 +52,6 @@ export interface BookingSummary {
   miles: number;
   item: string;
   tier: string;
-  helper: boolean;
   total: string;
   when: string;
   notes: string;
@@ -69,7 +68,6 @@ export async function sendBookingEmails(env: Env, b: BookingSummary): Promise<Al
     ['Distance', `${b.miles.toFixed(1)} miles`],
     ['Item', b.item],
     ['Job type', b.tier],
-    ['Helper requested', b.helper ? 'Yes (not guaranteed)' : 'No'],
     ['Quoted price', `${b.total} (plus dump fees at cost, if any)`],
     ['Customer', b.name],
     ['Phone', b.phone],

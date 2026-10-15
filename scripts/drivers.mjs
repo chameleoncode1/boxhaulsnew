@@ -1,8 +1,7 @@
 // Manage the drivers who receive dispatch texts. Runs against the live D1 database (add --local for local dev).
 //
 //   npm run drivers -- list
-//   npm run drivers -- add "Maria Lopez" 559-555-0123 [--helper]
-//   npm run drivers -- helper DRV-ABCD on|off
+//   npm run drivers -- add "Maria Lopez" 559-555-0123
 //   npm run drivers -- deactivate DRV-ABCD
 //   npm run drivers -- activate DRV-ABCD
 //   npm run drivers -- payout-link DRV-ABCD     (new payout-setup link; the old one stops working)
@@ -16,7 +15,6 @@ import { readFileSync } from 'node:fs';
 
 const args = process.argv.slice(2);
 const local = args.includes('--local');
-const helper = args.includes('--helper');
 const [cmd, a1, a2] = args.filter((a) => !a.startsWith('--'));
 
 function sql(command) {
@@ -40,9 +38,9 @@ const id = (v) => (/^DRV-[A-Z0-9]{4}$/.test(v ?? '') ? v : fail(`Driver id must 
 
 switch (cmd) {
   case 'list': {
-    const rows = sql('SELECT id, name, phone, has_helper, active, payouts_ready, created_at FROM drivers ORDER BY active DESC, name');
-    if (!rows.length) console.log('No drivers yet. Add one: npm run drivers -- add "Name" 559-555-0123 [--helper]');
-    for (const r of rows) console.log(`${r.id}  ${r.active ? 'active  ' : 'inactive'}  ${r.payouts_ready ? 'payouts ready' : 'payouts NOT set up'}  ${r.has_helper ? 'helper   ' : 'no helper'}  ${r.phone}  ${r.name}`);
+    const rows = sql('SELECT id, name, phone, active, payouts_ready, created_at FROM drivers ORDER BY active DESC, name');
+    if (!rows.length) console.log('No drivers yet. Add one: npm run drivers -- add "Name" 559-555-0123');
+    for (const r of rows) console.log(`${r.id}  ${r.active ? 'active  ' : 'inactive'}  ${r.payouts_ready ? 'payouts ready' : 'payouts NOT set up'}  ${r.phone}  ${r.name}`);
     break;
   }
   case 'add': {
@@ -54,16 +52,11 @@ switch (cmd) {
     const newId = `DRV-${Array.from({ length: 4 }, () => alphabet[randomInt(alphabet.length)]).join('')}`;
     const q = (s) => `'${s.replace(/'/g, "''")}'`;
     const pt = payoutToken();
-    sql(`INSERT INTO drivers (id, name, phone, has_helper, active, created_at, onboarding_token_hash) VALUES (${q(newId)}, ${q(name)}, ${q(`+1${digits}`)}, ${helper ? 1 : 0}, 1, ${q(new Date().toISOString())}, ${q(pt.hash)})`);
-    console.log(`Added ${newId}: ${name}, +1${digits}${helper ? ', with helper' : ''}`);
+    sql(`INSERT INTO drivers (id, name, phone, has_helper, active, created_at, onboarding_token_hash) VALUES (${q(newId)}, ${q(name)}, ${q(`+1${digits}`)}, 0, 1, ${q(new Date().toISOString())}, ${q(pt.hash)})`);
+    console.log(`Added ${newId}: ${name}, +1${digits}`);
     console.log(`Send them this payout-setup link (they get job texts once it's done):\n  ${pt.url}`);
     break;
   }
-  case 'helper':
-    if (!['on', 'off'].includes(a2)) fail('Usage: helper DRV-ABCD on|off');
-    sql(`UPDATE drivers SET has_helper = ${a2 === 'on' ? 1 : 0} WHERE id = '${id(a1)}'`);
-    console.log(`${a1}: helper ${a2}`);
-    break;
   case 'deactivate':
   case 'activate':
     sql(`UPDATE drivers SET active = ${cmd === 'activate' ? 1 : 0} WHERE id = '${id(a1)}'`);
@@ -76,5 +69,5 @@ switch (cmd) {
     break;
   }
   default:
-    fail('Usage: npm run drivers -- list | add "Name" 559-555-0123 [--helper] | payout-link DRV-ABCD | helper DRV-ABCD on|off | deactivate DRV-ABCD | activate DRV-ABCD   (add --local for local dev)');
+    fail('Usage: npm run drivers -- list | add "Name" 559-555-0123 | payout-link DRV-ABCD | deactivate DRV-ABCD | activate DRV-ABCD   (add --local for local dev)');
 }

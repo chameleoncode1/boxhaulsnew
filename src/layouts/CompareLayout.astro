@@ -38,7 +38,7 @@ const isIndex = page.url === '/compare/';
     ) : (
       <>
         {!Body && (<Block id="verdict" label="Short verdict (answers the primary query)"><slot name="verdict" /></Block>)}
-        {!Body && (<Block id="criteria" label="Criteria table: price model, minimum, Fresno coverage, insurance, vetting, scheduling, helpers, app"><slot name="criteria" /></Block>)}
+        {!Body && (<Block id="criteria" label="Criteria table: price model, minimum, Fresno coverage, insurance, vetting, scheduling, app"><slot name="criteria" /></Block>)}
         {!Body && (<Block id="where-each-wins" label="Where each wins (including where the competitor wins)"><slot name="where-each-wins" /></Block>)}
         {!Body && (<Block id="use-cases" label="Verdict by use case"><slot name="use-cases" /></Block>)}
         {!Body && (<Block id="sources" label="Sources, with dates"><slot name="sources" /></Block>)}

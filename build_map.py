@@ -38,7 +38,7 @@ P("/pricing/", "BoxHauls pricing: what a truck and driver costs",
   ["/pricing/truck-sizes/", "/pricing/fees/", "/pricing/cost-to-move-a-couch/", "/pricing/cost-of-a-dump-run/",
    "/pricing/truck-and-driver-hourly-vs-per-trip/", "/services/furniture-delivery/"],
   ORG + ["Service", "Offer", "FAQPage"],
-  "Formula stated in one sentence ({{BASE_FARE}} + {{PER_MILE}}/mi + item/helper fees); tier table with bed length, payload, what fits; every fee listed (heavy item {{HEAVY_FEE}}, helper {{HELPER_FEE}}, stairs, wait time); worked examples at 3 / 10 / 25 miles; first-haul promo terms; link grid to every item-cost page; FAQ (6–8).",
+  "Formula stated in one sentence ({{BASE_FARE}} + {{PER_MILE}}/mi + item fees); tier table with bed length, payload, what fits; every fee listed (heavy item {{HEAVY_FEE}}, stairs, wait time); worked examples at 3 / 10 / 25 miles; first-haul promo terms; link grid to every item-cost page; FAQ (6–8).",
   "core", "hub", 1, "core")
 
 P("/pricing/truck-sizes/", "Truck sizes: which BoxHauls tier fits your stuff",
@@ -50,7 +50,7 @@ P("/pricing/truck-sizes/", "Truck sizes: which BoxHauls tier fits your stuff",
   "core", "spoke", 1, "core")
 
 P("/pricing/fees/", "Every BoxHauls fee, explained", "boxhauls fees",
-  ["heavy item fee", "helper fee truck delivery", "cancellation fee truck delivery"],
+  ["heavy item fee", "cancellation fee truck delivery"],
   ["/pricing/", "/trust/cancellation-and-refunds/"], ORG + ["FAQPage"],
   "Table of every possible line item with trigger and amount; what is never charged (no surge, no fuel surcharge if true); how tips work; how dump fees are passed through.",
   "core", "spoke", 1, "core")
@@ -97,21 +97,21 @@ P("/cities/", "Where BoxHauls operates", "boxhauls service area", ["boxhauls cit
 
 # ------------------------------------------------------------- PRICING
 PRICING_ITEMS = [
-  ("couch", "cost to move a couch", ["couch delivery cost", "how much to move a sofa"], "migrate", "Length 72–96 in, 100–200 lb, one helper recommended, {{TIER_2}}"),
-  ("sectional", "cost to move a sectional sofa", ["sectional delivery cost", "how much to move a sectional"], "new", "2–5 pieces, 250–450 lb total, helper required, {{TIER_2}}/{{TIER_3}}"),
+  ("couch", "cost to move a couch", ["couch delivery cost", "how much to move a sofa"], "migrate", "Length 72–96 in, 100–200 lb, {{TIER_2}}"),
+  ("sectional", "cost to move a sectional sofa", ["sectional delivery cost", "how much to move a sectional"], "new", "2–5 pieces, 250–450 lb total, {{TIER_2}}/{{TIER_3}}"),
   ("mattress", "cost to move a mattress", ["mattress delivery cost", "how much to move a king mattress"], "migrate", "Twin–king dimensions table, 50–150 lb, bag recommended, {{TIER_1}}/{{TIER_2}}"),
   ("bed-frame", "cost to move a bed frame", ["bedroom set moving cost", "how much to move a bed"], "new", "Disassembly notes, headboard sizes, {{TIER_2}}"),
-  ("dresser", "cost to move a dresser", ["dresser delivery cost"], "new", "Drawers out or taped, 100–250 lb, helper for stairs"),
+  ("dresser", "cost to move a dresser", ["dresser delivery cost"], "new", "Drawers out or taped, 100–250 lb"),
   ("dining-table", "cost to move a dining table", ["dining table delivery cost"], "new", "Leg removal, glass tops, chairs count, {{TIER_2}}"),
   ("desk", "cost to move a desk", ["desk delivery cost", "office desk moving cost"], "new", "L-desks, standing desks, disassembly"),
   ("refrigerator", "cost to move a refrigerator", ["refrigerator delivery cost", "how much to move a fridge"], "migrate", "Upright transport only, 200–350 lb, two-person, defrost 24h, {{TIER_2}}/{{TIER_3}}"),
   ("washer-and-dryer", "cost to move a washer and dryer", ["washer dryer delivery cost"], "migrate", "Shipping bolts, 150–250 lb each, two-person"),
   ("dishwasher", "cost to move a dishwasher", ["dishwasher delivery cost"], "new", "Disconnect required, 75–125 lb"),
   ("stove", "cost to move a stove", ["range delivery cost", "how much to move an oven"], "new", "Gas disconnect by licensed pro, 150–250 lb"),
-  ("treadmill", "cost to move a treadmill", ["treadmill delivery cost", "how much to move gym equipment"], "new", "Fold vs non-fold, 200–350 lb, helper required"),
-  ("gun-safe", "cost to move a gun safe", ["safe moving cost", "how much to move a safe"], "new", "Weight tiers 300/600/1000 lb, stair limits, {{TIER_3}} + helper; refer out above {{MAX_SAFE_WEIGHT}} lb"),
+  ("treadmill", "cost to move a treadmill", ["treadmill delivery cost", "how much to move gym equipment"], "new", "Fold vs non-fold, 200–350 lb"),
+  ("gun-safe", "cost to move a gun safe", ["safe moving cost", "how much to move a safe"], "new", "Weight tiers 300/600/1000 lb, stair limits, {{TIER_3}}; refer out above {{MAX_SAFE_WEIGHT}} lb"),
   ("piano", "cost to move a piano", ["piano moving cost"], "new", "Honest limit page: uprights only if drivers can; grands referred to specialists. Sets entity boundary."),
-  ("hot-tub", "cost to move a hot tub", ["hot tub removal cost", "hot tub moving cost"], "new", "Removal/disposal yes, relocation only with {{TIER_3}} + 2 helpers; permit notes"),
+  ("hot-tub", "cost to move a hot tub", ["hot tub removal cost", "hot tub moving cost"], "new", "Removal/disposal yes, relocation not offered; permit notes"),
   ("tv", "cost to move a tv", ["tv delivery cost", "how much to deliver a 75 inch tv"], "new", "Box or blanket, upright, {{TIER_1}}"),
   ("grill", "cost to move a grill", ["grill delivery cost", "how much to deliver a bbq"], "new", "Propane tank rules (tank rides separately), 100–200 lb"),
   ("patio-furniture", "cost to deliver patio furniture", ["patio furniture delivery cost"], "new", "Sets vs single pieces, stacking, weather"),
@@ -120,8 +120,8 @@ PRICING_ITEMS = [
   ("motorcycle", "cost to haul a motorcycle", ["motorcycle transport local cost"], "new", "Ramp + tie-downs, {{TIER_3}} only if driver equipped; else refer out"),
   ("plywood-and-lumber", "cost to deliver plywood and lumber", ["lumber delivery cost", "home depot delivery cost lumber"], "new", "4x8 sheets flat vs angled, overhang, {{TIER_2}}/{{TIER_3}}"),
   ("pallet", "cost to deliver a pallet", ["pallet delivery cost local"], "new", "Business hub cross-link, liftgate not available, forklift-to-bed loading"),
-  ("studio-apartment", "cost to move a studio apartment", ["studio apartment moving cost", "small move cost"], "new", "One or two trips, helper, boxes count table"),
-  ("one-bedroom-apartment", "cost to move a one bedroom apartment", ["1 bedroom apartment moving cost"], "new", "Two trips typical, helper, when movers are cheaper"),
+  ("studio-apartment", "cost to move a studio apartment", ["studio apartment moving cost", "small move cost"], "new", "One or two trips, boxes count table"),
+  ("one-bedroom-apartment", "cost to move a one bedroom apartment", ["1 bedroom apartment moving cost"], "new", "Two trips typical, when movers are cheaper"),
   ("storage-unit", "cost to move a storage unit", ["storage unit moving cost"], "new", "5x5 / 5x10 / 10x10 load estimates"),
 ]
 for slug, q, sec, status, attrs in PRICING_ITEMS:
@@ -133,7 +133,7 @@ for slug, q, sec, status, attrs in PRICING_ITEMS:
     P(url, f"How much does it cost to {verb} {art} {name}?", q, sec,
       ["/pricing/", "/pricing/truck-sizes/", "/services/furniture-delivery/" if slug not in ("refrigerator","washer-and-dryer","dishwasher","stove") else "/services/appliance-delivery/"],
       ORG + ["Service", "Offer", "FAQPage"],
-      f"Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: {attrs}; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: {status}.",
+      f"Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: {attrs}; what to prep; 4–6 FAQs; book CTA. Status: {status}.",
       "pricing", "spoke", 1 if status == "migrate" else 2, "pricing")
 
 P("/pricing/cost-of-a-dump-run/", "How much does a dump run cost?", "how much does a dump run cost",
@@ -203,9 +203,9 @@ B = "/services/small-moves/"
 hub(B, "Small moves: studio, one-bedroom, dorm and storage moves by the trip", "small moving service " + MN,
     ["small movers near me", "one item movers", "cheap studio apartment movers"],
     [B+"studio-apartment-move/", B+"one-bedroom-move/", B+"dorm-move/", B+"storage-unit-move/", "/pricing/cost-to-move-a-studio-apartment/", "/compare/boxhauls-vs-hiring-movers/"],
-    "Per-trip vs hourly explained; what fits in one {{TIER_3}} load; helper add-on; multi-trip logic; what is not a small move; price examples; FAQs.")
+    "Per-trip vs hourly explained; what fits in one {{TIER_3}} load; multi-trip logic; what is not a small move; price examples; FAQs.")
 for s, h1, q, note, ph in [
-    ("studio-apartment-move", "Studio apartment move", "studio apartment movers", "1–2 trips, box counts, helper", 1),
+    ("studio-apartment-move", "Studio apartment move", "studio apartment movers", "1–2 trips, box counts", 1),
     ("one-bedroom-move", "One-bedroom apartment move", "one bedroom apartment movers", "2 trips typical, when to add a second truck", 1),
     ("dorm-move", "Dorm move-in and move-out", "dorm movers " + MN, "{{UNIVERSITY}} dates, parking rules, mini-fridge and futon", 1),
     ("storage-unit-move", "Storage unit moves", "storage unit movers", "Unit sizes to loads, gate codes, hours", 1),
@@ -292,7 +292,7 @@ for slug, name, q in [
 ]:
     P(f"/compare/boxhauls-vs-{slug}/", f"BoxHauls vs. {name}", q, [f"{name} alternative", f"{name} vs boxhauls"],
       ["/compare/", "/pricing/", "/trust/"], ORG + ["FAQPage"],
-      "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, helpers, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
+      "Side-by-side table on 8 criteria (price model, minimums, coverage, insurance, vetting, scheduling, app); where each wins; verdict by use-case; facts dated and sourced. Honest, including where the competitor wins.",
       "compare", "spoke", 2, "compare")
 
 # ------------------------------------------------------------- GUIDES
@@ -322,7 +322,6 @@ GUIDES = [
   ("how-to-disassemble-a-bed-frame", "How to disassemble a bed frame for moving", "how to take apart a bed frame", "/pricing/cost-to-move-a-bed-frame/", "howto", 3),
   # Decision
   ("renting-a-truck-vs-hiring-a-truck-and-driver", "Renting a truck vs. hiring a truck and driver: the real all-in cost", "is it cheaper to rent a truck or hire delivery", "/compare/boxhauls-vs-uhaul-truck-rental/", "decision", 1),
-  ("when-you-need-a-second-helper", "When you need a second helper (stairs, doorways, weight)", "do I need a helper to move a couch", "/pricing/fees/", "decision", 2),
   ("is-it-worth-hiring-delivery-for-one-item", "Is it worth hiring delivery for one item?", "cheapest way to move one piece of furniture", "/services/furniture-delivery/single-item-delivery/", "decision", 2),
   ("how-much-to-tip-a-truck-driver", "How much to tip a truck delivery driver", "how much to tip furniture delivery", "/how-it-works/", "decision", 2),
   ("movers-vs-truck-and-driver-for-a-studio", "Movers vs. a truck and driver for a studio apartment", "cheapest way to move a studio apartment", "/services/small-moves/studio-apartment-move/", "decision", 2),
@@ -560,8 +559,8 @@ Do not invent content for placeholders; render them as visible TODO markers unti
 |---|---|---|
 | Services | furniture & large-item delivery · small moves · appliance delivery & haul-away · junk removal & dump runs · business & jobsite hauling | /services/ hubs, Service schema |
 | Vehicle tiers | {{{{TIER_1}}}} (SUV / small bed) · {{{{TIER_2}}}} (standard half-ton, 5.5–6.5 ft bed) · {{{{TIER_3}}}} (3/4-ton, long bed, or trailer) | /pricing/truck-sizes/, tier picker, Offer schema |
-| Pricing model | {{{{BASE_FARE}}}} base + {{{{PER_MILE}}}}/mile + item and helper fees; no hourly; no surge | /pricing/, /pricing/fees/, Offer.priceSpecification |
-| Add-ons | helper ({{{{HELPER_FEE}}}}) · heavy item ({{{{HEAVY_FEE}}}}) · stairs · wait time · dump fee pass-through | /pricing/fees/ |
+| Pricing model | {{{{BASE_FARE}}}} base + {{{{PER_MILE}}}}/mile + heavy-item fee; no hourly; no surge | /pricing/, /pricing/fees/, Offer.priceSpecification |
+| Add-ons | heavy item ({{{{HEAVY_FEE}}}}) · stairs · wait time · dump fee pass-through | /pricing/fees/ |
 | Trust | cargo insurance ({{{{INSURANCE_CARRIER}}}}, {{{{COVERAGE_LIMIT}}}}) · background checks ({{{{BACKGROUND_PROVIDER}}}}) · vehicle inspection · damage-claim process · cancellation window | /trust/ cluster |
 | Coverage | {{{{METRO}}}} metro; service radius {{{{RADIUS}}}} miles | /cities/{{{{metro-slug}}}}/, LocalBusiness.areaServed |
 | Booking channels | iOS app · Android app · web | /app/, MobileApplication schema |
@@ -623,8 +622,8 @@ The strongest content on the current site is the four "cost to move a ___" pages
 
 1. First sentence: the price range for the launch metro ("Most couch moves in {{{{METRO}}}} cost $X–$Y.").
 2. The formula, restated.
-3. Distance table: 3 mi / 10 mi / 25 mi with and without helper.
-4. Item attributes table: dimensions, weight range, tier fit, helper required?, prep needed.
+3. Distance table: 3 mi / 10 mi / 25 mi.
+4. Item attributes table: dimensions, weight range, tier fit, prep needed.
 5. What drives the price up or down for this specific item.
 6. 4–6 FAQs, question-first.
 7. Book CTA with the item pre-selected.
@@ -645,7 +644,7 @@ Owns: store pickup, marketplace pickup, single-item / no-minimum, wrapping and p
 {page_table(pages_in("services", prefix="/services/furniture-delivery/"), cols=("url", "h1", "primary_query", "phase"))}
 
 ### 6.2 Hub B — Small Moves
-Owns: per-trip vs hourly, one-load capacity, helper add-on, multi-trip logic.
+Owns: per-trip vs hourly, one-load capacity, multi-trip logic.
 
 {page_table(pages_in("services", prefix="/services/small-moves/"), cols=("url", "h1", "primary_query", "phase"))}
 
@@ -678,7 +677,7 @@ A city page is created only when all of the following are true: (a) ≥ {{{{MIN_
 
 Someone searching a competitor's name next to yours is one step from booking. Each page is an honest side-by-side. Where the competitor wins, say so — that credibility is what makes the verdict believable.
 
-Criteria table on every page (same order): price model · minimum charge · coverage in {{{{METRO}}}} · cargo insurance · driver vetting · scheduling (on-demand vs window) · helpers · app quality. Facts are dated and sourced; refresh quarterly.
+Criteria table on every page (same order): price model · minimum charge · coverage in {{{{METRO}}}} · cargo insurance · driver vetting · scheduling (on-demand vs window) · app quality. Facts are dated and sourced; refresh quarterly.
 
 {page_table(pages_in("compare"), cols=("url", "h1", "primary_query", "phase"))}
 
@@ -700,7 +699,7 @@ Clusters: **fit** (dimension tables — the information-gain cluster nobody else
 2. **One page, one intent.** The primary query in this map is the only query the page is optimized for. Secondary queries are covered by sections, not by a second H1-style heading.
 3. **Attributes, not adjectives.** State bed length in inches, weight in pounds, price in dollars, time in minutes. "Spacious" is not an attribute.
 4. **Consistent tables.** Dimensions are always L × W × H in inches. Weight is always a range in lb. Prices are always for {{{{METRO}}}} unless labeled. Same column order on every page in a cluster.
-5. **Entity vocabulary.** Use "truck and driver," "haul," "trip," "tier," "helper," "pickup," "drop-off." Never "logistics," "solution," "on-demand ecosystem," "cargo," "freight," "buddy with a truck" (Truxx), "friend with a truck" (GoShare trademark), or "too big for my car" (existing company).
+5. **Entity vocabulary.** Use "truck and driver," "haul," "trip," "tier," "pickup," "drop-off." Never "logistics," "solution," "on-demand ecosystem," "cargo," "freight," "buddy with a truck" (Truxx), "friend with a truck" (GoShare trademark), or "too big for my car" (existing company).
 6. **Real media only.** Photos are real hauls, real drivers, real trucks in {{{{METRO}}}}, with descriptive alt text ("driver strapping a grey sectional into a half-ton bed in {{{{NEIGHBORHOOD}}}}"). No stock, no AI imagery, no build-tool screenshots.
 7. **FAQ format.** Question as an H3 in the user's words; answer in 2–4 sentences; first sentence is the answer. FAQPage schema mirrors the on-page text exactly.
 8. **Authorship.** Guides carry a named author with a one-line bio and a Person entity. Service and pricing pages are authored by "BoxHauls" with a "Reviewed by {{{{FOUNDER_NAME}}}}" line.
@@ -809,7 +808,7 @@ Publishing cadence in Phase 2: two guides per week, one compare page per week, r
 | `{{{{RADIUS}}}}` | Service radius in miles | 30 |
 | `{{{{TIER_1}}}}` `{{{{TIER_2}}}}` `{{{{TIER_3}}}}` | Tier names (current site: Box Run / standard pickup / heavy hauler — confirm) | Box Run / Half-Ton / Heavy Hauler |
 | `{{{{BASE_FARE}}}}` `{{{{PER_MILE}}}}` | Pricing formula constants | $39 / $2.10 |
-| `{{{{HEAVY_FEE}}}}` `{{{{HELPER_FEE}}}}` | Current site shows $29 / $28 — confirm | — |
+| `{{{{HEAVY_FEE}}}}` | Current site shows $29 — confirm | — |
 | `{{{{MAX_ITEM_WEIGHT}}}}` `{{{{MAX_SAFE_WEIGHT}}}}` | Hard limits for the "what we can't move" boundary | 400 lb / 600 lb |
 | `{{{{INSURANCE_CARRIER}}}}` `{{{{COVERAGE_LIMIT}}}}` | Publishable insurance facts | — |
 | `{{{{BACKGROUND_PROVIDER}}}}` | Vetting vendor | Checkr |

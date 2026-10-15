@@ -12,6 +12,18 @@
 | Type check | 0 errors, 0 warnings. Now part of `npm run qa`. A truncated earlier check had hidden 4 Prompt-4 type errors; they're fixed. |
 | Lighthouse (mobile) | Every budget passes. Content pages: LCP about 1.8 s. Home and /book/: about 2.4 s (React island). TBT 0 ms, accessibility 1.00, SEO 1.00 (except /book/, which is noindex by design). CLS is at most 0.09 on /cities/fresno/. |
 
+## Helpers removed (2026-10-15)
+
+- The helper option and the $17 helper fee are gone. They were removed from:
+  - prices and quotes
+  - the booking form
+  - driver texts, the job page and booking emails
+  - the driver admin script (`--helper` and the `helper` command)
+  - every content page, including the distance tables, which now show one price per distance
+  - `placeholders.json` (`HELPER_FEE`, `HELPER_POLICY`)
+  - `build_map.py`, plus the regenerated sitemap and topical map. The Phase-2 guide `/guides/when-you-need-a-second-helper/` was dropped.
+- Pages about two-person items now tell customers to have a second person ready to lift with the driver.
+
 ## boxhauls.com cutover (2026-10-15)
 
 - boxhauls.com now serves the new site, from the Pages project `boxhaulsnew`. The old `boxhauls` Worker is still deployed but has no domain attached. `api.boxhauls.com` (the `boxhauls-api` Worker) was not touched. `bash scripts/cutover.sh rollback` reattaches the old site.
@@ -107,7 +119,6 @@ Answering one question clears it on every page that asks it. The most-referenced
 
 17. The exact Checkr reports run, the driving-record check, the truck inspection, and re-check cadence.
 18. Minimum truck year, bed length, driver age, license class, and auto-insurance minimums.
-19. Do helpers need their own background check? Can a helper drive?
 20. Payout schedule, instant payout and its fee, and which 1099 form drivers get.
 21. The driver application link, onboarding steps, and approval timeline.
 22. Rating threshold, and whether declining jobs affects standing.

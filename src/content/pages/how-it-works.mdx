@@ -6,11 +6,11 @@ steps:
   - name: "Choose the job and the items"
     text: "Pick the job type ({{TIER_1}}, {{TIER_2}} or {{TIER_3}}) and tell us what's going, so the driver knows what to bring."
   - name: "See the price before you book"
-    text: "The price is {{BASE_FARE}} plus {{PER_MILE}} a mile, plus {{HEAVY_FEE}} for heavy items and {{HELPER_FEE}} if you request a helper. You see the total before you confirm."
+    text: "The price is {{BASE_FARE}} plus {{PER_MILE}} a mile, plus {{HEAVY_FEE}} for heavy items. You see the total before you confirm."
   - name: "Accept the price"
     text: "Choose as soon as possible or a date and two-hour window, review the total and its breakdown, and accept it. Your card is authorized, not charged, and drivers are texted the job."
   - name: "A local driver accepts"
-    text: "A screened driver with a pickup truck accepts the job. If you asked for a helper, only a driver bringing one can accept it."
+    text: "A screened driver with a pickup truck accepts the job."
   - name: "Load, haul, unload"
     text: "The driver loads and secures your items, drives them to the drop-off address and unloads them."
   - name: "Pay and tip"
@@ -21,7 +21,7 @@ A BoxHauls trip takes seven steps, and the price is fixed at step three, before 
 
 ## The price comes before the booking
 
-Every trip uses the same formula: <F k="BASE_FARE" /> base plus <F k="PER_MILE" /> a mile. Two add-ons can apply: <F k="HEAVY_FEE" /> for heavy items (<F k="HEAVY_FEE_ITEMS" />) and <F k="HELPER_FEE" /> for a second person. There's no hourly rate and no surge. For the numbers by distance, see [what a truck and driver costs](/pricing/).
+Every trip uses the same formula: <F k="BASE_FARE" /> base plus <F k="PER_MILE" /> a mile. One add-on can apply: <F k="HEAVY_FEE" /> for heavy items (<F k="HEAVY_FEE_ITEMS" />). There's no hourly rate and no surge. For the numbers by distance, see [what a truck and driver costs](/pricing/).
 
 ## The three job types
 
@@ -31,9 +31,9 @@ Every trip uses the same formula: <F k="BASE_FARE" /> base plus <F k="PER_MILE" 
 
 The job type tells the driver what to expect. It doesn't change the price formula. If you're not sure your item fits in a pickup bed, check [which job type and truck fit your stuff](/pricing/truck-sizes/).
 
-## Helpers
+## Two-person items
 
-Some drivers bring a second person. If you request a helper, it adds <F k="HELPER_FEE" />, and only a driver who has one can accept your trip. Helpers aren't guaranteed. For two-person items like refrigerators and washers, have someone ready to help load in case no driver with a helper is available.
+Your driver comes alone. For two-person items like refrigerators and washers, have someone ready to help load and unload.
 
 ## Who's driving
 

@@ -13,7 +13,6 @@ interface Offer {
   to: string;
   miles: number;
   when: string;
-  helper: boolean;
   dumpRun: boolean;
   dumpHoldCents: number;
   dumpMaterial: string | null;
@@ -118,7 +117,6 @@ export default function AcceptJob() {
         {row('Route', `${offer.from} → ${offer.to}`)}
         {row('Distance', `${offer.miles.toFixed(1)} mi`)}
         {row('When', offer.when)}
-        {offer.helper && row('Helper', 'Required: bring your helper')}
         {offer.dumpRun && offer.dumpMaterial && row('Load', `${offer.dumpMaterial}, ${(offer.dumpLoad ?? '').toLowerCase()}`)}
         {offer.dumpRun && row('Dump fee', `Reimbursed in full, up to ${usd(offer.dumpHoldCents)}`)}
         {row('You earn', usd(offer.payoutCents))}

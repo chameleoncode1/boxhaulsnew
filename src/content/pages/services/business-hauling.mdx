@@ -8,7 +8,7 @@ faq:
   - question: "Can I set up recurring runs?"
     answer: "[TODO: whether recurring or scheduled runs are available]"
   - question: "Is pricing different for businesses?"
-    answer: "No. Business trips use the same formula: {{BASE_FARE}} plus {{PER_MILE}} a mile, plus the heavy-item fee and helper when they apply."
+    answer: "No. Business trips use the same formula: {{BASE_FARE}} plus {{PER_MILE}} a mile, plus the heavy-item fee when it applies."
 ---
 
 BoxHauls hauls for businesses in <F k="METRO" /> and <F k="NEIGHBORHOOD" /> with a pickup truck and driver: supply-house runs to a jobsite, apartment turnovers, store deliveries and equipment moves. It's the same formula as every trip, <F k="BASE_FARE" /> plus <F k="PER_MILE" /> a mile, with no hourly rate.
@@ -33,6 +33,6 @@ BoxHauls hauls for businesses in <F k="METRO" /> and <F k="NEIGHBORHOOD" /> with
 
 ## Price model
 
-Every business trip uses the standard formula. A 10-mile supply run is <Price mi={10} />, or <Price mi={10} helper /> with a helper. Dump fees on turnover junk are passed through at cost. Pallets ride only if they're loaded by forklift at pickup and can be unloaded by hand or forklift at drop-off; BoxHauls trucks don't have liftgates. <Todo>confirm pallet handling and weight limits</Todo>
+Every business trip uses the standard formula. A 10-mile supply run is <Price mi={10} />. Dump fees on turnover junk are passed through at cost. Pallets ride only if they're loaded by forklift at pickup and can be unloaded by hand or forklift at drop-off; BoxHauls trucks don't have liftgates. <Todo>confirm pallet handling and weight limits</Todo>
 
 See [BoxHauls pricing](/pricing/) for the full formula, and [how BoxHauls handles insurance and driver vetting](/trust/).

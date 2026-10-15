@@ -4,7 +4,7 @@
 
 This file is the single source of truth for the BoxHauls website. It defines what the business *is* to a search engine, every page the site will have, what each page must contain, how pages link, what structured data each carries, and the order to build them in. It is written to be dropped into a repository (`/docs/topical-map.md`) and read by Claude Code or any developer. A machine-readable version of the page inventory is in `sitemap.json`.
 
-**Totals:** 194 pages across 9 sections — cities: 2, compare: 13, core: 17, drive: 19, guides: 47, legal: 3, partners: 8, pricing: 29, services: 56. By phase — Phase 1 (launch): 67 · Phase 2 (weeks 7–13): 117 · Phase 3 (month 4+): 10.
+**Totals:** 193 pages across 9 sections — cities: 2, compare: 13, core: 17, drive: 19, guides: 46, legal: 3, partners: 8, pricing: 29, services: 56. By phase — Phase 1 (launch): 67 · Phase 2 (weeks 7–13): 116 · Phase 3 (month 4+): 10.
 
 ---
 
@@ -50,8 +50,8 @@ Do not invent content for placeholders; render them as visible TODO markers unti
 |---|---|---|
 | Services | furniture & large-item delivery · small moves · appliance delivery & haul-away · junk removal & dump runs · business & jobsite hauling | /services/ hubs, Service schema |
 | Vehicle tiers | {{TIER_1}} (SUV / small bed) · {{TIER_2}} (standard half-ton, 5.5–6.5 ft bed) · {{TIER_3}} (3/4-ton, long bed, or trailer) | /pricing/truck-sizes/, tier picker, Offer schema |
-| Pricing model | {{BASE_FARE}} base + {{PER_MILE}}/mile + item and helper fees; no hourly; no surge | /pricing/, /pricing/fees/, Offer.priceSpecification |
-| Add-ons | helper ({{HELPER_FEE}}) · heavy item ({{HEAVY_FEE}}) · stairs · wait time · dump fee pass-through | /pricing/fees/ |
+| Pricing model | {{BASE_FARE}} base + {{PER_MILE}}/mile + heavy-item fee; no hourly; no surge | /pricing/, /pricing/fees/, Offer.priceSpecification |
+| Add-ons | heavy item ({{HEAVY_FEE}}) · stairs · wait time · dump fee pass-through | /pricing/fees/ |
 | Trust | cargo insurance ({{INSURANCE_CARRIER}}, {{COVERAGE_LIMIT}}) · background checks ({{BACKGROUND_PROVIDER}}) · vehicle inspection · damage-claim process · cancellation window | /trust/ cluster |
 | Coverage | {{METRO}} metro; service radius {{RADIUS}} miles | /cities/{{metro-slug}}/, LocalBusiness.areaServed |
 | Booking channels | iOS app · Android app · web | /app/, MobileApplication schema |
@@ -157,7 +157,6 @@ Rationale: Google models a page's audience from its links and vocabulary. A page
     what-to-do-if-an-item-is-damaged/
     what-to-do-when-a-marketplace-seller-no-shows/
     what-to-expect-from-a-boxhauls-driver/
-    when-you-need-a-second-helper/
     where-to-donate-furniture-in-{{metro-slug}}/
     will-4x8-plywood-fit-in-a-pickup/
     will-a-king-mattress-fit-in-a-pickup/
@@ -288,7 +287,7 @@ The pages that capture booking intent or answer a trust question directly. All P
 |---|---|---|---|
 | / | A truck and driver, on demand. Price shown before you book. | truck and driver near me | Booking widget above the fold (pickup, dropoff, item picker, tier, live price only after both addresses); one-line launch-metro statement; three trust badges (insured / background-checked / upfront price); real reviews module; 3-step how-it-works; five service tiles; app download; single driver CTA in footer. No placeholder driver cards, ETAs, or ratings. |
 | /how-it-works/ | How BoxHauls works | how does boxhauls work | Numbered steps with real app screenshots: enter addresses → pick item/tier → see price → match driver → track → load/unload → pay → rate. Payment hold explained. Messaging. Cancellation window. Link to driver side once. |
-| /pricing/ | BoxHauls pricing: what a truck and driver costs | how much does a truck and driver cost | Formula stated in one sentence ({{BASE_FARE}} + {{PER_MILE}}/mi + item/helper fees); tier table with bed length, payload, what fits; every fee listed (heavy item {{HEAVY_FEE}}, helper {{HELPER_FEE}}, stairs, wait time); worked examples at 3 / 10 / 25 miles; first-haul promo terms; link grid to every item-cost page; FAQ (6–8). |
+| /pricing/ | BoxHauls pricing: what a truck and driver costs | how much does a truck and driver cost | Formula stated in one sentence ({{BASE_FARE}} + {{PER_MILE}}/mi + item fees); tier table with bed length, payload, what fits; every fee listed (heavy item {{HEAVY_FEE}}, stairs, wait time); worked examples at 3 / 10 / 25 miles; first-haul promo terms; link grid to every item-cost page; FAQ (6–8). |
 | /pricing/truck-sizes/ | Truck sizes: which BoxHauls tier fits your stuff | what size truck do I need to move a couch | One section per tier ({{TIER_1}} / {{TIER_2}} / {{TIER_3}}): bed length, width between wheel wells, payload, typical vehicles, what fits (with item silhouettes to scale), what does not, price difference. This is the fleet-attributes page for the whole entity. |
 | /pricing/fees/ | Every BoxHauls fee, explained | boxhauls fees | Table of every possible line item with trigger and amount; what is never charged (no surge, no fuel surcharge if true); how tips work; how dump fees are passed through. |
 | /trust/ | Trust & safety: insurance, driver vetting, and what happens if something breaks | is boxhauls safe | Plain-language overview with links into the four sub-pages; insurance carrier and limits stated; vetting steps listed; support hours and channels; link to reviews. |
@@ -328,40 +327,40 @@ The strongest content on the current site is the four "cost to move a ___" pages
 
 1. First sentence: the price range for the launch metro ("Most couch moves in {{METRO}} cost $X–$Y.").
 2. The formula, restated.
-3. Distance table: 3 mi / 10 mi / 25 mi with and without helper.
-4. Item attributes table: dimensions, weight range, tier fit, helper required?, prep needed.
+3. Distance table: 3 mi / 10 mi / 25 mi.
+4. Item attributes table: dimensions, weight range, tier fit, prep needed.
 5. What drives the price up or down for this specific item.
 6. 4–6 FAQs, question-first.
 7. Book CTA with the item pre-selected.
 
 | URL | Primary query | Content blocks / attributes | Phase |
 |---|---|---|---|
-| /pricing/cost-to-move-a-couch/ | cost to move a couch | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Length 72–96 in, 100–200 lb, one helper recommended, {{TIER_2}}; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: migrate. | 1 |
-| /pricing/cost-to-move-a-sectional/ | cost to move a sectional sofa | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: 2–5 pieces, 250–450 lb total, helper required, {{TIER_2}}/{{TIER_3}}; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
-| /pricing/cost-to-move-a-mattress/ | cost to move a mattress | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Twin–king dimensions table, 50–150 lb, bag recommended, {{TIER_1}}/{{TIER_2}}; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: migrate. | 1 |
-| /pricing/cost-to-move-a-bed-frame/ | cost to move a bed frame | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Disassembly notes, headboard sizes, {{TIER_2}}; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
-| /pricing/cost-to-move-a-dresser/ | cost to move a dresser | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Drawers out or taped, 100–250 lb, helper for stairs; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
-| /pricing/cost-to-move-a-dining-table/ | cost to move a dining table | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Leg removal, glass tops, chairs count, {{TIER_2}}; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
-| /pricing/cost-to-move-a-desk/ | cost to move a desk | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: L-desks, standing desks, disassembly; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
-| /pricing/cost-to-move-a-refrigerator/ | cost to move a refrigerator | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Upright transport only, 200–350 lb, two-person, defrost 24h, {{TIER_2}}/{{TIER_3}}; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: migrate. | 1 |
-| /pricing/cost-to-move-a-washer-and-dryer/ | cost to move a washer and dryer | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Shipping bolts, 150–250 lb each, two-person; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: migrate. | 1 |
-| /pricing/cost-to-move-a-dishwasher/ | cost to move a dishwasher | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Disconnect required, 75–125 lb; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
-| /pricing/cost-to-move-a-stove/ | cost to move a stove | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Gas disconnect by licensed pro, 150–250 lb; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
-| /pricing/cost-to-move-a-treadmill/ | cost to move a treadmill | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Fold vs non-fold, 200–350 lb, helper required; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
-| /pricing/cost-to-move-a-gun-safe/ | cost to move a gun safe | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Weight tiers 300/600/1000 lb, stair limits, {{TIER_3}} + helper; refer out above {{MAX_SAFE_WEIGHT}} lb; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
-| /pricing/cost-to-move-a-piano/ | cost to move a piano | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Honest limit page: uprights only if drivers can; grands referred to specialists. Sets entity boundary.; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
-| /pricing/cost-to-move-a-hot-tub/ | cost to move a hot tub | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Removal/disposal yes, relocation only with {{TIER_3}} + 2 helpers; permit notes; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
-| /pricing/cost-to-move-a-tv/ | cost to move a tv | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Box or blanket, upright, {{TIER_1}}; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
-| /pricing/cost-to-move-a-grill/ | cost to move a grill | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Propane tank rules (tank rides separately), 100–200 lb; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
-| /pricing/cost-to-deliver-patio-furniture/ | cost to deliver patio furniture | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Sets vs single pieces, stacking, weather; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
-| /pricing/cost-to-move-an-exercise-bike/ | cost to move an exercise bike | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Peloton/rower dimensions, screen protection; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
-| /pricing/cost-to-deliver-a-kayak/ | cost to deliver a kayak | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Overhang rules, red flag, {{TIER_2}}; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
-| /pricing/cost-to-haul-a-motorcycle/ | cost to haul a motorcycle | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Ramp + tie-downs, {{TIER_3}} only if driver equipped; else refer out; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
-| /pricing/cost-to-deliver-plywood-and-lumber/ | cost to deliver plywood and lumber | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: 4x8 sheets flat vs angled, overhang, {{TIER_2}}/{{TIER_3}}; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
-| /pricing/cost-to-deliver-a-pallet/ | cost to deliver a pallet | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Business hub cross-link, liftgate not available, forklift-to-bed loading; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
-| /pricing/cost-to-move-a-studio-apartment/ | cost to move a studio apartment | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: One or two trips, helper, boxes count table; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
-| /pricing/cost-to-move-a-one-bedroom-apartment/ | cost to move a one bedroom apartment | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Two trips typical, helper, when movers are cheaper; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
-| /pricing/cost-to-move-a-storage-unit/ | cost to move a storage unit | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: 5x5 / 5x10 / 10x10 load estimates; helper guidance; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
+| /pricing/cost-to-move-a-couch/ | cost to move a couch | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Length 72–96 in, 100–200 lb, {{TIER_2}}; what to prep; 4–6 FAQs; book CTA. Status: migrate. | 1 |
+| /pricing/cost-to-move-a-sectional/ | cost to move a sectional sofa | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: 2–5 pieces, 250–450 lb total, {{TIER_2}}/{{TIER_3}}; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
+| /pricing/cost-to-move-a-mattress/ | cost to move a mattress | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Twin–king dimensions table, 50–150 lb, bag recommended, {{TIER_1}}/{{TIER_2}}; what to prep; 4–6 FAQs; book CTA. Status: migrate. | 1 |
+| /pricing/cost-to-move-a-bed-frame/ | cost to move a bed frame | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Disassembly notes, headboard sizes, {{TIER_2}}; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
+| /pricing/cost-to-move-a-dresser/ | cost to move a dresser | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Drawers out or taped, 100–250 lb; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
+| /pricing/cost-to-move-a-dining-table/ | cost to move a dining table | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Leg removal, glass tops, chairs count, {{TIER_2}}; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
+| /pricing/cost-to-move-a-desk/ | cost to move a desk | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: L-desks, standing desks, disassembly; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
+| /pricing/cost-to-move-a-refrigerator/ | cost to move a refrigerator | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Upright transport only, 200–350 lb, two-person, defrost 24h, {{TIER_2}}/{{TIER_3}}; what to prep; 4–6 FAQs; book CTA. Status: migrate. | 1 |
+| /pricing/cost-to-move-a-washer-and-dryer/ | cost to move a washer and dryer | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Shipping bolts, 150–250 lb each, two-person; what to prep; 4–6 FAQs; book CTA. Status: migrate. | 1 |
+| /pricing/cost-to-move-a-dishwasher/ | cost to move a dishwasher | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Disconnect required, 75–125 lb; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
+| /pricing/cost-to-move-a-stove/ | cost to move a stove | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Gas disconnect by licensed pro, 150–250 lb; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
+| /pricing/cost-to-move-a-treadmill/ | cost to move a treadmill | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Fold vs non-fold, 200–350 lb; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
+| /pricing/cost-to-move-a-gun-safe/ | cost to move a gun safe | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Weight tiers 300/600/1000 lb, stair limits, {{TIER_3}}; refer out above {{MAX_SAFE_WEIGHT}} lb; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
+| /pricing/cost-to-move-a-piano/ | cost to move a piano | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Honest limit page: uprights only if drivers can; grands referred to specialists. Sets entity boundary.; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
+| /pricing/cost-to-move-a-hot-tub/ | cost to move a hot tub | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Removal/disposal yes, relocation not offered; permit notes; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
+| /pricing/cost-to-move-a-tv/ | cost to move a tv | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Box or blanket, upright, {{TIER_1}}; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
+| /pricing/cost-to-move-a-grill/ | cost to move a grill | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Propane tank rules (tank rides separately), 100–200 lb; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
+| /pricing/cost-to-deliver-patio-furniture/ | cost to deliver patio furniture | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Sets vs single pieces, stacking, weather; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
+| /pricing/cost-to-move-an-exercise-bike/ | cost to move an exercise bike | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Peloton/rower dimensions, screen protection; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
+| /pricing/cost-to-deliver-a-kayak/ | cost to deliver a kayak | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Overhang rules, red flag, {{TIER_2}}; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
+| /pricing/cost-to-haul-a-motorcycle/ | cost to haul a motorcycle | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Ramp + tie-downs, {{TIER_3}} only if driver equipped; else refer out; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
+| /pricing/cost-to-deliver-plywood-and-lumber/ | cost to deliver plywood and lumber | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: 4x8 sheets flat vs angled, overhang, {{TIER_2}}/{{TIER_3}}; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
+| /pricing/cost-to-deliver-a-pallet/ | cost to deliver a pallet | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Business hub cross-link, liftgate not available, forklift-to-bed loading; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
+| /pricing/cost-to-move-a-studio-apartment/ | cost to move a studio apartment | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: One or two trips, boxes count table; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
+| /pricing/cost-to-move-a-one-bedroom-apartment/ | cost to move a one bedroom apartment | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: Two trips typical, when movers are cheaper; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
+| /pricing/cost-to-move-a-storage-unit/ | cost to move a storage unit | Answer with price range in sentence one; formula; distance table (3/10/25 mi); item attributes: 5x5 / 5x10 / 10x10 load estimates; what to prep; 4–6 FAQs; book CTA. Status: new. | 2 |
 | /pricing/cost-of-a-dump-run/ | how much does a dump run cost | Per-load pricing; how dump fees pass through; load-size photos (quarter / half / full bed); what is not accepted. | 1 |
 | /pricing/truck-and-driver-hourly-vs-per-trip/ | truck and driver hourly rate | Side-by-side math for 1 item / 5 items / studio; break-even point; when hourly wins. | 2 |
 | /pricing/pickup-truck-delivery-cost/ | pickup truck delivery cost | Anonymized real trip data from the launch metro once available; distribution chart; medians by item type. Information-gain page. | 3 |
@@ -404,7 +403,7 @@ Owns: store pickup, marketplace pickup, single-item / no-minimum, wrapping and p
 | /services/furniture-delivery/what-we-cant-move/ | What BoxHauls cannot move | what won't a truck delivery service move {{METRO}} | 1 |
 
 ### 6.2 Hub B — Small Moves
-Owns: per-trip vs hourly, one-load capacity, helper add-on, multi-trip logic.
+Owns: per-trip vs hourly, one-load capacity, multi-trip logic.
 
 | URL | H1 | Primary query | Phase |
 |---|---|---|---|
@@ -477,7 +476,7 @@ A city page is created only when all of the following are true: (a) ≥ {{MIN_AC
 
 Someone searching a competitor's name next to yours is one step from booking. Each page is an honest side-by-side. Where the competitor wins, say so — that credibility is what makes the verdict believable.
 
-Criteria table on every page (same order): price model · minimum charge · coverage in {{METRO}} · cargo insurance · driver vetting · scheduling (on-demand vs window) · helpers · app quality. Facts are dated and sourced; refresh quarterly.
+Criteria table on every page (same order): price model · minimum charge · coverage in {{METRO}} · cargo insurance · driver vetting · scheduling (on-demand vs window) · app quality. Facts are dated and sourced; refresh quarterly.
 
 | URL | H1 | Primary query | Phase |
 |---|---|---|---|
@@ -525,7 +524,6 @@ Clusters: **fit** (dimension tables — the information-gain cluster nobody else
 | /guides/how-to-load-a-pickup-bed/ | How to load a pickup bed (weight, order, tailgate) | how to load a pickup truck bed | /guides/, /pricing/truck-sizes/ | 2 |
 | /guides/how-to-disassemble-a-bed-frame/ | How to disassemble a bed frame for moving | how to take apart a bed frame | /guides/, /pricing/cost-to-move-a-bed-frame/ | 3 |
 | /guides/renting-a-truck-vs-hiring-a-truck-and-driver/ | Renting a truck vs. hiring a truck and driver: the real all-in cost | is it cheaper to rent a truck or hire delivery | /guides/, /compare/boxhauls-vs-uhaul-truck-rental/ | 1 |
-| /guides/when-you-need-a-second-helper/ | When you need a second helper (stairs, doorways, weight) | do I need a helper to move a couch | /guides/, /pricing/fees/ | 2 |
 | /guides/is-it-worth-hiring-delivery-for-one-item/ | Is it worth hiring delivery for one item? | cheapest way to move one piece of furniture | /guides/, /services/furniture-delivery/single-item-delivery/ | 2 |
 | /guides/how-much-to-tip-a-truck-driver/ | How much to tip a truck delivery driver | how much to tip furniture delivery | /guides/, /how-it-works/ | 2 |
 | /guides/movers-vs-truck-and-driver-for-a-studio/ | Movers vs. a truck and driver for a studio apartment | cheapest way to move a studio apartment | /guides/, /services/small-moves/studio-apartment-move/ | 2 |
@@ -561,7 +559,7 @@ Clusters: **fit** (dimension tables — the information-gain cluster nobody else
 2. **One page, one intent.** The primary query in this map is the only query the page is optimized for. Secondary queries are covered by sections, not by a second H1-style heading.
 3. **Attributes, not adjectives.** State bed length in inches, weight in pounds, price in dollars, time in minutes. "Spacious" is not an attribute.
 4. **Consistent tables.** Dimensions are always L × W × H in inches. Weight is always a range in lb. Prices are always for {{METRO}} unless labeled. Same column order on every page in a cluster.
-5. **Entity vocabulary.** Use "truck and driver," "haul," "trip," "tier," "helper," "pickup," "drop-off." Never "logistics," "solution," "on-demand ecosystem," "cargo," "freight," "buddy with a truck" (Truxx), "friend with a truck" (GoShare trademark), or "too big for my car" (existing company).
+5. **Entity vocabulary.** Use "truck and driver," "haul," "trip," "tier," "pickup," "drop-off." Never "logistics," "solution," "on-demand ecosystem," "cargo," "freight," "buddy with a truck" (Truxx), "friend with a truck" (GoShare trademark), or "too big for my car" (existing company).
 6. **Real media only.** Photos are real hauls, real drivers, real trucks in {{METRO}}, with descriptive alt text ("driver strapping a grey sectional into a half-ton bed in {{NEIGHBORHOOD}}"). No stock, no AI imagery, no build-tool screenshots.
 7. **FAQ format.** Question as an H3 in the user's words; answer in 2–4 sentences; first sentence is the answer. FAQPage schema mirrors the on-page text exactly.
 8. **Authorship.** Guides carry a named author with a one-line bio and a Person entity. Service and pricing pages are authored by "BoxHauls" with a "Reviewed by {{FOUNDER_NAME}}" line.
@@ -680,7 +678,7 @@ Never emit: Review/AggregateRating without real reviews; LocalBusiness on non-ci
 |---|---|---|---|
 | 0 | Weeks 1–2 | Placeholders resolved (Section 14); launch metro confirmed; old site: remove placeholder social proof, noindex all /cities/* and duplicate service pages; GBP address established; Search Console on both domains | All Section 14 values filled; GBP verification submitted |
 | 1 | Weeks 3–7 | All Phase-1 pages (67): core, four migrated pricing pages + dump run, five hubs with Phase-1 spokes, launch city page, /drive/ Phase-1 pages, legal; schema; sitemap; redirects live; domain cutover | Every Phase-1 page passes Section 9 checklist; CWV green on mobile; zero orphans |
-| 2 | Weeks 7–13 | Phase-2 pages (117): remaining pricing items, retailer and marketplace spokes, remaining service spokes, compare cluster, guides (2/week), /partners/, driver compare + guides, Spanish /es/ for /drive/ and core pages | 20+ real Google reviews; 5 real partners in directory; compare facts dated |
+| 2 | Weeks 7–13 | Phase-2 pages (116): remaining pricing items, retailer and marketplace spokes, remaining service spokes, compare cluster, guides (2/week), /partners/, driver compare + guides, Spanish /es/ for /drive/ and core pages | 20+ real Google reviews; 5 real partners in directory; compare facts dated |
 | 3 | Month 4+ | Phase-3 pages (10): real-trip pricing data page, neighborhood pages (gated, Clovis first), seasonal guides, second metro (copy of Section 6.6 gate) | Second metro meets Section 6.6 gate |
 
 Publishing cadence in Phase 2: two guides per week, one compare page per week, retailer spokes in the order of local store proximity to the metro center.
@@ -701,7 +699,7 @@ Publishing cadence in Phase 2: two guides per week, one compare page per week, r
 | `{{RADIUS}}` | Service radius in miles | 30 |
 | `{{TIER_1}}` `{{TIER_2}}` `{{TIER_3}}` | Tier names (current site: Box Run / standard pickup / heavy hauler — confirm) | Box Run / Half-Ton / Heavy Hauler |
 | `{{BASE_FARE}}` `{{PER_MILE}}` | Pricing formula constants | $39 / $2.10 |
-| `{{HEAVY_FEE}}` `{{HELPER_FEE}}` | Current site shows $29 / $28 — confirm | — |
+| `{{HEAVY_FEE}}` | Current site shows $29 — confirm | — |
 | `{{MAX_ITEM_WEIGHT}}` `{{MAX_SAFE_WEIGHT}}` | Hard limits for the "what we can't move" boundary | 400 lb / 600 lb |
 | `{{INSURANCE_CARRIER}}` `{{COVERAGE_LIMIT}}` | Publishable insurance facts | — |
 | `{{BACKGROUND_PROVIDER}}` | Vetting vendor | Checkr |

@@ -66,8 +66,8 @@ export const onRequestPost: PagesFunction<Env> = ({ request, env }) =>
     const recent = await env.DB.prepare('SELECT COUNT(*) AS n FROM bookings WHERE ip_hash = ? AND created_at > ?').bind(ipHash, since).first<{ n: number }>();
     if ((recent?.n ?? 0) >= MAX_PER_HOUR) throw new HttpError(429, 'rate_limited', 'Too many bookings from this connection. Please call us instead.');
 
-    if (!(await eligibleDrivers(env, q.helper)).length) {
-      throw new HttpError(409, 'no_drivers', q.helper ? 'No drivers with a helper are available for online booking right now.' : 'No drivers are available for online booking right now.');
+    if (!(await eligibleDrivers(env)).length) {
+      throw new HttpError(409, 'no_drivers', 'No drivers are available for online booking right now.');
     }
 
     const id = newId();
@@ -98,7 +98,7 @@ export const onRequestPost: PagesFunction<Env> = ({ request, env }) =>
        VALUES (?, ?, 'pending_payment', ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     )
       .bind(id, new Date().toISOString(), name, phone, email, q.pickup.address, q.pickup.placeId, q.dropoff.address, q.dropoff.placeId,
-        q.miles, q.item, q.tier, q.helper ? 1 : 0, q.heavy ? 1 : 0, q.totalCents, whenType, date, window, notes || null, ipHash,
+        q.miles, q.item, q.tier, 0, q.heavy ? 1 : 0, q.totalCents, whenType, date, window, notes || null, ipHash,
         pi.id, hold, await hash(customerToken, env.QUOTE_SECRET), q.dumpMaterial ?? null, q.dumpLoad ?? null, q.dumpHoldCents ?? null)
       .run();
 

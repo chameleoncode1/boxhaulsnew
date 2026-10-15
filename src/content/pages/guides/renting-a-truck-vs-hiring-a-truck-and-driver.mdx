@@ -5,7 +5,7 @@ faq:
   - question: "Is it cheaper to rent a truck or hire delivery?"
     answer: "For one or two items across town, hiring a truck and driver is often cheaper once you add up the rental fee, mileage, fuel and your own time. For a full apartment, renting a truck usually wins."
   - question: "What does a BoxHauls trip cost?"
-    answer: "{{BASE_FARE}} plus {{PER_MILE}} a mile: {{price:10}} for 10 miles. Heavy items add {{HEAVY_FEE}}, and a helper adds {{HELPER_FEE}}."
+    answer: "{{BASE_FARE}} plus {{PER_MILE}} a mile: {{price:10}} for 10 miles. Heavy items add {{HEAVY_FEE}}."
   - question: "What costs do people forget when renting?"
     answer: "Mileage charges, fuel, the time to pick up and return the truck, damage waivers, and the lifting. A 10-mile move can mean 40 or more miles of driving once you count the trips to and from the rental counter."
 ---
@@ -26,11 +26,11 @@ For one or two items across town, hiring a truck and driver is often cheaper tha
 
 ## The hired side (BoxHauls)
 
-| Trip | Price | With a helper |
-|---|---|---|
-| 5 miles | <Price mi={5} /> | <Price mi={5} helper /> |
-| 10 miles | <Price mi={10} /> | <Price mi={10} helper /> |
-| 20 miles | <Price mi={20} /> | <Price mi={20} helper /> |
+| Trip | Price |
+|---|---|
+| 5 miles | <Price mi={5} /> |
+| 10 miles | <Price mi={10} /> |
+| 20 miles | <Price mi={20} /> |
 
 That's the whole price: <F k="BASE_FARE" /> plus <F k="PER_MILE" /> a mile, with no rental counter trips and no fuel.
 

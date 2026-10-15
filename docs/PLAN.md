@@ -43,7 +43,7 @@ Every layout wraps `BaseLayout` (head, canonical, robots, OG, JSON-LD slot, head
 |---|---|---|
 | `home` | 1 | `BookingWidget` island (no price until both addresses), launch-metro line, `TrustBadges` (insured / background-checked / upfront price), `ReviewsModule` (empty state), `HowItWorksSteps` (3), `ServiceTiles` (5 hubs), `AppBadges`. Schema: Organization, WebSite. |
 | `core` | 16 | Generic prose page with optional `Steps` (HowTo), `TierTable`, `FeeTable`, `PriceExamples` (3/10/25 mi), `PricingLinkGrid`, `NapBlock` (/contact/), `CityCards` + waitlist (/cities/). Covers /pricing/, /trust/*, /about/, /contact/, /app/, /faq/, /reviews/. |
-| `pricing` | 29 | Fixed 7-part order (map Section 5): `PriceAnswer` (range in sentence one), `Formula`, `DistanceTable` (3/10/25 mi), `ItemAttributesTable` (L × W × H in, lb range, tier, helper, prep), price drivers, `Faq` (4–6), `BookCta` with item preselected. `FactsChecked` + `ReviewedBy`. Service + Offer/PriceSpecification. |
+| `pricing` | 29 | Fixed 7-part order (map Section 5): `PriceAnswer` (range in sentence one), `Formula`, `DistanceTable` (3/10/25 mi), `ItemAttributesTable` (L × W × H in, lb range, tier, prep), price drivers, `Faq` (4–6), `BookCta` with item preselected. `FactsChecked` + `ReviewedBy`. Service + Offer/PriceSpecification. |
 | `service-hub` | 5 | Definition sentence, who uses it, what's included, `TierFitTable`, price example, `TrustStrip`, `SpokeList` (every spoke, structured), 2–3 pricing links, `Faq`. Service + Offer. |
 | `service-spoke` | 51 | Scenario copy, link up to its hub within the first 200 words, attribute block (store pickup lane, platform rule, appliance prep), price example, `Faq`. Sub-hubs (store-pickup, marketplace-pickup) add `SpokeList`. Service. |
 | `city` | 2 | Human-written local blocks only (Section 6.6/16): `LocalDisposalSites` (address/hours/fees), `RetailerPickupNotes` (Section 16 order), bulky-item rules, campus dates, corridors, `CoverageMap`; driver profiles, reviews and trip-price table render as empty states until real. LocalBusiness/MovingCompany. |
@@ -81,18 +81,13 @@ Every layout wraps `BaseLayout` (head, canonical, robots, OG, JSON-LD slot, head
 
 ## Decisions
 
-### Helpers (decided 2026-10-02)
+### No helpers (decided 2026-10-15, replaces the 2026-10-02 helper add-on)
 
-A second helper is an optional **$17** add-on (`{{HELPER_FEE}}`). It is available only when the matched driver brings a helper and accepts a job that requests one. **BoxHauls does not guarantee a helper** (`{{HELPER_POLICY}}`). Content rules for Prompt 4:
+BoxHauls has no helper option and no helper fee. The price is base + per mile + the heavy-item fee (+ dump fees at cost); the driver's share applies to that fare.
 
-- Keep the map's "with and without helper" columns in distance tables. The with-helper column is the base price + $17, and a footnote under the table says helpers depend on driver availability.
-- Never write "helper included", "two-person crew guaranteed" or "we'll send two people". Say "request a helper" and "if a driver with a helper accepts".
-- For items the map marks "helper required" or "two-person" (refrigerator, washer/dryer, sectional, treadmill, gun safe, hot tub), tell the customer the job needs a helper request. If no driver with a helper accepts, the customer must have a second person ready to help load. The booking flow should say this before checkout. That's a Prompt 5 note, and the Q&A belongs in the FAQ on those pages.
-- /pricing/fees/ lists the helper line as "$17, when available".
-- /guides/when-you-need-a-second-helper/ (Phase 2) owns the "do I need a helper" question. Other pages link there rather than re-explaining.
-- **Fee split (decided 2026-10-02).** The $17 is added to the trip's final price, and the driver's `{{DRIVER_SHARE}}` applies to the whole total, helper fee included. Drivers pay their helper themselves; BoxHauls never pays helpers.
-  - Driver pages only (`/drive/earnings/`, `/drive/requirements/`, `/drive/how-payouts-work/`, `/drive/faq/`): drivers who bring a helper can accept helper-requested jobs; the helper fee raises the fare their share is calculated on (71% of $17 = $12.07 per job); paying the helper, and any tax or contractor obligations that come with it, is the driver's responsibility.
-  - Rider pages show only "$17 for a helper, when available". They never mention the driver share, who pays the helper, or how the fee is split (CLAUDE.md rule 7).
+- Never mention helpers anywhere on the site, in the booking form, texts, driver tools or schema.
+- The driver comes alone. For two-person items (refrigerators, washers and dryers, sectionals, couches on stairs, queen and king mattresses), tell the customer to have a second person ready to lift with the driver. Don't promise two people.
+- `bookings.helper` and `drivers.has_helper` stay in the D1 schema for old rows but are no longer read; new rows store 0.
 
 ### Weight limits (decided 2026-10-02)
 
@@ -189,7 +184,7 @@ The heaviest single item is **1,000 lb** (`{{MAX_ITEM_WEIGHT}}`), and gun safes 
 - **Refusal:** `/api/book` turns bookings away when texting isn't configured or no driver qualifies.
 - **Drivers** are managed with `npm run drivers`.
 - **Tested locally** with mock maps and SMS:
-  - routing to all drivers vs. helper-only drivers
+  - routing to all active drivers
   - the pay calculation
   - both deadlines
   - first-accept-wins, including the second driver getting 409 and seeing no customer details
